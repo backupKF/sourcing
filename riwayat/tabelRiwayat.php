@@ -58,9 +58,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <div class="container position-relative" style="margin-left:275px;z-index:1;">
-        <div class="container overflow-scroll" style="width:150%">
-            <table class="table" style="width:200%">
+    <div class="container position-relative" style="margin-left:275px">
+            <table class="table" style="width:200%" id="table-riwayat">
                 <thead>
                     <tr class="bg-danger bg-opacity-75">
                         <th scope="col" style="font-size: 15px;width:1%" class="text-center">No</th>
@@ -74,54 +73,75 @@
                         <th scope="col" style="font-size: 15px;width:5%" class="text-center">Date Approved TL</th>
                         <th scope="col" style="font-size: 15px;width:5%" class="text-center">Date Accepted RPIC</th>
                         <th scope="col" style="font-size: 15px;width:4%" class="text-center">Status</th>
+                        <th scope="col" style="font-size: 15px;width:4%" class="text-center">Edit Material</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                        foreach($dataRiwayat as $riwayat) { $count++
-                    ?>
-                    <tr class="bg-light">
-                        <td style="font-size:18px;" class="text-center"><?php echo $count ?></td>
-                        <td style="font-size:18px;" class="text-center"><?php echo $riwayat['dateSourcing'] ?></td>
-                        <td style="font-size:18px;" class="text-center"><?php echo $riwayat['projectCode'] ?></td>
-                        <td style="font-size:18px;" class="text-center"><?php echo $riwayat['projectName'] ?></td>
-                        <td style="font-size:18px;" class="text-center"><?php echo $riwayat['teamLeader'] ?></td>
-                        <td style="font-size:18px;" class="text-center"><?php echo $riwayat['researcher'] ?></td>
-                        <td style="font-size:18px;" class="text-center">
-                            <form action="" method="POST">
-                                <input type="hidden" name="setID" value="<?php echo $riwayat['id']?>">
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="this.form.submit();" name="feedbackTL">
-                                    <option <?php if($riwayat['feedbackTL'] == 0){echo "selected";};?> value=0>No Action</option>
-                                    <option <?php if($riwayat['feedbackTL'] == 1){echo "selected";};?> value=1>Approved</option>
-                                </select>
-                            </form>
-                        </td>
-                        <td style="font-size:18px;" class="text-center">
-                            <form action="" method="POST">
-                                <input type="hidden" name="setID" value="<?php echo $riwayat['id']?>">
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="this.form.submit();" name="feedbackRPIC">
-                                    <option <?php if($riwayat['feedbackRPIC'] == 0){echo "selected";};?> value=0>No Action</option>
-                                    <option <?php if($riwayat['feedbackRPIC'] == 1){echo "selected";};?> value=1>Accepted</option>
-                                </select>
-                            </form>
-                        </td>
-                        <td style="font-size:18px;" class="text-center"><?php echo $riwayat['dateApprovedTL'] ?></td>
-                        <td style="font-size:18px;" class="text-center"><?php echo $riwayat['dateAcceptedRPIC'] ?></td>
-                        <td style="font-size:18px;" class="text-center">
-                        <form action="" method="POST">
-                                <input type="hidden" name="setID" value="<?php echo $riwayat['id']?>">
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="this.form.submit();" name="status">
-                                    <option <?php if($riwayat['status'] == "ON PROSES"){echo "selected";};?> value="ON PROSES">ON PROSES</option>
-                                    <option <?php if($riwayat['status'] == "HOLD"){echo "selected";};?> value="HOLD">HOLD</option>
-                                    <option <?php if($riwayat['status'] == "CANCEL"){echo "selected";};?> value="CANCEL">CANCEL</option>
-                                </select>
-                            </form>
-                        </td>
-                    </tr>
-                    <?php } ?>
                 </tbody>
             </table>
-        </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            var tableRiwayat = $('#table-riwayat').DataTable({
+                ajax: "controller/viewRiwayat.php",
+                scrollX: true,
+                columns: [
+                    {
+                        className: "dt-center",
+                        render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;}
+                    },
+                    {
+                        data: function(d) {
+                            return ('<p class="text-center">'+d.dateSourcing+'</p>')
+                        }
+                    },
+                    {
+                        data: function(d) {
+                            return ('<p class="text-center">'+d.projectCode+'</p>')
+                        }
+                    },
+                    {
+                        data: function(d) {
+                            return ('<p class="text-center">'+d.projectName+'</p>')
+                        }
+                    },
+                    {
+                        data: function(d) {
+                            return ('<p class="text-center">'+d.teamLeader+'</p>')
+                        }
+                    },
+                    {
+                        data: function(d) {
+                            return ('<p class="text-center">'+d.researcher+'</p>')
+                        }
+                    },
+                    {
+                        data: null
+                    },
+                    {
+                        data: null
+                    },
+                    {
+                        data: function(d) {
+                            return ('<p class="text-center">'+d.dateApprovedTL+'</p>')
+                        }
+                    },
+                    {
+                        data: function(d) {
+                            return ('<p class="text-center">'+d.dateAcceptedRPIC+'</p>')
+                        }
+                    },
+                    {
+                        data: null
+                    },
+                    {
+                        data: null
+                    },
+                ]
+            })
+        });
+    </script>
   </body>
 </html>

@@ -17,7 +17,7 @@
                     
             <!-- Modal Body -->
             <div class="modal-body">
-                <form action="./controller/actionMaterial.php" method="POST" class="was-validated">
+                <form action="./controller/actionPengajuan.php" method="POST" class="was-validated">
                     <!-- Get ID -->
                     <input type="hidden" name="id" value="<?php echo !empty($row['id'])? $row['id']:'';?>">
                     <!-- Material Category -->
@@ -119,7 +119,7 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <a href="kelola-data.php" class="btn btn-secondary">Back</a>
-                <input type="submit" value="submit" class="btn btn-primary" name="submit">
+                <input type="submit" value="submit" class="btn btn-primary" name="tambahDataMaterial">
             </div>
             </form>
         </div>

@@ -28,11 +28,11 @@
         <?php require "../sidebar.php" ?>
 
         <!-- Formulir Pengajuan Sourcing -->
-        <a href="kelola-data.php" style="margin-left:290px" class="btn btn-info mt-3">
+        <!-- <a href="kelola-data.php" style="margin-left:290px" class="btn btn-info mt-3">
             Tambah Data Pengajuan
-        </a>
+        </a> -->
 
         <!-- Tabel Pengajuan -->
-        <?php require "./tabelPengajuan.php"?>
+        <?php require "./kelola-data.php"?>
     </body>
 </html>

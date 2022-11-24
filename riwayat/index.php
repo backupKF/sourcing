@@ -10,6 +10,9 @@
     <link href="../bootstrap-5.2.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css'>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <title>Sourcing | Riwayat</title>
     <style>
         .poppins {
@@ -24,9 +27,5 @@
 
     <!-- Tabel Pengajuan -->
     <?php require "./tabelRiwayat.php"?>\
-    
-    <script>
-        console.log("Hello World")
-    </script>
     </body>
 </html>

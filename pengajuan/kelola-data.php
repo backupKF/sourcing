@@ -43,7 +43,7 @@
         <div class="container" style="margin-left: 270px">
             <div class="card" style="width: 95%;">
                 <div class="card-body">
-                    <h5 class="card-title">Tambah Data Pengajuan</h5>
+                    <h5 class="card-title">Kelola Data Pengajuan</h5>
                     <hr>
                     <!-- Select Project -->
                     <form method="POST">
@@ -89,13 +89,14 @@
                                     <th scope="col" style="font-size: 11px;width:11%" class="text-center">Website</th>
                                     <th scope="col" style="font-size: 11px;width:11%" class="text-center">Finish Dossage Form</th>
                                     <th scope="col" style="font-size: 11px;width:11%" class="text-center">Keterangan</th>
-                                    <th scope="col" style="font-size: 11px;width:8%" class="text-center">Action</th>
+                                    <th scope="col" style="font-size: 11px;width:%" class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    $material = $conn->query("SELECT * FROM TB_PengajuanSourcing WHERE projectCode='{$_SESSION['project']}'")->fetchAll();
-                                    foreach($material as $row) { $count++;
+                                    $materials = $_SESSION['materials'];
+                                    foreach($materials as $row){
+                                        if($row['projectCode'] == $_SESSION['project']){
                                 ?>
                                     <tr>
                                         <td style="font-size: 11px;" class="text-center"><?php echo $count?></td>
@@ -109,14 +110,14 @@
                                         <td style="font-size: 11px;" class="text-center"><?php echo $row['keterangan']?></td>
                                         <td>
                                             <!-- Form Ubah Pengajuan Sourcing -->
-                                            <a class="btn btn-warning btn-sm d-inline" style="margin-left:25px" data-bs-target="#tambahMaterial<?php echo $row['id'] ?>" data-bs-toggle="modal">Edit</a>
+                                            <div class="text-center">
+                                                <a class="btn btn-warning btn-sm d-inline" data-bs-target="#tambahMaterial<?php echo $row['id'] ?>" data-bs-toggle="modal">Edit</a>
+                                            </div>
                                             <?php include "component/modalFormMaterial.php"?>
-                                            <!-- End Form Ubah Pengajuan Sourcing -->
-                                            <a href="controller/actionMaterial.php?action_type=delete&id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm d-inline" onclick="return confirm('Are you sure to delete?');">delete</a>
                                         </td>
                                     </tr>
                                 <?php 
-                                    }
+                                    } }
                                 ?>
                             </tbody>
                         </table>
@@ -125,8 +126,7 @@
                     <!-- Action -->
                     <div class="d-flex">
                         <form action="controller/actionMaterial.php" method="POST">
-                            <input type="submit" value="Back" class="btn btn-warning" form="formProject" name="unsetProject">   
-                            <input type="submit" value="Submit" class="btn btn-primary ms-3" name="submitData">
+                            <input type="submit" value="Masukan ke Riwayat Pengajuan" class="btn btn-primary ms-3" name="submitData">
                         </form>
                     </div>
                     <!-- End Action -->

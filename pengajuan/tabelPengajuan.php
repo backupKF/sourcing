@@ -228,7 +228,6 @@
                     '<table id="table-material'+d+'" style="width:150%" >'+
                         '<thead class="bg-primary" >'+
                             '<tr>'+
-                                '<th></th>'+
                                 '<th style="font-size:14px" class="text-center">Material Category</th>'+
                                 '<th style="font-size:14px" class="text-center">Material Deskripsi</th>'+
                                 '<th style="font-size:14px" class="text-center">Material Spesification</th>'+
@@ -265,12 +264,6 @@
                         },
                     },
                     columns: [
-                        {
-                            className: 'dt-control ',
-                            orderable: false,
-                            data: null,
-                            defaultContent: '',
-                        },
                         {
                             data: function(d){
                                 return('<p class="text-center" style="font-size:13px">'+d.materialCategory+'</p>')
@@ -437,20 +430,6 @@
                         },
                     ],
                 });
-                $('#table-material'+row.data().projectCode).on('click', 'td.dt-control', function () {
-                            var tr = $(this).closest('tr');
-                            var row = materialTable.row(tr);
-                    
-                            if (row.child.isShown()) {
-                                // This row is already open - close it
-                                destroyChildTableMaterial(row)
-                                tr.removeClass('shown');
-                            } else {
-                                // Open this row
-                                createChildTableSupplier(row);
-                                tr.addClass('shown');
-                            }
-                });
             });
         }
 
@@ -461,54 +440,6 @@
             // And then hide the row
             row.child.hide();
         }
-
-        function tableSupplier(d){
-            return (
-                '<div class="container-fluid" style="width:60%">'+
-                    '<table id="table-supplier'+d+'" style="width:150%" >'+
-                        '<thead class="bg-warning">'+
-                            '<tr>'+
-                                '<th></th>'+
-                                '<th style="font-size:14px" class="text-center">Supplier</th>'+
-                                '<th style="font-size:14px" class="text-center">Manufacture</th>'+
-                                '<th style="font-size:14px" class="text-center">Origin Country</th>'+
-                                '<th style="font-size:14px" class="text-center">MoQ</th>'+
-                                '<th style="font-size:14px" class="text-center">UoM</th>'+
-                                '<th style="font-size:14px" class="text-center">Price</th>'+
-                                '<th style="font-size:14px" class="text-center">Lead Time</th>'+
-                                '<th style="font-size:14px" class="text-center">Catalog or CAS Number</th>'+
-                            '</tr>'+
-                        '</thead>'+
-                        '<tbody>'+
-                        '</tbody>'+
-                    '</table>'+
-                '</div">'
-            )
-        }
-
-        function createChildTableSupplier ( row ) {
-            console.log(row.data().id)
-            // Display it the child row
-            row.child( tableSupplier(row.data().id) ).show();
-        
-            // Initialise as a DataTable
-            $(document).ready(function(){
-                var supplierTable = $('#table-supplier'+row.data().id).DataTable( {
-                    dom: 'Bfrtip',
-                    pageLength: 2,
-                    scrollX: true,
-                });
-            })
-        }
-
-        function destroyChildTableSupplier(row) {
-            var table = $("#table-supplier"+row.data().id, row.child());
-            table.DataTable().clear().destroy();
-        
-            // And then hide the row
-            row.child.hide();
-        }
-        
     </script>
 
   </body>
