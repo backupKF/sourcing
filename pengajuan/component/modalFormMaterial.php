@@ -118,7 +118,7 @@
                         
             <!-- Modal Footer -->
             <div class="modal-footer">
-                <a href="kelola-data.php" class="btn btn-secondary">Back</a>
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close">Back</button>
                 <input type="submit" value="submit" class="btn btn-primary" name="tambahDataMaterial">
             </div>
             </form>

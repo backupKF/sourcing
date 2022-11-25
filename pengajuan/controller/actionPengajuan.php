@@ -3,6 +3,13 @@
         session_start(); 
     } 
 
+    include "../../dbConfig.php";
+
+    if(isset($_POST['setProject'])){
+        $_SESSION['project'] = $_POST['project'];
+        header('Location: ../index.php');
+    };
+
     $materials = $_SESSION['materials'];
     if(isset($_POST['tambahDataMaterial'])){
         $materialCategory = trim(strip_tags($_POST['materialCategory']));
@@ -41,7 +48,7 @@
         }
 
         $newData = ["materialCategory" => $materialCategory, 
-                    "materialDesk" => $materialDeskripsi, 
+                    "materialDeskripsi" => $materialDeskripsi, 
                     "materialSpesification" => $materialSpesification,
                     "catalogOrCasNumber" => $catalogOrCasNumber,
                     "company" => $company,
@@ -52,14 +59,36 @@
                 ];
         $materials[] = $newData;
 
+        $_SESSION['project'] = $setProject;
         $_SESSION['materials'] = $materials;
-        // foreach($materials as $material){
-        //     echo "{$material['materialSpesification']} <br>";
-        // }
-
-        // print_r($materials);
-        // unset($_SESSION['materials']);
 
         header('Location: ../index.php');
+    }
+
+    if(isset($_POST['tambahPengajuan'])){
+        $materials = $_SESSION['materials'];
+
+        foreach($materials as $material){
+            $sql = "INSERT INTO TB_PengajuanSourcing (materialCategory, materialDeskripsi,  materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, projectCode, created, dateSourcing, feedbackTL, feedbackRPIC, status) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?, 0, 0, 'ON PROSES')";
+            $params = array(
+                $material['materialCategory'],
+                $material['materialDeskripsi'],
+                $material['materialSpesification'],
+                $material['catalogOrCasNumber'],
+                $material['company'],
+                $material['website'],
+                $material['finishDossageForm'],
+                $material['keterangan'],
+                $material['projectCode'],
+                date("Y-m-d H:i:s"),
+                date("Y-m-d"),
+            );
+            $query = $conn->prepare($sql);
+            $insert = $query->execute($params);
+        }
+        unset($_SESSION['materials']);
+        unset($_SESSION['project']);
+        header('Location:../../riwayat/index.php');
     }
 ?>

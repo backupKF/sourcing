@@ -7,6 +7,8 @@
 
     include "../dbConfig.php";
 
+    $projectName = $conn->query("SELECT projectName FROM TB_Project WHERE projectCode='{$_SESSION['project']}' ")->fetchAll();
+
     $sessMaterial = !empty($_SESSION['sessMaterial'])?$_SESSION['sessMaterial']:'';
     // Get status message from session 
     if(!empty($sessMaterial['status']['msg'])){ 
@@ -50,7 +52,7 @@
                         <div class="row">
                             <div class="mb-3 col">
                                 <label for="disabledTextInput" class="form-labe fw-bold ms-1 mb-2">Project</label>
-                                <input class="form-control" type="text" placeholder="<?php $projectName = $conn->query("SELECT projectName FROM TB_Project WHERE projectCode='{$_SESSION['project']}' ")->fetchAll(); echo $_SESSION['project'], " | ", $projectName[0]["projectName"]?>" aria-label="Disabled input example" disabled readonly>
+                                <input class="form-control" type="text" placeholder="<?php echo isset($_SESSION['project'])?"{$_SESSION['project']}  |  {$projectName[0]["projectName"]}":""; ?>" aria-label="Disabled input example" disabled readonly>
                             </div>
                             <div class="mb-3 col">
                                 <button type="button" class="btn btn-primary" style="margin-top:32px" data-bs-target="#project" data-bs-toggle="modal">
@@ -89,7 +91,6 @@
                                     <th scope="col" style="font-size: 11px;width:11%" class="text-center">Website</th>
                                     <th scope="col" style="font-size: 11px;width:11%" class="text-center">Finish Dossage Form</th>
                                     <th scope="col" style="font-size: 11px;width:11%" class="text-center">Keterangan</th>
-                                    <th scope="col" style="font-size: 11px;width:%" class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -97,6 +98,7 @@
                                     $materials = $_SESSION['materials'];
                                     foreach($materials as $row){
                                         if($row['projectCode'] == $_SESSION['project']){
+                                        $count++
                                 ?>
                                     <tr>
                                         <td style="font-size: 11px;" class="text-center"><?php echo $count?></td>
@@ -108,13 +110,6 @@
                                         <td style="font-size: 11px;" class="text-center"><?php echo $row['website']?></td>
                                         <td style="font-size: 11px;" class="text-center"><?php echo $row['finishDossageForm']?></td>
                                         <td style="font-size: 11px;" class="text-center"><?php echo $row['keterangan']?></td>
-                                        <td>
-                                            <!-- Form Ubah Pengajuan Sourcing -->
-                                            <div class="text-center">
-                                                <a class="btn btn-warning btn-sm d-inline" data-bs-target="#tambahMaterial<?php echo $row['id'] ?>" data-bs-toggle="modal">Edit</a>
-                                            </div>
-                                            <?php include "component/modalFormMaterial.php"?>
-                                        </td>
                                     </tr>
                                 <?php 
                                     } }
@@ -125,8 +120,8 @@
                     <hr>    
                     <!-- Action -->
                     <div class="d-flex">
-                        <form action="controller/actionMaterial.php" method="POST">
-                            <input type="submit" value="Masukan ke Riwayat Pengajuan" class="btn btn-primary ms-3" name="submitData">
+                        <form action="controller/actionPengajuan.php" method="POST">
+                            <input type="submit" value="Masukan ke Riwayat Pengajuan" class="btn btn-primary ms-3" name="tambahPengajuan">
                         </form>
                     </div>
                     <!-- End Action -->
@@ -135,42 +130,9 @@
         </div>
         <!-- End Kelola Data Pengajuan -->
         
-        <!-- Modal Select Project -->
-        <div class="modal" id="project" data-bs-backdrop="static">
-            <div class="modal-dialog modal-sm modal-dialog-scrollable">
-                <div class="modal-content" style="width: 500px;">
-
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h5 class="modal-title">Pilih Project</h5>
-                    </div>
-                        
-                    <!-- Modal Body -->
-                    <div class="modal-body">
-                        <!-- Select Project -->
-                        <form action="controller/actionMaterial.php" method="POST" id="formProject">
-                            <select class="form-select" size="8" aria-label="multiple select example" name="project">
-                                <?php 
-                                    $project = $conn->query("SELECT * FROM TB_Project")->fetchAll();
-                                    foreach($project as $row) { 
-                                ?>
-                                    <option value="<?php echo $row['projectCode']?>" > <?php echo $row['projectCode'] ," | ", $row['projectName']?></option>
-                                <?php } ?>
-                            </select>  
-                        </form>
-                        <!-- End Select Project -->
-                    </div>
-
-                    <!-- Modal Footer -->
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-bs-toggle="modal">Back</button>
-                        <input type="submit" value="submit" class="btn btn-primary" form="formProject" name="setProject">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal Select Project -->
-
+        <!-- Modal Set Project -->
+        <?php include "component/modalSetProject.php"?>
+    
         <script>
             $(document).ready( function () {
                 $('.table-pagination').DataTable({
