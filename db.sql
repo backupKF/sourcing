@@ -1,24 +1,12 @@
--- DROP SCHEMA dbo;
+CREATE DATABASE rcproject;
 
-CREATE SCHEMA dbo;
--- rcproject.dbo.TB_Project definition
-
--- Drop table
-
--- DROP TABLE rcproject.dbo.TB_Project;
+USE rcproject;
 
 CREATE TABLE rcproject.dbo.TB_Project (
 	projectCode varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	projectName varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	CONSTRAINT TB_Project_PK PRIMARY KEY (projectCode)
 );
-
-
--- rcproject.dbo.TB_PengajuanSourcing definition
-
--- Drop table
-
--- DROP TABLE rcproject.dbo.TB_PengajuanSourcing;
 
 CREATE TABLE rcproject.dbo.TB_PengajuanSourcing (
 	id int IDENTITY(0,1) NOT NULL,
@@ -44,13 +32,6 @@ CREATE TABLE rcproject.dbo.TB_PengajuanSourcing (
 	CONSTRAINT TB_PengajuanSourcing_FK FOREIGN KEY (projectCode) REFERENCES rcproject.dbo.TB_Project(projectCode) ON UPDATE CASCADE
 );
 
-
--- rcproject.dbo.TB_Supplier definition
-
--- Drop table
-
--- DROP TABLE rcproject.dbo.TB_Supplier;
-
 CREATE TABLE rcproject.dbo.TB_Supplier (
 	id int IDENTITY(0,1) NOT NULL,
 	supplier varchar(300) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -69,13 +50,6 @@ CREATE TABLE rcproject.dbo.TB_Supplier (
 	CONSTRAINT TB_Supplier_FK FOREIGN KEY (idMaterial) REFERENCES rcproject.dbo.TB_PengajuanSourcing(id) ON UPDATE CASCADE
 );
 
-
--- rcproject.dbo.TB_DetailSupplier definition
-
--- Drop table
-
--- DROP TABLE rcproject.dbo.TB_DetailSupplier;
-
 CREATE TABLE rcproject.dbo.TB_DetailSupplier (
 	id int IDENTITY(0,1) NOT NULL,
 	MoQ int NULL,
@@ -85,3 +59,5 @@ CREATE TABLE rcproject.dbo.TB_DetailSupplier (
 	CONSTRAINT TB_DetailSupplier_PK PRIMARY KEY (id),
 	CONSTRAINT TB_DetailSupplier_FK FOREIGN KEY (idSupplier) REFERENCES rcproject.dbo.TB_Supplier(id) ON UPDATE CASCADE
 );
+
+GO

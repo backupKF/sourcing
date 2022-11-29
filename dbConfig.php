@@ -2,7 +2,7 @@
 $serverName = "localhost";
 $database = "rcproject";
 $uid = 'SA';
-$pwd = '@KimiaFarma789';
+$pwd = '@kimiaFarma';
 
 try {
     $conn = new PDO(
