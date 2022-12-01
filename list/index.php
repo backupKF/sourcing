@@ -20,7 +20,7 @@
         }
     </style>
     </head>
-    <body class="bg-dark bg-opacity-10">
+    <body class="bg-dark bg-opacity-10 position-relative">
     <!-- Sidebar -->
     <?php require "../sidebar.php" ?>
     

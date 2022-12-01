@@ -79,7 +79,6 @@
 
                     <!-- Tabel Data Hasil Pengajuan Sourcing -->
                         <table class="table-pagination row-border stripe hover" style="width:200%">
-                            <div>
                             <thead>
                                 <tr>
                                     <th scope="col" style="font-size: 11px;width:1%" class="text-center">No</th>

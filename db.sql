@@ -50,14 +50,14 @@ CREATE TABLE rcproject.dbo.TB_Supplier (
 	CONSTRAINT TB_Supplier_FK FOREIGN KEY (idMaterial) REFERENCES rcproject.dbo.TB_PengajuanSourcing(id) ON UPDATE CASCADE
 );
 
-CREATE TABLE rcproject.dbo.TB_DetailSupplier (
-	id int IDENTITY(0,1) NOT NULL,
-	MoQ int NULL,
-	UoM varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	price int NULL,
-	idSupplier int NULL,
-	CONSTRAINT TB_DetailSupplier_PK PRIMARY KEY (id),
-	CONSTRAINT TB_DetailSupplier_FK FOREIGN KEY (idSupplier) REFERENCES rcproject.dbo.TB_Supplier(id) ON UPDATE CASCADE
+CREATE TABLE [dbo].[TB_DetailSupplier] (
+    [idDetailSupplier] INT           IDENTITY (0, 1) NOT NULL,
+    [MoQ]              INT           NULL,
+    [UoM]              VARCHAR (100) NULL,
+    [price]            INT           NULL,
+    [idSupplier]       INT           NULL,
+    CONSTRAINT [TB_DetailSupplier_PK] PRIMARY KEY CLUSTERED ([idDetailSupplier] ASC),
+    CONSTRAINT [TB_DetailSupplier_FK] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 GO
