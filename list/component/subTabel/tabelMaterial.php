@@ -1,18 +1,18 @@
 <!-- Tabel Project -->
-    <table id="table-material<?php echo $_GET['projectCode']?>" class="row-border stripe hover p-2">
+    <table id="table-material<?php echo $_GET['projectCode']?>" class="table-bordered">
         <thead class="bg-primary" >
             <tr>
                 <th class="d-none"></th>
-                <th></th>
-                <th scope="col" style="font-size: 11px" class="text-center">No</th>
-                <th scope="col" style="font-size: 11px" class="text-center">Material Category</th>
-                <th scope="col" style="font-size: 11px" class="text-center">Material Desc</th>
-                <th scope="col" style="font-size: 11px" class="text-center">Spesification</th>
-                <th scope="col" style="font-size: 11px" class="text-center">Catalog Or CAS Number</th>
-                <th scope="col" style="font-size: 11px" class="text-center">Company</th>
-                <th scope="col" style="font-size: 11px" class="text-center">Website</th>
-                <th scope="col" style="font-size: 11px" class="text-center">Finish Dossage Form</th>
-                <th scope="col" style="font-size: 11px" class="text-center">Keterangan</th>
+                <th style="width:10px"></th>
+                <th scope="col" style="font-size: 11px;width:10px" class="text-center">No</th>
+                <th scope="col" style="font-size: 11px;width:120px" class="text-center">Material Category</th>
+                <th scope="col" style="font-size: 11px;width:140px" class="text-center">Material Desc</th>
+                <th scope="col" style="font-size: 11px;width:140px" class="text-center">Spesification</th>
+                <th scope="col" style="font-size: 11px;width:160px" class="text-center">Catalog Or CAS Number</th>
+                <th scope="col" style="font-size: 11px;width:140px" class="text-center">Company</th>
+                <th scope="col" style="font-size: 11px;width:120px" class="text-center">Website</th>
+                <th scope="col" style="font-size: 11px;width:120px" class="text-center">Finish Dossage Form</th>
+                <th scope="col" style="font-size: 11px;width:160px" class="text-center">Keterangan</th>
             </tr>
         </thead>
         <tbody>
@@ -26,14 +26,14 @@
                 <td class="d-none"><?php echo $row['id']?></td>
                 <td class="dt-control"></td>
                 <td><?php echo $no++?></td>
-                <td><div class="text-center text-wrap" style="font-size:13px;width:250px"><?php echo $row['materialCategory']?></div></td>
-                <td><div class="text-center text-wrap" style="font-size:13px;width:250px"><?php echo $row['materialDeskripsi']?></div></td>
-                <td><div class="text-center text-wrap" style="font-size:13px;width:250px"><?php echo $row['materialSpesification']?></div></td>
-                <td><div class="text-center text-wrap" style="font-size:13px;width:250px"><?php echo $row['catalogOrCasNumber']?></div></td>
-                <td><div class="text-center text-wrap" style="font-size:13px;width:250px"><?php echo $row['company']?></div></td>
-                <td><div class="text-center text-wrap" style="font-size:13px;width:250px"><?php echo $row['website']?></div></td>
-                <td><div class="text-center text-wrap" style="font-size:13px;width:250px"><?php echo $row['finishDossageForm']?></div></td>
-                <td><div class="text-center text-wrap" style="font-size:13px;width:250px"><?php echo $row['keterangan']?></div></td>
+                <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['materialCategory']?></div></td>
+                <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['materialDeskripsi']?></div></td>
+                <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['materialSpesification']?></div></td>
+                <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['catalogOrCasNumber']?></div></td>
+                <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['company']?></div></td>
+                <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['website']?></div></td>
+                <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['finishDossageForm']?></div></td>
+                <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['keterangan']?></div></td>
             </tr>
         <?php
             }
@@ -73,7 +73,7 @@
                 loadDataSupplier(d)
             })
             return (
-                '<div class="container-fluid m-0 p-0" style="width:100%" id="contentDataSupplier'+d+'"></div>'
+                '<div class="container-fluid m-0 p-0" id="contentDataSupplier'+d+'"></div>'
             )
         }
 

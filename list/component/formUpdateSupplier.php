@@ -1,5 +1,5 @@
-<!-- Modal Tambah Supplier-->
-<div class="modal" id="tambahSupplier<?php echo $_GET['idMaterial']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal UpdateSupplier-->
+<div class="modal" id="editSupplier<?php echo $row['id']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content" style="width: 500px;">
             <!-- Modal Header -->
@@ -8,14 +8,13 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form action="controller/actionSupplier.php" method="post" class="was-validated" id="formSupplier<?php echo $_GET['idMaterial']?>">
-                <input type="hidden" name="tambahDataSupplier" value="true">
-                <input type="hidden" name="idMaterial" value="<?php echo $_GET['idMaterial']?>">
+                <form class="was-validated" id="formUpdateSupplier<?php echo $row['id']?>">
+                <input type="hidden" name="idSupplier" value="<?php echo $row['id']?>">
 
                 <!-- Input Supplier -->
                 <div class="mb-3">
                     <label for="supplier" class="form-label fw-bold">Supplier</label>
-                    <input type="text" class="form-control supplier" id="supplier" name="supplier" required>
+                    <input type="text" class="form-control supplier" id="supplier" name="supplier" value="<?php echo $row['supplier']?>" required>
                     <div class="invalid-feedback">
                          Masukan Supplier (*Tandai (-) jika tidak Diisi).
                     </div>
@@ -23,7 +22,7 @@
                 <!-- Input Manufacture -->
                 <div class="mb-3">
                     <label for="manufacture" class="form-label fw-bold">Manufacture</label>
-                    <input type="text" class="form-control" id="manufacture" name="manufacture" required>
+                    <input type="text" class="form-control" id="manufacture" name="manufacture" value="<?php echo $row['manufacture']?>" required>
                     <div class="invalid-feedback">
                         Masukan Manufacture (*Tandai (-) jika tidak Diisi).
                     </div>
@@ -31,15 +30,15 @@
                 <!-- Input Origin Country -->
                 <div class="mb-3">
                     <label for="originCountry" class="form-label fw-bold">Origin Country</label>
-                    <input type="text" class="form-control" id="originCountry" name="originCountry" required>
+                    <input type="text" class="form-control" id="originCountry" name="originCountry" value="<?php echo $row['originCountry']?>" required>
                     <div class="invalid-feedback">
                         Masukan Origin Country (*Tandai (-) jika tidak Diisi).
                     </div>
                 </div>
                 <!-- Input Lead Name -->
                 <div class="mb-3">
-                    <label for="leadName" class="form-label fw-bold">Lead Name</label>
-                    <input type="date" class="form-control" id="leadName" name="leadName" placeholder="dd-mm-yyyy" required>
+                    <label for="leadTime" class="form-label fw-bold">Lead Name</label>
+                    <input type="date" class="form-control" id="leadTime" name="leadTime" placeholder="dd-mm-yyyy" value="<?php echo date('Y-m-d',strtotime($row["leadTime"]))?>" required>
                     <div class="invalid-feedback">
                         Masukan Lead Name (*Tandai (-) jika tidak Diisi).
                     </div>
@@ -47,15 +46,15 @@
                 <!-- Input Catalog or CAS Number -->
                 <div class="mb-3">
                     <label for="catalogOrCasNumber" class="form-label fw-bold">Catalog or CAS Number</label>
-                    <input type="text" class="form-control" id="catalogOrCasNumber" name="catalogOrCasNumber" required>
+                    <input type="text" class="form-control" id="catalogOrCasNumber" name="catalogOrCasNumber" value="<?php echo $row['catalogOrCasNumber']?>" required>
                     <div class="invalid-feedback">
                         Masukan Catalog or CAS Number (*Tandai (-) jika tidak Diisi).
                     </div>
                 </div>
                 <!-- Grade/Reference Standard -->
                 <div class="mb-3">
-                    <label for="gradeOrReferenceStandard" class="form-label fw-bold">Grade/Reference Standard</label>
-                    <input type="text" class="form-control" id="gradeOrReferenceStandard" name="gradeOrReferenceStandard" required>
+                    <label for="gladeOrReferenceStandard" class="form-label fw-bold">Glade/Reference Standard</label>
+                    <input type="text" class="form-control" id="gladeOrReferenceStandard" name="gladeOrReferenceStandard" value="<?php echo $row['gladeOrReferenceStandard']?>" required>
                     <div class="invalid-feedback">
                         Masukan Grade/Reference Standard (*Tandai (-) jika tidak Diisi).
                     </div>
@@ -63,7 +62,7 @@
                  <!-- Document Info -->
                 <div class="mb-3">
                     <label for="documentInfo" class="form-label fw-bold">Document Info</label>
-                    <input type="text" class="form-control" id="documentInfo" name="documentInfo" required>
+                    <input type="text" class="form-control" id="documentInfo" name="documentInfo" value="<?php echo $row['documentInfo']?>" required>
                     <div class="invalid-feedback">
                         Masukan Document Info (*Tandai (-) jika tidak Diisi).
                     </div>
@@ -73,7 +72,7 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                <input type="submit" class="btn btn-primary" name="submit" value="Submit" form="formSupplier<?php echo $_GET['idMaterial']?>">
+                <input type="submit" class="btn btn-primary" name="submit" value="Submit" form="formUpdateSupplier<?php echo $row['id']?>">
             </div>
         </div>
     </div>
@@ -81,16 +80,17 @@
 <script>
     $(document).ready(function(){
         $('form').on('submit', function(e){
+            console.log($(this).serialize())
             e.preventDefault();
             $.ajax({
-                type: $(this).attr('method'),
-                url: $(this).attr('action'),
+                type: "POST",
+                url: "controller/actionUpdateSupplier.php",
                 data: $(this).serialize(),
                 success: function(data){
                     loadDataSupplier(<?php echo $_GET['idMaterial']?>)
                 }
             })
-            $('#tambahSupplier<?php echo $_GET['idMaterial']?>').modal('hide');
+            $('#editSupplier<?php echo $row['id']?>').modal('hide');
         })
     })
 </script>

@@ -54,10 +54,9 @@ CREATE TABLE [dbo].[TB_DetailSupplier] (
     [idDetailSupplier] INT           IDENTITY (0, 1) NOT NULL,
     [MoQ]              INT           NULL,
     [UoM]              VARCHAR (100) NULL,
-    [price]            INT           NULL,
+    [price]            VARCHAR (50)  NULL,
     [idSupplier]       INT           NULL,
     CONSTRAINT [TB_DetailSupplier_PK] PRIMARY KEY CLUSTERED ([idDetailSupplier] ASC),
     CONSTRAINT [TB_DetailSupplier_FK] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 GO
