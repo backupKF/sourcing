@@ -79,7 +79,7 @@
 </div>
 <script>
     $(document).ready(function(){
-        $('form').on('submit', function(e){
+        $('form#formUpdateSupplier<?php echo $row['id']?>').on('submit', function(e){
             console.log($(this).serialize())
             e.preventDefault();
             $.ajax({

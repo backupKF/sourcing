@@ -72,14 +72,14 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                <input type="submit" id="formSupplier<?php echo $_GET['idMaterial']?>" class="btn btn-primary" name="submit" value="Submit" form="formAddSupplier<?php echo $_GET['idMaterial']?>">
+                <input type="submit" id="submitAddSupplier<?php echo $_GET['idMaterial']?>" class="btn btn-primary" name="submit" value="Submit" form="formAddSupplier<?php echo $_GET['idMaterial']?>">
             </div>
         </div>
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        $('form').on('submit', function(e){
+        $('form#formAddSupplier<?php echo $_GET['idMaterial']?>').on('submit', function(e){
             console.log($(this).serialize())
             e.preventDefault();
             $.ajax({

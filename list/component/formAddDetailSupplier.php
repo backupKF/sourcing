@@ -47,12 +47,11 @@
 </div>
 <script>
     $(document).ready(function(){
-        $('form').on('submit', function(e){
-            console.log($(this).serialize())
+        $('form#formAddDetail<?php echo $row['id']?>').on('submit', function(e){
             e.preventDefault();
             $.ajax({
                 type: "POST",
-                url: "controller/actionAddDetail.php",
+                url: "controller/actionAddDetailSupplier.php",
                 data: $(this).serialize(),
                 success: function(data){
                     loadDataSupplier(<?php echo $_GET['idMaterial']?>)

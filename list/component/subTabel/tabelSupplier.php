@@ -25,9 +25,9 @@
             <th style="font-size:14px;width:100px" class="text-center">Catalog or CAS Number</th>
             <th style="font-size:14px;width:100px" class="text-center">Grade/Reference Standard</th>
             <th style="font-size:14px;width:100px" class="text-center">Document Info</th>
-            <!-- <th style="font-size:14px" class="text-center">Action Document</th>
+            <th style="font-size:14px" class="text-center">Feedback Doc Req</th>
             <th style="font-size:14px" class="text-center">Feedback R&D</th>
-            <th style="font-size:14px" class="text-center">Feedback Proc</th>
+            <!-- <th style="font-size:14px" class="text-center">Feedback Proc</th>
             <th style="font-size:14px" class="text-center">Final Feedback R&D</th> -->
             <th style="font-size:14px" class="text-center">Action</th>
         </tr>
@@ -74,6 +74,106 @@
                 <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['gladeOrReferenceStandard']?></div></td>
                 <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['documentInfo']?></div></td>
                 <td>
+                    <div style="font-size:13px;width:150px">
+
+                        <div class="row">
+                            <div class="col">
+                                GMP
+                            </div>
+                            <div class="col">
+                                <div class="form-check p-0">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                        OK
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check p-0">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" disabled>
+                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                        NOT OK
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                DMF
+                            </div>
+                            <div class="col">
+                                <div class="form-check p-0">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                        OK
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check p-0">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" disabled>
+                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                        NOT OK
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                Halal
+                            </div>
+                            <div class="col">
+                                <div class="form-check p-0">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                        OK
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check p-0">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" disabled>
+                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                        NOT OK
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                GA
+                            </div>
+                            <div class="col">
+                                <div class="form-check p-0">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                        OK
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check p-0">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" disabled>
+                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                        NOT OK
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </td>
+                <td>
+                    <div class="row ps-3" style="font-size:13px;">
+                        Harga : 
+                    </div>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#feedbackRnd<?php echo $row['id']?>">View Sampel</button>
+                    <?php include "../modalViewFeedbackRnd.php"?>
+                </td>
+                <td>
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editSupplier<?php echo $row['id']?>">
                         Edit
                     </button>
@@ -86,11 +186,13 @@
     </tbody>
 </table>
 <script>
-    //  $(document).ready(function(){
-    //     var supplierTable = $('#table-supplier').DataTable({
-    //         scrollX: true,
-    //         pageLength: 2,
-    //     })
-    //  })
+     $(document).ready(function(){
+        var supplierTable = $('#table-supplier<?php echo $_GET['idMaterial']?>').DataTable({
+            // scrollX: true,
+            lengthMenu: [2 , 3 , 5],
+            // ordering: false,
+            ordering: false,
+        })
+     })
 </script>
 <!-- -- -->
