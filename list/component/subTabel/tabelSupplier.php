@@ -7,12 +7,12 @@
 <table id="table-supplier<?php echo $_GET['idMaterial']?>" class="pt-2 table-bordered">
     <thead class="bg-warning">
         <tr>
-            <th style="font-size:14px;width:10px" class="text-center">No</th>
-            <th style="font-size:14px;width:140px" class="text-center">Supplier</th>
-            <th style="font-size:14px;width:160px" class="text-center">Manufacture</th>
-            <th style="font-size:14px;width:150px" class="text-center">Origin Country</th>
-            <th style="font-size:14px;width:50px" class="text-center">Lead Time</th>
-            <th style="font-size:14px;width:100px" class="text-center">
+            <th style="font-size:13px;width:10px" class="text-center">No</th>
+            <th style="font-size:13px;width:140px" class="text-center">Supplier</th>
+            <th style="font-size:13px;width:160px" class="text-center">Manufacture</th>
+            <th style="font-size:13px;width:150px" class="text-center">Origin Country</th>
+            <th style="font-size:13px;width:50px" class="text-center">Lead Time</th>
+            <th style="font-size:13px;width:100px" class="text-center">
                 <div class="container">
                     <div class="row">Information MoQ, UoM, Price</div>
                     <div class="row">
@@ -22,14 +22,14 @@
                     </div>
                 </div>
             </th>
-            <th style="font-size:14px;width:100px" class="text-center">Catalog or CAS Number</th>
-            <th style="font-size:14px;width:100px" class="text-center">Grade/Reference</th>
-            <th style="font-size:14px;width:100px" class="text-center">Document Info</th>
-            <th style="font-size:14px" class="text-center">Feedback Doc Req</th>
-            <th style="font-size:14px" class="text-center">Feedback R&D</th>
-            <th style="font-size:14px" class="text-center">Feedback Proc</th>
-            <th style="font-size:14px" class="text-center">Final Feedback R&D</th>
-            <th style="font-size:14px" class="text-center">Action</th>
+            <th style="font-size:13px;width:100px" class="text-center">Catalog or CAS Number</th>
+            <th style="font-size:13px;width:100px" class="text-center">Grade/Reference</th>
+            <th style="font-size:13px;width:100px" class="text-center">Document Info</th>
+            <th style="font-size:13px" class="text-center">Feedback Doc Req</th>
+            <th style="font-size:13px" class="text-center">Feedback R&D</th>
+            <th style="font-size:13px" class="text-center">Feedback Proc</th>
+            <th style="font-size:13px" class="text-center">Final Feedback R&D</th>
+            <th style="font-size:13px" class="text-center">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -169,41 +169,45 @@
                             <?php echo !empty($row['feedbackRndPriceReview'])?$row['feedbackRndPriceReview']:'-'?>
                         </div> 
                     </div>
-                    <div class="row ps-2 d-flex align-items-end" style="font-size:13px;">
+                    <div class="row d-flex align-items-end" style="font-size:13px;">
                         <div class="col">
-                            <div class="row fw-bold">
+                            <div class="row ps-2 fw-bold">
                                 Sampel dan lainnya:
                             </div>
                             <?php
                                 $feedbackRnd = $conn->query("SELECT TOP 1 * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$row['id']}' ORDER BY ID DESC")->fetchAll();
                             ?>
                             <div class="row">
-                                <div class="text-success ps-0" style="width:85px;font-size:11px"><?php echo $feedbackRnd[0]['dateFeedback']?></div>
-                                <div style="font-size:12px;width:440px" class="text-wrap ps-0"><?php echo $feedbackRnd[0]['sampel']?></div>
-                                <div style="font-size:9px" class="fw-bold ps-0"><?php echo !empty($feedbackRnd[0]['writer'])? 'By: '.$feedbackRnd[0]['writer']:'-'; ?></div>
+                                <div class="text-success ps-2" style="width:85px;font-size:11px"><?php echo $feedbackRnd[0]['dateFeedback']?></div>
+                                <div style="font-size:12px;width:440px" class="text-wrap ps-2"><?php echo $feedbackRnd[0]['sampel']?></div>
+                                <div style="font-size:9px" class="fw-bold ps-2"><?php echo !empty($feedbackRnd[0]['writer'])? 'By: '.$feedbackRnd[0]['writer']:'-'; ?></div>
                             </div>
                         </div>
-                        <div class="col">
-                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#feedbackRnd<?php echo $row['id']?>">Sampel dan lainnya</button>
+                        <div class="col p-0">
+                            <button class="btn btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#feedbackRnd<?php echo $row['id']?>">
+                                <div style="font-size:11px">Sampel dan lainnya</div>
+                            </button>
                             <?php include "../modalFeedbackRnd.php"?>
                         </div>
                     </div>
                 </td>
                 <!-- Column Feedback Proc -->
                 <td>
-                    <div class="row ps-2 d-flex align-items-end" style="font-size:13px;">
+                    <div class="row d-flex align-items-end" style="font-size:13px;">
                         <div class="col">
                             <?php
                                 $feedbackProc = $conn->query("SELECT TOP 1 * FROM TB_FeedbackProc WHERE idSupplier='{$row['id']}' ORDER BY ID DESC")->fetchAll();
                             ?>
                             <div class="row">
-                                <div class="text-success ps-0" style="width:85px;font-size:11px"><?php echo $feedbackProc[0]['dateFeedbackProc']?></div>
-                                <div style="font-size:12px" class="text-wrap ps-0"><?php echo $feedbackProc[0]['feedback']?></div>
-                                <div style="font-size:9px" class="fw-bold ps-0"><?php echo !empty($feedbackProc[0]['writer'])? 'By: '.$feedbackProc[0]['writer']:'-'; ?></div>
+                                <div class="text-success ps-2" style="width:85px;font-size:11px"><?php echo $feedbackProc[0]['dateFeedbackProc']?></div>
+                                <div style="font-size:12px" class="text-wrap ps-2"><?php echo $feedbackProc[0]['feedback']?></div>
+                                <div style="font-size:9px" class="fw-bold ps-2"><?php echo !empty($feedbackProc[0]['writer'])? 'By: '.$feedbackProc[0]['writer']:'-'; ?></div>
                             </div>
                         </div>
-                        <div class="col">
-                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#feedbackProc<?php echo $row['id']?>">Feedback Proc</button>
+                        <div class="col p-0">
+                            <button class="btn btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#feedbackProc<?php echo $row['id']?>">
+                                <div style="font-size:11px">Feedback Proc</div>
+                            </button>
                             <?php include "../modalFeedbackProc.php"?>
                         </div>
                     </div>
@@ -225,18 +229,18 @@
                 <!-- Column Action -->
                 <td>
                     <!-- Edit Supplier -->
-                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editSupplier<?php echo $row['id']?>">
-                        Edit Supplier
+                    <button type="button" class="btn btn-warning p-0" data-bs-toggle="modal" style="width:90px;height:20px" data-bs-target="#editSupplier<?php echo $row['id']?>">
+                        <div style="font-size:11px">Edit Supplier</div>
                     </button>
                     <?php include "../formUpdateSupplier.php"?>
                     <!-- Feedback Document Requirement -->
-                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#feedbackDocReq<?php echo $row['id']?>">
-                        FeedbackDocReq
+                    <button type="button" class="btn btn-warning p-0" data-bs-toggle="modal" style="width:100px;height:20px" data-bs-target="#feedbackDocReq<?php echo $row['id']?>">
+                    <div style="font-size:11px">FeedbackDocReq</div>
                     </button>
                     <?php include "../modalFeedbackDocReq.php"?>
                     <!-- Final Feedback RND -->
-                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#finalFeedbackRnd<?php echo $row['id']?>">
-                        Final Feedback RnD
+                    <button type="button" class="btn btn-warning p-0" data-bs-toggle="modal" style="width:110px;height:20px" data-bs-target="#finalFeedbackRnd<?php echo $row['id']?>">
+                    <div style="font-size:11px">Final Feedback Rnd</div>
                     </button>
                     <?php include "../modalFinalFeedbackRnd.php"?>
                 </td>

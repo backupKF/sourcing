@@ -7,25 +7,26 @@
   <body>
     <div class="container position-relative" style="margin-left:235px">
         <div style="width:1100px">
-            <table class="table" style="width:200%" id="table-riwayat">
+            <table class="table"id="table-riwayat">
                 <thead>
                     <tr class="bg-danger bg-opacity-75">
-                        <th scope="col" style="font-size: 15px;width:1%" class="text-center">No</th>
-                        <th scope="col" style="font-size: 15px;width:5%" class="text-center">Material Deskripsi</th>
-                        <th scope="col" style="font-size: 15px;width:5%" class="text-center">Date Sourcing</th>
-                        <th scope="col" style="font-size: 15px;width:10%" class="text-center">Project Code</th>
-                        <th scope="col" style="font-size: 15px;width:8%" class="text-center">Project Name</th>
-                        <th scope="col" style="font-size: 15px;width:5%" class="text-center">Team Leader</th>
-                        <th scope="col" style="font-size: 15px;width:5%" class="text-center">Researcher</th>
-                        <th scope="col" style="font-size: 15px;width:4%" class="text-center">Feedback TL</th>
-                        <th scope="col" style="font-size: 15px;width:4%" class="text-center">Feedback RPIC</th>
-                        <th scope="col" style="font-size: 15px;width:5%" class="text-center">Date Approved TL</th>
-                        <th scope="col" style="font-size: 15px;width:5%" class="text-center">Date Accepted RPIC</th>
-                        <th scope="col" style="font-size: 15px;width:4%" class="text-center">Status</th>
-                        <th scope="col" style="font-size: 15px;width:10%" class="text-center">Edit Material</th>
+                        <th scope="col" style="font-size: 13px;width:10px" class="text-center">No</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Material Deskripsi</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Date Sourcing</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Project Code</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Project Name</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Team Leader</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Researcher</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Feedback TL</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Feedback RPIC</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Date Approved TL</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Date Accepted RPIC</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Status</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Edit Material</th>
                     </tr>
                 </thead>
                 <tbody>
+
                 </tbody>
             </table>
         </div>
@@ -44,33 +45,33 @@
                     },
                     {
                         data: function(d) {
-                            return ('<p class="text-center">'+d.materialDeskripsi+'</p>')
-                        }
+                            return ('<div style="font-size:12px">'+d.materialDeskripsi+'</div>')
+style     }
                     },
                     {
                         data: function(d) {
-                            return ('<p class="text-center">'+d.dateSourcing+'</p>')
-                        }
+                            return ('<div style="font-size:12px">'+d.dateSourcing+'</div>')
+style     }
                     },
                     {
                         data: function(d) {
-                            return ('<p class="text-center">'+d.projectCode+'</p>')
-                        }
+                            return ('<div style="font-size:12px">'+d.projectCode+'</div>')
+style     }
                     },
                     {
                         data: function(d) {
-                            return ('<p class="text-center">'+d.projectName+'</p>')
-                        }
+                            return ('<div style="font-size:12px">'+d.projectName+'</div>')
+style     }
                     },
                     {
                         data: function(d) {
-                            return ('<p class="text-center">'+d.teamLeader+'</p>')
-                        }
+                            return ('<div style="font-size:12px">'+d.teamLeader+'</div>')
+style     }
                     },
                     {
                         data: function(d) {
-                            return ('<p class="text-center">'+d.researcher+'</p>')
-                        }
+                            return ('<div style="font-size:12px">'+d.researcher+'</div>')
+style     }
                     },
                     {
                         data: function(d) {
@@ -101,14 +102,14 @@
                     {
                         data: function(d) {
                             return (
-                                '<p class="text-center">'+(d.dateApprovedTL==null?"":d.dateApprovedTL)+'</p>'
+                                '<div style="font-size:12px">'+(d.dateApprovedTL==null?"":d.dateApprovedTL)+'</div>'
                             )
                         }
                     },
                     {
                         data: function(d) {
                             return (
-                                '<p class="text-center">'+(d.dateAcceptedRPIC==null?"":d.dateAcceptedRPIC)+'</p>'
+                                '<div style="font-size:12px">'+(d.dateAcceptedRPIC==null?"":d.dateAcceptedRPIC)+'</div>'
                             )
                         }
                     },

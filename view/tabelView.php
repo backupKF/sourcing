@@ -23,16 +23,16 @@
             <table class="table p-1" id="table-view">
                 <thead>
                     <tr class="bg-light">
-                        <th scope="col" style="font-size: 15px;width:10px" class="text-center">No</th>
-                        <th scope="col" style="font-size: 15px;width:200px" class="text-center">Material Deskripsi</th>
-                        <th scope="col" style="font-size: 15px;width:200px" class="text-center">Material Category</th>
-                        <th scope="col" style="font-size: 15px;width:200px" class="text-center">Supplier</th>
-                        <th scope="col" style="font-size: 15px;width:200px" class="text-center">Manufacture</th>
-                        <th scope="col" style="font-size: 15px;width:200px" class="text-center">Project Name</th>
-                        <th scope="col" style="font-size: 15px;width:200px" class="text-center">Status</th>
-                        <th scope="col" style="font-size: 15px;width:200px" class="text-center">Feedback R&D</th>
-                        <th scope="col" style="font-size: 15px;width:200px" class="text-center">Feedback Proc</th>
-                        <th scope="col" style="font-size: 15px;width:200px" class="text-center">Final Feedback R&D</th>
+                        <th scope="col" style="font-size: 13px;width:10px" class="text-center">No</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Material Deskripsi</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Material Category</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Supplier</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Manufacture</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Project Name</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Status</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Feedback R&D</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Feedback Proc</th>
+                        <th scope="col" style="font-size: 13px;width:200px" class="text-center">Final Feedback R&D</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,13 +43,13 @@
                         foreach($dataViewList as $viewList){
                             ?>
                         <tr>
-                            <td><?php echo $no++?></td>
-                            <td><?php echo $viewList['materialDeskripsi']?></td>
-                            <td><?php echo $viewList['materialCategory']?></td>
-                            <td><?php echo $viewList['supplier']?></td>
-                            <td><?php echo $viewList['manufacture']?></td>
-                            <td><?php echo $viewList['projectCode']?></td>
-                            <td><?php echo $viewList['status']?></td>
+                            <td style="font-size:12px"><?php echo $no++?></td>
+                            <td style="font-size:12px"><?php echo $viewList['materialDeskripsi']?></td>
+                            <td style="font-size:12px"><?php echo $viewList['materialCategory']?></td>
+                            <td style="font-size:12px"><?php echo $viewList['supplier']?></td>
+                            <td style="font-size:12px"><?php echo $viewList['manufacture']?></td>
+                            <td style="font-size:12px"><?php echo $viewList['projectCode']?></td>
+                            <td style="font-size:12px"><?php echo $viewList['status']?></td>
                             <td>
                                 <div class="row ps-2 d-flex align-items-start" style="font-size:13px;">
                                     <div class="row fw-bold">
