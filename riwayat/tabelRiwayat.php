@@ -5,28 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <div class="container position-relative" style="margin-left:275px">
-         <table class="table" style="width:200%" id="table-riwayat">
-            <thead>
-                <tr class="bg-danger bg-opacity-75">
-                    <th scope="col" style="font-size: 15px;width:1%" class="text-center">No</th>
-                    <th scope="col" style="font-size: 15px;width:5%" class="text-center">Material Deskripsi</th>
-                    <th scope="col" style="font-size: 15px;width:5%" class="text-center">Date Sourcing</th>
-                    <th scope="col" style="font-size: 15px;width:10%" class="text-center">Project Code</th>
-                    <th scope="col" style="font-size: 15px;width:8%" class="text-center">Project Name</th>
-                    <th scope="col" style="font-size: 15px;width:5%" class="text-center">Team Leader</th>
-                    <th scope="col" style="font-size: 15px;width:5%" class="text-center">Researcher</th>
-                    <th scope="col" style="font-size: 15px;width:4%" class="text-center">Feedback TL</th>
-                    <th scope="col" style="font-size: 15px;width:4%" class="text-center">Feedback RPIC</th>
-                    <th scope="col" style="font-size: 15px;width:5%" class="text-center">Date Approved TL</th>
-                    <th scope="col" style="font-size: 15px;width:5%" class="text-center">Date Accepted RPIC</th>
-                    <th scope="col" style="font-size: 15px;width:4%" class="text-center">Status</th>
-                    <th scope="col" style="font-size: 15px;width:10%" class="text-center">Edit Material</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+    <div class="container position-relative" style="margin-left:235px">
+        <div style="width:1100px">
+            <table class="table" style="width:200%" id="table-riwayat">
+                <thead>
+                    <tr class="bg-danger bg-opacity-75">
+                        <th scope="col" style="font-size: 15px;width:1%" class="text-center">No</th>
+                        <th scope="col" style="font-size: 15px;width:5%" class="text-center">Material Deskripsi</th>
+                        <th scope="col" style="font-size: 15px;width:5%" class="text-center">Date Sourcing</th>
+                        <th scope="col" style="font-size: 15px;width:10%" class="text-center">Project Code</th>
+                        <th scope="col" style="font-size: 15px;width:8%" class="text-center">Project Name</th>
+                        <th scope="col" style="font-size: 15px;width:5%" class="text-center">Team Leader</th>
+                        <th scope="col" style="font-size: 15px;width:5%" class="text-center">Researcher</th>
+                        <th scope="col" style="font-size: 15px;width:4%" class="text-center">Feedback TL</th>
+                        <th scope="col" style="font-size: 15px;width:4%" class="text-center">Feedback RPIC</th>
+                        <th scope="col" style="font-size: 15px;width:5%" class="text-center">Date Approved TL</th>
+                        <th scope="col" style="font-size: 15px;width:5%" class="text-center">Date Accepted RPIC</th>
+                        <th scope="col" style="font-size: 15px;width:4%" class="text-center">Status</th>
+                        <th scope="col" style="font-size: 15px;width:10%" class="text-center">Edit Material</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>

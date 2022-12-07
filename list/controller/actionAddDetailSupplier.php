@@ -1,7 +1,7 @@
 <?php
     include "../../dbConfig.php";
 
-     if(isset($_POST['MoQ'])){
+    if(isset($_POST['MoQ'])){
         $MoQ = trim(strip_tags($_POST['MoQ']));
         $UoM = trim(strip_tags($_POST['UoM']));
         $price = trim(strip_tags($_POST['price']));

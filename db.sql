@@ -2,52 +2,51 @@ CREATE DATABASE rcproject;
 
 USE rcproject;
 
-CREATE TABLE rcproject.dbo.TB_Project (
-	projectCode varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-	projectName varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	CONSTRAINT TB_Project_PK PRIMARY KEY (projectCode)
+CREATE TABLE [dbo].[TB_Project] (
+    [projectCode] VARCHAR (100) NOT NULL,
+    [projectName] VARCHAR (100) NULL,
+    CONSTRAINT [TB_Project_PK] PRIMARY KEY CLUSTERED ([projectCode] ASC)
 );
 
-CREATE TABLE rcproject.dbo.TB_PengajuanSourcing (
-	id int IDENTITY(0,1) NOT NULL,
-	materialCategory varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	materialDeskripsi text COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	materialSpesification text COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	catalogOrCasNumber varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	company varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	website varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	finishDossageForm varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	keterangan text COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	projectCode varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	created datetime NULL,
-	dateSourcing date NULL,
-	teamLeader varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	researcher varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	feedbackTL bit NULL,
-	feedbackRPIC bit NULL,
-	dateApprovedTL date NULL,
-	dateAcceptedRPIC date NULL,
-	status varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	CONSTRAINT TB_PengajuanSourcing_PK PRIMARY KEY (id),
-	CONSTRAINT TB_PengajuanSourcing_FK FOREIGN KEY (projectCode) REFERENCES rcproject.dbo.TB_Project(projectCode) ON UPDATE CASCADE
+
+CREATE TABLE [dbo].[TB_PengajuanSourcing] (
+    [id]                    INT           IDENTITY (0, 1) NOT NULL,
+    [materialCategory]      VARCHAR (100) NULL,
+    [materialDeskripsi]     TEXT          NULL,
+    [materialSpesification] TEXT          NULL,
+    [catalogOrCasNumber]    VARCHAR (100) NULL,
+    [company]               VARCHAR (100) NULL,
+    [website]               VARCHAR (100) NULL,
+    [finishDossageForm]     VARCHAR (50)  NULL,
+    [keterangan]            TEXT          NULL,
+    [projectCode]           VARCHAR (100) NULL,
+    [created]               DATETIME      NULL,
+    [dateSourcing]          DATE          NULL,
+    [teamLeader]            VARCHAR (100) NULL,
+    [researcher]            VARCHAR (100) NULL,
+    [feedbackTL]            BIT           NULL,
+    [feedbackRPIC]          BIT           NULL,
+    [dateApprovedTL]        DATE          NULL,
+    [dateAcceptedRPIC]      DATE          NULL,
+    [status]                VARCHAR (50)  NULL,
+    CONSTRAINT [TB_PengajuanSourcing_PK] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [TB_PengajuanSourcing_FK] FOREIGN KEY ([projectCode]) REFERENCES [dbo].[TB_Project] ([projectCode]) ON UPDATE CASCADE
 );
 
-CREATE TABLE rcproject.dbo.TB_Supplier (
-	id int IDENTITY(0,1) NOT NULL,
-	supplier varchar(300) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	manufacture varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	originCountry varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	leadTime date NULL,
-	catalogOrCasNumber varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	gladeOrReferenceStandard varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	documentInfo varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	document varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	feedbackRND text COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	feedbackProc text COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	finalFeedbackRND text COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	idMaterial int NULL,
-	CONSTRAINT TB_Supplier_PK PRIMARY KEY (id),
-	CONSTRAINT TB_Supplier_FK FOREIGN KEY (idMaterial) REFERENCES rcproject.dbo.TB_PengajuanSourcing(id) ON UPDATE CASCADE
+CREATE TABLE [dbo].[TB_Supplier] (
+    [id]                     INT           IDENTITY (0, 1) NOT NULL,
+    [supplier]               VARCHAR (300) CONSTRAINT [DEFAULT_TB_Supplier_supplier] DEFAULT ('') NOT NULL,
+    [manufacture]            VARCHAR (100) NULL,
+    [originCountry]          VARCHAR (100) NULL,
+    [leadTime]               DATE          NULL,
+    [catalogOrCasNumber]     VARCHAR (100) NULL,
+    [gradeOrReference]       VARCHAR (100) NULL,
+    [documentInfo]           VARCHAR (100) NULL,
+    [document]               VARCHAR (100) NULL,
+    [feedbackRndPriceReview] TEXT          NULL,
+    [idMaterial]             INT           NULL,
+    CONSTRAINT [TB_Supplier_PK] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [TB_Supplier_FK] FOREIGN KEY ([idMaterial]) REFERENCES [dbo].[TB_PengajuanSourcing] ([id]) ON UPDATE CASCADE
 );
 
 CREATE TABLE [dbo].[TB_DetailSupplier] (
@@ -59,4 +58,47 @@ CREATE TABLE [dbo].[TB_DetailSupplier] (
     CONSTRAINT [TB_DetailSupplier_PK] PRIMARY KEY CLUSTERED ([idDetailSupplier] ASC),
     CONSTRAINT [TB_DetailSupplier_FK] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE [dbo].[TB_DetailFeedbackRnd] (
+    [id]           INT          IDENTITY (1, 1) NOT NULL,
+    [dateFeedback] DATE         NULL,
+    [sampel]       TEXT         NULL,
+    [writer]       VARCHAR (50) NULL,
+    [idSupplier]   INT          NULL,
+    CONSTRAINT [PK_TB_DetailFeedbackRnd] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [FK_TB_DetailFeedbackRnd_TB_Supplier] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE [dbo].[TB_FeedbackDocReq] (
+    [id]         INT          IDENTITY (1, 1) NOT NULL,
+    [CoA]        VARCHAR (10) NULL,
+    [MSDS]       VARCHAR (10) NULL,
+    [MoA]        VARCHAR (10) NULL,
+    [Halal]      VARCHAR (10) NULL,
+    [DMF]        VARCHAR (10) NULL,
+    [GMP]        VARCHAR (10) NULL,
+    [idSupplier] INT          NULL,
+    CONSTRAINT [PK_TB_FeedbackDocReq] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [FK_TB_FeedbackDocReq_TB_Supplier] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE [dbo].[TB_FeedbackProc] (
+    [id]               INT          IDENTITY (0, 1) NOT NULL,
+    [dateFeedbackProc] DATE         NULL,
+    [feedback]         TEXT         NULL,
+    [writer]           VARCHAR (50) NULL,
+    [idSupplier]       INT          NULL,
+    CONSTRAINT [PK_TB_FeedbackProc] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [FK_TB_FeedbackProc_TB_Supplier] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE [dbo].[TB_FinalFeedbackRnd] (
+    [id]                   INT  IDENTITY (0, 1) NOT NULL,
+    [dateFinalFeedbackRnd] DATE NULL,
+    [finalFeedbackRnd]     TEXT NULL,
+    [idSupplier]           INT  NULL,
+    CONSTRAINT [PK_TB_FinalFeedbackRnd] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [FK_TB_FinalFeedbackRnd_TB_Supplier] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 GO

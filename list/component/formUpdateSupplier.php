@@ -53,10 +53,10 @@
                 </div>
                 <!-- Grade/Reference Standard -->
                 <div class="mb-3">
-                    <label for="gladeOrReferenceStandard" class="form-label fw-bold">Glade/Reference Standard</label>
-                    <input type="text" class="form-control" id="gladeOrReferenceStandard" name="gladeOrReferenceStandard" value="<?php echo $row['gladeOrReferenceStandard']?>" required>
+                    <label for="gradeOrReference" class="form-label fw-bold">Grade/Reference</label>
+                    <input type="text" class="form-control" id="gradeOrReference" name="gradeOrReference" value="<?php echo $row['gradeOrReference']?>" required>
                     <div class="invalid-feedback">
-                        Masukan Grade/Reference Standard (*Tandai (-) jika tidak Diisi).
+                        Masukan Grade/Reference (*Tandai (-) jika tidak Diisi).
                     </div>
                 </div>
                  <!-- Document Info -->

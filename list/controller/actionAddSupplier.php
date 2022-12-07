@@ -54,11 +54,11 @@
         $originCountry = trim(strip_tags($_POST['originCountry']));
         $leadTime = date('Y-m-d', strtotime($_POST['leadTime'])); 
         $catalogOrCasNumber = trim(strip_tags($_POST['catalogOrCasNumber']));
-        $gladeOrReferenceStandard = trim(strip_tags($_POST['gladeOrReferenceStandard']));
+        $gradeOrReference = trim(strip_tags($_POST['gradeOrReference']));
         $documentInfo = trim(strip_tags($_POST['documentInfo']));
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
 
-        $sql = "INSERT INTO TB_Supplier (supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gladeOrReferenceStandard, documentInfo, idMaterial) 
+        $sql = "INSERT INTO TB_Supplier (supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, idMaterial) 
         VALUES (?,?,?,?,?,?,?,?)";
         $params = array(
             $supplier,
@@ -66,7 +66,7 @@
             $originCountry,
             $leadTime,
             $catalogOrCasNumber,
-            $gladeOrReferenceStandard,
+            $gradeOrReference,
             $documentInfo,
             $idMaterial,
         );

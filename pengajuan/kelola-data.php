@@ -42,7 +42,7 @@
         <br>
 
         <!-- Form Kelola Data Pengajuan -->
-        <div class="container" style="margin-left: 270px">
+        <div class="container" style="margin-left: 250px">
             <div class="card" style="width: 95%;">
                 <div class="card-body">
                     <h5 class="card-title">Kelola Data Pengajuan</h5>

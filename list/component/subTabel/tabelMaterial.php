@@ -5,14 +5,14 @@
                 <th class="d-none"></th>
                 <th style="width:10px"></th>
                 <th scope="col" style="font-size: 11px;width:10px" class="text-center">No</th>
-                <th scope="col" style="font-size: 11px;width:180px" class="text-center">Material Category</th>
-                <th scope="col" style="font-size: 11px;width:180px" class="text-center">Material Desc</th>
-                <th scope="col" style="font-size: 11px;width:180px" class="text-center">Spesification</th>
-                <th scope="col" style="font-size: 11px;width:180px" class="text-center">Catalog Or CAS Number</th>
-                <th scope="col" style="font-size: 11px;width:180px" class="text-center">Company</th>
-                <th scope="col" style="font-size: 11px;width:180px" class="text-center">Website</th>
-                <th scope="col" style="font-size: 11px;width:180px" class="text-center">Finish Dossage Form</th>
-                <th scope="col" style="font-size: 11px;width:180px" class="text-center">Keterangan</th>
+                <th scope="col" style="font-size: 11px;width:250px" class="text-center">Material Category</th>
+                <th scope="col" style="font-size: 11px;width:250px" class="text-center">Material Desc</th>
+                <th scope="col" style="font-size: 11px;width:250px" class="text-center">Spesification</th>
+                <th scope="col" style="font-size: 11px;width:250px" class="text-center">Catalog Or CAS Number</th>
+                <th scope="col" style="font-size: 11px;width:250px" class="text-center">Company</th>
+                <th scope="col" style="font-size: 11px;width:250px" class="text-center">Website</th>
+                <th scope="col" style="font-size: 11px;width:250px" class="text-center">Finish Dossage Form</th>
+                <th scope="col" style="font-size: 11px;width:250px" class="text-center">Keterangan</th>
             </tr>
         </thead>
         <tbody>
@@ -43,7 +43,8 @@
     <script>
         $(document).ready(function(){
             var materialTable = $('#table-material<?php echo $_GET['projectCode']?>').DataTable({
-                scrollX: true
+                scrollX: true,
+                lengthMenu: [3 , 5],
             })
 
             // Menampilkan tabel material, apabila user melakukan event click ditabel project
