@@ -80,7 +80,6 @@
 <script>
     $(document).ready(function(){
         $('form#formUpdateSupplier<?php echo $row['id']?>').on('submit', function(e){
-            console.log($(this).serialize())
             e.preventDefault();
             $.ajax({
                 type: "POST",

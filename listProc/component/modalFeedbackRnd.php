@@ -30,7 +30,7 @@
                     </div>
                     <input type="submit" class="btn btn-primary btn-sm" name="submit" value="Submit">
                 </form>
-                <div class="overflow-auto" style="height:200px">
+                <div class="overflow-auto" style="height:180px">
                     <?php
                         $dataDetailFeedbackRnd = $conn->query("SELECT * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$row['id']}'")->fetchAll();
                         foreach($dataDetailFeedbackRnd as $data){

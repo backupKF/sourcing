@@ -1,64 +1,54 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSS -->
-    <style>
-        table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting {
-            padding-right: 0px;
-        }
-        table.dataTable tbody td div.detail{
-            padding: 0px;
-        }
-        table.dataTable tbody td{
-            word-wrap:break-word;
-        }
-    </style>
-    <!-- -- -->
-  </head>
-  <body>
-  <div class="container mt-5 position-absolute p-0" style="left:250px">
-        <!-- Card Table -->
-        <div class="card" style="width:1100px">
-            <div class="card-body">
-                <!-- Tabel Project -->
-                <table id="table-material" class="table table-striped m-1">
-                    <thead class="bg-primary" >
-                        <tr>
-                            <th class="d-none"></th>
-                            <th style="width:10px"></th>
-                            <th scope="col" style="font-size: 13px;width:10px" class="text-center">No</th>
-                            <th scope="col" style="font-size: 13px;width:350px" class="text-center">Material Category</th>
-                            <th scope="col" style="font-size: 13px;width:350px" class="text-center">Material Desc</th>
-                            <th scope="col" style="font-size: 13px;width:350px" class="text-center">Spesification</th>
-                            <th scope="col" style="font-size: 13px;width:350px" class="text-center">Catalog Or CAS Number</th>
-                            <th scope="col" style="font-size: 13px;width:350px" class="text-center">Company</th>
-                            <th scope="col" style="font-size: 13px;width:350px" class="text-center">Website</th>
-                            <th scope="col" style="font-size: 13px;width:350px" class="text-center">Finish Dossage Form</th>
-                            <th scope="col" style="font-size: 13px;width:350px" class="text-center">Keterangan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                        include "../dbConfig.php";
-                        $no = 1;
-                        $dataMaterial = $conn->query("SELECT * FROM TB_PengajuanSourcing WHERE feedbackRPIC=1")->fetchAll();
-                        foreach($dataMaterial as $row){
-                    ?>
-                        <tr>
-                            <td class="d-none"><?php echo $row['id']?></td>
-                            <td class="dt-control"></td>
-                            <td style="font-size:13px;"><?php echo $no++?></td>
-                            <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['materialCategory']?></div></td>
-                            <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['materialDeskripsi']?></div></td>
-                            <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['materialSpesification']?></div></td>
-                            <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['catalogOrCasNumber']?></div></td>
-                            <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['company']?></div></td>
-                            <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['website']?></div></td>
-                            <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['finishDossageForm']?></div></td>
-                            <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['keterangan']?></div></td>
-                        </tr>
+<div class="container mt-5 position-absolute p-0" style="left:250px">
+    <!-- Card Table -->
+    <div class="card" style="width:1100px">
+        <div class="card-body">
+            <!-- Tabel Project -->
+            <table id="table-material" class="table table-striped m-1">
+                <thead class="bg-primary" >
+                    <tr>
+                        <th class="d-none"></th>
+                        <th style="width:10px"></th>
+                        <th scope="col" style="font-size: 13px;width:10px" class="text-center">No</th>
+                        <th scope="col" style="font-size: 13px;width:350px" class="text-center">Material Category</th>
+                        <th scope="col" style="font-size: 13px;width:350px" class="text-center">Material Desc</th>
+                        <th scope="col" style="font-size: 13px;width:350px" class="text-center">Spesification</th>
+                        <th scope="col" style="font-size: 13px;width:350px" class="text-center">Catalog Or CAS Number</th>
+                        <th scope="col" style="font-size: 13px;width:350px" class="text-center">Company</th>
+                        <th scope="col" style="font-size: 13px;width:350px" class="text-center">Website</th>
+                        <th scope="col" style="font-size: 13px;width:350px" class="text-center">Finish Dossage Form</th>
+                        <th scope="col" style="font-size: 13px;width:350px" class="text-center">Keterangan</th>
+                        <th scope="col" style="font-size: 13px;width:350px" class="text-center">Summary Report</th>
+                        <th scope="col" style="font-size: 13px;width:350px" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    include "../dbConfig.php";
+                    $no = 1;
+                    $dataMaterial = $conn->query("SELECT * FROM TB_PengajuanSourcing WHERE feedbackRPIC=1")->fetchAll();
+                    foreach($dataMaterial as $row){
+                ?>
+                    <tr>
+                        <td class="d-none"><?php echo $row['id']?></td>
+                        <td class="dt-control"></td>
+                        <td style="font-size:13px;"><?php echo $no++?></td>
+                        <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['materialCategory']?></div></td>
+                        <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['materialDeskripsi']?></div></td>
+                        <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['materialSpesification']?></div></td>
+                        <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['catalogOrCasNumber']?></div></td>
+                        <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['company']?></div></td>
+                        <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['website']?></div></td>
+                        <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['finishDossageForm']?></div></td>
+                        <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['keterangan']?></div></td>
+                        <td><div class="text-wrap" style="font-size:13px;">-</div></td>
+                        <td>
+                            <!-- Edit Material -->
+                            <button type="button" class="btn btn-warning p-0" data-bs-toggle="modal" style="width:100%;height:30px" data-bs-target="#editMaterial<?php echo $row['id']?>">
+                                <div style="font-size:13px">Edit Material</div>
+                            </button>
+                            <?php include "component/formUpdateMaterial.php"?>
+                        </td>
+                    </tr>
                     <?php
                         }
                     ?>

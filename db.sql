@@ -26,7 +26,8 @@ CREATE TABLE [dbo].[TB_PengajuanSourcing] (
     [feedbackRPIC]          BIT           NULL,
     [dateApprovedTL]        DATE          NULL,
     [dateAcceptedRPIC]      DATE          NULL,
-    [status]                VARCHAR (50)  NULL,
+    [statusRiwayat]         VARCHAR (50)  NULL,
+    [statusPengajuan]       VARCHAR (50)  NULL,
     [created]               DATETIME      NULL,
     CONSTRAINT [TB_PengajuanSourcing_PK] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [TB_PengajuanSourcing_FK] FOREIGN KEY ([projectCode]) REFERENCES [dbo].[TB_Project] ([projectCode]) ON UPDATE CASCADE
@@ -80,7 +81,6 @@ CREATE TABLE [dbo].[TB_FeedbackDocReq] (
     CONSTRAINT [PK_TB_FeedbackDocReq] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [FK_TB_FeedbackDocReq_TB_Supplier] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 CREATE TABLE [dbo].[TB_FeedbackProc] (
     [id]               INT          IDENTITY (0, 1) NOT NULL,

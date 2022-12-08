@@ -46,32 +46,32 @@
                     {
                         data: function(d) {
                             return ('<div style="font-size:12px">'+d.materialDeskripsi+'</div>')
-style     }
+                         }
                     },
                     {
                         data: function(d) {
                             return ('<div style="font-size:12px">'+d.dateSourcing+'</div>')
-style     }
+                        }
                     },
                     {
                         data: function(d) {
                             return ('<div style="font-size:12px">'+d.projectCode+'</div>')
-style     }
+                        }
                     },
                     {
                         data: function(d) {
                             return ('<div style="font-size:12px">'+d.projectName+'</div>')
-style     }
+                        }
                     },
                     {
                         data: function(d) {
                             return ('<div style="font-size:12px">'+d.teamLeader+'</div>')
-style     }
+                        }
                     },
                     {
                         data: function(d) {
                             return ('<div style="font-size:12px">'+d.researcher+'</div>')
-style     }
+                        }
                     },
                     {
                         data: function(d) {
@@ -119,9 +119,9 @@ style     }
                                 '<form action="controller/actionRiwayat.php" method="POST">'+
                                     '<input type="hidden" name="setID" value="'+d.id+'">'+
                                     '<select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="this.form.submit();" name="status">'+
-                                        '<option '+(d.status=="ON PROSES"?'selected':'')+' value="ON PROSES">ON PROSES</option>'+
-                                        '<option '+(d.status=="HOLD"?'selected':'')+' value="HOLD">HOLD</option>'+
-                                        '<option '+(d.status=="CANCEL"?'selected':'')+' value="CANCEL">CANCEL</option>'+
+                                        '<option '+(d.statusRiwayat=="ON PROSES"?'selected':'')+' value="ON PROSES">ON PROSES</option>'+
+                                        '<option '+(d.statusRiwayat=="HOLD"?'selected':'')+' value="HOLD">HOLD</option>'+
+                                        '<option '+(d.statusRiwayat=="CANCEL"?'selected':'')+' value="CANCEL">CANCEL</option>'+
                                     '</select>'+
                                 '</form>'
                             )
