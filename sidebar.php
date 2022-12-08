@@ -28,15 +28,15 @@
                     <span class="ms-2">Riwayat Sourcing</span>
                 </a>
             </li>
-            <!-- Opsi View Sourcing -->
+            <!-- Opsi List Sourcing -->
             <li class="nav-items">
-                <a href="/sourcing/view/index.php" class="nav-link text-white <?php if($currentPage =='view'){echo 'active';}?>" aria-current="page">
-                    <i class="fa fa-eye"></i>
-                    <span class="ms-2">View Sourcing</span>
+                <a href="/sourcing/listProc/index.php" class="nav-link text-white <?php if($currentPage =='list'){echo 'active';}?>" aria-current="page">
+                    <i class="fa fa-list"></i>
+                    <span class="ms-2">List Sourcing</span>
                 </a>
             </li>
             <!-- Opsi List Sourcing -->
-            <li class="nav-items">
+            <li class="nav-items d-none">
                 <a href="/sourcing/list/index.php" class="nav-link text-white <?php if($currentPage =='list'){echo 'active';}?>" aria-current="page">
                     <i class="fa fa-list"></i>
                     <span class="ms-2">List Sourcing</span>

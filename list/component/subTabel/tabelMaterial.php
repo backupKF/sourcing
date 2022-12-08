@@ -5,14 +5,14 @@
                 <th class="d-none"></th>
                 <th style="width:10px"></th>
                 <th scope="col" style="font-size: 13px;width:10px" class="text-center">No</th>
-                <th scope="col" style="font-size: 13px;width:250px" class="text-center">Material Category</th>
-                <th scope="col" style="font-size: 13px;width:250px" class="text-center">Material Desc</th>
-                <th scope="col" style="font-size: 13px;width:250px" class="text-center">Spesification</th>
-                <th scope="col" style="font-size: 13px;width:250px" class="text-center">Catalog Or CAS Number</th>
-                <th scope="col" style="font-size: 13px;width:250px" class="text-center">Company</th>
-                <th scope="col" style="font-size: 13px;width:250px" class="text-center">Website</th>
-                <th scope="col" style="font-size: 13px;width:250px" class="text-center">Finish Dossage Form</th>
-                <th scope="col" style="font-size: 13px;width:250px" class="text-center">Keterangan</th>
+                <th scope="col" style="font-size: 13px;width:340px" class="text-center">Material Category</th>
+                <th scope="col" style="font-size: 13px;width:340px" class="text-center">Material Desc</th>
+                <th scope="col" style="font-size: 13px;width:340px" class="text-center">Spesification</th>
+                <th scope="col" style="font-size: 13px;width:340px" class="text-center">Catalog Or CAS Number</th>
+                <th scope="col" style="font-size: 13px;width:340px" class="text-center">Company</th>
+                <th scope="col" style="font-size: 13px;width:340px" class="text-center">Website</th>
+                <th scope="col" style="font-size: 13px;width:340px" class="text-center">Finish Dossage Form</th>
+                <th scope="col" style="font-size: 13px;width:340px" class="text-center">Keterangan</th>
             </tr>
         </thead>
         <tbody>
