@@ -8,7 +8,7 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="p-1 was-validated" id="formFeedbackRnd<?php echo $row['id']?>">
+                <form class="bg-dark bg-opacity-10 p-1 was-validated" id="formFeedbackRnd<?php echo $row['id']?>">
                     <input type="hidden" name="feedbackRnd" value="true">
                     <input type="hidden" name="idSupplier" value="<?php echo $row['id']?>">
                     <input type="hidden" name="writer" value="anonymous">
@@ -30,7 +30,7 @@
                     </div>
                     <input type="submit" class="btn btn-primary btn-sm" name="submit" value="Submit">
                 </form>
-                <div class="overflow-auto" style="height:200px;background-color:#f1fca7"> 
+                <div class="overflow-auto" style="height:200px">
                     <?php
                         $dataDetailFeedbackRnd = $conn->query("SELECT * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$row['id']}'")->fetchAll();
                         foreach($dataDetailFeedbackRnd as $data){
@@ -39,10 +39,10 @@
                             <div class="text-success text-center" style="width:85px;font-size:14px;">
                                 <?php echo $data['dateFeedback']?>
                             </div>
-                            <div class="text-wrap ms-2" style="width:440px">
+                            <div class="text-wrap" style="width:440px">
                                 <?php echo $data['sampel']?>
                             </div>
-                            <div class="fw-bold ms-2" style="font-size:12px">
+                            <div class="fw-bold" style="font-size:12px">
                                 By: <?php echo $data['writer']?>
                             </div>
                         </div>
@@ -62,15 +62,11 @@
 <script>
     $(document).ready(function(){
         $('form#formFeedbackRnd<?php echo $row['id']?>').on('submit', function(e){
-            console.log($(this).serialize());
             e.preventDefault();
             $.ajax({
                 type: "POST",
                 url: "controller/actionFeedback.php",
                 data: $(this).serialize(),
-                success: function(data){
-                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-                }
             })
             $('#feedbackRnd<?php echo $row['id']?>').modal('hide');
         })

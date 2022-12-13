@@ -9,26 +9,53 @@
                         
             <!-- Modal Body -->
             <div class="modal-body">
-            <!-- Select Project -->
-            <form action="./controller/actionPengajuan.php" method="POST">
-                <select class="form-select" size="8" aria-label="multiple select example" name="project">
-                    <?php 
-                        $project = $conn->query("SELECT * FROM TB_Project")->fetchAll();
-                        foreach($project as $row) { 
+                <!-- Select Project -->
+                <table class="table table-bordered p-2" id="tabel-info" style="width:100%">
+                    <thead>
+                        <tr class="d-none">
+                            <td>Project Code</td>
+                            <td>Project Name</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        $dataProject = $conn->query("SELECT * FROM TB_Project")->fetchAll();
+                        foreach($dataProject as $project) { 
                     ?>
-                        <option value="<?php echo $row['projectCode']?>" > <?php echo $row['projectCode'] ," | ", $row['projectName']?></option>
+                        <form action="./controller/actionPengajuan.php" method="POST" id="formSetProject-<?php echo $project['projectCode']?>">
+                            <tr>
+                                <td class="py-0" style="width:150px">
+                                    <input type="text" name="project" readonly class="form-control-plaintext" id="staticEmail" value="<?php echo $project['projectCode']?>">
+                                </td>
+                                <td class="py-0" style="width:250px">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<?php echo $project['projectName']?>"> 
+                                </td>
+                                <td class="text-center p-0 py-1" style="width:75px">
+                                    <input type="submit" form="formSetProject-<?php echo $project['projectCode']?>" value="pilih" class="btn btn-primary btn-sm" name="setProject">
+                                </td>
+                            </tr>
+                        </form>
                     <?php } ?>
-                </select>  
-                <!-- End Select Project -->
+                    </tbody>
+                </table>
+                
             </div>
 
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close">Back</button>
-                <input type="submit" value="submit" class="btn btn-primary" name="setProject">
             </div>
-            </form>
         </div>
     </div>
 </div>
 <!-- Modal Select Project -->
+<script>
+    // $(document).ready(function(){
+    //     $('#tabel-info').DataTable({
+    //         paging: false,
+    //         ordering: false,
+    //         info: false,
+    //     })
+    // })
+</script>

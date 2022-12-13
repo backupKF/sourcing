@@ -8,7 +8,7 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="p-1 was-validated" id="formFeedbackProc<?php echo $row['id']?>">
+                <form class="bg-dark bg-opacity-10 p-1 was-validated" id="formFeedbackProc<?php echo $row['id']?>">
                     <input type="hidden" name="feedbackProc" value="true">
                     <input type="hidden" name="idSupplier" value="<?php echo $row['id']?>">
                     <input type="hidden" name="writer" value="anonymous">
@@ -22,7 +22,7 @@
                     </div>
                     <input type="submit" class="btn btn-primary btn-sm" name="submit" value="Submit">
                 </form>
-                <div class="overflow-auto" style="height:200px;background-color:#f1fca7">
+                <div class="overflow-auto" style="height:200px">
                     <?php
                         $dataDetailFeedbackProc = $conn->query("SELECT * FROM TB_FeedbackProc WHERE idSupplier='{$row['id']}'")->fetchAll();
                         foreach($dataDetailFeedbackProc as $dataProc){
@@ -51,20 +51,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $('form#formFeedbackProc<?php echo $row['id']?>').on('submit', function(e){
-            console.log($(this).serialize());
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "controller/actionFeedback.php",
-                data: $(this).serialize(),
-                success: function(data){
-                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-                }
-            })
-            $('#feedbackProc<?php echo $row['id']?>').modal('hide');
-        })
-    })
-</script>

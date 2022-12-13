@@ -8,7 +8,7 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="p-1 was-validated" id="formFinalFeedbackRnd<?php echo $row['id']?>">
+                <form class="bg-dark bg-opacity-10 p-1 was-validated" id="formFinalFeedbackRnd<?php echo $row['id']?>">
                     <input type="hidden" name="idSupplier" value="<?php echo $row['id']?>">
                     <!-- Final Feedback RnD -->
                     <div class="mb-1">

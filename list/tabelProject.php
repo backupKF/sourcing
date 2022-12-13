@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSS -->
+    <!-- CSS
     <style>
         table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting {
             padding-right: 0px;
@@ -14,11 +14,11 @@
         table.dataTable tbody td{
             word-wrap:break-word;
         }
-    </style>
+    </style> -->
     <!-- -- -->
   </head>
   <body>
-    <div class="container mt-5 position-absolute p-0" style="left:250px">
+    <div class="container" style="margin-left:225px;margin-top:3px">
         <!-- Card Table -->
         <div class="card" style="width:1100px">
             <div class="card-body">

@@ -11,13 +11,16 @@ CREATE TABLE [dbo].[TB_Project] (
 CREATE TABLE [dbo].[TB_PengajuanSourcing] (
     [id]                    INT           IDENTITY (0, 1) NOT NULL,
     [materialCategory]      VARCHAR (40)  NULL,
-    [materialDeskripsi]     TEXT          NULL,
+    [materialName]          TEXT          NULL,
+    [priority]              INT           NULL,
     [materialSpesification] TEXT          NULL,
     [catalogOrCasNumber]    VARCHAR (100) NULL,
     [company]               VARCHAR (50)  NULL,
     [website]               VARCHAR (50)  NULL,
     [finishDossageForm]     VARCHAR (50)  NULL,
     [keterangan]            TEXT          NULL,
+    [vendor]                VARCHAR (50)  NULL,
+    [documentReq]           VARCHAR (100) NULL,
     [projectCode]           VARCHAR (100) NULL,
     [dateSourcing]          DATE          NULL,
     [teamLeader]            VARCHAR (100) NULL,
@@ -27,7 +30,9 @@ CREATE TABLE [dbo].[TB_PengajuanSourcing] (
     [dateApprovedTL]        DATE          NULL,
     [dateAcceptedRPIC]      DATE          NULL,
     [statusRiwayat]         VARCHAR (50)  NULL,
-    [statusPengajuan]       VARCHAR (50)  NULL,
+    [statusPengajuan]       VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_statusPengajuan] DEFAULT ('') NOT NULL,
+    [sumaryReport]          TEXT          NULL,
+    [dateSumaryReport]      DATE          NULL,
     [created]               DATETIME      NULL,
     CONSTRAINT [TB_PengajuanSourcing_PK] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [TB_PengajuanSourcing_FK] FOREIGN KEY ([projectCode]) REFERENCES [dbo].[TB_Project] ([projectCode]) ON UPDATE CASCADE
@@ -44,9 +49,11 @@ CREATE TABLE [dbo].[TB_Supplier] (
     [documentInfo]           VARCHAR (100) NULL,
     [document]               VARCHAR (100) NULL,
     [feedbackRndPriceReview] TEXT          CONSTRAINT [DEFAULT_TB_Supplier_feedbackRndPriceReview] DEFAULT ('') NULL,
+    [dateFinalFeedbackRnd]   DATE          NULL,
+    [finalFeedbackRnd]       TEXT          CONSTRAINT [DEFAULT_TB_Supplier_finalFeedbackRnd] DEFAULT ('') NULL,
     [idMaterial]             INT           NULL,
     CONSTRAINT [TB_Supplier_PK] PRIMARY KEY CLUSTERED ([id] ASC),
-    CONSTRAINT [TB_Supplier_FK] FOREIGN KEY ([idMaterial]) REFERENCES [dbo].[TB_PengajuanSourcing] ([id]) ON UPDATE CASCADE
+    CONSTRAINT [TB_Supplier_FK] FOREIGN KEY ([idMaterial]) REFERENCES [dbo].[TB_PengajuanSourcing] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE [dbo].[TB_DetailSupplier] (
@@ -90,15 +97,6 @@ CREATE TABLE [dbo].[TB_FeedbackProc] (
     [idSupplier]       INT          NULL,
     CONSTRAINT [PK_TB_FeedbackProc] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [FK_TB_FeedbackProc_TB_Supplier] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE [dbo].[TB_FinalFeedbackRnd] (
-    [id]                   INT  IDENTITY (0, 1) NOT NULL,
-    [dateFinalFeedbackRnd] DATE NULL,
-    [finalFeedbackRnd]     TEXT NULL,
-    [idSupplier]           INT  NULL,
-    CONSTRAINT [PK_TB_FinalFeedbackRnd] PRIMARY KEY CLUSTERED ([id] ASC),
-    CONSTRAINT [FK_TB_FinalFeedbackRnd_TB_Supplier] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 GO

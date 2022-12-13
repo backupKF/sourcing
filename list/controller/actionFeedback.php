@@ -80,23 +80,11 @@
     if(isset($_POST['finalFeedbackRnd'])){
         $dateFinalFeedbackRnd = date("Y-m-d");
         $finalFeedbackRnd = trim(strip_tags($_POST['finalFeedbackRnd']));
-        $idFinalFeedbackRnd = trim(strip_tags($_POST['idFinalFeedbackRnd']));
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
 
-        if(!empty($idFinalFeedbackRnd)){
-            $sql = "UPDATE TB_FinalFeedbackRnd SET dateFinalFeedbackRnd = ?, finalFeedbackRnd = ? WHERE id = ?";
-            $query = $conn->prepare($sql);
-            $update = $query->execute(array($dateFinalFeedbackRnd, $finalFeedbackRnd, $idFinalFeedbackRnd));
-        }else{
-            $sql = "INSERT INTO TB_FinalFeedbackRnd (dateFinalFeedbackRnd, finalFeedbackRnd, idSupplier) 
-            VALUES (?,?,?)";
-            $params = array(
-                $dateFinalFeedbackRnd,
-                $finalFeedbackRnd,
-                $idSupplier,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
-        }
+        $sql = "UPDATE TB_Supplier SET dateFinalFeedbackRnd = ?, finalFeedbackRnd = ? WHERE id = ?";
+        $query = $conn->prepare($sql);
+        $update = $query->execute(array($dateFinalFeedbackRnd, $finalFeedbackRnd, $idSupplier));
+
     }
 ?>

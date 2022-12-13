@@ -6,38 +6,45 @@
   </head>
   <body>
     <!-- Sidebar -->
-        <div class="d-flex flex-column vh-100 flex-shrink-0 p-3 text-white bg-dark position-fixed" style="width: 235px;z-index:10;">
+        <div class="d-flex flex-column vh-100 flex-shrink-0 p-3 text-white bg-dark position-fixed" style="width: 215px;z-index:10;">
             <!-- Title -->
             <h3 class="d-flex justify-content-center m-0">Kimia Farma</h3>
             <h6 class="d-flex justify-content-center">Digitalisasi Sourcing</h6>
-            <hr class="m-0">
+            <hr>
             
         <!-- Navigation -->
-        <ul class="nav nav-pills flex-column mb-auto mt-5">
+        <ul class="nav nav-pills flex-column mb-auto mt-3">
             <!-- Opsi Pengajuan Sourcing -->
             <li class="nav-items">
-                <a href="../pengajuan/index.php" class="nav-link text-white <?php if($currentPage =='pengajuan'){echo 'active';}?>" aria-current="page">
+                <a href="../dashboard/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='dashboard'){echo 'active';}?>" aria-current="page">
+                    <i class="fa fa-dashboard"></i>
+                    <span class="ms-2">Dashboard</span>
+                </a>
+            </li>
+            <!-- Opsi Pengajuan Sourcing -->
+            <li class="nav-items">
+                <a href="../pengajuan/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='pengajuan'){echo 'active';}?>" aria-current="page">
                     <i class="fa fa-plus-square"></i>
                     <span class="ms-2">Pengajuan Sourcing</span>
                 </a>
             </li>
             <!-- Opsi Riwayat Sourcing -->
             <li class="nav-items">
-                <a href="/sourcing/riwayat/index.php" class="nav-link text-white <?php if($currentPage =='riwayat'){echo 'active';}?>" aria-current="page">
+                <a href="/sourcing/riwayat/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='riwayat'){echo 'active';}?>" aria-current="page">
                     <i class="fa fa-history"></i>
                     <span class="ms-2">Riwayat Sourcing</span>
                 </a>
             </li>
-            <!-- Opsi List Sourcing -->
+            <!-- Opsi View Sourcing -->
             <li class="nav-items">
-                <a href="/sourcing/listProc/index.php" class="nav-link text-white <?php if($currentPage =='list'){echo 'active';}?>" aria-current="page">
-                    <i class="fa fa-list"></i>
-                    <span class="ms-2">List Sourcing</span>
+                <a href="/sourcing/viewSourcing/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='view'){echo 'active';}?>" aria-current="page">
+                    <i class="fa fa-eye"></i>
+                    <span class="ms-2">View Sourcing</span>
                 </a>
             </li>
             <!-- Opsi List Sourcing -->
-            <li class="nav-items d-none">
-                <a href="/sourcing/list/index.php" class="nav-link text-white <?php if($currentPage =='list'){echo 'active';}?>" aria-current="page">
+            <li class="nav-items">
+                <a href="/sourcing/list/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='list'){echo 'active';}?>" aria-current="page">
                     <i class="fa fa-list"></i>
                     <span class="ms-2">List Sourcing</span>
                 </a>

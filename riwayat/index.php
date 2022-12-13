@@ -1,4 +1,5 @@
 <?php
+    include "../dbConfig.php";
     $currentPage = 'riwayat'; 
 ?>
 <!doctype html>

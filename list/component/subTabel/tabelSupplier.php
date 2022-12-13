@@ -12,20 +12,21 @@
             <th style="font-size:13px;width:150px" class="text-center">Manufacture</th>
             <th style="font-size:13px;width:150px" class="text-center">Origin Country</th>
             <th style="font-size:13px;width:150px" class="text-center">Lead Time</th>
-            <th style="font-size:13px;width:180px" class="text-center">
+            <th style="font-size:13px;width:200px" class="text-center">
                 <div class="container">
-                    <div class="row">Information MoQ, UoM, Price</div>
+                    <div class="row d-flex justify-content-center">Information MoQ, UoM, Price</div>
                     <div class="row">
                         <div class="col">MoQ</div>
                         <div class="col">UoM</div>
                         <div class="col">Price</div>
+                        <div class="col">Action</div>
                     </div>
                 </div>
             </th>
             <th style="font-size:13px;width:150px" class="text-center">Catalog or CAS Number</th>
             <th style="font-size:13px;width:150px" class="text-center">Grade/Reference</th>
             <th style="font-size:13px;width:150px" class="text-center">Document Info</th>
-            <th style="font-size:13px;width:450px" class="text-center">Feedback Doc Req</th>
+            <th style="font-size:13px;width:220px" class="text-center">Feedback Doc Req</th>
             <th style="font-size:13px;width:250px" class="text-center">Feedback R&D</th>
             <th style="font-size:13px;width:250px" class="text-center">Feedback Proc</th>
             <th style="font-size:13px;width:250px" class="text-center">Final Feedback R&D</th>
@@ -65,23 +66,28 @@
                     <!-- -- -->
 
                     <!-- Tabel Informasi MoQ, UoM, dan Price -->
-                    <table class="table table-bordered">
-                        <tbody>
-                            <?php
-                                include "../../dbConfig.php";
-                                $detailSupplier = $conn->query("SELECT idDetailSupplier, MoQ, UoM, price FROM TB_DetailSupplier INNER JOIN TB_Supplier ON TB_DetailSupplier.idSupplier = TB_Supplier.id WHERE idSupplier='{$row['id']}'")->fetchAll();
-                                foreach($detailSupplier as $detail){
-                            ?>
-                            <tr>
-                                <td class="text-center p-0" style="font-size:12px;width:60px"><?php echo $detail['MoQ']?></td>
-                                <td class="text-center p-0" style="font-size:12px;width:60px"><?php echo $detail['UoM']?></td>
-                                <td class="text-center p-0" style="font-size:12px;width:60px"><?php echo $detail['price']?></td>
-                            </tr>
-                            <?php
-                                }
-                            ?>
-                        </tbody>
-                    </table>
+                    <div class="overflow-auto" style="height:110px">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <?php
+                                    include "../../dbConfig.php";
+                                    $detailSupplier = $conn->query("SELECT idDetailSupplier, MoQ, UoM, price FROM TB_DetailSupplier INNER JOIN TB_Supplier ON TB_DetailSupplier.idSupplier = TB_Supplier.id WHERE idSupplier='{$row['id']}'")->fetchAll();
+                                    foreach($detailSupplier as $detail){
+                                ?>
+                                <tr>
+                                    <td class="text-center p-0" style="font-size:12px;width:60px"><?php echo $detail['MoQ']?></td>
+                                    <td class="text-center p-0" style="font-size:12px;width:60px"><?php echo $detail['UoM']?></td>
+                                    <td class="text-center p-0" style="font-size:12px;width:60px"><?php echo $detail['price']?></td>
+                                    <td class="text-center p-0" style="font-size:12px;width:60px">
+                                        <a class="btn btn-danger btn-sm d-inline ms-1" style="width:100%" id="delete" onclick="deleteDetail(<?php echo $detail['id']?>)">Delete</a>
+                                    </td>
+                                </tr>
+                                <?php
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                     <!-- -- -->
                 </td>
                 <!-- Column Catalog Or Cas Number -->
@@ -91,98 +97,114 @@
                 <!-- Column Document Info -->
                 <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['documentInfo']?></div></td>
                 <!-- Column Feedback Requirement Document -->
-                <td style="font-size:12px">
+                <td>
                     <?php 
                         $feedbackDocReq = $conn->query("SELECT * FROM TB_FeedbackDocReq WHERE idSupplier='{$row['id']}'")->fetchAll();
                     ?>
-                    <!-- Judul Feedback Doc Req -->
-                    <div class="row">
-                        <div class="col-2 text-center">
-                            CoA
-                        </div>
-                        <div class="col-2 text-center">
-                            MSDS
-                        </div>
-                        <div class="col-2 text-center">
-                            MoA
-                        </div>
-                        <div class="col-2 text-center">
-                            Halal
-                        </div>
-                        <div class="col-2 text-center">
-                            DMF
-                        </div>
-                        <div class="col-2 text-center">
-                            GMP
-                        </div>
-                    </div>
-                    <!-- Status Feedback Doc Req -->
-                    <div class="row">
-                        <div class="col">
-                            <div class="bg-success m-0 text-center text-white <?php echo $feedbackDocReq[0]['CoA']=="ok"? '' :'d-none'; ?> border" style="width:55px">OK</div>
-                            <div class="bg-danger m-0 text-center text-white <?php echo $feedbackDocReq[0]['CoA']=="notOk"? '' :'d-none'; ?> border" style="width:55px">NOT OK</div>
-                        </div>
-                        <div class="col">
-                            <div class="bg-success m-0 text-center text-white <?php echo $feedbackDocReq[0]['MSDS']=="ok"? '' :'d-none'; ?> border" style="width:55px">OK</div>
-                            <div class="bg-danger m-0 text-center text-white <?php echo $feedbackDocReq[0]['MSDS']=="notOk"? '' :'d-none'; ?> border" style="width:55px">NOT OK</div>
-                        </div>
-                        <div class="col">
-                            <div class="bg-success m-0 text-center text-white <?php echo $feedbackDocReq[0]['MoA']=="ok"? '' :'d-none'; ?> border" style="width:55px">OK</div>
-                            <div class="bg-danger m-0 text-center text-white <?php echo $feedbackDocReq[0]['MoA']=="notOk"? '' :'d-none'; ?> border" style="width:55px">NOT OK</div>
-                        </div>
-                        <div class="col">
-                            <div class="bg-success m-0 text-center text-white <?php echo $feedbackDocReq[0]['Halal']=="ok"? '' :'d-none'; ?> border" style="width:55px">OK</div>
-                            <div class="bg-danger m-0 text-center text-white <?php echo $feedbackDocReq[0]['Halal']=="notOk"? '' :'d-none'; ?> border" style="width:55px">NOT OK</div>
-                        </div>
-                        <div class="col">
-                            <div class="bg-success m-0 text-center text-white <?php echo $feedbackDocReq[0]['DMF']=="ok"? '' :'d-none'; ?> border" style="width:55px">OK</div>
-                            <div class="bg-danger m-0 text-center text-white <?php echo $feedbackDocReq[0]['DMF']=="notOk"? '' :'d-none'; ?> border" style="width:55px">NOT OK</div>
-                        </div>
-                        <div class="col">
-                            <div class="bg-success m-0 text-center text-white <?php echo $feedbackDocReq[0]['GMP']=="ok"? '' :'d-none'; ?> border" style="width:55px">OK</div>
-                            <div class="bg-danger m-0 text-center text-white <?php echo $feedbackDocReq[0]['GMP']=="notOk"? '' :'d-none'; ?> border" style="width:55px">NOT OK</div>
+                    <div style="height:100px">
+                        <div class="row" style="padding-top:30px;font-size:12px">
+                            <div class="col">
+                                <!-- Feedback Doc Req CoA -->
+                                <div class="row">
+                                    <div class="col fw-bold">
+                                        CoA
+                                    </div>
+                                    <div class="col">
+                                        <div class="bg-success m-0 text-center text-white <?php echo $feedbackDocReq[0]['CoA']=="ok"? '' :'d-none'; ?> border" style="width:55px">OK</div>
+                                        <div class="bg-danger m-0 text-center text-white <?php echo $feedbackDocReq[0]['CoA']=="notOk"? '' :'d-none'; ?> border" style="width:55px">NOT OK</div>
+                                    </div>
+                                </div>
+                                <!-- Feedback Doc Req MSDS -->
+                                <div class="row">
+                                    <div class="col fw-bold">
+                                        MSDS
+                                    </div>
+                                    <div class="col">
+                                        <div class="bg-success m-0 text-center text-white <?php echo $feedbackDocReq[0]['MSDS']=="ok"? '' :'d-none'; ?> border" style="width:55px">OK</div>
+                                        <div class="bg-danger m-0 text-center text-white <?php echo $feedbackDocReq[0]['MSDS']=="notOk"? '' :'d-none'; ?> border" style="width:55px">NOT OK</div>
+                                    </div>
+                                </div>
+                                <!-- Feedback Doc Req MoA -->
+                                <div class="row">
+                                    <div class="col fw-bold">
+                                        MoA
+                                    </div>
+                                    <div class="col">
+                                        <div class="bg-success m-0 text-center text-white <?php echo $feedbackDocReq[0]['MoA']=="ok"? '' :'d-none'; ?> border" style="width:55px">OK</div>
+                                        <div class="bg-danger m-0 text-center text-white <?php echo $feedbackDocReq[0]['MoA']=="notOk"? '' :'d-none'; ?> border" style="width:55px">NOT OK</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <!-- Feedback Doc Req Halal -->
+                                <div class="row">
+                                    <div class="col fw-bold">
+                                        Halal
+                                    </div>
+                                    <div class="col">
+                                        <div class="bg-success m-0 text-center text-white <?php echo $feedbackDocReq[0]['Halal']=="ok"? '' :'d-none'; ?> border" style="width:55px">OK</div>
+                                        <div class="bg-danger m-0 text-center text-white <?php echo $feedbackDocReq[0]['Halal']=="notOk"? '' :'d-none'; ?> border" style="width:55px">NOT OK</div>
+                                    </div>
+                                </div>
+                                <!-- Feedback Doc Req DMF -->
+                                <div class="row">
+                                    <div class="col fw-bold">
+                                        DMF
+                                    </div>
+                                    <div class="col">
+                                        <div class="bg-success m-0 text-center text-white <?php echo $feedbackDocReq[0]['DMF']=="ok"? '' :'d-none'; ?> border" style="width:55px">OK</div>
+                                        <div class="bg-danger m-0 text-center text-white <?php echo $feedbackDocReq[0]['DMF']=="notOk"? '' :'d-none'; ?> border" style="width:55px">NOT OK</div>
+                                    </div>
+                                </div>
+                                <!-- Feedback Doc Req GMP -->
+                                <div class="row">
+                                    <div class="col fw-bold">
+                                        GMP
+                                    </div>
+                                    <div class="col">
+                                        <div class="bg-success m-0 text-center text-white <?php echo $feedbackDocReq[0]['GMP']=="ok"? '' :'d-none'; ?> border" style="width:55px">OK</div>
+                                        <div class="bg-danger m-0 text-center text-white <?php echo $feedbackDocReq[0]['GMP']=="notOk"? '' :'d-none'; ?> border" style="width:55px">NOT OK</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- Action Feedback Doc Req -->
-                        <div class="row mx-1" style="margin-top:55px">
-                            <button type="button" class="btn btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#feedbackDocReq<?php echo $row['id']?>">
-                                <div style="font-size:11px">FeedbackDocReq</div>
-                            </button>
-                            <?php include "../modalFeedbackDocReq.php"?>
-                        </div>
-                        <!-- -- -->
+                    <div>
+                        <button type="button" class="btn btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#feedbackDocReq<?php echo $row['id']?>">
+                            <div style="font-size:11px">FeedbackDocReq</div>
+                        </button>
+                        <?php include "../modalFeedbackDocReq.php"?>
+                    </div>
+                    <!-- -- -->
                 </td>
                 <!-- Column Feedback Rnd -->
                 <td>
-                    <!-- Review Harga -->
-                    <div class="row" style="font-size:13px;">
-                        <!-- Title -->
-                        <div class="row fw-bold">
-                            Review Harga:
+                    <div class="overflow-auto" style="height:96px">
+                        <!-- Title Review Harga-->
+                        <div class="fw-bold" style="font-size:13px;">
+                             Review Harga:
                         </div>
                         <!-- Isi Feedback Rnd Review Harga -->
-                        <div class="row">
+                        <div style="font-size:13px;">
                             <?php echo !empty($row['feedbackRndPriceReview'])?$row['feedbackRndPriceReview']:'-'?>
                         </div> 
-                    </div>
-                    <!-- Sampel dan Lainnya -->
-                    <div class="row" style="font-size:13px;">
-                        <!-- Title -->
-                        <div class="row fw-bold">
+                        <!-- Title Sampel dan Lainnya-->
+                        <div class="fw-bold" style="font-size:13px;">
                                 Sampel dan lainnya:
                         </div>
-                        <!-- Isi Feedback Rnd Sampel dan lainnya -->
+                        <!-- Isi Detail Feedback Rnd-->
                         <?php
                             $feedbackRnd = $conn->query("SELECT TOP 1 * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$row['id']}' ORDER BY ID DESC")->fetchAll();
                         ?>
-                        <div class="row">
+                        <div>
                             <div class="text-success p-0" style="width:85px;font-size:11px"><?php echo $feedbackRnd[0]['dateFeedback']?></div>
                             <div class="text-wrap p-0" style="font-size:12px;"><?php echo $feedbackRnd[0]['sampel']?></div>
                             <div class="fw-bold p-0" style="font-size:9px"><?php echo !empty($feedbackRnd[0]['writer'])? 'By: '.$feedbackRnd[0]['writer']:'-'; ?></div>
                         </div>
                     </div>
                     <!-- Action Feedback Rnd -->
-                    <div class="row">
+                    <div>
                         <button class="btn btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#feedbackRnd<?php echo $row['id']?>">
                             <div style="font-size:11px">Sampel dan lainnya</div>
                         </button>
@@ -194,16 +216,18 @@
                     <?php
                         $feedbackProc = $conn->query("SELECT TOP 1 * FROM TB_FeedbackProc WHERE idSupplier='{$row['id']}' ORDER BY ID DESC")->fetchAll();
                     ?>
-                    <!-- Isi Feedback Proc -->
-                    <div class="row" style="height:70px">
-                        <div class="p-0">
-                            <div class="text-success" style="width:85px;font-size:11px"><?php echo $feedbackProc[0]['dateFeedbackProc']?></div>
-                            <div class="text-wrap" style="font-size:12px"><?php echo $feedbackProc[0]['feedback']?></div>
-                            <div class="fw-bold" style="font-size:9px"><?php echo !empty($feedbackProc[0]['writer'])? 'By: '.$feedbackProc[0]['writer']:'-'; ?></div>
+                    <div class="overflow-auto" style="height:96px">
+                        <!-- Isi Feedback Proc -->
+                        <div style="height:70px">
+                            <div class="p-0">
+                                <div class="text-success" style="width:85px;font-size:11px"><?php echo $feedbackProc[0]['dateFeedbackProc']?></div>
+                                <div class="text-wrap" style="font-size:12px"><?php echo $feedbackProc[0]['feedback']?></div>
+                                <div class="fw-bold" style="font-size:9px"><?php echo !empty($feedbackProc[0]['writer'])? 'By: '.$feedbackProc[0]['writer']:'-'; ?></div>
+                            </div>
                         </div>
                     </div>
                     <!-- Action Feedback Proc -->
-                    <div class="row mx-1" style="margin-top:2px">
+                    <div>
                         <button class="btn btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#feedbackProc<?php echo $row['id']?>">
                             <div style="font-size:11px">Feedback Proc</div>
                         </button>
@@ -212,18 +236,17 @@
                 </td>
                 <!-- Column Final Feedback Rnd -->
                 <td>
-                    <?php
-                        $finalFeedbackRnd = $conn->query("SELECT * FROM TB_FinalFeedbackRnd WHERE idSupplier='{$row['id']}'")->fetchAll();
-                    ?>
-                    <!-- Isi Final Feedback Rnd -->
-                    <div class="row" style="height:70px">
-                        <div class="p-0">
-                            <div class="text-success ps-0" style="width:85px;font-size:11px"><?php echo $finalFeedbackRnd[0]['dateFinalFeedbackRnd']?></div>
-                            <div class="ps-0" style="font-size:12px"><?php echo !empty($finalFeedbackRnd[0]['finalFeedbackRnd'])? $finalFeedbackRnd[0]['finalFeedbackRnd']:'-'; ?></div>
+                    <div class="overflow-auto" style="height:96px">
+                        <!-- Isi Final Feedback Rnd -->
+                        <div style="height:70px">
+                            <div class="p-0">
+                                <div class="text-success ps-0" style="width:85px;font-size:11px"><?php echo $row['dateFinalFeedbackRnd']?></div>
+                                <div class="text-wrap" style="font-size:12px"><?php echo !empty($row['finalFeedbackRnd'])? $row['finalFeedbackRnd']:'-'; ?></div>
+                            </div>
                         </div>
                     </div>
                     <!-- Action Final Feedback Rnd -->
-                    <div class="row" style="margin-top:2px">
+                    <div>
                         <button type="button" class="btn btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#finalFeedbackRnd<?php echo $row['id']?>">
                             <div style="font-size:12px">Final Feedback Rnd</div>
                         </button>
@@ -253,5 +276,18 @@
             ordering: false,
         })
      })
+
+     function deleteDetail(d){
+            // $('a#deleteDetail'+d.id).on('submit', function(e){
+            // e.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: "controller/actionUpdateSupplier.php?action_type=delete&id="+d.id,
+                success: function(data){
+                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+                }
+            })
+        // })
+     }
 </script>
 <!-- -- -->

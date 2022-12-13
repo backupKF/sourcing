@@ -27,12 +27,9 @@
         <!-- Sidebar -->
         <?php require "../sidebar.php" ?>
 
-        <!-- Formulir Pengajuan Sourcing -->
-        <!-- <a href="kelola-data.php" style="margin-left:290px" class="btn btn-info mt-3">
-            Tambah Data Pengajuan
-        </a> -->
+        <br>
 
-        <!-- Tabel Pengajuan -->
-        <?php require "./kelola-data.php"?>
+        <!-- Formulir Pengajuan -->
+        <?php require "./formulirPengajuan.php"?>
     </body>
 </html>
