@@ -24,9 +24,32 @@
     <body class="bg-dark bg-opacity-10">
     <!-- Sidebar -->
     <?php require "../sidebar.php" ?>
-    <br>
 
-    <!-- Tabel Pengajuan -->
-    <?php require "./tabelRiwayat.php"?>\
+    <!-- Navbar -->
+    <?php require "../navbar.php" ?>
+
+    <br>
+    
+    <div class="container position-absolute p-0" style="left:230px;top:70px">
+        <!-- Tabel Riwayat -->
+        <div id="tabel-riwayat"></div>
+    </div>
+
     </body>
+
+    <script>
+        $(document).ready(function(){
+            loadDataRiwayat()
+        })
+
+    function loadDataRiwayat(){
+        $.ajax({
+            type: 'GET',
+            url: 'layout/tabelRiwayat.php',
+            success: function(data){
+                $('#tabel-riwayat').html(data);
+            }
+        });
+    }
+    </script>
 </html>

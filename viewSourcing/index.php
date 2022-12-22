@@ -23,10 +23,15 @@
     <body class="bg-dark bg-opacity-10 position-relative">
     <!-- Sidebar -->
     <?php require "../sidebar.php" ?>
+
+    <!-- Navbar -->
+    <?php require "../navbar.php" ?>
     
     <br>
 
-    <!-- Tabel Pengajuan -->
-    <?php require "./tabelView.php"?>
+    <div class="container mt-0 position-absolute p-0" id="detail-sourcing" style="left:230px;top:70px">
+        <!-- Tabel Pengajuan -->
+        <?php require "layout/tabelView.php"?>
+    </div>
     </body>
 </html>

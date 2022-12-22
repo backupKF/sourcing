@@ -27,9 +27,14 @@
         <!-- Sidebar -->
         <?php require "../sidebar.php" ?>
 
+        <!-- Navbar -->
+        <?php require "../navbar.php" ?>
+
         <br>
 
-        <!-- Formulir Pengajuan -->
-        <?php require "./formulirPengajuan.php"?>
+        <div class="container position-absolute p-0" style="left:230px;top:50px">
+            <!-- Formulir Pengajuan -->
+            <?php require "./formulirPengajuan.php"?>
+        </div>
     </body>
 </html>

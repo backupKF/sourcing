@@ -6,7 +6,7 @@
   </head>
   <body>
     <!-- Sidebar -->
-        <div class="d-flex flex-column vh-100 flex-shrink-0 p-3 text-white bg-dark position-fixed" style="width: 215px;z-index:10;">
+        <div class="d-flex flex-column vh-100 flex-shrink-0 p-3 text-white bg-dark position-fixed" style="width: 215px;z-index:9999;">
             <!-- Title -->
             <h3 class="d-flex justify-content-center m-0">Kimia Farma</h3>
             <h6 class="d-flex justify-content-center">Digitalisasi Sourcing</h6>

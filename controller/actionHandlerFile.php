@@ -1,0 +1,85 @@
+<?php
+    include "../dbConfig.php";
+
+    if(isset($_FILES['file'])){
+        // File Upload Folder
+        $uploadDir = $_SERVER['DOCUMENT_ROOT']."/sourcing/assets/uploads/";
+
+        // Periksa folder
+        if(!is_dir($uploadDir)){
+        // Buat folder jika tidak ada
+            mkdir($uploadDir, 0777, true);
+        }
+
+        // Allows file types
+        $allowTypes = array('pdf');
+
+        // Default reponse
+        $response = array(
+            'status' => 0,
+            'message' => 'Gagal menyimpan file, silahkan coba lagi',
+        );
+
+        $uploadStatus = 1; 
+        // Upload File
+        $uploadedFile = '';
+        if(!empty($_FILES['file']['name'])){
+            // File path config
+            $tgl = date("Y-m-d H:i:s");
+            $fileName = basename($_FILES['file']['name']);
+            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+            $fileHash = md5($fileName.$tgl).'.'.$fileType;
+            $targetFilePath = $uploadDir . $fileHash;
+            //Allow certain file formats to upload 
+            if(in_array($fileType, $allowTypes)){ 
+                // Upload file to the server 
+                if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){ 
+                    $uploadedFile = $fileName; 
+                    $response['message'] = 'Success';
+                }else{ 
+                    $uploadStatus = 0; 
+                    $response['message'] = 'Sorry, there was an error uploading your file.'; 
+                } 
+            }else{ 
+                $uploadStatus = 0; 
+                $response['message'] = 'Sorry, only '.implode('/', $allowTypes).' files are allowed to upload.'; 
+            } 
+        }
+        
+        if($uploadStatus == 1){ 
+            // Include the database config file 
+            $idSupplier = $_POST['idSupplier'];
+            // Insert form data in the database 
+            $sql = "INSERT INTO TB_File (fileName, fileHash, idSupplier) 
+            VALUES (?,?,?)";
+            $params = array(
+                $fileName,
+                $fileHash,
+                $idSupplier,
+            );
+            $query = $conn->prepare($sql);
+            $insert = $query->execute($params);
+        }
+        else{ 
+            $response['message'] = 'Please fill all the mandatory fields (name and email).'; 
+        } 
+
+        //Return response 
+        echo json_encode($response);
+    }
+
+    if(($_REQUEST['actionType'] == 'delete') && !empty($_GET['id'])){
+        $idFile = $_GET['id'];
+        $file = $conn->query("SELECT fileHash FROM TB_File WHERE id='{$idFile}'")->fetchAll();
+        $filePath = $_SERVER['DOCUMENT_ROOT']."/sourcing/assets/uploads/".$file[0]['fileHash'];
+        //Delete data in folder php
+        $test = unlink($filePath);
+
+        //Delete data from SQL server 
+        $sql = "DELETE FROM TB_File WHERE id = ?"; 
+        $query = $conn->prepare($sql); 
+        $delete = $query->execute(array($idFile));
+        
+        echo json_encode($test);
+    }
+?>

@@ -26,13 +26,15 @@
         <!-- Sidebar -->
         <?php require "../sidebar.php"?>
 
+        <!-- Navbar -->
+        <?php require "../navbar.php"?>
+
         <br>
 
-        <div class="container position-absolute p-0" style="left:250px">
+        <div class="container position-absolute p-0" style="left:250px;top:70px">
             <h4>Dashboard...</h4>
             <h5>Selamat Datang RPIC</h5>
-            <?php include "statistik.php"?>
-            <?php include "tabelInfo.php"?>
+            <?php include "layout/statistik.php"?>
         </div>
     </body>
 </html>

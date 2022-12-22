@@ -18,7 +18,7 @@
     } 
 ?>
 <!-- Form Data Pengajuan -->
-<div class="container" style="margin-left: 220px">
+
     <div class="card" style="width: 1050px;height:550px;margin-top:20px">
         <div class="card-body">
             <h5 class="card-title">Kelola Data Pengajuan</h5>
@@ -118,7 +118,6 @@
                 <button class="btn btn-outline-primary btn-sm ms-1 disabled" >Masukan ke Riwayat Pengajuan</button>
             <?php }?>
         </div>
-    </div>
         <!-- End Kelola Data Pengajuan -->
         
         <!-- Modal Set Project -->
