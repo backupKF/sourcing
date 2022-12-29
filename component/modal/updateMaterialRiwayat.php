@@ -13,9 +13,6 @@
             <!-- Modal Body -->
             <div class="modal-body">
                 <form class="was-validated" id="formEditMaterial<?php echo $row['id']?>">
-                    <input type="hidden" name="editMaterial" value="true">    
-                    <!-- Get ID -->
-                    <input type="hidden" name="id" value="<?php echo !empty($row['id'])? $row['id']:'';?>">
                     <!-- Material Category -->
                     <label class="form-label fw-bold">Material Category</label>
                     <div class="row">

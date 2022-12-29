@@ -9,8 +9,6 @@
             <!-- Modal Body -->
             <div class="modal-body">
                 <form class="was-validated" id="formAddSupplier<?php echo $_GET['idMaterial']?>" autocomplete="off">
-                <input type="hidden" name="idMaterial" value="<?php echo $_GET['idMaterial']?>">
-
                 <!-- Input Supplier -->
                 <div class="mb-3">
                     <label for="supplier" class="form-label fw-bold">Supplier</label>
@@ -72,29 +70,8 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                <input type="submit" id="submitAddSupplier<?php echo $_GET['idMaterial']?>" class="btn btn-primary" name="submit" value="Submit" form="formAddSupplier<?php echo $_GET['idMaterial']?>">
+                <button type="button" class="btn btn-primary" onclick="funcAddSupplier(<?php echo $_GET['idMaterial']?>)">Submit</button>
             </div>
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $('form#formAddSupplier<?php echo $_GET['idMaterial']?>').on('submit', function(e){
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "../controller/actionAddSupplier.php",
-                data: $(this).serialize(),
-                success: function(data){
-                    document.getElementById("formAddSupplier<?php echo $_GET['idMaterial']?>").reset();
-                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-                }
-            })
-            $('#tambahSupplier<?php echo $_GET['idMaterial']?>').modal('hide');
-        })
-    })
-
-    // function resetForm(){
-
-    // }
-</script>

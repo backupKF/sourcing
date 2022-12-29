@@ -1,6 +1,10 @@
 <?php
     // Halaman Saat Ini
     $currentPage = 'pengajuan'; 
+
+    if(!session_id()){ 
+        session_start(); 
+    }  
 ?>
 
 <!doctype html>
@@ -8,13 +12,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="../bootstrap-5.2.2-dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="../bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-        <link rel='stylesheet' href='https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css'>
-        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+        <link href="../plugin/bootstrap-5.2.2-dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="../plugin/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../plugin/jquery/jquery.min.js"></script>
+        <link href='../plugin/datatable/css/jquery.dataTables.min.css'  rel='stylesheet'>
+        <script src="../plugin/datatable/js/jquery.dataTables.min.js"></script>
+        <script src="../plugin/sweetalert/sweetalert.js"></script>
         <title>Sourcing | Pengajuan</title>
         <style>
             .poppins {
@@ -34,7 +38,7 @@
 
         <div class="container position-absolute p-0" style="left:230px;top:50px">
             <!-- Formulir Pengajuan -->
-            <?php require "./formulirPengajuan.php"?>
+            <?php require "layout/formulirPengajuan.php"?>
         </div>
     </body>
 </html>

@@ -13,9 +13,6 @@
             <!-- Modal Body -->
             <div class="modal-body">
                 <form class="was-validated" id="formEditMaterial<?php echo $row['id']?>">
-                    <input type="hidden" name="editMaterial" value="true">    
-                    <!-- Get ID -->
-                    <input type="hidden" name="id" value="<?php echo !empty($row['id'])? $row['id']:'';?>">
                     <!-- Material Category -->
                     <label class="form-label fw-bold">Material Category</label>
                     <div class="row">
@@ -138,7 +135,7 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close">Back</button>
-                <input type="submit" value="submit" class="btn btn-primary" form="formEditMaterial<?php echo $row['id']?>">
+                <button type="button" class="btn btn-primary" onclick="funcUpdateMaterial(<?php echo $row['id']?>)">Submit</button>
             </div>
         </div>
     </div>

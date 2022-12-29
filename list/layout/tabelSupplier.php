@@ -42,7 +42,7 @@
         <?php
             include "../../dbConfig.php";
             ${'no'. $_GET['idMaterial']} = 1;
-            $dataSupplier = $conn->query("SELECT * FROM TB_Supplier WHERE idMaterial='{$_GET['idMaterial']}'")->fetchAll();
+            $dataSupplier = $conn->query("SELECT * FROM TB_Supplier WHERE idMaterial='{$_GET['idMaterial']}' ORDER BY id DESC")->fetchAll();
             foreach($dataSupplier as $row){
         ?>
         <tr>
@@ -84,7 +84,7 @@
                                 <td class="text-center p-0" style="font-size:12px;width:60px"><?php echo $detail['UoM']?></td>
                                 <td class="text-center p-0" style="font-size:12px;width:60px"><?php echo $detail['price']?></td>
                                 <td class="text-center p-0" style="font-size:12px;width:60px">
-                                <button type="button" class="btn btn-danger btn-sm d-inline ms-1" onclick="deleteDetailInfo<?php echo $row['id']?>(<?php echo $detail['idDetailSupplier']?>)">Delete</a>
+                                <button type="button" class="btn btn-danger btn-sm d-inline ms-1" onclick="funcDeleteDetailInfo(<?php echo $detail['idDetailSupplier']?>,<?php echo $row['id']?>)">Delete</a>
                                 </td>
                             </tr>
                             <?php
@@ -284,18 +284,6 @@
                 <?php include "../../component/modal/updateSupplier.php"?>
             </td>
         </tr>
-        <script>
-            function deleteDetailInfo<?php echo $row['id']?>(id){
-                $.ajax({
-                    type: 'GET',
-                    url: '../controller/actionUpdateSupplier.php',
-                    data:{id: id, actionType: "delete"},
-                    dataType: 'json',
-                    success: function(response){
-                        loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-                    }
-                })
-            }
         </script>
         <?php
             }
@@ -313,4 +301,307 @@
             lengthMenu: [2],
         });
     })
+
+    function funcAddSupplier(idMaterial){
+            $.ajax({
+                type: "POST",
+                url: "../controller/actionAddSupplier.php",
+                data: $('form#formAddSupplier'+idMaterial).serialize()+'&idMaterial='+idMaterial,
+                dataType: 'json',
+                success: function(response){
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
+                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+                }
+            })
+            $('#tambahSupplier<?php echo $_GET['idMaterial']?>').modal('hide');
+    }
+
+    function funcAddDetailSupplier(idSupplier){
+            $.ajax({
+                type: "POST",
+                url: "../controller/actionUpdateSupplier.php",
+                data: $('form#formAddDetail'+idSupplier).serialize()+'&id='+idSupplier+'&addDetail=true',
+                dataType: 'json',
+                success: function(response){
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
+                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+                }
+            })
+            $('#tambahDetailSupplier'+idSupplier).modal('hide');
+    }
+
+    function funcDeleteDetailInfo(idDetailSupplier, idSupplier){
+        $.ajax({
+            type: 'GET',
+            url: '../controller/actionUpdateSupplier.php',
+            data:{id: idDetailSupplier, actionType: "delete", idSupplier: idSupplier},
+            dataType: 'json',
+            success: function(response){
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
+                loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+            }
+        })
+    }
+
+    function funcUploadDoc(idSupplier){
+            $.ajax({
+                type:'POST',
+                url: '../controller/actionHandlerFile.php',
+                data: new FormData(document.getElementById("uploadFile"+idSupplier)),
+                dataType: 'json',
+                contentType: false,
+                cache: false,
+                processData:false,
+                success: function(response){
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
+                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+                }
+            })
+            $('#uploadDoc'+idSupplier).modal('hide');
+    }
+
+    function deleteFile(idFile, idSupplier){
+        $.ajax({
+            type: 'GET',
+            url: '../controller/actionHandlerFile.php',
+            data:{idFile: idFile, idSupplier: idSupplier, actionType: "delete"},
+            dataType: 'json',
+            success: function(response){
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
+                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+            }
+        })
+        $('#viewDoc'+idSupplier).modal('hide');
+    }
+
+    function funcFeedbackDocReq(idSupplier){
+            $.ajax({
+                type: "POST",
+                url: "../controller/actionFeedback.php",
+                data: $('form#formFeedbackDocReq'+idSupplier).serialize()+'&feedbackDocReq=true&idSupplier='+idSupplier,
+                dataType: 'json',
+                success: function(response){
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
+                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+                }
+            })
+            $('#feedbackDocReq'+idSupplier).modal('hide');
+    }
+
+    function funcFeedbackRnd(idSupplier){
+        $.ajax({
+                type: "POST",
+                url: "../controller/actionFeedback.php",
+                data: $('form#formFeedbackRnd'+idSupplier).serialize()+'&feedbackRnd=true&idSupplier='+idSupplier,
+                dataType: 'json',
+                success: function(response){
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
+
+                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+                }
+            })
+            $('#feedbackRnd'+idSupplier).modal('hide');
+    }
+
+    function funcFeedbackProc(idSupplier){
+        $.ajax({
+                type: "POST",
+                url: "../controller/actionFeedback.php",
+                data: $('form#formFeedbackProc'+idSupplier).serialize()+'&feedbackProc=true&idSupplier='+idSupplier,
+                dataType: 'json',
+                success: function(response){
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
+                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+                }
+            })
+            $('#feedbackProc'+idSupplier).modal('hide');
+    }
+
+    function funcFinalFeedbackRnd(idSupplier){
+        $.ajax({
+                type: "POST",
+                url: "../controller/actionFeedback.php",
+                data: $('form#formFinalFeedbackRnd'+idSupplier).serialize()+'&formFinalFeedbackRnd=true&idSupplier='+idSupplier,
+                dataType: 'json',
+                success: function(response){
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
+                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+                }
+            })
+            $('#finalFeedbackRnd'+idSupplier).modal('hide');
+    }
+
+    function funcUpdateSupplier(idSupplier){
+        $.ajax({
+            url: '../controller/actionUpdateSupplier.php',
+            method: 'POST',
+            data: $('form#formUpdateSupplier'+idSupplier).serialize(),
+            dataType: 'json',
+            success: function(response){
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
+                loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+            }
+        })
+        $('#editSupplier'+idSupplier).modal('hide');
+    }
 </script>

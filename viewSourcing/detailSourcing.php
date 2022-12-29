@@ -4,79 +4,72 @@
 <!doctype html>
 <html lang="en">
     <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="../bootstrap-5.2.2-dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="../bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <link rel='stylesheet' href='https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css'>
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Sourcing | View</title>
-    <style>
-        .poppins {
-            font-family: 'Poppins';
-        }
-    </style>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../plugin/bootstrap-5.2.2-dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="../plugin/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../plugin/jquery/jquery.min.js"></script>
+        <link href='../plugin/datatable/css/jquery.dataTables.min.css'  rel='stylesheet'>
+        <script src="../plugin/datatable/js/jquery.dataTables.min.js"></script>
+        <script src="../plugin/sweetalert/sweetalert.js"></script>
+
+        <title>Sourcing | View</title>
+        
     </head>
-    <body class="bg-dark bg-opacity-10 position-relative">
-    <!-- Sidebar -->
-    <?php require "../sidebar.php" ?>
+    <body class="bg-dark bg-opacity-10">
+        <!-- Sidebar -->
+        <?php require "../sidebar.php" ?>
 
-    <!-- Navbar -->
-    <?php require "../navbar.php"?>
+        <!-- Navbar -->
+        <?php require "../navbar.php"?>
 
-    <br>
-    <!-- Detail Sourcing -->
-    <div class="container mt-0 position-absolute p-0" id="detail-sourcing" style="left:230px;top:70px">
-        <!-- Card Table -->
-        <div class="card" style="width:1050px">
-            <div class="card-body">
-                <!-- Formulir Material -->
-                <div id="formEditMaterial"></div>
+        <br>
+        <!-- Detail Sourcing -->
+        <div class="container position-absolute p-0" style="left:230px;top:70px">
+            <!-- Card Table -->
+            <div class="card" style="width:1050px">
+                <div class="card-body">
+                    <!-- Formulir Material -->
+                    <div id="formEditMaterial"></div>
 
-                <hr>
+                    <hr>
 
-                <!-- Tabel Supplier -->
-                <div id="tabelSupplier"></div>
+                    <!-- Tabel Supplier -->
+                    <div id="tabelSupplier"></div>
 
-                <a href="../viewSourcing/index.php" class="btn btn-secondary">Back</a>
+                    <a href="../viewSourcing/index.php" class="btn btn-secondary">Back</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <script>
-    $(document).ready(function(){
-        loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-        loadDataMaterial(<?php echo $_GET['idMaterial']?>)
-    })
+        <script>
+        $(document).ready(function(){
+            loadDataSupplier(<?php echo $_GET['idMaterial']?>,<?php echo $_GET['idSupplier']?>)
+            loadDataMaterial(<?php echo $_GET['idMaterial']?>)
+        })
 
-    function loadDataSupplier(id){
-        $.ajax({
-            type: 'GET',
-            url: 'layout/tabelSupplier.php',
-            async : true,
-            data: {idMaterial: id},
-            success: function(data){
-                $('#tabelSupplier').html(data);
-            }
-        });
-    }
+        function loadDataSupplier(idMaterial, idSupplier){
+            $.ajax({
+                type: 'GET',
+                url: 'layout/tabelSupplier.php',
+                data: {idMaterial: idMaterial, idSupplier: idSupplier},
+                success: function(data){
+                    $('#tabelSupplier').html(data);
+                }
+            });
+        }
 
-    function loadDataMaterial(id){
-        $.ajax({
-            type: 'GET',
-            url: 'layout/formEditMaterial.php',
-            async : true,
-            data: {idMaterial: id},
-            success: function(data){
-                $('#formEditMaterial').html(data);
-            }
-        });
-    }
-    </script>
+        function loadDataMaterial(id){
+            $.ajax({
+                type: 'GET',
+                url: 'layout/formEditMaterial.php',
+                data: {idMaterial: id},
+                success: function(data){
+                    $('#formEditMaterial').html(data);
+                }
+            });
+        }
+        </script>
 
     </body>
 </html>

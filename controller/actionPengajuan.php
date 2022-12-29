@@ -1,13 +1,13 @@
 <?php
-     if(!session_id()){ 
+    if(!session_id()){ 
         session_start(); 
     } 
 
-    include "../../dbConfig.php";
+    include "../dbConfig.php";
 
     if(isset($_POST['setProject'])){
         $_SESSION['project'] = $_POST['project'];
-        header('Location: ../index.php');
+        header('Location: ../pengajuan/index.php');   
     };
 
     $materials = $_SESSION['materials'];
@@ -63,15 +63,15 @@
                     "projectCode" => $setProject,
                 ];
         $materials[] = $newData;
-
         $_SESSION['project'] = $setProject;
         $_SESSION['materials'] = $materials;
 
-        header('Location: ../index.php');
+        header('Location: ../pengajuan/index.php');
     }
 
     if(isset($_POST['tambahPengajuan'])){
         $materials = $_SESSION['materials'];
+        var_dump($materials);
 
         foreach($materials as $material){
             $sql = "INSERT INTO TB_PengajuanSourcing (materialCategory, materialName,  materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, documentReq, projectCode, created, dateSourcing, feedbackTL, feedbackRPIC) 
@@ -95,6 +95,6 @@
         }
         unset($_SESSION['materials']);
         unset($_SESSION['project']);
-        header('Location:../../riwayat/index.php');
+        header('Location:../riwayat/index.php');
     }
 ?>

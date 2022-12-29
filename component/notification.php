@@ -1,5 +1,5 @@
 <?php
-    include "dbConfig.php";
+    include "../dbConfig.php";
 
     if(isset($_POST['view'])){
         if($_POST['view'] != ''){
@@ -8,7 +8,7 @@
             $update = $query->execute();
         }
 
-        $notifications = $conn->query("SELECT * FROM TB_Notifications")->fetchAll();
+        $notifications = $conn->query("SELECT * FROM TB_Notifications ORDER BY idNotification DESC")->fetchAll();
 
         if(count($notifications) > 0){
             foreach($notifications as $data){
@@ -17,7 +17,7 @@
                         <strong>'.$data['person'].'</strong>
                         <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
                         <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
-                        <a href="#"><small>Lihat Selengkapnya...</small></a>
+                        <a href="../viewSourcing/detailSourcing.php?idMaterial='.$data['idMaterial'].'&idSupplier='.$data['idSupplier'].'"><small>Lihat Selengkapnya...</small></a>
                     </div>
                     <hr>
                 ';

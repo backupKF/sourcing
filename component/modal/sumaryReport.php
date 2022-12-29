@@ -18,7 +18,7 @@
                             Masukan Sumary Report (*Tandai (-) jika tidak Diisi).
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-primary btn-sm" name="submit" value="Submit">
+                    <button type="button" class="btn btn-warning btn-sm m-0" onclick="funcUpdateSumaryReport(<?php echo $row['id']?>,'<?php echo $row['materialName']?>')">Submit</button>
                 </form>
             </div>
             <!-- Modal Footer -->
@@ -28,19 +28,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $('form#formSumaryReport<?php echo $row['id']?>').on('submit', function(e){
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "../controller/actionUpdateMaterial.php",
-                data: $(this).serialize(),
-                success: function(data){
-                    loadDataMaterial('<?php echo $_GET['projectCode']?>')
-                }
-            })
-            $('#sumaryReport<?php echo $row['id']?>').modal('hide');
-        })
-    })
-</script>

@@ -1,21 +1,6 @@
 <?php 
-    $currentPage = 'pengajuan'; 
-
-    if(!session_id()){ 
-        session_start(); 
-    } 
-
     include "../dbConfig.php";
-
     $projectName = $conn->query("SELECT projectName FROM TB_Project WHERE projectCode='{$_SESSION['project']}' ")->fetchAll();
-
-    $sessMaterial = !empty($_SESSION['sessMaterial'])?$_SESSION['sessMaterial']:'';
-    // Get status message from session 
-    if(!empty($sessMaterial['status']['msg'])){ 
-        $statusMsg = $sessMaterial['status']['msg']; 
-        $statusMsgType = $sessMaterial['status']['type']; 
-        unset($_SESSION['sessMaterial']['status']); 
-    } 
 ?>
 <!-- Form Data Pengajuan -->
 
@@ -24,18 +9,18 @@
             <h5 class="card-title">Kelola Data Pengajuan</h5>
             <hr>
             <!-- Select Project -->
-            <form method="POST">
-                <div class="row">
-                    <div class="mb-3 col">
-                        <label class="form-labe fw-bold ms-1 mb-2">Project</label>
-                        <input class="form-control form-control-sm" type="text" placeholder="<?php echo isset($_SESSION['project'])?"{$_SESSION['project']}  |  {$projectName[0]["projectName"]}":""; ?>" disabled readonly>
-                    </div>
+            <div class="row">
                 <div class="mb-3 col">
-                     <button type="button" class="btn btn-outline-primary btn-sm" style="margin-top:32px" data-bs-target="#project" data-bs-toggle="modal">
-                        Select
-                     </button>
+                    <label class="form-labe fw-bold ms-1 mb-2">Project</label>
+                    <input class="form-control form-control-sm" type="text" placeholder="<?php echo isset($_SESSION['project'])?"{$_SESSION['project']}  |  {$projectName[0]["projectName"]}":""; ?>" disabled readonly>
                 </div>
-            </form>
+            <div class="mb-3 col">
+                <button type="button" class="btn btn-outline-primary btn-sm" style="margin-top:32px" data-bs-target="#project" data-bs-toggle="modal">
+                    Select
+                </button>
+                <!-- Modal Set Project -->
+                <?php include "../component/modal/setProject.php"?>
+            </div>
         </div>
                     
         <hr class="m-0 mb-1">
@@ -47,7 +32,7 @@
                 Tambah Data Material
             </button>
         <?php 
-            include "component/modalFormMaterial.php";
+            include "../component/modal/addMaterial.php";
             }else{
         ?>
             <button class="btn btn-outline-primary btn-sm mt-1 mb-3 ms-1 disabled" type="button">
@@ -109,7 +94,7 @@
             <?php if(isset($_SESSION['materials'])){?>
             <!-- Action -->
             <div class="d-flex">
-                <form action="controller/actionPengajuan.php" method="POST">
+                <form action="../controller/actionPengajuan.php" method="POST">
                     <input type="submit" value="Masukan ke Riwayat Pengajuan" class="btn btn-outline-primary btn-sm ms-1" name="tambahPengajuan">
                 </form>
             </div>
@@ -119,9 +104,6 @@
             <?php }?>
         </div>
         <!-- End Kelola Data Pengajuan -->
-        
-        <!-- Modal Set Project -->
-        <?php include "component/modalSetProject.php"?>
     
         <script>
             $(document).ready( function () {

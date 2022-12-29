@@ -23,7 +23,7 @@
                     <tbody>
                         <td><?php echo $file['fileName']?></td>
                         <td><a href="../assets/uploads/<?php echo $file['fileHash']?>" target="_blank">View</a></td>
-                        <td><button type="button" onclick="deleteFile<?php echo $row['id']?>(<?php echo $file['id']?>)">delete</button></td>
+                        <td><button type="button" onclick="deleteFile(<?php echo $file['id']?>,<?php echo $row['id']?>)">delete</button></td>
                     </tbody>
                     <?php } ?>
                 </table>
@@ -35,18 +35,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function deleteFile<?php echo $row['id']?>(id){
-        $.ajax({
-            type: 'GET',
-            url: '../controller/actionHandlerFile.php',
-            data:{id: id, actionType: "delete"},
-            dataType: 'json',
-            success: function(response){
-                $('#viewDoc<?php echo $row['id']?>').modal('hide');
-                loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-            }
-        })
-    }
-</script>

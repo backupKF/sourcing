@@ -20,11 +20,11 @@
                             Masukan Feedback Proc (*Tandai (-) jika tidak Diisi).
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-primary btn-sm" name="submit" value="Submit">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="funcFeedbackProc(<?php echo $row['id']?>)">Submit</button>
                 </form>
                 <div class="overflow-auto" style="height:200px;background-color:#f1fca7">
                     <?php
-                        $dataDetailFeedbackProc = $conn->query("SELECT * FROM TB_FeedbackProc WHERE idSupplier='{$row['id']}'")->fetchAll();
+                        $dataDetailFeedbackProc = $conn->query("SELECT * FROM TB_FeedbackProc WHERE idSupplier='{$row['id']}' ORDER BY id DESC")->fetchAll();
                         foreach($dataDetailFeedbackProc as $dataProc){
                     ?>
                         <div class="my-2">
@@ -51,19 +51,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $('form#formFeedbackProc<?php echo $row['id']?>').on('submit', function(e){
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "../controller/actionFeedback.php",
-                data: $(this).serialize(),
-                success: function(data){
-                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-                }
-            })
-            $('#feedbackProc<?php echo $row['id']?>').modal('hide');
-        })
-    })
-</script>

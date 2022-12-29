@@ -72,24 +72,8 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                <input type="submit" class="btn btn-primary" name="submit" value="Submit" form="formUpdateSupplier<?php echo $row['id']?>">
+                <input type="submit" class="btn btn-primary" name="submit" value="Submit" onclick="funcUpdateSupplier(<?php echo $row['id']?>)">
             </div>
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $('form#formUpdateSupplier<?php echo $row['id']?>').on('submit', function(e){
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "../controller/actionUpdateSupplier.php",
-                data: $('form#formUpdateSupplier<?php echo $row['id']?>').serialize(),
-                success: function(data){
-                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-                }
-            })
-            $('#editSupplier<?php echo $row['id']?>').modal('hide');
-        })
-    })
-</script>

@@ -9,8 +9,6 @@
             <!-- Modal Body -->
             <div class="modal-body">
                 <form class="p-1 was-validated" id="formFeedbackRnd<?php echo $row['id']?>">
-                    <input type="hidden" name="feedbackRnd" value="true">
-                    <input type="hidden" name="idSupplier" value="<?php echo $row['id']?>">
                     <input type="hidden" name="writer" value="anonymous">
                     <!-- Review Harga -->
                     <div class="mb-1">
@@ -28,11 +26,11 @@
                             Masukan Sampel dan lainnya (*Tandai (-) jika tidak Diisi).
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-primary btn-sm" name="submit" value="Submit">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="funcFeedbackRnd(<?php echo $row['id']?>)">Submit</button>
                 </form>
                 <div class="overflow-auto" style="height:200px;background-color:#f1fca7"> 
                     <?php
-                        $dataDetailFeedbackRnd = $conn->query("SELECT * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$row['id']}'")->fetchAll();
+                        $dataDetailFeedbackRnd = $conn->query("SELECT * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$row['id']}' ORDER BY id DESC")->fetchAll();
                         foreach($dataDetailFeedbackRnd as $data){
                     ?>
                         <div class="my-2">
@@ -59,19 +57,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $('form#formFeedbackRnd<?php echo $row['id']?>').on('submit', function(e){
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "../controller/actionFeedback.php",
-                data: $(this).serialize(),
-                success: function(data){
-                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-                }
-            })
-            $('#feedbackRnd<?php echo $row['id']?>').modal('hide');
-        })
-    })
-</script>

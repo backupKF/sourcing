@@ -9,8 +9,6 @@
             <!-- Modal Body -->
             <div class="modal-body">
                 <form class="was-validated" id="formAddDetail<?php echo $row['id']?>">
-                <input type="hidden" name="id" value="<?php echo $row['id']?>">
-
                 <!-- Input MoQ-->
                 <div class="mb-3">
                     <label for="MoQ" class="form-label fw-bold">MoQ</label>
@@ -40,24 +38,8 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                <input type="submit" class="btn btn-primary" name="submit" value="Submit" form="formAddDetail<?php echo $row['id']?>">
+                <button type="button" class="btn btn-primary" onclick="funcAddDetailSupplier(<?php echo $row['id']?>)">Submit</button>
             </div>
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $('form#formAddDetail<?php echo $row['id']?>').on('submit', function(e){
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "../controller/actionAddDetailSupplier.php",
-                data: $(this).serialize(),
-                success: function(data){
-                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-                }
-            })
-            $('#tambahDetailSupplier<?php echo $row['id']?>').modal('hide');
-        })
-    })
-</script>

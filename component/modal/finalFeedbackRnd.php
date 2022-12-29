@@ -9,9 +9,6 @@
             <!-- Modal Body -->
             <div class="modal-body">
                 <form class="p-1 was-validated" id="formFinalFeedbackRnd<?php echo $row['id']?>">
-                    <input type="text" class="d-none" name="idMaterial" value="<?php echo $_GET['idMaterial']?>">
-                    <input type="text" class="d-none" name="idSupplier" value="<?php echo $row['id']?>">
-                    <input type="text" class="d-none" name="supplier" value="<?php echo $row['supplier']?>">
                     <!-- Final Feedback RnD -->
                     <div class="mb-1">
                         <label for="finalFeedbackRnd" class="form-label fw-bold" style="margin-button:2px">Final Feedback RND</label>
@@ -20,7 +17,7 @@
                             Masukan Review Harga (*Tandai (-) jika tidak Diisi).
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-primary btn-sm" name="submit" value="Submit">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="funcFinalFeedbackRnd(<?php echo $row['id']?>)">Submit</button>
                 </form>
             </div>
             <!-- Modal Footer -->
@@ -30,38 +27,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $('form#formFinalFeedbackRnd<?php echo $row['id']?>').on('submit', function(e){
-            console.log($(this).serialize());
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "../controller/actionFeedback.php",
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function(data){
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'bottom-end',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
-
-                    Toast.fire({
-                        icon: data.status == 0?'success':'warning',
-                        title: data.message
-                    })
-
-                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-                }
-            })
-            $('#finalFeedbackRnd<?php echo $row['id']?>').modal('hide');
-        })
-    })
-</script>

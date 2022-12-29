@@ -1,3 +1,7 @@
+<?php
+    $currentPage = 'list'; 
+?>
+
 <!-- Tabel Material -->
     <table id="table-material<?php echo $_GET['projectCode']?>" class="table-bordered">
         <thead class="bg-primary" >
@@ -25,8 +29,8 @@
         <tbody>
         <?php
             include "../../dbConfig.php";
-            $no = 1;
-            $dataMaterial = $conn->query("SELECT * FROM TB_PengajuanSourcing WHERE projectCode='{$_GET['projectCode']}' AND feedbackRPIC=1")->fetchAll();
+            $no= 1;
+            $dataMaterial = $conn->query("SELECT * FROM TB_PengajuanSourcing WHERE projectCode='{$_GET['projectCode']}' AND feedbackRPIC=1 ORDER BY id DESC")->fetchAll();
             foreach($dataMaterial as $row){
         ?>
             <tr>
@@ -47,10 +51,10 @@
                 <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['documentReq']?></div></td>
                 <!-- Column Status -->
                 <td>
-                <?php if($row['statusPengajuan']==''){?>
-                    <form action="../controller/actionUpdateMaterial.php" method="POST">
+                    <?php if($row['statusPengajuan']==''){?>
+                    <form id="formSetStatusPengajuan_<?php echo $row['id']?>">
                     <input type="hidden" value="<?php echo $row['id']?>" name="idMaterial">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="this.form.submit();" name="statusPengajuan">
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="funcUpdateStatusPengajuan(<?php echo $row['id']?>,'<?php echo $row['materialName']?>')" id="statusPengajuan">
                             <option value=""></option>
                             <option value="OPEN">OPEN</option>
                             <option value="RE-OPEN">RE-OPEN</option>
@@ -60,9 +64,9 @@
                             <option value="HOLD">HOLD</option>
                         </select>
                     </form>
-                <?php }else{?>
-                    <div style="font-size:13px"><?php echo $row['statusPengajuan']?></div>
-                <?php }?>
+                    <?php }else{?>
+                        <div style="font-size:13px"><?php echo $row['statusPengajuan']?></div>
+                    <?php }?>
                 </td>
                 <!-- Column Summary Report -->
                 <td>
@@ -90,21 +94,6 @@
                         <div style="font-size:13px">Edit Material</div>
                     </button>
                     <?php include "../../component/modal/updateMaterialList.php"?>
-                    <!-- Prosessing Data -->
-                    <script>
-                        $('form#formEditMaterial<?php echo $row['id']?>').on('submit', function(e){
-                            e.preventDefault();
-                            $.ajax({
-                                type: "POST",
-                                url: "../controller/actionUpdateMaterial.php",
-                                data: $(this).serialize(),
-                                success: function(data){
-                                    loadDataMaterial('<?php echo $_GET['projectCode']?>')
-                                }
-                            })
-                            $('#editMaterial<?php echo $row['id']; ?>').modal('hide');
-                        })
-                    </script>
                 </td>
             </tr>
         <?php
@@ -161,5 +150,100 @@
                 }
             });
         }
+
+        // Send data to Action Update Material for update status sourcing
+        function funcUpdateStatusPengajuan(idMaterial, materialName){
+            let statusPengajuan = $('form#formSetStatusPengajuan_'+idMaterial+' select#statusPengajuan').val();
+            $.ajax({
+                url: '../controller/actionUpdateMaterial.php',
+                type: 'POST',
+                data: {
+                    "idMaterial": idMaterial,
+                    "materialName": materialName,
+                    "statusPengajuan": statusPengajuan,
+                },
+                dataType: 'json',
+                success: function(response){
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+                    loadDataMaterial('<?php echo $_GET['projectCode']?>')
+                }
+            })
+        }
+
+        // Send data to Action Update Material for update sumary report
+        function funcUpdateSumaryReport(idMaterial, materialName){
+            $.ajax({
+                url: '../controller/actionUpdateMaterial.php',
+                type: 'POST',
+                data: $('form#formSumaryReport'+idMaterial).serialize()+'&materialName='+materialName,
+                dataType: 'json',
+                success: function(response){
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+                    loadDataMaterial('<?php echo $_GET['projectCode']?>')
+                }
+            })
+            $('#sumaryReport'+idMaterial).modal('hide');
+        }
+
+        function funcUpdateMaterial(idMaterial){
+            $.ajax({
+                type: "POST",
+                url: "../controller/actionUpdateMaterial.php",
+                data: $('form#formEditMaterial'+idMaterial).serialize()+'&editMaterial=true&idMaterial='+idMaterial,
+                dataType: 'json',
+                success: function(response){
+                    const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'bottom-end',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+
+                        Toast.fire({
+                            icon: response.status == 0?'success':'warning',
+                            title: response.message
+                        })
+
+                        loadDataMaterial('<?php echo $_GET['projectCode']?>')
+                    }
+                })
+
+                $('#editMaterial'+idMaterial).modal('hide');
+            }
     </script>
 <!-- -- -->

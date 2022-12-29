@@ -21,7 +21,7 @@
             <tbody>
                 <?php
                     include "../../dbConfig.php";
-                    $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode")->fetchAll();
+                    $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode ORDER BY id DESC")->fetchAll();
                     $no=1;
                     foreach($dataRiwayat as $row){
                 ?>
@@ -34,7 +34,7 @@
                         <td style="font-size: 12px;">-</td>
                         <td style="font-size: 12px;">-</td>
                         <td style="font-size: 12px;">
-                            <form onclick="funcFeedbackTL(<?php echo $row['id']?>)" id="formFeedbackTL_<?php echo $row['id']?>">
+                            <form onclick="funcFeedbackTL(<?php echo $row['id']?>, '<?php echo $row['materialName']?>')" id="formFeedbackTL_<?php echo $row['id']?>">
                                 <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackTL">
                                     <option <?php echo $row['feedbackTL']==0?'selected':'';?> value=0>No Action</option>
                                     <option <?php echo $row['feedbackTL']==1?'selected':'';?> value=1>Approved</option>
@@ -42,7 +42,7 @@
                             </form>
                         </td>
                         <td style="font-size: 12px;">
-                            <form onclick="funcFeedbackRPIC(<?php echo $row['id']?>)" id="formFeedbackRPIC_<?php echo $row['id']?>">
+                            <form onclick="funcFeedbackRPIC(<?php echo $row['id']?>, '<?php echo $row['materialName']?>')" id="formFeedbackRPIC_<?php echo $row['id']?>">
                                 <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackRPIC">
                                     <option <?php echo $row['feedbackRPIC']==0?'selected':'';?> value=0>No Action</option>
                                     <option <?php echo $row['feedbackRPIC']==1?'selected':'';?> value=1>Accepted</option>
@@ -60,7 +60,7 @@
                                 <!-- Button View Material -->
                                 <button class="btn btn-success btn-sm d-inline ms-1" type="button" data-bs-target="#viewMaterial<?php echo $row['id']?>" data-bs-toggle="modal">View</button>
                                 <!-- Button Delete -->
-                                <button type="button" class="btn btn-danger btn-sm d-inline ms-1" onclick="deleteMaterial(<?php echo $row['id']?>)">Delete</a>
+                                <button class="btn btn-danger btn-sm d-inline ms-1" type="button" onclick="funcDeleteMaterial(<?php echo $row['id']?>,'<?php echo $row['materialName']?>')">Delete</a>
                             </div>
                             <!-- Modal Update Material -->
                             <?php include "../../component/modal/updateMaterialRiwayat.php"?>
@@ -87,54 +87,121 @@
         {'height':'20px'}
     );
 
-    function funcFeedbackTL(idMaterial){
+    function funcFeedbackTL(idMaterial, materialName){
         let feedbackTL = $('form#formFeedbackTL_'+idMaterial+' select#feedbackTL').val();
         $.ajax({
             type: 'POST',
             url: '../controller/actionUpdateMaterial.php',
-            data:{idMaterial: idMaterial, feedbackTL: feedbackTL},
+            data:{idMaterial: idMaterial, feedbackTL: feedbackTL, materialName: materialName},
             dataType: 'json',
             success: function(response){
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
                 loadDataRiwayat();
             }
         })
     }
 
-    function funcFeedbackRPIC(idMaterial){
+    function funcFeedbackRPIC(idMaterial, materialName){
         let feedbackRPIC = $('form#formFeedbackRPIC_'+idMaterial+' select#feedbackRPIC').val();
         $.ajax({
             type: 'POST',
             url: '../controller/actionUpdateMaterial.php',
-            data:{idMaterial: idMaterial, feedbackRPIC: feedbackRPIC},
+            data:{idMaterial: idMaterial, feedbackRPIC: feedbackRPIC, materialName: materialName},
             dataType: 'json',
             success: function(response){
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
                 loadDataRiwayat();
             }
         })
     }
 
-    function deleteMaterial(id){
+    function funcDeleteMaterial(idMaterial, materialName){
         $.ajax({
             type: 'GET',
             url: '../controller/actionUpdateMaterial.php',
-            data:{idMaterial: id, actionType: "delete"},
+            data:{ idMaterial: idMaterial, actionType: "delete", materialName: materialName },
             dataType: 'json',
             success: function(response){
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
                 loadDataRiwayat()
             }
         })
     }
 
-    function funcUpdateMaterial(id){
+    function funcUpdateMaterial(idMaterial){
         $.ajax({
             type: "POST",
             url: "../controller/actionUpdateMaterial.php",
-            data: $('form#formEditMaterial'+id).serialize(),
+            data: $('form#formEditMaterial'+idMaterial).serialize()+'&editMaterial=true&idMaterial='+idMaterial,
             dataType: 'json',
             success: function(response){
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+                    
                 loadDataRiwayat()
             }
         })
-        $('#editMaterial'+id).modal('hide');
+        $('#editMaterial'+idMaterial).modal('hide');
     }
 </script>

@@ -34,7 +34,7 @@
     $(document).ready(function(){
         function load_unseen_notification(view = ''){
             $.ajax({
-                url: '../notification.php',
+                url: '../component/notification.php',
                 method: 'POST',
                 data: {view: view},
                 dataType: 'json',

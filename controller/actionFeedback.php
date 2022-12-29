@@ -30,6 +30,36 @@
             $query = $conn->prepare($sql);
             $insert = $query->execute($params);
         }
+
+        // Send Notifikasi
+        if($update == true || $insert == true){
+            $response = array(
+                "status" => 0,
+                "message" => "Feedback document requirement berhasil diperbaharui!!", 
+            );
+            $dataMaterial = $conn->query("SELECT idMaterial, supplier FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+            $subject = $dataMaterial[0]['supplier']; 
+            $message = "memperbaharui Feedback Document Requirement, Supplier : ";
+            $person = "Anonymous";
+            $dateNotif = date("Y-m-d H:i:s");
+            $idMaterial = $dataMaterial[0]['idMaterial'];
+
+            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, idSupplier, idMaterial, created) 
+            VALUES (?,?,?,?,?,?,?)";
+            $params = array(
+                $subject,
+                $message,
+                $person,
+                0,
+                $idSupplier,
+                $idMaterial,
+                $dateNotif,
+            );
+            $query = $conn->prepare($sql);
+            $insert = $query->execute($params);
+        }
+
+        echo json_encode($response);
     }
 
     if(isset($_POST['feedbackRnd'])){
@@ -57,6 +87,36 @@
             $query = $conn->prepare($sql);
             $insert = $query->execute($params);
         }
+
+        // Send Notifikasi
+        if($update == true || $insert == true){
+            $response = array(
+                "status" => 0,
+                "message" => "Feedback R&D berhasil diperbaharui!!", 
+            );
+            $dataMaterial = $conn->query("SELECT idMaterial, supplier FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+            $subject = $dataMaterial[0]['supplier']; 
+            $message = "memperbaharui Feedback R&D, Supplier : ";
+            $person = "Anonymous";
+            $dateNotif = date("Y-m-d H:i:s");
+            $idMaterial = $dataMaterial[0]['idMaterial'];
+
+            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, idSupplier, idMaterial, created) 
+            VALUES (?,?,?,?,?,?,?)";
+            $params = array(
+                $subject,
+                $message,
+                $person,
+                0,
+                $idSupplier,
+                $idMaterial,
+                $dateNotif,
+            );
+            $query = $conn->prepare($sql);
+            $insert = $query->execute($params);
+        }
+
+        echo json_encode($response);
     }
 
     if(isset($_POST['feedbackProc'])){
@@ -75,22 +135,42 @@
         );
         $query = $conn->prepare($sql);
         $insert = $query->execute($params);
+
+        // Send Notifikasi
+        if($insert == true){
+            $response = array(
+                "status" => 0,
+                "message" => "Feedback Proc berhasil diperbaharui!!", 
+            );
+            $dataMaterial = $conn->query("SELECT idMaterial, supplier FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+            $subject = $dataMaterial[0]['supplier']; 
+            $message = "memperbaharui Feedback Proc, Supplier : ";
+            $person = "Anonymous";
+            $dateNotif = date("Y-m-d H:i:s");
+            $idMaterial = $dataMaterial[0]['idMaterial'];
+
+            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, idSupplier, idMaterial, created) 
+            VALUES (?,?,?,?,?,?,?)";
+            $params = array(
+                $subject,
+                $message,
+                $person,
+                0,
+                $idSupplier,
+                $idMaterial,
+                $dateNotif,
+            );
+            $query = $conn->prepare($sql);
+            $insert = $query->execute($params);
+        }
+
+        echo json_encode($response);
     }
 
-    if(isset($_POST['finalFeedbackRnd'])){
+    if(isset($_POST['formFinalFeedbackRnd'])){
         // Check Input Final Feedback Rnd
         $finalFeedbackRnd = trim(strip_tags($_POST['finalFeedbackRnd']));
-        if(empty($finalFeedbackRnd)){
-            $response = array(
-                "status" => 1,
-                "message" => "Feedback Tidak Di Isi!",
-            );
-            echo json_encode($response);
-            exit();
-        }
-        
         $dateFinalFeedbackRnd = date("Y-m-d");
-        $idMaterial = trim(strip_tags($_POST['idMaterial']));
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
 
         $sql = "UPDATE TB_Supplier SET dateFinalFeedbackRnd = ?, finalFeedbackRnd = ? WHERE id = ?";
@@ -102,11 +182,13 @@
                 "status" => 0,
                 "message" => "Final Feeedback Rnd berhasil diperbaharui!",
             );
-         // Send Notifikasi
-            $subject = trim(strip_tags($_POST['supplier'])); 
+            // Send Notifikasi
+            $dataMaterial = $conn->query("SELECT idMaterial, supplier FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+            $subject = $dataMaterial[0]['supplier']; 
             $person = "Anonymous";
             $message = "memperbaharui Final Feedback R&D, Supplier : ";
             $dateNotif = date("Y-m-d H:i:s");
+            $idMaterial = $dataMaterial[0]['idMaterial'];
 
             $sql = "INSERT INTO TB_Notifications (subject,message, person, status, idMaterial, idSupplier, created) 
             VALUES (?,?,?,?,?,?,?)";

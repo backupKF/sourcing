@@ -12,7 +12,7 @@
                     
             <!-- Modal Body -->
             <div class="modal-body">
-                <form action="./controller/actionPengajuan.php" method="POST" class="was-validated">
+                <form action="../controller/actionPengajuan.php" method="POST" class="was-validated">
                     <!-- Material Category -->
                     <label class="form-label fw-bold">Material Category</label>
                     <div class="row">

@@ -99,4 +99,25 @@ CREATE TABLE [dbo].[TB_FeedbackProc] (
     CONSTRAINT [FK_TB_FeedbackProc_TB_Supplier] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE [dbo].[TB_File] (
+    [id]         INT           IDENTITY (0, 1) NOT NULL,
+    [fileName]   VARCHAR (200) NULL,
+    [fileHash]   VARCHAR (200) NULL,
+    [idSupplier] INT           NULL,
+    CONSTRAINT [PK_TB_File] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [FK_TB_File_TB_Supplier] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE [dbo].[TB_Notifications] (
+    [idNotification] INT           IDENTITY (0, 1) NOT NULL,
+    [subject]        VARCHAR (100) NULL,
+    [message]        VARCHAR (255) NULL,
+    [person]         VARCHAR (100) NULL,
+    [status]         INT           NULL,
+    [idMaterial]     INT           NULL,
+    [idSupplier]     INT           NULL,
+    [created]        DATETIME      NULL,
+    CONSTRAINT [PK_TB_Notifications] PRIMARY KEY CLUSTERED ([idNotification] ASC)
+);
+
 GO

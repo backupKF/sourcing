@@ -15,7 +15,7 @@
                         <input type="file" class="form-control" id="file" name="file" required />
                     </div>
                     <div class="form-group">
-                        <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info submitBtn mt-3" />
+                        <button type="button" class="btn btn-info submitBtn mt-3" onclick="funcUploadDoc(<?php echo $row['id']?>)">Submit</button>
                     </div>
                 </form>
             </div>
@@ -29,23 +29,6 @@
 
 <script>
     $(document).ready(function(){
-        $('form#uploadFile<?php echo $row['id']?>').on('submit', function(e){
-            e.preventDefault();
-            $.ajax({
-                type:'POST',
-                url: '../controller/actionHandlerFile.php',
-                data: new FormData(this),
-                dataType: 'json',
-                contentType: false,
-                cache: false,
-                processData:false,
-                success: function(response){
-                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-                }
-            })
-            $('#uploadDoc<?php echo $row['id']?>').modal('hide');
-        })
-
         // File type validation
         $('#file').change(function(){
             var file = this.files[0];
