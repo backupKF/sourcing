@@ -2,9 +2,12 @@
     // Halaman Saat Ini
     $currentPage = 'pengajuan'; 
 
-    if(!session_id()){ 
-        session_start(); 
-    }  
+    session_start();
+    
+    if(!isset($_SESSION['login'])){
+        header("Location: ../login.php");
+        exit();
+    }
 ?>
 
 <!doctype html>

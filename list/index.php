@@ -1,9 +1,12 @@
 <?php
     $currentPage = 'list'; 
 
-    if(!session_id()){ 
-        session_start(); 
-    }  
+    session_start();
+    
+    if(!isset($_SESSION['login'])){
+        header("Location: ../login.php");
+        exit();
+    }
 ?>
 <!doctype html>
 <html lang="en">

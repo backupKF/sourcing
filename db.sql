@@ -120,4 +120,13 @@ CREATE TABLE [dbo].[TB_Notifications] (
     CONSTRAINT [PK_TB_Notifications] PRIMARY KEY CLUSTERED ([idNotification] ASC)
 );
 
+CREATE TABLE [dbo].[TB_Admin] (
+    [id]         INT           IDENTITY (0, 1) NOT NULL,
+    [username]   VARCHAR (100) NULL,
+    [password]   VARCHAR (50)  NULL,
+    [level]      INT           NULL,
+    [teamLeader] VARCHAR (10)  NULL,
+    CONSTRAINT [PK_TB_Admin] PRIMARY KEY CLUSTERED ([id] ASC)
+);
+
 GO

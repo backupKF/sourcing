@@ -1,6 +1,13 @@
 <?php
     include "../dbConfig.php";
     $currentPage = 'view'; 
+
+    session_start();
+    
+    if(!isset($_SESSION['login'])){
+        header("Location: ../login.php");
+        exit();
+    }
 ?>
 <!doctype html>
 <html lang="en">

@@ -15,6 +15,7 @@
                         <div style="display:none" class="alert_list toggle">
                             <div class="content-notif"></div>
                         </div>
+                        <a href="../controller/logout.php" name="logout">logout</a>
                     </li>
                 </ul>
             </div>
