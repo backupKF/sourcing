@@ -1,4 +1,6 @@
 <?php
+    header("HTTP/1.1 403 Forbidden" );
+
     include "../dbConfig.php";
     session_start();
 

@@ -1,5 +1,7 @@
 <?php
-session_start()
+    session_start();
+
+    header('Location: ../../dashboard/index.php');
 ?>
 
 <!-- Modal Select Project -->

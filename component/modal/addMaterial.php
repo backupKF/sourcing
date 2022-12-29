@@ -1,3 +1,7 @@
+<?php
+    header('Location: ../../dashboard/index.php');
+?>
+
 <!-- Formulir Material -->
 <div class="modal" id="tambahMaterial<?php echo $row['id']; ?>" data-bs-backdrop="static">
     <div class="modal-dialog modal-sm modal-dialog-scrollable">

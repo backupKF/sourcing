@@ -1,6 +1,9 @@
 <?php 
     include "../dbConfig.php";
     $projectName = $conn->query("SELECT projectName FROM TB_Project WHERE projectCode='{$_SESSION['project']}' ")->fetchAll();
+
+
+    header('Location: ../index.php');
 ?>
 <!-- Form Data Pengajuan -->
 

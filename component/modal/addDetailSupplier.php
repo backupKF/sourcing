@@ -1,3 +1,7 @@
+<?php
+    header('Location: ../../dashboard/index.php');
+?>
+    
 <!-- Modal Detail Supplier-->
 <div class="modal" id="tambahDetailSupplier<?php echo $row['id']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">

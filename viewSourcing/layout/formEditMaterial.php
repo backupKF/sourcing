@@ -2,6 +2,8 @@
     include "../../dbConfig.php";
 
     $dataMaterial = $conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id='{$_GET['idMaterial']}' AND feedbackRPIC=1")->fetchAll();
+
+    header('Location: ../index.php');
 ?>
 
 <form class="was-validated" id="formEditMaterial">
