@@ -1,6 +1,4 @@
 <?php
-    header("HTTP/1.1 403 Forbidden" );
-
     include "../dbConfig.php";
 
     $response = array (

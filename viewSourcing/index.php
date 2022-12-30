@@ -33,7 +33,7 @@
     <br>
 
     <div class="container position-absolute p-0" style="left:230px;top:70px">
-        <!-- Tabel Pengajuan -->
+        <!-- Tabel View-->
         <?php require "layout/tabelView.php";?>
     </div>
     </body>

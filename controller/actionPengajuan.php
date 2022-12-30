@@ -1,6 +1,4 @@
 <?php
-    header("HTTP/1.1 403 Forbidden" );
-
     if(!session_id()){ 
         session_start(); 
     } 
@@ -97,6 +95,6 @@
         }
         unset($_SESSION['materials']);
         unset($_SESSION['project']);
-        header('Location:../riwayat/index.php');
+        header('Location: ../riwayat/index.php');
     }
 ?>

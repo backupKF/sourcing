@@ -1,7 +1,3 @@
-<<?php
-    header('Location: ../index.php');
-?>
-    
 <!-- Card Table -->
 <div class="card" style="width:1100px">
     <div class="card-body">

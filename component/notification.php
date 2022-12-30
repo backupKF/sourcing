@@ -1,6 +1,4 @@
 <?php
-    header('Location: ../dashboard/index.php');
-
     include "../dbConfig.php";
 
     if(isset($_POST['view'])){

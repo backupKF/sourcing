@@ -1,7 +1,6 @@
 <?php
-    header('Location: ../../dashboard/index.php');
+    header("Location: ../../dashboard/index.php");
 ?>
-
 <!-- Modal Tambah Supplier-->
 <div class="modal" id="tambahSupplier<?php echo $_GET['idMaterial']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">

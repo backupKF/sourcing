@@ -1,7 +1,3 @@
-<?php
-header('Location: ../index.php');
-?>
-
 <div class="container m-0" style="width:95%">
   <div class="row">
     <!-- Baris Card Total Sourcing dan Card Pending Sumary Report -->

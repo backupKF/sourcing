@@ -1,7 +1,8 @@
 <?php
     session_start();
 
-    header('Location: ../../dashboard/index.php');
+    header("HTTP/1.1 403 Forbidden");
+    // die();
 ?>
 
 <!-- Modal Select Project -->
@@ -64,3 +65,7 @@
     //     })
     // })
 </script>
+
+<?php
+    // header("HTTP/1.1 403 Forbidden");
+?>

@@ -1,7 +1,5 @@
 <?php
     $currentPage = 'list'; 
-
-    header('Location: ../index.php');
 ?>
 
 <!-- Tabel Material -->
@@ -134,9 +132,9 @@
 
         // Membuat Tabel Supplier didalam sebuah fungsi
         function tableSupplier(d){
-            $(document).ready(function(){
+            // $(document).ready(function(){
                 loadDataSupplier(d)
-            })
+            // })
             return (
                 '<div class="container-fluid m-0 p-0" id="contentDataSupplier'+d+'"></div>'
             )

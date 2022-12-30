@@ -1,7 +1,3 @@
-<?php
-    header('Location: ../../dashboard/index.php');
-?>
-
 <!-- Modal Form View Material -->
 <div class="modal" id="viewMaterial<?php echo $row['id']?>" data-bs-backdrop="static">
     <div class="modal-dialog modal-sm modal-dialog-scrollable">

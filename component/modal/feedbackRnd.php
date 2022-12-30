@@ -1,7 +1,3 @@
-<?php
-    header('Location: ../../dashboard/index.php');
-?>
-
 <!-- Modal UpdateSupplier-->
 <div class="modal" id="feedbackRnd<?php echo $row['id']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

@@ -20,12 +20,9 @@
         <link href='../plugin/datatable/css/jquery.dataTables.min.css'  rel='stylesheet'>
         <script src="../plugin/datatable/js/jquery.dataTables.min.js"></script>
         <script src="../plugin/sweetalert/sweetalert.js"></script>
-    <title>Sourcing | Riwayat</title>
-    <style>
-        .poppins {
-            font-family: 'Poppins';
-        }
-    </style>
+
+        <title>Sourcing | Riwayat</title>
+        
     </head>
     <body class="bg-dark bg-opacity-10">
     <!-- Sidebar -->
