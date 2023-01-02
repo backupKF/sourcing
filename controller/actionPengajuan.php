@@ -1,9 +1,14 @@
 <?php
+
     if(!session_id()){ 
         session_start(); 
     } 
 
     include "../dbConfig.php";
+
+    if(empty($_POST) && empty($_GET)){
+        header('http/1.1 403 forbidden');
+    }
 
     if(isset($_POST['setProject'])){
         $_SESSION['project'] = $_POST['project'];
@@ -71,7 +76,6 @@
 
     if(isset($_POST['tambahPengajuan'])){
         $materials = $_SESSION['materials'];
-        var_dump($materials);
 
         foreach($materials as $material){
             $sql = "INSERT INTO TB_PengajuanSourcing (materialCategory, materialName,  materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, documentReq, projectCode, created, dateSourcing, feedbackTL, feedbackRPIC) 

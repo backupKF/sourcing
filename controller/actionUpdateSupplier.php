@@ -1,6 +1,10 @@
 <?php
     include "../dbConfig.php";
 
+    if(empty($_POST) && empty($_GET)){
+        header('http/1.1 403 forbidden');
+    }
+
     if(isset($_POST['idSupplier'])){
         $supplier = trim(strip_tags($_POST['supplier']));
         $manufacture = trim(strip_tags($_POST['manufacture']));

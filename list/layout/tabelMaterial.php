@@ -1,5 +1,7 @@
 <?php
-    $currentPage = 'list'; 
+    if(empty($_GET)){
+        header('Location: ../index.php');
+    }
 ?>
 
 <!-- Tabel Material -->

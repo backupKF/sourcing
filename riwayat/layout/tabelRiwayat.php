@@ -1,3 +1,9 @@
+<?php
+    if(empty($_GET)){
+        header('Location: ../index.php');
+    }
+?>
+
 <div class="card" style="width:1050px">
     <div class="card-body">
         <table class="table p-1" id="table-riwayat">

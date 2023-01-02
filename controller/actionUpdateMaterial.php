@@ -1,6 +1,10 @@
 <?php
     include "../dbConfig.php";
 
+    if(empty($_POST) && empty($_GET)){
+        header('http/1.1 403 forbidden');
+    }
+
     $response = array (
         "status" => 1,
         "message" => "Gagal menyimpan data!",

@@ -49,6 +49,7 @@
         $.ajax({
             type: 'GET',
             url: 'layout/tabelRiwayat.php',
+            data: {getData: true},
             success: function(data){
                 $('#tabel-riwayat').html(data);
             }

@@ -120,6 +120,16 @@ CREATE TABLE [dbo].[TB_Notifications] (
     CONSTRAINT [PK_TB_Notifications] PRIMARY KEY CLUSTERED ([idNotification] ASC)
 );
 
+CREATE TABLE [dbo].[TB_StatusNotifications] (
+    [id]             INT      IDENTITY (0, 1) NOT NULL,
+    [readingStatus]  BIT      CONSTRAINT [DEFAULT_TB_StatusNotifications_readingStatus] DEFAULT ((0)) NOT NULL,
+    [idUser]         INT      NULL,
+    [idNotification] INT      NULL,
+    [created]        DATETIME NULL,
+    CONSTRAINT [PK_TB_StatusNotifications] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [FK_TB_StatusNotifications_TB_Notifications] FOREIGN KEY ([idNotification]) REFERENCES [dbo].[TB_Notifications] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 CREATE TABLE [dbo].[TB_Admin] (
     [id]         INT           IDENTITY (0, 1) NOT NULL,
     [username]   VARCHAR (100) NULL,

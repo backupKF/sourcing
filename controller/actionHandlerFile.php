@@ -1,6 +1,10 @@
 <?php
     include "../dbConfig.php";
 
+    if(empty($_POST) && empty($_GET)){
+        header('http/1.1 403 forbidden');
+    }
+
     if(isset($_FILES['file'])){
         // File Upload Folder
         $uploadDir = $_SERVER['DOCUMENT_ROOT']."/sourcing/assets/uploads/";
@@ -20,7 +24,6 @@
             'message' => 'Gagal menyimpan file, silahkan coba lagi',
         );
 
-        $uploadStatus = 1; 
         // Upload File
         $uploadedFile = '';
         if(!empty($_FILES['file']['name'])){
@@ -36,6 +39,7 @@
                 if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){ 
                     $uploadedFile = $fileName; 
                     $response['message'] = 'Berhasil Mengupload File';
+                    $uploadStatus = 1; 
                 }else{ 
                     $uploadStatus = 0; 
                     $response['message'] = 'Sorry, there was an error uploading your file.'; 
@@ -61,7 +65,7 @@
             $insert = $query->execute($params);
 
             // Send Notifikasi
-            if($update == true || $insert == true){
+            if($insert == true){
                 $dataMaterial = $conn->query("SELECT idMaterial, supplier FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
                 $subject = $dataMaterial[0]['supplier']; 
                 $message = "menambahkan document requirement, Supplier : ";
@@ -85,7 +89,7 @@
             }
         }
         else{ 
-            $response['message'] = 'Please fill all the mandatory fields (name and email).'; 
+            $response['message'] = 'Gagal menyimpan file, silahkan coba lagi.'; 
         } 
 
         //Return response 

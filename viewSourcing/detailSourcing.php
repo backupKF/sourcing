@@ -2,7 +2,36 @@
     $currentPage = 'view'; 
 
     session_start();
+    include "../dbConfig.php";
+
+    // Check Reading Notifications
+    if(!empty($_GET['id'])){
+        if($checkNotif = $conn->query("SELECT * FROM TB_Notifications WHERE id=".$_GET['id'])->fetchAll()){
+            $checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id'])->fetchAll();
+            if(empty($checkUserReadNotif)){
+
+                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, idUser,  idNotification) 
+                VALUES (?,?,?)";
+
+                $params = array(
+                    1,
+                    $_SESSION['user']['id'],
+                    $_GET['id'],
+                    date("Y-m-d H:i:s"),
+                );
+                $query = $conn->prepare($sql);
+                $insert = $query->execute($params);
+            }
+
+            if($checkUserReadNotif[0]['readingStatus'] == 0){
+                $sql = "UPDATE TB_StatusNotifications SET readingStatus = ? WHERE id = ?";
+                $query = $conn->prepare($sql);
+                $update = $query->execute(array(1, $checkUserReadNotif[0]['id']));
+            }
+        }
+    }
     
+    // Check Login
     if(!isset($_SESSION['login'])){
         header("Location: ../login.php");
         exit();
@@ -25,10 +54,10 @@
     </head>
     <body class="bg-dark bg-opacity-10">
         <!-- Sidebar -->
-        <?php require "../sidebar.php" ?>
+    <?php require "../sidebar.php" ?>
 
-        <!-- Navbar -->
-        <?php require "../navbar.php"?>
+    <!-- Navbar -->
+    <?php require "../navbar.php" ?>
 
         <br>
         <!-- Detail Sourcing -->

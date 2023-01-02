@@ -1,6 +1,10 @@
 <?php
     include "../dbConfig.php";
 
+    if(empty($_POST) && empty($_GET)){
+        header('http/1.1 403 forbidden');
+    }
+
     if(isset($_POST['feedbackDocReq'])){
         $CoA = trim(strip_tags($_POST['CoA']));
         $MSDS = trim(strip_tags($_POST['MSDS']));

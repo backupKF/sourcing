@@ -1,3 +1,9 @@
+<?php
+    if(empty($_GET)){
+        header('Location: ../index.php');
+    }
+?>
+
 <!-- Button tambah supplier -->
 <div class="text-center">
     <button type="button" style="width:150px" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#tambahSupplier<?php echo $_GET['idMaterial']?>">

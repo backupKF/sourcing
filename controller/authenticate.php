@@ -2,6 +2,10 @@
     include "../dbConfig.php";
     session_start();
 
+    if(empty($_POST) && empty($_GET)){
+        header('http/1.1 403 forbidden');
+    }
+
     if(isset($_POST['submit'])){
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -11,6 +15,7 @@
 
                 // SET SESSION
                 $_SESSION['login'] = true;
+                $_SESSION['user']['id'] = $account[0]['id'];
                 header("Location: ../dashboard/index.php");
             }else{
                 echo "Username atau Password Salah..";

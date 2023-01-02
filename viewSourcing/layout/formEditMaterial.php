@@ -1,6 +1,10 @@
 <?php
     include "../../dbConfig.php";
 
+    if(empty($_GET)){
+        header('Location: ../index.php');
+    }
+    
     $dataMaterial = $conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id='{$_GET['idMaterial']}' AND feedbackRPIC=1")->fetchAll();
 ?>
 

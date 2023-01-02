@@ -1,6 +1,10 @@
 <?php
     include "../dbConfig.php";
 
+    if(empty($_POST) && empty($_GET)){
+        header('Location: ../dashboard/index.php');
+    }
+
     if(isset($_POST['view'])){
         if($_POST['view'] != ''){
             $sql = "UPDATE TB_Notifications SET status = 1 WHERE status = 0";
@@ -8,7 +12,8 @@
             $update = $query->execute();
         }
 
-        $notifications = $conn->query("SELECT * FROM TB_Notifications ORDER BY idNotification DESC")->fetchAll();
+        $notifications = $conn->query("SELECT * FROM TB_Notifications ORDER BY id DESC")->fetchAll();
+        // $checkNotif = $conn->query("SELECT TB_Notifications.id, subject, message, person, idMaterial, idSupplier, TB_Notifications.created FROM TB_StatusNotifications INNER JOIN TB_Notifications ON TB_StatusNotifications.idNotification = TB_Notifications.id WHERE readingStatus=0")->fetchAll();
 
         if(count($notifications) > 0){
             foreach($notifications as $data){
@@ -17,7 +22,7 @@
                         <strong>'.$data['person'].'</strong>
                         <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
                         <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
-                        <a href="../viewSourcing/detailSourcing.php?idMaterial='.$data['idMaterial'].'&idSupplier='.$data['idSupplier'].'"><small>Lihat Selengkapnya...</small></a>
+                        <a href="../viewSourcing/detailSourcing.php?id='.$data['id'].'&idMaterial='.$data['idMaterial'].'&idSupplier='.$data['idSupplier'].'"><small>Lihat Selengkapnya...</small></a>
                     </div>
                     <hr>
                 ';

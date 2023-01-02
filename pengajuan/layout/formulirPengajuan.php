@@ -1,5 +1,6 @@
 <?php 
     include "../dbConfig.php";
+    header('Location: ../index.php');
     $projectName = $conn->query("SELECT projectName FROM TB_Project WHERE projectCode='{$_SESSION['project']}' ")->fetchAll();
 ?>
 <!-- Form Data Pengajuan -->
@@ -110,6 +111,7 @@
                 $('.table-pagination').DataTable({
                     scrollX: true,
                     lengthMenu: [3 , 5 , 10],
+                    stateSave: true,
                 });
             });
         </script>
