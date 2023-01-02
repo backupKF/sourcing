@@ -7,7 +7,7 @@
     // Check Reading Notifications
     if(!empty($_GET['id'])){
         if($checkNotif = $conn->query("SELECT * FROM TB_Notifications WHERE id=".$_GET['id'])->fetchAll()){
-            $checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id'])->fetchAll();
+            $checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id']." AND idNotification=".$_GET['id'])->fetchAll();
             if(empty($checkUserReadNotif)){
 
                 $sql = "INSERT INTO TB_StatusNotifications (readingStatus, idUser,  idNotification) 

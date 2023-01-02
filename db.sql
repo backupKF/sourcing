@@ -109,7 +109,7 @@ CREATE TABLE [dbo].[TB_File] (
 );
 
 CREATE TABLE [dbo].[TB_Notifications] (
-    [idNotification] INT           IDENTITY (0, 1) NOT NULL,
+    [id] INT           IDENTITY (0, 1) NOT NULL,
     [subject]        VARCHAR (100) NULL,
     [message]        VARCHAR (255) NULL,
     [person]         VARCHAR (100) NULL,

@@ -1,6 +1,8 @@
 <?php
     include "../dbConfig.php";
 
+    session_start();
+
     if(empty($_POST) && empty($_GET)){
         header('Location: ../dashboard/index.php');
     }
@@ -13,21 +15,23 @@
         }
 
         $notifications = $conn->query("SELECT * FROM TB_Notifications ORDER BY id DESC")->fetchAll();
-        // $checkNotif = $conn->query("SELECT TB_Notifications.id, subject, message, person, idMaterial, idSupplier, TB_Notifications.created FROM TB_StatusNotifications INNER JOIN TB_Notifications ON TB_StatusNotifications.idNotification = TB_Notifications.id WHERE readingStatus=0")->fetchAll();
-
         if(count($notifications) > 0){
             foreach($notifications as $data){
-                $output .= '
-                    <div class="my-1">
-                        <strong>'.$data['person'].'</strong>
-                        <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
-                        <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
-                        <a href="../viewSourcing/detailSourcing.php?id='.$data['id'].'&idMaterial='.$data['idMaterial'].'&idSupplier='.$data['idSupplier'].'"><small>Lihat Selengkapnya...</small></a>
-                    </div>
-                    <hr>
-                ';
+                    $checkNotif = $conn->query("SELECT readingStatus FROM TB_StatusNotifications INNER JOIN TB_Notifications ON TB_StatusNotifications.idNotification = TB_Notifications.id WHERE idUser=".$_SESSION['user']['id']." AND idNotification=".$data['id'])->fetchAll();
+                    if(empty($checkNotif) || $checkNotif[0]['readingStatus'] == 0){
+                        $output .= '
+                            <div class="my-1">
+                                <strong>'.$data['person'].'</strong>
+                                <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
+                                <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
+                                <a href="../viewSourcing/detailSourcing.php?id='.$data['id'].'&idMaterial='.$data['idMaterial'].'&idSupplier='.$data['idSupplier'].'"><small>Lihat Selengkapnya...</small></a>
+                            </div>
+                            <hr>
+                        ';
+                    }
             }
-        }else{
+        }
+        else{
             $output .= '<li><a href="#" class="text-bold text-italic">Not Found</a></li>';
         }
 
