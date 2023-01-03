@@ -77,15 +77,15 @@
     if(isset($_POST['tambahPengajuan'])){
         $materials = $_SESSION['materials'];
 
-        $number = $conn->query("SELECT TOP 1 autoNumber FROM TB_PengajuanSourcing ORDER BY ID DESC")->fetchAll();
+        $number = $conn->query("SELECT TOP 1 sourcingNumber FROM TB_PengajuanSourcing ORDER BY ID DESC")->fetchAll();
 
-        $autoNumber = autoNumber(date("Y"), $_SESSION['user']['teamLeader'], $number[0]['autoNumber']);
+        $sourcingNumber = autoNumber(date("Y"), $_SESSION['user']['teamLeader'], $number[0]['sourcingNumber']);
 
         foreach($materials as $material){
-            $sql = "INSERT INTO TB_PengajuanSourcing (autoNumber, materialCategory, materialName,  materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, documentReq, projectCode, created, dateSourcing, feedbackTL, feedbackRPIC) 
+            $sql = "INSERT INTO TB_PengajuanSourcing (sourcingNumber, materialCategory, materialName,  materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, documentReq, projectCode, created, dateSourcing, feedbackTL, feedbackRPIC) 
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?, 0, 0)";
             $params = array(
-                $autoNumber,
+                $sourcingNumber,
                 $material['materialCategory'],
                 $material['materialName'],
                 $material['materialSpesification'],
@@ -104,6 +104,32 @@
         }
         unset($_SESSION['materials']);
         unset($_SESSION['project']);
+
+        //Send Notification
+        if($insert == true){
+            $response = array(
+                "status" => 0,
+                "message" => "Status Riwayat Berhasil diperbaharui!", 
+            );
+            $subject = trim(strip_tags($_POST['materialName'])); 
+            $message = "menambah material sourcing";
+            $person = "Anonymous";
+            $dateNotif = date("Y-m-d H:i:s");
+
+            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, sourcingNumber, created) 
+            VALUES (?,?,?,?,?,?)";
+            $params = array(
+                $subject,
+                $message,
+                $person,
+                0,
+                $sourcingNumber,
+                $dateNotif,
+            );
+            $query = $conn->prepare($sql);
+            $insert = $query->execute($params);
+        }
+
         header('Location: ../riwayat/index.php');
     }
 

@@ -34,7 +34,7 @@
                 ?>
                     <tr>
                         <td style="font-size: 12px;"><?php echo $no++?></td>
-                        <td style="font-size: 12px;" class="text-center"><?php echo $row['autoNumber']?></td>
+                        <td style="font-size: 12px;" class="text-center"><?php echo $row['sourcingNumber']?></td>
                         <td style="font-size: 12px;"><?php echo $row['materialName']?></td>
                         <td style="font-size: 12px;"><?php echo $row['dateSourcing']?></td>
                         <td style="font-size: 12px;"><?php echo $row['projectCode']?></td>
