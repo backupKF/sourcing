@@ -100,13 +100,13 @@
     }
 
     // Action Update Status Material
-    if(isset($_POST['statusPengajuan'])){
+    if(isset($_POST['statusSourcing'])){
         $idMaterial = $_POST['idMaterial'];
-        $statusPengajuan = $_POST['statusPengajuan'];
+        $statusSourcing = $_POST['statusSourcing'];
 
-        $sql = "UPDATE TB_PengajuanSourcing SET statusPengajuan = ? WHERE id = ?";
+        $sql = "UPDATE TB_PengajuanSourcing SET statusSourcing = ? WHERE id = ?";
         $query = $conn->prepare($sql);
-        $update = $query->execute(array($statusPengajuan, $idMaterial));
+        $update = $query->execute(array($statusSourcing, $idMaterial));
 
         //Send Notification
         if($update == true){
@@ -266,6 +266,43 @@
             );
             $subject = trim(strip_tags($_POST['materialName'])); 
             $message = "memperbaharui Feedback RPIC, Material : ";
+            $person = "Anonymous";
+            $dateNotif = date("Y-m-d H:i:s");
+
+            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, idMaterial, created) 
+            VALUES (?,?,?,?,?,?)";
+            $params = array(
+                $subject,
+                $message,
+                $person,
+                0,
+                $idMaterial,
+                $dateNotif,
+            );
+            $query = $conn->prepare($sql);
+            $insert = $query->execute($params);
+        }
+
+        echo json_encode($response);
+        exit();
+    }
+
+    if(isset($_POST['statusRiwayat'])){
+        $idMaterial = trim(strip_tags($_POST['idMaterial']));
+        $statusRiwayat = trim(strip_tags($_POST['statusRiwayat']));
+
+        $sql = "UPDATE TB_PengajuanSourcing SET statusRiwayat = ? WHERE id = ?";
+        $query = $conn->prepare($sql);
+        $update = $query->execute(array($statusRiwayat, $idMaterial));
+
+        //Send Notification
+        if($update == true){
+            $response = array(
+                "status" => 0,
+                "message" => "Status Riwayat Berhasil diperbaharui!", 
+            );
+            $subject = trim(strip_tags($_POST['materialName'])); 
+            $message = "memperbaharui status riwayat, Material : ";
             $person = "Anonymous";
             $dateNotif = date("Y-m-d H:i:s");
 

@@ -10,8 +10,8 @@
             $checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id']." AND idNotification=".$_GET['id'])->fetchAll();
             if(empty($checkUserReadNotif)){
 
-                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, idUser,  idNotification) 
-                VALUES (?,?,?)";
+                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, idUser,  idNotification, created) 
+                VALUES (?,?,?,?)";
 
                 $params = array(
                     1,

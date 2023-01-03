@@ -53,7 +53,7 @@
                         </thead>
                         <tbody>
                             <?php
-                                $getIdMaterial = $conn->query("SELECT id, materialName, materialCategory, materialSpesification FROM TB_PengajuanSourcing WHERE statusPengajuan='{$_GET['status']}' ORDER BY id DESC")->fetchAll();
+                                $getIdMaterial = $conn->query("SELECT id, materialName, materialCategory, materialSpesification FROM TB_PengajuanSourcing WHERE statusSourcing='{$_GET['status']}' ORDER BY id DESC")->fetchAll();
                                 $no=1;
                                 foreach($getIdMaterial as $data){
                                     if($getData= $conn->query("SELECT * FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE idMaterial='{$data['id']}' ORDER BY TB_Supplier.id DESC")->fetchAll()){

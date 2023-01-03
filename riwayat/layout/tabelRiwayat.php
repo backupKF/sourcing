@@ -10,6 +10,7 @@
             <thead>
                 <tr>
                     <th scope="col" style="font-size: 13px;width:10px" class="text-center">No</th>
+                    <th scope="col" style="font-size: 13px;width:150px" class="text-center">Sourcing Number</th>
                     <th scope="col" style="font-size: 13px;width:150px" class="text-center">Material Name</th>
                     <th scope="col" style="font-size: 13px;width:90px" class="text-center">Date Sourcing</th>
                     <th scope="col" style="font-size: 13px;width:100px" class="text-center">Project Code</th>
@@ -33,6 +34,7 @@
                 ?>
                     <tr>
                         <td style="font-size: 12px;"><?php echo $no++?></td>
+                        <td style="font-size: 12px;" class="text-center"><?php echo $row['autoNumber']?></td>
                         <td style="font-size: 12px;"><?php echo $row['materialName']?></td>
                         <td style="font-size: 12px;"><?php echo $row['dateSourcing']?></td>
                         <td style="font-size: 12px;"><?php echo $row['projectCode']?></td>
@@ -57,7 +59,16 @@
                         </td>
                         <td style="font-size: 12px;"><?php echo $row['dateApprovedTL']?></td>
                         <td style="font-size: 12px;"><?php echo $row['dateAcceptedRPIC']?></td>
-                        <td style="font-size: 12px;"><?php echo $row['statusRiwayat']?></td>
+                        <td style="font-size: 12px;">
+                            <form onclick="funcStatusRiwayat(<?php echo $row['id']?>, '<?php echo $row['materialName']?>')" id="formStatusRiwayat_<?php echo $row['id']?>">
+                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="statusRiwayat">
+                                    <option <?php echo $row['statusRiwayat']==""?'selected':'';?> value=0>No Action</option>
+                                    <option <?php echo $row['statusRiwayat']=="ON PROCESS"?'selected':'';?> value="ON PROCESS">ON PROCESS</option>
+                                    <option <?php echo $row['statusRiwayat']=="HOLD"?'selected':'';?> value="HOLD">HOLD</option>
+                                    <option <?php echo $row['statusRiwayat']=="CANCEL"?'selected':'';?> value="CANCEL">CANCEL</option>
+                                </select>
+                            </form>
+                        </td>
                         <td>
                             <!-- Button -->
                             <div class="text-center">
@@ -129,6 +140,36 @@
             type: 'POST',
             url: '../controller/actionUpdateMaterial.php',
             data:{idMaterial: idMaterial, feedbackRPIC: feedbackRPIC, materialName: materialName},
+            dataType: 'json',
+            success: function(response){
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
+                loadDataRiwayat();
+            }
+        })
+    }
+
+    function funcStatusRiwayat(idMaterial, materialName){
+        let statusRiwayat = $('form#formStatusRiwayat_'+idMaterial+' select#statusRiwayat').val();
+        $.ajax({
+            type: 'POST',
+            url: '../controller/actionUpdateMaterial.php',
+            data:{idMaterial: idMaterial, statusRiwayat: statusRiwayat, materialName: materialName},
             dataType: 'json',
             success: function(response){
                 const Toast = Swal.mixin({

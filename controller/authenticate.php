@@ -16,6 +16,7 @@
                 // SET SESSION
                 $_SESSION['login'] = true;
                 $_SESSION['user']['id'] = $account[0]['id'];
+                $_SESSION['user']['teamLeader'] = $account[0]['teamLeader'];
                 header("Location: ../dashboard/index.php");
             }else{
                 echo "Username atau Password Salah..";

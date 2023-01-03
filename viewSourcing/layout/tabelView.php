@@ -26,9 +26,9 @@
                 <?php
                     include "../dbConfig.php";
                     $no = 1;
-                    $material = $conn->query('SELECT id, materialName, materialCategory, projectCode, statusPengajuan FROM TB_PengajuanSourcing WHERE feedbackRPIC=1 ORDER BY id DESC')->fetchAll();
+                    $material = $conn->query('SELECT id, materialName, materialCategory, projectCode, statusSourcing FROM TB_PengajuanSourcing WHERE feedbackRPIC=1 ORDER BY id DESC')->fetchAll();
                     foreach($material as $materialData){
-                        if($supplier = $conn->query("SELECT TB_Supplier.id, materialName, materialCategory, supplier, manufacture, projectCode, statusPengajuan, dateFinalFeedbackRnd, finalFeedbackRnd, idMaterial FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE idMaterial=".$materialData['id']."ORDER BY id DESC")->fetchAll()){
+                        if($supplier = $conn->query("SELECT TB_Supplier.id, materialName, materialCategory, supplier, manufacture, projectCode, statusSourcing, dateFinalFeedbackRnd, finalFeedbackRnd, idMaterial FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE idMaterial=".$materialData['id']."ORDER BY id DESC")->fetchAll()){
                             foreach($supplier as $supplierData){
                 ?>
                         <td style="font-size: 12px;"><?php echo $no++?></td>
@@ -44,7 +44,7 @@
                                 <?php echo $dataProject[0]['projectCode'], ' | ', $dataProject[0]['projectName']?>
                             </div>
                         </td>
-                        <td style="font-size: 12px;"><?php echo $supplierData['statusPengajuan']?></td>
+                        <td style="font-size: 12px;"><?php echo $supplierData['statusSourcing']?></td>
                         <td style="font-size: 12px;">
                             <?php
                                 $feedbackRnd = $conn->query("SELECT TOP 1 * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$supplierData['id']}' ORDER BY ID DESC")->fetchAll();
@@ -101,7 +101,7 @@
                                 <?php echo $dataProject[0]['projectCode'], ' | ', $dataProject[0]['projectName']?>
                             </div>
                         </td>
-                        <td style="font-size: 12px;"><?php echo $materialData['statusPengajuan']?></td>
+                        <td style="font-size: 12px;"><?php echo $materialData['statusSourcing']?></td>
                         <td style="font-size: 12px;">-</td>
                         <td style="font-size: 12px;">-</td>
                         <td style="font-size: 12px;">-<td style="font-size: 12px;">

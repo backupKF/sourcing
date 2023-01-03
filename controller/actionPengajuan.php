@@ -77,10 +77,15 @@
     if(isset($_POST['tambahPengajuan'])){
         $materials = $_SESSION['materials'];
 
+        $number = $conn->query("SELECT TOP 1 autoNumber FROM TB_PengajuanSourcing ORDER BY ID DESC")->fetchAll();
+
+        $autoNumber = autoNumber(date("Y"), $_SESSION['user']['teamLeader'], $number[0]['autoNumber']);
+
         foreach($materials as $material){
-            $sql = "INSERT INTO TB_PengajuanSourcing (materialCategory, materialName,  materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, documentReq, projectCode, created, dateSourcing, feedbackTL, feedbackRPIC) 
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?, 0, 0)";
+            $sql = "INSERT INTO TB_PengajuanSourcing (autoNumber, materialCategory, materialName,  materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, documentReq, projectCode, created, dateSourcing, feedbackTL, feedbackRPIC) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?, 0, 0)";
             $params = array(
+                $autoNumber,
                 $material['materialCategory'],
                 $material['materialName'],
                 $material['materialSpesification'],
@@ -100,5 +105,59 @@
         unset($_SESSION['materials']);
         unset($_SESSION['project']);
         header('Location: ../riwayat/index.php');
+    }
+
+    function autoNumber($year, $tl, $number) {
+
+        // Checking Order Sourcing
+        if(empty($number) || substr($number, -9, 4) < $year){
+            $orderSourcing = "000";
+        }else{
+            $number += 1;
+            $sliceOrder = substr($number, 6);
+            if($sliceOrder <= 999){
+                $orderSourcing = $sliceOrder;
+            }else{
+                $orderSourcing = "000";
+            }
+        }
+
+        // Checking Order TeamLeader
+        switch($tl) {
+            case "TL-01": 
+                $orderTl = "01";
+                break; 
+            case "TL-02": 
+                $orderTl = "02";
+                break; 
+            case "TL-03": 
+                $orderTl = "03";
+                break; 
+            case "TL-04": 
+                $orderTl = "04";
+                break; 
+            case "TL-05": 
+                $orderTl = "05";
+                break; 
+            case "TL-06": 
+                $orderTl = "06";
+                break; 
+            case "TL-07": 
+                $orderTl = "07";
+                break; 
+            case "TL-08": 
+                $orderTl = "08";
+                break; 
+            case "TL-09": 
+                $orderTl = "09";
+                break;
+            case "RPIC": 
+                $orderTl = "10";
+                break;  
+        }
+
+        // Set Auto Number
+        $autoNumber = $year.$orderTl.$orderSourcing;
+        return (int)$autoNumber;
     }
 ?>

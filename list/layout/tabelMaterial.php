@@ -53,10 +53,10 @@
                 <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['documentReq']?></div></td>
                 <!-- Column Status -->
                 <td>
-                    <?php if($row['statusPengajuan']==''){?>
-                    <form id="formSetStatusPengajuan_<?php echo $row['id']?>">
+                    <?php if($row['statusSourcing']==''){?>
+                    <form id="formSetStatusSourcing_<?php echo $row['id']?>">
                     <input type="hidden" value="<?php echo $row['id']?>" name="idMaterial">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="funcUpdateStatusPengajuan(<?php echo $row['id']?>,'<?php echo $row['materialName']?>')" id="statusPengajuan">
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="funcUpdateStatusSourcing(<?php echo $row['id']?>,'<?php echo $row['materialName']?>')" id="statusSourcing">
                             <option value=""></option>
                             <option value="OPEN">OPEN</option>
                             <option value="RE-OPEN">RE-OPEN</option>
@@ -67,7 +67,7 @@
                         </select>
                     </form>
                     <?php }else{?>
-                        <div style="font-size:13px"><?php echo $row['statusPengajuan']?></div>
+                        <div style="font-size:13px"><?php echo $row['statusSourcing']?></div>
                     <?php }?>
                 </td>
                 <!-- Column Summary Report -->
@@ -154,15 +154,15 @@
         }
 
         // Send data to Action Update Material for update status sourcing
-        function funcUpdateStatusPengajuan(idMaterial, materialName){
-            let statusPengajuan = $('form#formSetStatusPengajuan_'+idMaterial+' select#statusPengajuan').val();
+        function funcUpdateStatusSourcing(idMaterial, materialName){
+            let statusSourcing = $('form#formSetStatusSourcing_'+idMaterial+' select#statusSourcing').val();
             $.ajax({
                 url: '../controller/actionUpdateMaterial.php',
                 type: 'POST',
                 data: {
                     "idMaterial": idMaterial,
                     "materialName": materialName,
-                    "statusPengajuan": statusPengajuan,
+                    "statusSourcing": statusSourcing,
                 },
                 dataType: 'json',
                 success: function(response){

@@ -18,9 +18,9 @@
               <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                 <span class="position-absolute top-50 start-50 translate-middle">
                   <?php
-                    $countStatusDoneMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusPengajuan='DONE'")->fetchAll();
+                    $countStatusDoneMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusSourcing='DONE'")->fetchAll();
                     echo $countStatusDoneMaterial[0][0].' <small><b>Material</b></small><br>';
-                    $countStatusDoneSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusPengajuan='DONE'")->fetchAll();
+                    $countStatusDoneSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusSourcing='DONE'")->fetchAll();
                     echo $countStatusDoneSupplier[0][0].' <small><b>Supplier</b></small>';  
                    ?>
                 </span>
@@ -40,9 +40,9 @@
               <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                 <span class="position-absolute top-50 start-50 translate-middle">
                   <?php
-                    $countStatusOpenMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusPengajuan='OPEN'")->fetchAll();
+                    $countStatusOpenMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusSourcing='OPEN'")->fetchAll();
                     echo $countStatusOpenMaterial[0][0].' <small><b>Material</b></small><br>'; 
-                    $countStatusOpenSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusPengajuan='OPEN'")->fetchAll();
+                    $countStatusOpenSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusSourcing='OPEN'")->fetchAll();
                     echo $countStatusOpenSupplier[0][0].' <small><b>Supplier</b></small>'; 
                    ?>
                 </span>
@@ -62,9 +62,9 @@
               <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                 <span class="position-absolute top-50 start-50 translate-middle">
                   <?php
-                    $countStatusReopenMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusPengajuan='RE-OPEN'")->fetchAll();
+                    $countStatusReopenMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusSourcing='RE-OPEN'")->fetchAll();
                     echo $countStatusReopenMaterial[0][0].' <small><b>Sourcing</b></small><br>';
-                    $countStatusReopenSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusPengajuan='RE-OPEN'")->fetchAll();
+                    $countStatusReopenSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusSourcing='RE-OPEN'")->fetchAll();
                     echo $countStatusReopenSupplier[0][0].' <small><b>Supplier</b></small>';  
                    ?>
                 </span>
@@ -84,9 +84,9 @@
               <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                 <span class="position-absolute top-50 start-50 translate-middle">
                   <?php
-                    $countStatusDropMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusPengajuan='DROP'")->fetchAll();
+                    $countStatusDropMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusSourcing='DROP'")->fetchAll();
                     echo $countStatusDropMaterial[0][0].' <small><b>Sourcing</b></small><br>';
-                    $countStatusDropSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusPengajuan='DROP'")->fetchAll();
+                    $countStatusDropSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusSourcing='DROP'")->fetchAll();
                     echo $countStatusDropSupplier[0][0].' <small><b>Supplier</b></small>';  
                    ?>
                 </span>
@@ -106,9 +106,9 @@
               <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                 <span class="position-absolute top-50 start-50 translate-middle">
                   <?php
-                    $countStatusNotYetMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusPengajuan='NOT YET'")->fetchAll();
+                    $countStatusNotYetMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusSourcing='NOT YET'")->fetchAll();
                     echo $countStatusNotYetMaterial[0][0].' <small><b>Sourcing</b></small><br>';
-                    $countStatusNotYetSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusPengajuan='NOT YET'")->fetchAll();
+                    $countStatusNotYetSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusSourcing='NOT YET'")->fetchAll();
                     echo $countStatusNotYetSupplier[0][0].' <small><b>Supplier</b></small>';  
                    ?>
                 </span>
@@ -128,9 +128,9 @@
               <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                 <span class="position-absolute top-50 start-50 translate-middle">
                   <?php
-                    $countStatusHoldMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusPengajuan='HOLD'")->fetchAll();
+                    $countStatusHoldMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusSourcing='HOLD'")->fetchAll();
                     echo $countStatusHoldMaterial[0][0].' <small><b>Sourcing</b></small><br>';
-                    $countStatusHoldSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusPengajuan='HOLD'")->fetchAll();
+                    $countStatusHoldSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusSourcing='HOLD'")->fetchAll();
                     echo $countStatusHoldSupplier[0][0].' <small><b>Supplier</b></small>';  
                    ?>
                 </span>
@@ -227,32 +227,32 @@ function drawChart() {
 var data = google.visualization.arrayToDataTable([
   ['Status', 'Result', { role: 'style' }],
   ['Done',<?php
-    $countStatusDone = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusPengajuan='DONE'")->fetchAll();
+    $countStatusDone = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusSourcing='DONE'")->fetchAll();
     $result = ($countStatusDone[0][0]/$countTotalSourcing[0][0])*100;
     echo $result; 
   ?>,'#9cff9d'],
   ['Open',<?php
-    $countStatusOpen = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusPengajuan='OPEN'")->fetchAll();
+    $countStatusOpen = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusSourcing='OPEN'")->fetchAll();
     $result = ($countStatusOpen[0][0]/$countTotalSourcing[0][0])*100;
     echo $result;
   ?>, '#7380fa'],
   ['Re-Open',<?php
-    $countStatusReopen = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusPengajuan='RE-OPEN'")->fetchAll();
+    $countStatusReopen = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusSourcing='RE-OPEN'")->fetchAll();
     $result = ($countStatusReopen[0][0]/$countTotalSourcing[0][0])*100;
     echo $result;
   ?>, '#a1ecff'],
   ['Drop',<?php
-    $countStatusDrop = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusPengajuan='DROP'")->fetchAll();
+    $countStatusDrop = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusSourcing='DROP'")->fetchAll();
     $result = ($countStatusDrop[0][0]/$countTotalSourcing[0][0])*100;
     echo $result;
   ?>, '#bd7aff'],
   ['Not Yet',<?php
-    $countStatusNotYet = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusPengajuan='NOT YET'")->fetchAll();
+    $countStatusNotYet = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusSourcing='NOT YET'")->fetchAll();
     $result = ($countStatusNotYet[0][0]/$countTotalSourcing[0][0])*100;
     echo $result;
   ?>, '#ff6040'],
   ['Hold',<?php
-    $countStatusHold = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusPengajuan='HOLD'")->fetchAll();
+    $countStatusHold = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE statusSourcing='HOLD'")->fetchAll();
     $result = ($countStatusHold[0][0]/$countTotalSourcing[0][0])*100;
     echo $result; 
   ?>, '#f72a34']
