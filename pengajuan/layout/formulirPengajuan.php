@@ -42,13 +42,6 @@
         <?php }?>
             <!-- End Form Tambah Pengajuan Sourcing-->
 
-            <!-- Display status message -->
-            <?php if(!empty($statusMsg) && ($statusMsgType == 'success')){ ?>
-                <div class="col-xs-4">
-                    <div class="alert alert-success"><?php echo $statusMsg; ?></div>
-                 </div>
-            <?php } ?>
-
             <!-- Tabel Data Hasil Pengajuan Sourcing -->
             <table class="table-pagination row-border stripe hover" style="width:200%">
                 <thead>

@@ -10,7 +10,7 @@ CREATE TABLE [dbo].[TB_Project] (
 
 CREATE TABLE [dbo].[TB_PengajuanSourcing] (
     [id]                    INT           IDENTITY (0, 1) NOT NULL,
-    [sourcingNumber]        INT           CONSTRAINT [DEFAULT_TB_PengajuanSourcing_autoNumber] DEFAULT ((0)) NOT NULL,
+    [sourcingNumber]        INT           NULL,
     [materialCategory]      VARCHAR (40)  NULL,
     [materialName]          TEXT          NULL,
     [priority]              INT           NULL,
@@ -112,9 +112,9 @@ CREATE TABLE [dbo].[TB_File] (
 CREATE TABLE [dbo].[TB_Notifications] (
     [id]             INT           IDENTITY (0, 1) NOT NULL,
     [subject]        VARCHAR (100) NULL,
+    [randomId]       VARCHAR (50)  NULL,
     [message]        VARCHAR (255) NULL,
     [person]         VARCHAR (100) NULL,
-    [status]         INT           NULL,
     [sourcingNumber] INT           NULL,
     [idMaterial]     INT           NULL,
     [idSupplier]     INT           NULL,
@@ -125,6 +125,7 @@ CREATE TABLE [dbo].[TB_Notifications] (
 CREATE TABLE [dbo].[TB_StatusNotifications] (
     [id]             INT      IDENTITY (0, 1) NOT NULL,
     [readingStatus]  BIT      CONSTRAINT [DEFAULT_TB_StatusNotifications_readingStatus] DEFAULT ((0)) NOT NULL,
+    [notifStatus]    BIT      CONSTRAINT [DEFAULT_TB_StatusNotifications_notifStatus] DEFAULT ((0)) NOT NULL,
     [idUser]         INT      NULL,
     [idNotification] INT      NULL,
     [created]        DATETIME NULL,

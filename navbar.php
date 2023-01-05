@@ -33,11 +33,11 @@
 
 <script>
     $(document).ready(function(){
-        function load_unseen_notification(view = ''){
+        function load_unseen_notification(view = '', idNotif = ''){
             $.ajax({
                 url: '../component/notification.php',
                 method: 'POST',
-                data: {view: view},
+                data: {view: view, idNotif: idNotif},
                 dataType: 'json',
                 success: function(data){
 
@@ -70,7 +70,7 @@
         $(document).on('click', '.toggle', function(){
             $('.count').html('');
             $('.count').addClass('d-none')
-            load_unseen_notification('yes')
+            load_unseen_notification('yes',<?php echo $_GET['rs']?>)
         });
 
         setInterval(() => {

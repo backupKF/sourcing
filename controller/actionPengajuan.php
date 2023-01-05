@@ -105,21 +105,17 @@
         unset($_SESSION['materials']);
         unset($_SESSION['project']);
 
-        //Send Notification
+        //Create Notification
         if($insert == true){
-            $response = array(
-                "status" => 0,
-                "message" => "Status Riwayat Berhasil diperbaharui!", 
-            );
-            $subject = trim(strip_tags($_POST['materialName'])); 
             $message = "menambah material sourcing";
-            $person = "Anonymous";
+            $person = $_SESSION['user']['name'];
             $dateNotif = date("Y-m-d H:i:s");
+            $randomId = md5(DateTime::createFromFormat('U.u', microtime(true))->format("Y-m-d H:i:s.u"));
 
-            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, sourcingNumber, created) 
+            $sql = "INSERT INTO TB_Notifications (randomId,message, person, status, sourcingNumber, created) 
             VALUES (?,?,?,?,?,?)";
             $params = array(
-                $subject,
+                $randomId,
                 $message,
                 $person,
                 0,
@@ -127,9 +123,27 @@
                 $dateNotif,
             );
             $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
-        }
+            $insertNotif = $query->execute($params);
 
+            //Send Notifications for users
+            if($insertNotif == true){
+                $totalUser = $conn->query("SELECT count(id) AS total FROM TB_Admin")->fetchAll();
+                $user = $conn->query("SELECT id FROM TB_Admin")->fetchAll();
+                $idNotification = $conn->query("SELECT id FROM TB_Notifications WHERE randomId='".$randomId."'")->fetchAll();
+                for($i = 0; $i < $totalUser[0]['total']; $i++){
+                    $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, idUser, idNotification, created) 
+                    VALUES (?,?,?,?,?)";
+                    $params = array(
+                        0,
+                        0,
+                        $user[$i]['id'],
+                        $idNotification[0]['id'],
+                        $dateNotif,
+                    );
+                    $query = $conn->prepare($sql)->execute($params);
+                }
+            }
+        }
         header('Location: ../riwayat/index.php');
     }
 
@@ -150,34 +164,34 @@
 
         // Checking Order TeamLeader
         switch($tl) {
-            case "TL-01": 
+            case "TL-F1": 
                 $orderTl = "01";
                 break; 
-            case "TL-02": 
+            case "TL-F2": 
                 $orderTl = "02";
                 break; 
-            case "TL-03": 
+            case "TL-F3": 
                 $orderTl = "03";
                 break; 
-            case "TL-04": 
+            case "TL-F4": 
                 $orderTl = "04";
                 break; 
-            case "TL-05": 
+            case "TL-TC": 
                 $orderTl = "05";
                 break; 
-            case "TL-06": 
+            case "TL-KM": 
                 $orderTl = "06";
                 break; 
-            case "TL-07": 
+            case "TL-F7": 
                 $orderTl = "07";
                 break; 
-            case "TL-08": 
+            case "TL-F8": 
                 $orderTl = "08";
                 break; 
-            case "TL-09": 
+            case "TL-9": 
                 $orderTl = "09";
                 break;
-            case "RPIC": 
+            case "TLRPIC": 
                 $orderTl = "10";
                 break;  
         }

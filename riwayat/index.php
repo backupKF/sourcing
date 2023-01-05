@@ -49,7 +49,23 @@
         $.ajax({
             type: 'GET',
             url: 'layout/tabelRiwayat.php',
-            data: {getData: true},
+            <?php
+                if(empty($_GET['sn']) && empty($_GET['idMaterial'])){
+            ?>
+                data: {getData: true},
+            <?php
+                }
+                if(!empty($_GET['sn']) && empty($_GET['idMaterial'])){
+            ?>
+                data: {sn: <?php echo $_GET['sn']?>},
+            <?php
+                }
+                if(!empty($_GET['sn']) && !empty($_GET['idMaterial'])){
+            ?>
+                data: {sn: <?php echo $_GET['sn']?>, idMaterial: <?php echo $_GET['idMaterial']?>},
+            <?php
+                }
+            ?>
             success: function(data){
                 $('#tabel-riwayat').html(data);
             }

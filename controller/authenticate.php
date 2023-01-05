@@ -16,6 +16,8 @@
                 // SET SESSION
                 $_SESSION['login'] = true;
                 $_SESSION['user']['id'] = $account[0]['id'];
+                $_SESSION['user']['name'] = $account[0]['username'];
+                $_SESSION['user']['level'] = $account[0]['level'];
                 $_SESSION['user']['teamLeader'] = $account[0]['teamLeader'];
                 header("Location: ../dashboard/index.php");
             }else{
