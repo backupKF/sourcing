@@ -1,3 +1,7 @@
+<?php
+    session_start()
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,7 +17,7 @@
         <hr>
         <!-- Navigation -->
         <ul class="nav nav-pills flex-column mb-auto mt-3">
-            <!-- Opsi Pengajuan Sourcing -->
+            <!-- Opsi Dashboard -->
             <li class="nav-items">
                 <a href="../dashboard/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='dashboard'){echo 'active';}?>" aria-current="page">
                     <svg style="width:16px;height:16px" viewBox="0 0 24 24">
@@ -22,15 +26,22 @@
                     <span class="ms-2">Dashboard</span>
                 </a>
             </li>
-            <!-- Opsi Pengajuan Sourcing -->
-            <li class="nav-items">
-                <a href="../pengajuan/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='pengajuan'){echo 'active';}?>" aria-current="page">
-                    <svg style="width:16px;height:16px" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" />
-                    </svg>
-                    <span class="ms-2">Pengajuan Sourcing</span>
-                </a>
-            </li>
+            <?php
+                if($_SESSION['user']['level'] != 3){
+            ?>
+                <!-- Opsi Pengajuan Sourcing -->
+                <li class="nav-items">
+                    <a href="../pengajuan/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='pengajuan'){echo 'active';}?>" aria-current="page">
+                        <svg style="width:16px;height:16px" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" />
+                        </svg>
+                        <span class="ms-2">Pengajuan Sourcing</span>
+                    </a>
+                </li>
+            <?php
+                }
+                if($_SESSION['user']['level'] != 3){
+            ?>
             <!-- Opsi Riwayat Sourcing -->
             <li class="nav-items">
                 <a href="/sourcing/riwayat/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='riwayat'){echo 'active';}?>" aria-current="page">
@@ -40,6 +51,9 @@
                     <span class="ms-2">Riwayat Sourcing</span>
                 </a>
             </li>
+            <?php
+                }
+            ?>
             <!-- Opsi View Sourcing -->
             <li class="nav-items">
                 <a href="/sourcing/viewSourcing/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='view'){echo 'active';}?>" aria-current="page">

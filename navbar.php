@@ -47,7 +47,6 @@
                         'title' : 'Notifikasi', 
                         'html' : true,
                         'placement' : 'bottom',
-                        'trigger' : 'focus',
                         'content' : $(".alert_list").html()
                     });
 

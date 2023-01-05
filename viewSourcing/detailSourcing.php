@@ -5,24 +5,9 @@
     include "../dbConfig.php";
 
     // Check Reading Notifications
-    if(!empty($_GET['id'])){
-        if($checkNotif = $conn->query("SELECT * FROM TB_Notifications WHERE id=".$_GET['id'])->fetchAll()){
-            $checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id']." AND idNotification=".$_GET['id'])->fetchAll();
-            if(empty($checkUserReadNotif)){
-
-                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, idUser,  idNotification, created) 
-                VALUES (?,?,?,?)";
-
-                $params = array(
-                    1,
-                    $_SESSION['user']['id'],
-                    $_GET['id'],
-                    date("Y-m-d H:i:s"),
-                );
-                $query = $conn->prepare($sql);
-                $insert = $query->execute($params);
-            }
-
+    if(!empty($_GET['rs'])){
+        if($checkNotif = $conn->query("SELECT * FROM TB_Notifications WHERE id=".$_GET['rs'])->fetchAll()){
+            $checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id']." AND idNotification=".$_GET['rs'])->fetchAll();
             if($checkUserReadNotif[0]['readingStatus'] == 0){
                 $sql = "UPDATE TB_StatusNotifications SET readingStatus = ? WHERE id = ?";
                 $query = $conn->prepare($sql);

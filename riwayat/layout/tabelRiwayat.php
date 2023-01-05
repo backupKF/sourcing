@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     if(empty($_GET)){
         header('Location: ../index.php');
     }
@@ -47,48 +49,94 @@
                         <td style="font-size: 12px;"><?php echo $row['projectName']?></td>
                         <td style="font-size: 12px;">-</td>
                         <td style="font-size: 12px;">-</td>
-                        <td style="font-size: 12px;">
-                            <form onclick="funcFeedbackTL(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackTL_<?php echo $row['id']?>">
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackTL">
-                                    <option <?php echo $row['feedbackTL']==0?'selected':'';?> value=0>No Action</option>
-                                    <option <?php echo $row['feedbackTL']==1?'selected':'';?> value=1>Approved</option>
-                                </select>
-                            </form>
-                        </td>
-                        <td style="font-size: 12px;">
-                            <form onclick="funcFeedbackRPIC(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackRPIC_<?php echo $row['id']?>">
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackRPIC">
-                                    <option <?php echo $row['feedbackRPIC']==0?'selected':'';?> value=0>No Action</option>
-                                    <option <?php echo $row['feedbackRPIC']==1?'selected':'';?> value=1>Accepted</option>
-                                </select>
-                            </form>
-                        </td>
+                        <?php
+                            if($_SESSION['user']['level'] == 2){
+                        ?>
+                            <td style="font-size: 12px;">
+                                <?php
+                                    if($row['feedbackTL'] == 'NO STATUS'){
+                                ?>
+                                    <form onclick="funcFeedbackTL(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackTL_<?php echo $row['id']?>">
+                                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackTL">
+                                            <option selected>NO STATUS</option>
+                                            <option value="APPROVED">APPROVED</option>
+                                        </select>
+                                    </form>
+                                <?php
+                                    }else{
+                                ?>
+                                    <div class="text-center"><?php echo $row['feedbackTL']?></div>
+                                <?php
+                                    }
+                                ?>
+                            </td>
+                        <?php
+                            }else{
+                        ?>
+                            <td class="text-center" style="font-size: 12px;"><?php echo $row['feedbackTL']?></td>
+                        <?php
+                            }
+                        ?>
+                        <?php
+                            if($_SESSION['user']['level'] == 1 || $row['feedbackRPIC'] == 'NO STATUS'){
+                        ?>                     
+                            <td style="font-size: 12px;">
+                                <form onclick="funcFeedbackRPIC(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackRPIC_<?php echo $row['id']?>">
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackRPIC">
+                                        <option selected>NO STATUS</option>
+                                        <option value="ACCEPTED">ACCEPTED</option>
+                                    </select>
+                                </form>
+                            </td>
+                        <?php
+                            }else{
+                        ?>
+                            <td class="text-center" style="font-size: 12px;"><?php echo $row['feedbackRPIC']?></td>
+                        <?php
+                            }
+                        ?>
                         <td style="font-size: 12px;"><?php echo $row['dateApprovedTL']?></td>
                         <td style="font-size: 12px;"><?php echo $row['dateAcceptedRPIC']?></td>
-                        <td style="font-size: 12px;">
-                            <form onclick="funcStatusRiwayat(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formStatusRiwayat_<?php echo $row['id']?>">
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="statusRiwayat">
-                                    <option <?php echo $row['statusRiwayat']==""?'selected':'';?> value=0>No Action</option>
-                                    <option <?php echo $row['statusRiwayat']=="ON PROCESS"?'selected':'';?> value="ON PROCESS">ON PROCESS</option>
-                                    <option <?php echo $row['statusRiwayat']=="HOLD"?'selected':'';?> value="HOLD">HOLD</option>
-                                    <option <?php echo $row['statusRiwayat']=="CANCEL"?'selected':'';?> value="CANCEL">CANCEL</option>
-                                </select>
-                            </form>
-                        </td>
+                        <?php
+                            if($_SESSION['user']['level'] == 1){
+                        ?>
+                            <td style="font-size: 12px;">
+                                <form onclick="funcStatusRiwayat(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formStatusRiwayat_<?php echo $row['id']?>">
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="statusRiwayat">
+                                        <option <?php echo ($row['statusRiwayat']=="NO STATUS")?'selected':'';?>>NO STATUS</option>
+                                        <option <?php echo ($row['statusRiwayat']=="ON PROCESS")?'selected':'';?> value="ON PROCESS">ON PROCESS</option>
+                                        <option <?php echo ($row['statusRiwayat']=="HOLD")?'selected':'';?> value="HOLD">HOLD</option>
+                                        <option <?php echo ($row['statusRiwayat']=="CANCEL")?'selected':'';?> value="CANCEL">CANCEL</option>
+                                    </select>
+                                </form>
+                            </td>
+                        <?php
+                            }else{
+                        ?>
+                            <td class="text-center" style="font-size: 12px;"><?php echo $row['statusRiwayat']?></td>
+                        <?php
+                            }
+                        ?>
                         <td>
                             <!-- Button -->
                             <div class="text-center">
-                                <!-- Button Edit Material -->
-                                <button class="btn btn-warning btn-sm d-inline ms-1" type="button" data-bs-target="#editMaterial<?php echo $row['id']?>" data-bs-toggle="modal">Edit</button>
+                                <?php if($row['feedbackTL'] != 'APPROVED'){ ?>
+                                    <!-- Button Edit Material -->
+                                    <button class="btn btn-warning btn-sm d-inline ms-1" type="button" data-bs-target="#editMaterial<?php echo $row['id']?>" data-bs-toggle="modal">Edit</button>
+                                <?php } ?>
                                 <!-- Button View Material -->
                                 <button class="btn btn-success btn-sm d-inline ms-1" type="button" data-bs-target="#viewMaterial<?php echo $row['id']?>" data-bs-toggle="modal">View</button>
                                 <!-- Button Delete -->
-                                <button class="btn btn-danger btn-sm d-inline ms-1" type="button" onclick="funcDeleteMaterial(<?php echo $row['id']?>,'<?php echo $row['materialName']?>')">Delete</a>
+                                <button class="btn btn-danger btn-sm d-inline ms-1" type="button" onclick="funcDeleteMaterial(<?php echo $row['id']?>,'<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)">Delete</a>
                             </div>
-                            <!-- Modal Update Material -->
-                            <?php include "../../component/modal/updateMaterialRiwayat.php"?>
+
+                            <?php if($row['feedbackTL'] != 'APPROVED'){ ?>
+                                <!-- Modal Update Material -->
+                                <?php include "../../component/modal/updateMaterialRiwayat.php"?>
+                            <?php } ?>
                             <!-- Modal View Material -->
                             <?php include "../../component/modal/viewMaterial.php"?>
+
                         </td>
                     </tr>
                 <?php 

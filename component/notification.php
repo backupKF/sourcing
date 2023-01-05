@@ -18,7 +18,7 @@
         foreach($notifications as $data){
                 $checkNotif = $conn->query("SELECT readingStatus FROM TB_StatusNotifications INNER JOIN TB_Notifications ON TB_StatusNotifications.idNotification = TB_Notifications.id WHERE idUser=".$_SESSION['user']['id']." AND idNotification=".$data['id'])->fetchAll();
                 if(empty($checkNotif) || $checkNotif[0]['readingStatus'] == 0){
-                    if(!empty($data['sourcingNumber']) && empty($data['idMaterial']) && empty($data['idSupplier'])){
+                    if(!empty($data['sourcingNumber']) && empty($data['idMaterial']) && empty($data['idSupplier']) && $_SESSION['user']['level'] != 3){
                         // Notifikasi untuk pengajuan sourcing
                         $output .= '
                             <div class="my-1">
@@ -29,7 +29,7 @@
                             </div>
                             <hr>
                         ';
-                    }else if(!empty($data['sourcingNumber']) && !empty($data['idMaterial']) && empty($data['idSupplier'])){
+                    }else if(!empty($data['sourcingNumber']) && !empty($data['idMaterial']) && empty($data['idSupplier']) && $_SESSION['user']['level'] != 3){
                         // Notifikasi untuk edit material riwayat, feedback tl, feedback rpic, edit status riwayat
                         $output .= '
                             <div class="my-1">
@@ -62,7 +62,7 @@
                             </div>
                             <hr>
                         ';
-                    }else{
+                    }else if($_SESSION['user']['level'] != 3){
                         // Notifikasi untuk hapus material riwayat
                         $output .= '
                             <div class="my-1">

@@ -82,8 +82,8 @@
         $sourcingNumber = autoNumber(date("Y"), $_SESSION['user']['teamLeader'], $number[0]['sourcingNumber']);
 
         foreach($materials as $material){
-            $sql = "INSERT INTO TB_PengajuanSourcing (sourcingNumber, materialCategory, materialName,  materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, documentReq, projectCode, created, dateSourcing, feedbackTL, feedbackRPIC) 
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?, 0, 0)";
+            $sql = "INSERT INTO TB_PengajuanSourcing (sourcingNumber, materialCategory, materialName,  materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, documentReq, projectCode, created, dateSourcing) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $params = array(
                 $sourcingNumber,
                 $material['materialCategory'],
@@ -107,42 +107,7 @@
 
         //Create Notification
         if($insert == true){
-            $message = "menambah material sourcing";
-            $person = $_SESSION['user']['name'];
-            $dateNotif = date("Y-m-d H:i:s");
-            $randomId = md5(DateTime::createFromFormat('U.u', microtime(true))->format("Y-m-d H:i:s.u"));
-
-            $sql = "INSERT INTO TB_Notifications (randomId,message, person, status, sourcingNumber, created) 
-            VALUES (?,?,?,?,?,?)";
-            $params = array(
-                $randomId,
-                $message,
-                $person,
-                0,
-                $sourcingNumber,
-                $dateNotif,
-            );
-            $query = $conn->prepare($sql);
-            $insertNotif = $query->execute($params);
-
-            //Send Notifications for users
-            if($insertNotif == true){
-                $totalUser = $conn->query("SELECT count(id) AS total FROM TB_Admin")->fetchAll();
-                $user = $conn->query("SELECT id FROM TB_Admin")->fetchAll();
-                $idNotification = $conn->query("SELECT id FROM TB_Notifications WHERE randomId='".$randomId."'")->fetchAll();
-                for($i = 0; $i < $totalUser[0]['total']; $i++){
-                    $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, idUser, idNotification, created) 
-                    VALUES (?,?,?,?,?)";
-                    $params = array(
-                        0,
-                        0,
-                        $user[$i]['id'],
-                        $idNotification[0]['id'],
-                        $dateNotif,
-                    );
-                    $query = $conn->prepare($sql)->execute($params);
-                }
-            }
+            sendNotification(NULL, $materialName[0]['materialName'], "menambah material sourcing", $sourcingNumber, NULL, NULL);
         }
         header('Location: ../riwayat/index.php');
     }
@@ -199,5 +164,54 @@
         // Set Auto Number
         $autoNumber = $year.$orderTl.$orderSourcing;
         return (int)$autoNumber;
+    }
+
+     // Function For Send Nofitication
+     function sendNotification($responseInfo, $subject, $message, $sourcingNumber, $idMaterial, $idSupplier){
+        include "../dbConfig.php";
+        //Create Notification
+        $response = array(
+            "status" => 0,
+            "message" => $responseInfo, 
+        );
+
+        $randomId = md5(DateTime::createFromFormat('U.u', microtime(true))->format("Y-m-d H:i:s.u"));
+        $dateNotif = date("Y-m-d H:i:s");
+
+        $sql = "INSERT INTO TB_Notifications (randomId, subject, message, person, sourcingNumber, idMaterial, idSupplier, created) 
+        VALUES (?,?,?,?,?,?,?,?)";
+        $params = array(
+            $randomId,
+            $subject,
+            $message,
+            $_SESSION['user']['name'],
+            $sourcingNumber,
+            $idMaterial,
+            $idSupplier,
+            $dateNotif,
+        );
+        $query = $conn->prepare($sql);
+        $insertNotif = $query->execute($params);
+
+        //Send Notifications for users
+        if($insertNotif == true){
+            $totalUser = $conn->query("SELECT count(id) AS total FROM TB_Admin")->fetchAll();
+            $user = $conn->query("SELECT id FROM TB_Admin")->fetchAll();
+            $idNotification = $conn->query("SELECT id FROM TB_Notifications WHERE randomId='".$randomId."'")->fetchAll();
+            for($i = 0; $i < $totalUser[0]['total']; $i++){
+                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, idUser, idNotification, created) 
+                VALUES (?,?,?,?,?)";
+                $params = array(
+                    0,
+                    0,
+                    $user[$i]['id'],
+                    $idNotification[0]['id'],
+                    $dateNotif,
+                );
+                $query = $conn->prepare($sql)->execute($params);
+            }
+        }
+
+        return $response;
     }
 ?>

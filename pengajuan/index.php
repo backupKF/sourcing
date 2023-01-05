@@ -8,6 +8,11 @@
         header("Location: ../login.php");
         exit();
     }
+
+    if($_SESSION['user']['level'] == 3){
+        header("Location: ../dashboard/index.php");
+        exit();
+    }
 ?>
 
 <!doctype html>

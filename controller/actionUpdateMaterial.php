@@ -67,30 +67,10 @@
             $sql = "UPDATE TB_PengajuanSourcing SET materialCategory = ?, materialName = ?, priority = ?, materialSpesification = ?, catalogOrCasNumber = ?, company = ?, website = ?, finishDossageForm = ?, keterangan = ?, vendor = ?, documentReq = ? WHERE id = ?";
             $query = $conn->prepare($sql);
             $update = $query->execute(array($materialCategory, $materialName, $priority, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $vendor, $documentReq, $idMaterial));
-        
-             // Send Notifikasi
+    
+            //Create Notification
             if($update == true){
-                $response = array(
-                    "status" => 0,
-                    "message" => "Data material berhasil diperbaharui!!", 
-                );
-                $subject = trim(strip_tags($_POST['materialName'])); 
-                $message = "memperbaharui data material sourcing, Material : ";
-                $person = $_SESSION['user']['name'];
-                $dateNotif = date("Y-m-d H:i:s");
-
-                $sql = "INSERT INTO TB_Notifications (subject,message, person, status, idMaterial, created) 
-                VALUES (?,?,?,?,?,?)";
-                $params = array(
-                    $subject,
-                    $message,
-                    $person,
-                    0,
-                    $idMaterial,
-                    $dateNotif,
-                );
-                $query = $conn->prepare($sql);
-                $insert = $query->execute($params);
+                $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui data material sourcing, Material : ", NULL, $idMaterial, NULL);
             }
 
         }else{
@@ -98,30 +78,9 @@
             $query = $conn->prepare($sql);
             $update = $query->execute(array($materialCategory, $materialName, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $documentReq, $idMaterial));
         
-             // Send Notifikasi
+            //Create Notification
             if($update == true){
-                $response = array(
-                    "status" => 0,
-                    "message" => "Data material berhasil diperbaharui!!", 
-                );
-                $subject = trim(strip_tags($_POST['materialName'])); 
-                $message = "memperbaharui data riwayat material sourcing, Material : ";
-                $person = $_SESSION['user']['name'];
-                $dateNotif = date("Y-m-d H:i:s");
-
-                $sql = "INSERT INTO TB_Notifications (subject,message, person, status, sourcingNumber, idMaterial, created) 
-                VALUES (?,?,?,?,?,?,?)";
-                $params = array(
-                    $subject,
-                    $message,
-                    $person,
-                    0,
-                    $sourcingNumber,
-                    $idMaterial,
-                    $dateNotif,
-                );
-                $query = $conn->prepare($sql);
-                $insert = $query->execute($params);
+                $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui data riwayat material sourcing, Material : ", $sourcingNumber, $idMaterial, NULL);
             }
         }
        
@@ -140,27 +99,7 @@
 
         //Send Notification
         if($update == true){
-            $response = array(
-                "status" => 0,
-                "message" => "Status Sourcing berhasil diperbaharui!!", 
-            );
-            $subject = trim(strip_tags($_POST['materialName'])); 
-            $message = "memperbaharui status sourcing, Material : ";
-            $person = $_SESSION['user']['name'];
-            $dateNotif = date("Y-m-d H:i:s");
-
-            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, idMaterial, created) 
-            VALUES (?,?,?,?,?,?)";
-            $params = array(
-                $subject,
-                $message,
-                $person,
-                0,
-                $idMaterial,
-                $dateNotif,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
+            $response = sendNotification("Status Sourcing berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui status sourcing, Material : ", NULL, $idMaterial, NULL);
         }
        
         echo json_encode($response);
@@ -178,27 +117,7 @@
 
         //Send Notification
         if($update == true){
-            $response = array(
-                "status" => 0,
-                "message" => "Summary Report berhasil diperbaharui!!", 
-            );
-            $subject = trim(strip_tags($_POST['materialName'])); 
-            $message = "memperbaharui sumary repory sourcing, Material : ";
-            $person = $_SESSION['user']['name'];
-            $dateNotif = date("Y-m-d H:i:s");
-
-            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, idMaterial, created) 
-            VALUES (?,?,?,?,?,?)";
-            $params = array(
-                $subject,
-                $message,
-                $person,
-                0,
-                $idMaterial,
-                $dateNotif,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
+            $response = sendNotification("Summary Report berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui sumary repory sourcing, Material : ", NULL, $idMaterial, NULL);
         }
        
         echo json_encode($response);
@@ -207,33 +126,15 @@
 
     if(isset($_GET['actionType'])){
         $idMaterial = $_GET['idMaterial'];
+        $materialName = $_GET['materialName'];
 
         $sql = "DELETE FROM TB_PengajuanSourcing WHERE id = ?";
         $query = $conn->prepare($sql);
         $delete = $query->execute(array($idMaterial));
 
          //Send Notification
-         if($delete == true){
-            $response = array(
-                "status" => 0,
-                "message" => "Material Berhasil Di Hapus!!", 
-            );
-            $subject = trim(strip_tags($_GET['materialName']));
-            $message = "menghapus riwayat sourcing, Material : ";
-            $person = $_SESSION['user']['name'];
-            $dateNotif = date("Y-m-d H:i:s");
-
-            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, created) 
-            VALUES (?,?,?,?,?)";
-            $params = array(
-                $subject,
-                $message,
-                $person,
-                0,
-                $dateNotif,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
+        if($delete == true){
+            $response = sendNotification("Material Berhasil Di Hapus!!", $materialName, "menghapus riwayat sourcing, Material : ", NULL, NULL, NULL);
         }
 
         echo json_encode($response);
@@ -244,6 +145,7 @@
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
         $feedbackTL = trim(strip_tags($_POST['feedbackTL']));
         $dateApprovedTL = date("Y-m-d");
+        $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
 
         $sql = "UPDATE TB_PengajuanSourcing SET feedbackTL = ?, dateApprovedTL = ? WHERE id = ?";
         $query = $conn->prepare($sql);
@@ -251,29 +153,7 @@
 
         //Send Notification
         if($update == true){
-            $response = array(
-                "status" => 0,
-                "message" => "Feedback Team Leader Berhasil diperbaharui!", 
-            );
-            $subject = trim(strip_tags($_POST['materialName']));
-            $sourcingNumber = $_POST['sourcingNumber'];
-            $message = "memperbaharui Feedback Team Leader, Material : ";
-            $person = $_SESSION['user']['name'];
-            $dateNotif = date("Y-m-d H:i:s");
-
-            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, sourcingNumber, idMaterial, created) 
-            VALUES (?,?,?,?,?,?,?)";
-            $params = array(
-                $subject,
-                $message,
-                $person,
-                0,
-                $sourcingNumber,
-                $idMaterial,
-                $dateNotif,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
+            $response = sendNotification("Feedback Team Leader Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback Team Leader, Material : ", $sourcingNumber, $idMaterial, NULL);
         }
 
         echo json_encode($response);
@@ -284,6 +164,7 @@
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
         $feedbackRPIC = trim(strip_tags($_POST['feedbackRPIC']));
         $dateAcceptedRPIC = date("Y-m-d");
+        $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
 
         $sql = "UPDATE TB_PengajuanSourcing SET feedbackRPIC = ?, dateAcceptedRPIC = ? WHERE id = ?";
         $query = $conn->prepare($sql);
@@ -291,29 +172,7 @@
 
         //Send Notification
         if($update == true){
-            $response = array(
-                "status" => 0,
-                "message" => "Feedback RPIC Berhasil diperbaharui!", 
-            );
-            $subject = trim(strip_tags($_POST['materialName'])); 
-            $sourcingNumber = $_POST['sourcingNumber'];
-            $message = "memperbaharui Feedback RPIC, Material : ";
-            $person = $_SESSION['user']['name'];
-            $dateNotif = date("Y-m-d H:i:s");
-
-            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, sourcingNumber, idMaterial, created) 
-            VALUES (?,?,?,?,?,?,?)";
-            $params = array(
-                $subject,
-                $message,
-                $person,
-                0,
-                $sourcingNumber,
-                $idMaterial,
-                $dateNotif,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
+            $response = sendNotification("Feedback RPIC Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback RPIC, Material : ", $sourcingNumber, $idMaterial, NULL);
         }
 
         echo json_encode($response);
@@ -323,6 +182,7 @@
     if(isset($_POST['statusRiwayat'])){
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
         $statusRiwayat = trim(strip_tags($_POST['statusRiwayat']));
+        $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
 
         $sql = "UPDATE TB_PengajuanSourcing SET statusRiwayat = ? WHERE id = ?";
         $query = $conn->prepare($sql);
@@ -330,32 +190,60 @@
 
         //Send Notification
         if($update == true){
-            $response = array(
-                "status" => 0,
-                "message" => "Status Riwayat Berhasil diperbaharui!", 
-            );
-            $subject = trim(strip_tags($_POST['materialName'])); 
-            $sourcingNumber = $_POST['sourcingNumber'];
-            $message = "memperbaharui status riwayat, Material : ";
-            $person = $_SESSION['user']['name'];
-            $dateNotif = date("Y-m-d H:i:s");
-
-            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, sourcingNumber, idMaterial, created) 
-            VALUES (?,?,?,?,?,?,?)";
-            $params = array(
-                $subject,
-                $message,
-                $person,
-                0,
-                $sourcingNumber,
-                $idMaterial,
-                $dateNotif,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
+            $response = sendNotification("Status Riwayat Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui status riwayat, Material : ", $sourcingNumber, $idMaterial, NULL);
         }
 
         echo json_encode($response);
         exit();
+    }
+
+
+    // Function For Send Nofitication
+    function sendNotification($responseInfo, $subject, $message, $sourcingNumber, $idMaterial, $idSupplier){
+        include "../dbConfig.php";
+        //Create Notification
+        $response = array(
+            "status" => 0,
+            "message" => $responseInfo, 
+        );
+
+        $randomId = md5(DateTime::createFromFormat('U.u', microtime(true))->format("Y-m-d H:i:s.u"));
+        $dateNotif = date("Y-m-d H:i:s");
+
+        $sql = "INSERT INTO TB_Notifications (randomId, subject, message, person, sourcingNumber, idMaterial, idSupplier, created) 
+        VALUES (?,?,?,?,?,?,?,?)";
+        $params = array(
+            $randomId,
+            $subject,
+            $message,
+            $_SESSION['user']['name'],
+            $sourcingNumber,
+            $idMaterial,
+            $idSupplier,
+            $dateNotif,
+        );
+        $query = $conn->prepare($sql);
+        $insertNotif = $query->execute($params);
+
+        //Send Notifications for users
+        if($insertNotif == true){
+            $totalUser = $conn->query("SELECT count(id) AS total FROM TB_Admin")->fetchAll();
+            $user = $conn->query("SELECT id FROM TB_Admin")->fetchAll();
+            $idNotification = $conn->query("SELECT id FROM TB_Notifications WHERE randomId='".$randomId."'")->fetchAll();
+            for($i = 0; $i < $totalUser[0]['total']; $i++){
+                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, idUser, idNotification, created) 
+                VALUES (?,?,?,?,?)";
+                $params = array(
+                    0,
+                    0,
+                    $user[$i]['id'],
+                    $idNotification[0]['id'],
+                    $dateNotif,
+                );
+                $query = $conn->prepare($sql)->execute($params);
+            }
+        }
+
+        return $response;
     }
 ?>

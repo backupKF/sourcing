@@ -1,6 +1,8 @@
 <?php
     include "../dbConfig.php";
 
+    session_start();
+
     if(empty($_POST) && empty($_GET)){
         header('http/1.1 403 forbidden');
     }
@@ -21,30 +23,8 @@
     
         // Send Notifikasi
         if($update == true){
-            $response = array(
-                "status" => 0,
-                "message" => "Supplier berhasil diedit!!", 
-            );
-            $dataMaterial = $conn->query("SELECT idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-            $subject = $supplier; 
-            $message = "mengedit supplier :  ";
-            $person = "Anonymous";
-            $dateNotif = date("Y-m-d H:i:s");
-            $idMaterial = $dataMaterial[0]['idMaterial'];
-
-            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, idSupplier, idMaterial, created) 
-            VALUES (?,?,?,?,?,?,?)";
-            $params = array(
-                $subject,
-                $message,
-                $person,
-                0,
-                $idSupplier,
-                $idMaterial,
-                $dateNotif,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
+            $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+            $response = sendNotification("Supplier berhasil diedit!!", $dataSupplier[0]['supplier'], "mengedit supplier :  ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
         }
 
         echo json_encode($response);
@@ -69,30 +49,8 @@
 
         // Send Notifikasi
         if($insert == true){
-            $response = array(
-                "status" => 0,
-                "message" => "Berhasil memasukan detail supplier!!", 
-            );
-            $dataMaterial = $conn->query("SELECT idMaterial, supplier FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-            $subject = $dataMaterial[0]['supplier']; 
-            $message = "menambahkan detail supplier : ";
-            $person = "Anonymous";
-            $dateNotif = date("Y-m-d H:i:s");
-            $idMaterial = $dataMaterial[0]['idMaterial'];
-
-            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, idSupplier, idMaterial, created) 
-            VALUES (?,?,?,?,?,?,?)";
-            $params = array(
-                $subject,
-                $message,
-                $person,
-                0,
-                $idSupplier,
-                $idMaterial,
-                $dateNotif,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
+            $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+            $response = sendNotification("Berhasil memasukan detail supplier!!", $dataSupplier[0]['supplier'] , "menambahkan detail supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
         }
 
     
@@ -111,32 +69,59 @@
         
         // Send Notifikasi
         if($delete == true){
-            $response = array(
-                "status" => 0,
-                "message" => "Berhasil menghapus detail supplier!!", 
-            );
-            $dataMaterial = $conn->query("SELECT idMaterial, supplier FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-            $subject = $dataMaterial[0]['supplier']; 
-            $message = "menghapus detail supplier : ";
-            $person = "Anonymous";
-            $dateNotif = date("Y-m-d H:i:s");
-            $idMaterial = $dataMaterial[0]['idMaterial'];
-
-            $sql = "INSERT INTO TB_Notifications (subject,message, person, status, idSupplier, idMaterial, created) 
-            VALUES (?,?,?,?,?,?,?)";
-            $params = array(
-                $subject,
-                $message,
-                $person,
-                0,
-                $idSupplier,
-                $idMaterial,
-                $dateNotif,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
+            $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+            $response = sendNotification("Berhasil menghapus detail supplier!!", $dataSupplier[0]['supplier'], "menghapus detail supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
         }
 
         echo json_encode($response);
+    }
+
+    // Function For Send Nofitication
+    function sendNotification($responseInfo, $subject, $message, $sourcingNumber, $idMaterial, $idSupplier){
+        include "../dbConfig.php";
+        //Create Notification
+        $response = array(
+            "status" => 0,
+            "message" => $responseInfo, 
+        );
+
+        $randomId = md5(DateTime::createFromFormat('U.u', microtime(true))->format("Y-m-d H:i:s.u"));
+        $dateNotif = date("Y-m-d H:i:s");
+
+        $sql = "INSERT INTO TB_Notifications (randomId, subject, message, person, sourcingNumber, idMaterial, idSupplier, created) 
+        VALUES (?,?,?,?,?,?,?,?)";
+        $params = array(
+            $randomId,
+            $subject,
+            $message,
+            $_SESSION['user']['name'],
+            $sourcingNumber,
+            $idMaterial,
+            $idSupplier,
+            $dateNotif,
+        );
+        $query = $conn->prepare($sql);
+        $insertNotif = $query->execute($params);
+
+        //Send Notifications for users
+        if($insertNotif == true){
+            $totalUser = $conn->query("SELECT count(id) AS total FROM TB_Admin")->fetchAll();
+            $user = $conn->query("SELECT id FROM TB_Admin")->fetchAll();
+            $idNotification = $conn->query("SELECT id FROM TB_Notifications WHERE randomId='".$randomId."'")->fetchAll();
+            for($i = 0; $i < $totalUser[0]['total']; $i++){
+                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, idUser, idNotification, created) 
+                VALUES (?,?,?,?,?)";
+                $params = array(
+                    0,
+                    0,
+                    $user[$i]['id'],
+                    $idNotification[0]['id'],
+                    $dateNotif,
+                );
+                $query = $conn->prepare($sql)->execute($params);
+            }
+        }
+
+        return $response;
     }
 ?>

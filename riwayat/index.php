@@ -8,6 +8,23 @@
         header("Location: ../login.php");
         exit();
     }
+
+    if($_SESSION['user']['level'] == 3){
+        header("Location: ../dashboard/index.php");
+        exit();
+    }
+
+    // Check Reading Notifications
+    if(!empty($_GET['rs'])){
+        if($checkNotif = $conn->query("SELECT * FROM TB_Notifications WHERE id=".$_GET['rs'])->fetchAll()){
+            $checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id']." AND idNotification=".$_GET['rs'])->fetchAll();
+            if($checkUserReadNotif[0]['readingStatus'] == 0){
+                $sql = "UPDATE TB_StatusNotifications SET readingStatus = ? WHERE id = ?";
+                $query = $conn->prepare($sql);
+                $update = $query->execute(array(1, $checkUserReadNotif[0]['id']));
+            }
+        }
+    }
 ?>
 <!doctype html>
 <html lang="en">
