@@ -1,11 +1,10 @@
 <?php
-    session_start();
-
     if(empty($_GET)){
         header('Location: ../index.php');
     }
-?>
 
+    echo $_GET['userLevel']
+?>
 <div class="card" style="width:1050px">
     <div class="card-body">
         <table class="table p-1" id="table-riwayat">
@@ -30,9 +29,9 @@
             <tbody>
                 <?php
                     include "../../dbConfig.php";
-                    if(!empty($_GET["sn"]) && empty($_GET["idMaterial"])){
+                    if(!empty($_GET["sn"]) && empty($_GET["idMaterial"]) && isset($_SESSION['user'])){
                         $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode WHERE sourcingNumber=".$_GET['sn']." ORDER BY id DESC")->fetchAll();
-                    }else if(!empty($_GET["sn"]) && !empty($_GET["idMaterial"])){
+                    }else if(!empty($_GET["sn"]) && !empty($_GET["idMaterial"]) && isset($_SESSION['user'])){
                         $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode WHERE sourcingNumber=".$_GET['sn']." AND id=".$_GET['idMaterial']." ORDER BY id DESC")->fetchAll();
                     }else{
                         $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode ORDER BY id DESC")->fetchAll();
@@ -49,58 +48,44 @@
                         <td style="font-size: 12px;"><?php echo $row['projectName']?></td>
                         <td style="font-size: 12px;">-</td>
                         <td style="font-size: 12px;">-</td>
+                        
+                        <td style="font-size: 12px;">
                         <?php
-                            if($_SESSION['user']['level'] == 2){
+                            if(2 == 2){
                         ?>
-                            <td style="font-size: 12px;">
-                                <?php
-                                    if($row['feedbackTL'] == 'NO STATUS'){
-                                ?>
-                                    <form onclick="funcFeedbackTL(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackTL_<?php echo $row['id']?>">
-                                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackTL">
-                                            <option selected>NO STATUS</option>
-                                            <option value="APPROVED">APPROVED</option>
-                                        </select>
-                                    </form>
-                                <?php
-                                    }else{
-                                ?>
-                                    <div class="text-center"><?php echo $row['feedbackTL']?></div>
-                                <?php
-                                    }
-                                ?>
-                            </td>
+                            <form onclick="funcFeedbackTL(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackTL_<?php echo $row['id']?>">
+                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackTL">
+                                    <option selected>NO STATUS</option>
+                                    <option value=1>APPROVED</option>
+                                </select>
+                            </form>
                         <?php
-                            }else{
+                            }else
                         ?>
-                            <td class="text-center" style="font-size: 12px;"><?php echo $row['feedbackTL']?></td>
+                        </td>
+                  
+                        <td style="font-size: 12px;">
                         <?php
-                            }
+                            if(1 == 1){
                         ?>
-                        <?php
-                            if($_SESSION['user']['level'] == 1 || $row['feedbackRPIC'] == 'NO STATUS'){
-                        ?>                     
-                            <td style="font-size: 12px;">
-                                <form onclick="funcFeedbackRPIC(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackRPIC_<?php echo $row['id']?>">
+                            <form onclick="funcFeedbackRPIC(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackRPIC_<?php echo $row['id']?>">
                                     <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackRPIC">
                                         <option selected>NO STATUS</option>
-                                        <option value="ACCEPTED">ACCEPTED</option>
+                                        <option value=1>ACCEPTED</option>
                                     </select>
-                                </form>
-                            </td>
-                        <?php
-                            }else{
-                        ?>
-                            <td class="text-center" style="font-size: 12px;"><?php echo $row['feedbackRPIC']?></td>
+                            </form>
                         <?php
                             }
                         ?>
+                        </td>
+
                         <td style="font-size: 12px;"><?php echo $row['dateApprovedTL']?></td>
                         <td style="font-size: 12px;"><?php echo $row['dateAcceptedRPIC']?></td>
-                        <?php
-                            if($_SESSION['user']['level'] == 1){
-                        ?>
-                            <td style="font-size: 12px;">
+                        
+                        <td style="font-size: 12px;">
+                            <?php
+                                if($_GET['userLevel'] == 1){
+                            ?>
                                 <form onclick="funcStatusRiwayat(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formStatusRiwayat_<?php echo $row['id']?>">
                                     <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="statusRiwayat">
                                         <option <?php echo ($row['statusRiwayat']=="NO STATUS")?'selected':'';?>>NO STATUS</option>
@@ -109,31 +94,34 @@
                                         <option <?php echo ($row['statusRiwayat']=="CANCEL")?'selected':'';?> value="CANCEL">CANCEL</option>
                                     </select>
                                 </form>
-                            </td>
-                        <?php
-                            }else{
-                        ?>
-                            <td class="text-center" style="font-size: 12px;"><?php echo $row['statusRiwayat']?></td>
-                        <?php
-                            }
-                        ?>
+                            <?php
+                                }else{
+                            ?>
+                                <div class="text-center" style="font-size: 12px;"><?php echo $row['statusRiwayat']?></div>
+                            <?php
+                                }
+                            ?>
+                        </td>
+                        
                         <td>
                             <!-- Button -->
                             <div class="text-center">
-                                <?php if($row['feedbackTL'] != 'APPROVED'){ ?>
+                                <?php 
+                                    if($row['feedbackTL'] != 1){ 
+                                        echo $row['feedbackTL']?>
                                     <!-- Button Edit Material -->
                                     <button class="btn btn-warning btn-sm d-inline ms-1" type="button" data-bs-target="#editMaterial<?php echo $row['id']?>" data-bs-toggle="modal">Edit</button>
                                 <?php } ?>
                                 <!-- Button View Material -->
                                 <button class="btn btn-success btn-sm d-inline ms-1" type="button" data-bs-target="#viewMaterial<?php echo $row['id']?>" data-bs-toggle="modal">View</button>
-                                <!-- Button Delete -->
-                                <button class="btn btn-danger btn-sm d-inline ms-1" type="button" onclick="funcDeleteMaterial(<?php echo $row['id']?>,'<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)">Delete</a>
+                                <?php if($_SESSION['user']['level'] == 1){ ?>  
+                                    <!-- Button Delete -->
+                                    <button class="btn btn-danger btn-sm d-inline ms-1" type="button" onclick="funcDeleteMaterial(<?php echo $row['id']?>,'<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)">Delete</a>
+                                <?php } ?>
                             </div>
 
-                            <?php if($row['feedbackTL'] != 'APPROVED'){ ?>
-                                <!-- Modal Update Material -->
-                                <?php include "../../component/modal/updateMaterialRiwayat.php"?>
-                            <?php } ?>
+                            <!-- Modal Update Material -->
+                            <?php include "../../component/modal/updateMaterialRiwayat.php"?>
                             <!-- Modal View Material -->
                             <?php include "../../component/modal/viewMaterial.php"?>
 
@@ -183,7 +171,7 @@
                         title: response.message
                     })
 
-                loadDataRiwayat();
+                loadDataRiwayat(<?php echo $_SESSION['user']['level']?>);
             }
         })
     }

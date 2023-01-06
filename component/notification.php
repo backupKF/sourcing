@@ -25,7 +25,7 @@
                                 <strong>'.$data['person'].'</strong>
                                 <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
                                 <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
-                                <a href="../riwayat/index.php?rs='.$data['id'].'&sn='.$data['sourcingNumber'].'"><small>Lihat Selengkapnya...</small></a>
+                                <a href="../riwayat/index.php?rs='.$data['randomId'].'&sn='.$data['sourcingNumber'].'"><small>Lihat Selengkapnya...</small></a>
                             </div>
                             <hr>
                         ';
@@ -36,7 +36,7 @@
                                 <strong>'.$data['person'].'</strong>
                                 <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
                                 <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
-                                <a href="../riwayat/index.php?rs='.$data['id'].'&sn='.$data['sourcingNumber'].'&idMaterial='.$data['idMaterial'].'"><small>Lihat Selengkapnya...</small></a>
+                                <a href="../riwayat/index.php?rs='.$data['randomId'].'&sn='.$data['sourcingNumber'].'&idMaterial='.$data['idMaterial'].'"><small>Lihat Selengkapnya...</small></a>
                             </div>
                             <hr>
                         ';
@@ -47,7 +47,7 @@
                                 <strong>'.$data['person'].'</strong>
                                 <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
                                 <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
-                                <a href="../viewSourcing/detailSourcing.php?rs='.$data['id'].'&idMaterial='.$data['idMaterial'].'"><small>Lihat Selengkapnya...</small></a>
+                                <a href="../viewSourcing/detailSourcing.php?rs='.$data['randomId'].'&idMaterial='.$data['idMaterial'].'"><small>Lihat Selengkapnya...</small></a>
                             </div>
                             <hr>
                         ';
@@ -58,7 +58,7 @@
                                 <strong>'.$data['person'].'</strong>
                                 <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
                                 <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
-                                <a href="../viewSourcing/detailSourcing.php?rs='.$data['id'].'&idMaterial='.$data['idMaterial'].'&idSupplier='.$data['idSupplier'].'"><small>Lihat Selengkapnya...</small></a>
+                                <a href="../viewSourcing/detailSourcing.php?rs='.$data['randomId'].'&idMaterial='.$data['idMaterial'].'&idSupplier='.$data['idSupplier'].'"><small>Lihat Selengkapnya...</small></a>
                             </div>
                             <hr>
                         ';
@@ -69,7 +69,7 @@
                                 <strong>'.$data['person'].'</strong>
                                 <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
                                 <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
-                                <a href="../riwayat/index.php?rs='.$data['id'].'"><small>Lihat Selengkapnya...</small></a>
+                                <a href="../riwayat/index.php?rs='.$data['randomId'].'"><small>Lihat Selengkapnya...</small></a>
                             </div>
                             <hr>
                         ';

@@ -6,8 +6,8 @@
 
     // Check Reading Notifications
     if(!empty($_GET['rs'])){
-        if($checkNotif = $conn->query("SELECT * FROM TB_Notifications WHERE id=".$_GET['rs'])->fetchAll()){
-            $checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id']." AND idNotification=".$_GET['rs'])->fetchAll();
+        if($checkNotif = $conn->query("SELECT * FROM TB_Notifications WHERE randomId='".$_GET['rs']."'")->fetchAll()){
+            $checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id']." AND randomIdNotification='".$_GET['rs']."'")->fetchAll();
             if($checkUserReadNotif[0]['readingStatus'] == 0){
                 $sql = "UPDATE TB_StatusNotifications SET readingStatus = ? WHERE id = ?";
                 $query = $conn->prepare($sql);

@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     include "../../dbConfig.php";
 
     if(empty($_GET)){
@@ -6,8 +8,9 @@
     }
     
     $dataMaterial = $conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id='{$_GET['idMaterial']}' AND feedbackRPIC=1")->fetchAll();
-?>
 
+    if($_SESSION['user']['level'] == 1){
+?>
 <form class="was-validated" id="formEditMaterial">
     <!-- Material Category -->
     <label class="form-label fw-bold">Material Category</label>
@@ -166,6 +169,109 @@
         Edit Material
     </button>
 </form>
+
+<?php
+    }
+    
+    if($_SESSION['user']['level'] != 1){
+?>
+    <!-- Material Category -->
+    <div class="row">
+    <div class="col m-0 mt-1">
+            <div class="mb-3">
+                <label for="materialCategory" class="form-label fw-bold">Material Category</label>
+                <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['materialCategory'])? $dataMaterial[0]['materialCategory']:'';?>" disabled readonly>
+            </div>
+        </div>
+    </div>
+
+    <hr class="m-0">
+
+    <div class="row">
+        <div class="col m-0 mt-1">
+            <!-- Material Deskripsi -->
+            <div class="mb-3">
+                <label for="materialName" class="form-label fw-bold">Material Deskripsi</label>
+                <textarea class="form-control form-control-sm" id="materialName" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['materialName'])? $dataMaterial[0]['materialName']:''; ?></textarea>
+            </div>
+        </div>
+        <div class="col m-0 mt-1">   
+            <!-- Material Spesification -->
+        <div class="mb-3">
+            <label for="materialSpesification" class="form-label fw-bold">Material Spesification</label>
+            <textarea class="form-control form-control-sm" id="materialSpesification" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['materialSpesification'])? $dataMaterial[0]['materialSpesification']:''; ?></textarea>
+        </div>
+    </div>
+                    
+    <hr class="m-0">
+
+    <div class="row">
+        <div class="col m-0 mt-1">
+            <!-- Priority -->
+            <div class="mb-3">
+                <label for="priority" class="form-label fw-bold">Priority</label>
+                <input type="number" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['priority'])? $dataMaterial[0]['priority']:'';?>" disabled readonly>
+            </div>
+        </div>
+        <div class="col m-0 mt-1">
+            <!-- Finish Dossage Form -->
+            <div class="mb-3">
+                <label for="finishDossageForm" class="form-label fw-bold">Finish Dossage Form</label>
+                <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['finishDossageForm'])? $dataMaterial[0]['finishDossageForm']:''; ?>" disabled readonly>
+            </div>
+        </div>
+        <div class="col m-0 mt-1">
+            <!-- Vendor Terdaftar AERO -->
+            <div class="mb-3">
+                <label for="vendor" class="form-label fw-bold">Vendor Terdaftar AERO</label>
+                <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['vendor'])? $dataMaterial[0]['vendor']:'';?>" disabled readonly>
+            </div>
+        </div>
+        <div class="col m-0 mt-1">
+            <!-- Document Requirement -->
+            <div class="mb-3">
+                <label for="documentReq" class="form-label fw-bold">Document Requirement</label>
+                <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['documentReq'])? $dataMaterial[0]['documentReq']:'';?>" disabled readonly>
+            </div>
+        </div>
+    </div>
+                    
+    <hr class="m-0">
+
+    <div class="row">
+        <div class="col m-0 mt-1">
+            <!-- Catalog Or CAS Number -->
+            <div class="mb-3">
+                <label for="catalogOrCasNumber" class="form-label fw-bold">Catalog Or CAS Number</label>
+                <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['catalogOrCasNumber'])? $dataMaterial[0]['catalogOrCasNumber']:'';?>" disabled readonly>
+            </div>
+        </div>
+        <div class="col m-0 mt-1">
+            <!-- Company< -->
+            <div class="mb-3">
+                <label for="company" class="form-label fw-bold">Company</label>
+                <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['company'])? $dataMaterial[0]['company']:''; ?>" disabled readonly>
+            </div>
+        </div>
+        <div class="col m-0 mt-1">
+            <!-- Website -->
+            <div class="mb-3">
+                <label for="website" class="form-label fw-bold">Website</label>
+                <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['website'])? $dataMaterial[0]['website']:'-'; ?>" disabled readonly>
+            </div>
+        </div>
+    </div>
+
+    <hr class="m-0">
+
+    <!-- Keterangan -->
+    <div class="mb-3">
+        <label for="keterangan" class="form-label fw-bold">Keterangan</label>
+        <textarea class="form-control form-control-sm" id="keterangan" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['keterangan'])? $dataMaterial[0]['keterangan']:''; ?></textarea>
+    </div>
+<?php
+    }
+?>
 <script>
     $(document).ready(function(){
         $( "input#api" ).click(function() {

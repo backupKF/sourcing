@@ -64,12 +64,16 @@
             })
         }
 
+        function readNotif(){
+            console.log("Hali")
+        }
+
         load_unseen_notification()
 
         $(document).on('click', '.toggle', function(){
             $('.count').html('');
             $('.count').addClass('d-none')
-            load_unseen_notification('yes',<?php echo $_GET['rs']?>)
+            load_unseen_notification('yes','<?php echo $_GET['rs']?>')
         });
 
         setInterval(() => {

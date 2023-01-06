@@ -26,12 +26,12 @@ CREATE TABLE [dbo].[TB_PengajuanSourcing] (
     [dateSourcing]          DATE          NULL,
     [teamLeader]            VARCHAR (100) NULL,
     [researcher]            VARCHAR (100) NULL,
-    [feedbackTL]            VARCHAR (10)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_feedbackTL] DEFAULT ('NO STATUS') NOT NULL,
-    [feedbackRPIC]          VARCHAR (10)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_feedbackRPIC] DEFAULT ('NO STATUS') NOT NULL,
+    [feedbackTL]            BIT           CONSTRAINT [DEFAULT_TB_PengajuanSourcing_feedbackTL] DEFAULT ((0)) NOT NULL,
+    [feedbackRPIC]          BIT           CONSTRAINT [DEFAULT_TB_PengajuanSourcing_feedbackRPIC] DEFAULT ((0)) NOT NULL,
     [dateApprovedTL]        DATE          NULL,
     [dateAcceptedRPIC]      DATE          NULL,
-    [statusRiwayat]         VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_statusRiwayat] DEFAULT ('NO STATUS') NULL,
-    [statusSourcing]        VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_statusPengajuan] DEFAULT ('NO STATUS') NOT NULL,
+    [statusRiwayat]         VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_statusRiwayat] DEFAULT ('') NULL,
+    [statusSourcing]        VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_statusPengajuan] DEFAULT ('') NOT NULL,
     [sumaryReport]          TEXT          NULL,
     [dateSumaryReport]      DATE          NULL,
     [created]               DATETIME      NULL,
@@ -111,7 +111,7 @@ CREATE TABLE [dbo].[TB_File] (
 
 CREATE TABLE [dbo].[TB_Notifications] (
     [id]             INT           IDENTITY (0, 1) NOT NULL,
-    [subject]        VARCHAR (100) NULL,
+    [subject]        VARCHAR (100) NOT NULL,
     [randomId]       VARCHAR (50)  NULL,
     [message]        VARCHAR (255) NULL,
     [person]         VARCHAR (100) NULL,
@@ -123,12 +123,13 @@ CREATE TABLE [dbo].[TB_Notifications] (
 );
 
 CREATE TABLE [dbo].[TB_StatusNotifications] (
-    [id]             INT      IDENTITY (0, 1) NOT NULL,
-    [readingStatus]  BIT      CONSTRAINT [DEFAULT_TB_StatusNotifications_readingStatus] DEFAULT ((0)) NOT NULL,
-    [notifStatus]    BIT      CONSTRAINT [DEFAULT_TB_StatusNotifications_notifStatus] DEFAULT ((0)) NOT NULL,
-    [idUser]         INT      NULL,
-    [idNotification] INT      NULL,
-    [created]        DATETIME NULL,
+    [id]                   INT          IDENTITY (0, 1) NOT NULL,
+    [readingStatus]        BIT          CONSTRAINT [DEFAULT_TB_StatusNotifications_readingStatus] DEFAULT ((0)) NOT NULL,
+    [notifStatus]          BIT          CONSTRAINT [DEFAULT_TB_StatusNotifications_notifStatus] DEFAULT ((0)) NOT NULL,
+    [idUser]               INT          NULL,
+    [idNotification]       INT          NULL,
+    [randomIdNotification] VARCHAR (50) NULL,
+    [created]              DATETIME     NULL,
     CONSTRAINT [PK_TB_StatusNotifications] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [FK_TB_StatusNotifications_TB_Notifications] FOREIGN KEY ([idNotification]) REFERENCES [dbo].[TB_Notifications] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );

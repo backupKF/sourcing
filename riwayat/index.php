@@ -13,11 +13,10 @@
         header("Location: ../dashboard/index.php");
         exit();
     }
-
     // Check Reading Notifications
     if(!empty($_GET['rs'])){
-        if($checkNotif = $conn->query("SELECT * FROM TB_Notifications WHERE id=".$_GET['rs'])->fetchAll()){
-            $checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id']." AND idNotification=".$_GET['rs'])->fetchAll();
+        if($checkNotif = $conn->query("SELECT * FROM TB_Notifications WHERE randomId='".$_GET['rs']."'")->fetchAll()){
+            $checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id']." AND randomIdNotification='".$_GET['rs']."'")->fetchAll();
             if($checkUserReadNotif[0]['readingStatus'] == 0){
                 $sql = "UPDATE TB_StatusNotifications SET readingStatus = ? WHERE id = ?";
                 $query = $conn->prepare($sql);
@@ -42,6 +41,7 @@
         
     </head>
     <body class="bg-dark bg-opacity-10">
+  
     <!-- Sidebar -->
     <?php require "../sidebar.php" ?>
 
@@ -59,17 +59,17 @@
 
     <script>
         $(document).ready(function(){
-            loadDataRiwayat()
+            loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
         })
 
-    function loadDataRiwayat(){
+    function loadDataRiwayat(userLevel){
         $.ajax({
             type: 'GET',
             url: 'layout/tabelRiwayat.php',
             <?php
-                if(empty($_GET['sn']) && empty($_GET['idMaterial'])){
+                if(isset($_SESSION) && empty($_GET['sn']) && empty($_GET['idMaterial'])){
             ?>
-                data: {getData: true},
+                data: {getData: true, userLevel: userLevel},
             <?php
                 }
                 if(!empty($_GET['sn']) && empty($_GET['idMaterial'])){

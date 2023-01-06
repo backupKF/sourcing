@@ -163,13 +163,14 @@
             $user = $conn->query("SELECT id FROM TB_Admin")->fetchAll();
             $idNotification = $conn->query("SELECT id FROM TB_Notifications WHERE randomId='".$randomId."'")->fetchAll();
             for($i = 0; $i < $totalUser[0]['total']; $i++){
-                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, idUser, idNotification, created) 
-                VALUES (?,?,?,?,?)";
+                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, idUser, idNotification, randomIdNotification, created) 
+                VALUES (?,?,?,?,?,?)";
                 $params = array(
                     0,
                     0,
                     $user[$i]['id'],
                     $idNotification[0]['id'],
+                    $randomId,
                     $dateNotif,
                 );
                 $query = $conn->prepare($sql)->execute($params);
