@@ -50,7 +50,7 @@
         $priceReview = trim(strip_tags($_POST['priceReview']));
         $dateFeedback = date("Y-m-d");
         $sampel = trim(strip_tags($_POST['sampel']));
-        $writer = trim(strip_tags($_POST['writer']));
+        $writer = $_SESSION['user']['name'];
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
 
         if($priceReview){
@@ -84,7 +84,7 @@
     if(isset($_POST['feedbackProc'])){
         $dateFeedback = date("Y-m-d");
         $feedback = trim(strip_tags($_POST['feedback']));
-        $writer = trim(strip_tags($_POST['writer']));
+        $writer = $_SESSION['user']['name'];
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
         
         $sql = "INSERT INTO TB_FeedbackProc (dateFeedbackProc, feedback, writer, idSupplier) 

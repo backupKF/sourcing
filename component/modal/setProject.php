@@ -1,8 +1,12 @@
 <?php
     session_start();
-    
-    header('Location: ../../dashboard/index.php');
+
+    if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+        header('Location: ../../dashboard/index.php');
+        exit();
+    };
 ?>
+
 
 <!-- Modal Select Project -->
 <div class="modal" id="project" data-bs-backdrop="static">

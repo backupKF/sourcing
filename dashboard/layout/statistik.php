@@ -13,7 +13,7 @@
           <div class="card shadow mb-3 bg-body rounded" style="height:105px">
             <div class="card-body p-0">
               <!-- Title -->
-              <h6 class="text-center p-1" style="background-color:#9cff9d">Done</h6>
+              <h6 class="text-center p-1" style="background-color:#9cff9d;font-family:'poppinsRegular'">Done</h6>
               <!-- Count Result -->
               <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                 <span class="position-absolute top-50 start-50 translate-middle">
@@ -35,7 +35,7 @@
           <div class="card shadow mb-3 bg-body rounded" style="height:105px">
             <div class="card-body p-0">
               <!-- Title -->
-              <h6 class="text-center p-1" style="background-color:#7380fa">Open</h6>
+              <h6 class="text-center p-1" style="background-color:#7380fa;font-family:'poppinsRegular'">Open</h6>
               <!-- Count Result -->
               <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                 <span class="position-absolute top-50 start-50 translate-middle">
@@ -57,7 +57,7 @@
           <div class="card shadow mb-3 bg-body rounded" style="height:105px">
             <div class="card-body p-0">
               <!-- Title -->
-              <h6 class="text-center p-1" style="background-color:#a1ecff">Re-Open</h6>
+              <h6 class="text-center p-1" style="background-color:#a1ecff;font-family:'poppinsRegular'">Re-Open</h6>
               <!-- Count Result -->
               <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                 <span class="position-absolute top-50 start-50 translate-middle">
@@ -79,7 +79,7 @@
           <div class="card shadow mb-3 bg-body rounded" style="height:105px">
             <div class="card-body p-0">
               <!-- Title -->
-              <h6 class="text-center p-1" style="background-color:#bd7aff">Drop</h6>
+              <h6 class="text-center p-1" style="background-color:#bd7aff;font-family:'poppinsRegular'">Drop</h6>
               <!-- Count Result -->
               <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                 <span class="position-absolute top-50 start-50 translate-middle">
@@ -101,7 +101,7 @@
           <div class="card shadow mb-3 bg-body rounded" style="height:105px">
             <div class="card-body p-0">
               <!-- Title -->
-              <h6 class="text-center p-1" style="background-color:#ff6040">Not Yet</h6>
+              <h6 class="text-center p-1" style="background-color:#ff6040;font-family:'poppinsRegular'">Not Yet</h6>
               <!-- Count Result -->
               <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                 <span class="position-absolute top-50 start-50 translate-middle">
@@ -123,7 +123,7 @@
           <div class="card shadow mb-3 bg-body rounded" style="height:105px">
             <div class="card-body p-0">
               <!-- Title -->
-              <h6 class="text-center p-1" style="background-color:#f72a34">Hold</h6>
+              <h6 class="text-center p-1" style="background-color:#f72a34;font-family:'poppinsRegular'">Hold</h6>
               <!-- Count Result -->
               <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                 <span class="position-absolute top-50 start-50 translate-middle">
@@ -162,7 +162,7 @@
               <div class="card shadow mb-3 ms-3 bg-body rounded" style="width:320px;height:115px">
                 <div class="card-body p-0">
                   <!-- Title -->
-                  <h6 class="text-center p-1" style="background-color:#e6ffed">Total Sourcing</h6>
+                  <h6 class="text-center p-1" style="background-color:#e6ffed;font-family:'poppinsRegular'">Total Sourcing</h6>
                   <!-- Count Result -->
                   <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                     <span class="position-absolute top-50 start-50 translate-middle">
@@ -186,7 +186,7 @@
             <div class="card shadow mb-3 ms-3 bg-body rounded" style="width:320px;height:115px">
               <div class="card-body p-0">
                 <!-- Title -->
-                <h6 class="text-center p-1" style="background-color:#ffa1a1">Pending Sumary Report</h6>
+                <h6 class="text-center p-1" style="background-color:#ffa1a1;font-family:'poppinsRegular'">Pending Sumary Report</h6>
                 <!-- Count Result -->
                 <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                   <span class="position-absolute top-50 start-50 translate-middle">

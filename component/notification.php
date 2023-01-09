@@ -3,9 +3,11 @@
 
     session_start();
 
-    if(empty($_POST) && empty($_GET)){
-        header('Location: ../dashboard/index.php');
-    }
+    // if(empty($_POST)) {
+    //     header('http/1.1 403 forbidden');
+    //     exit();
+    // };
+
 
     if(isset($_POST['view'])){
         if($_POST['view'] != ''){

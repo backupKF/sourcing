@@ -1,8 +1,10 @@
 <?php
-    if(empty($_GET)){
-        header('Location: ../index.php');
-    }
+  if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+    header('Location: ../../dashboard/index.php');
+    exit();
+  };
 ?>
+
 
 <!-- Modal Tambah Supplier-->
 <div class="modal" id="tambahSupplier<?php echo $_GET['idMaterial']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

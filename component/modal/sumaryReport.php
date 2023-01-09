@@ -1,6 +1,10 @@
 <?php
+  if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
     header('Location: ../../dashboard/index.php');
+    exit();
+  };
 ?>
+
 
 <!-- Modal UpdateSupplier-->
 <div class="modal" id="sumaryReport<?php echo $row['id']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

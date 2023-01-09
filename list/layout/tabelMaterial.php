@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     if(empty($_GET)){
         header('Location: ../index.php');
     }
@@ -53,17 +55,17 @@
                 <td><div class="text-wrap" style="font-size:13px;"><?php echo $row['documentReq']?></div></td>
                 <!-- Column Status -->
                 <td>
-                    <?php if($row['statusSourcing']==''){?>
+                    <?php if($_SESSION['user']['level'] == 1){?>
                     <form id="formSetStatusSourcing_<?php echo $row['id']?>">
                     <input type="hidden" value="<?php echo $row['id']?>" name="idMaterial">
                         <select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="funcUpdateStatusSourcing(<?php echo $row['id']?>,'<?php echo $row['materialName']?>')" id="statusSourcing">
-                            <option value=""></option>
-                            <option value="OPEN">OPEN</option>
-                            <option value="RE-OPEN">RE-OPEN</option>
-                            <option value="DONE">DONE</option>
-                            <option value="DROP">DROP</option>
-                            <option value="NOT YET">NOT YET</option>
-                            <option value="HOLD">HOLD</option>
+                            <option <?php echo ($row['statusSourcing']=="NO STATUS")?'selected':'';?> value="">NO STATUS</option>
+                            <option <?php echo ($row['statusSourcing']=="OPEN")?'selected':'';?> value="OPEN">OPEN</option>
+                            <option <?php echo ($row['statusSourcing']=="RE-OPEN")?'selected':'';?> value="RE-OPEN">RE-OPEN</option>
+                            <option <?php echo ($row['statusSourcing']=="DONE")?'selected':'';?> value="DONE">DONE</option>
+                            <option <?php echo ($row['statusSourcing']=="DROP")?'selected':'';?> value="DROP">DROP</option>
+                            <option <?php echo ($row['statusSourcing']=="NOT YET")?'selected':'';?> value="NOT YET">NOT YET</option>
+                            <option <?php echo ($row['statusSourcing']=="HOLD")?'selected':'';?> value="HOLD">HOLD</option>
                         </select>
                     </form>
                     <?php }else{?>
@@ -72,6 +74,7 @@
                 </td>
                 <!-- Column Summary Report -->
                 <td>
+                    <?php if($_SESSION['user']['level'] == 1){?>
                     <div class="overflow-auto" style="height:65px">
                         <!-- Isi Final Feedback Rnd -->
                         <div style="height:30px">
@@ -88,6 +91,9 @@
                         </button>
                         <?php include "../../component/modal/sumaryReport.php"?>
                     </div>
+                    <?php }else{?>
+                        <div><?php echo $row['sumaryReport']?></div>
+                    <?php }?>
                 </td>
                 <!-- Column Action Material -->
                 <td>

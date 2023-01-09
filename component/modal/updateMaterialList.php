@@ -1,6 +1,10 @@
 <?php
+  if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
     header('Location: ../../dashboard/index.php');
+    exit();
+  };
 ?>
+
 
 <!-- Formulir Material -->
 <div class="modal" id="editMaterial<?php echo $row['id']; ?>" data-bs-backdrop="static">

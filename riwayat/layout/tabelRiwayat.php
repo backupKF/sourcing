@@ -1,9 +1,9 @@
 <?php
+    session_start();
+
     if(empty($_GET)){
         header('Location: ../index.php');
     }
-
-    echo $_GET['userLevel']
 ?>
 <div class="card" style="width:1050px">
     <div class="card-body">
@@ -29,9 +29,9 @@
             <tbody>
                 <?php
                     include "../../dbConfig.php";
-                    if(!empty($_GET["sn"]) && empty($_GET["idMaterial"]) && isset($_SESSION['user'])){
+                    if(!empty($_GET["sn"]) && empty($_GET["idMaterial"])){
                         $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode WHERE sourcingNumber=".$_GET['sn']." ORDER BY id DESC")->fetchAll();
-                    }else if(!empty($_GET["sn"]) && !empty($_GET["idMaterial"]) && isset($_SESSION['user'])){
+                    }else if(!empty($_GET["sn"]) && !empty($_GET["idMaterial"])){
                         $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode WHERE sourcingNumber=".$_GET['sn']." AND id=".$_GET['idMaterial']." ORDER BY id DESC")->fetchAll();
                     }else{
                         $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode ORDER BY id DESC")->fetchAll();
@@ -51,7 +51,7 @@
                         
                         <td style="font-size: 12px;">
                         <?php
-                            if(2 == 2){
+                            if($_GET['userLevel'] == 2 && $row['feedbackTL'] == 0){
                         ?>
                             <form onclick="funcFeedbackTL(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackTL_<?php echo $row['id']?>">
                                 <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackTL">
@@ -60,13 +60,21 @@
                                 </select>
                             </form>
                         <?php
-                            }else
+                            }else if($_GET['userLevel'] != 2 && $row['feedbackTL'] == 0){
+                        ?>
+                            <div class="text-center">NO STATUS</div>
+                        <?php
+                            }else{
+                        ?>
+                            <div class="text-center">APPROVED</div>
+                        <?php
+                            }
                         ?>
                         </td>
                   
                         <td style="font-size: 12px;">
                         <?php
-                            if(1 == 1){
+                            if($_GET['userLevel'] == 1 && $row['feedbackRPIC'] == 0){
                         ?>
                             <form onclick="funcFeedbackRPIC(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackRPIC_<?php echo $row['id']?>">
                                     <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackRPIC">
@@ -74,6 +82,14 @@
                                         <option value=1>ACCEPTED</option>
                                     </select>
                             </form>
+                        <?php
+                            }else if($_GET['userLevel'] != 1 && $row['feedbackRPIC'] == 0){
+                        ?>
+                            <div class="text-center">NO STATUS</div>
+                        <?php
+                            }else{
+                        ?>
+                            <div class="text-center">ACCEPTED</div>
                         <?php
                             }
                         ?>
@@ -106,24 +122,27 @@
                         <td>
                             <!-- Button -->
                             <div class="text-center">
-                                <?php 
-                                    if($row['feedbackTL'] != 1){ 
-                                        echo $row['feedbackTL']?>
+                                <?php if($row['feedbackTL'] != 1){ ?>
                                     <!-- Button Edit Material -->
                                     <button class="btn btn-warning btn-sm d-inline ms-1" type="button" data-bs-target="#editMaterial<?php echo $row['id']?>" data-bs-toggle="modal">Edit</button>
                                 <?php } ?>
                                 <!-- Button View Material -->
                                 <button class="btn btn-success btn-sm d-inline ms-1" type="button" data-bs-target="#viewMaterial<?php echo $row['id']?>" data-bs-toggle="modal">View</button>
-                                <?php if($_SESSION['user']['level'] == 1){ ?>  
+                                <?php 
+                                    if($_GET['userLevel'] == 1){ ?>  
                                     <!-- Button Delete -->
                                     <button class="btn btn-danger btn-sm d-inline ms-1" type="button" onclick="funcDeleteMaterial(<?php echo $row['id']?>,'<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)">Delete</a>
                                 <?php } ?>
                             </div>
 
                             <!-- Modal Update Material -->
-                            <?php include "../../component/modal/updateMaterialRiwayat.php"?>
+                            <?php 
+                                if($row['feedbackTL'] != 1){ 
+                                    include "../../component/modal/updateMaterialRiwayat.php";
+                                }
+                            ?>
                             <!-- Modal View Material -->
-                            <?php include "../../component/modal/viewMaterial.php"?>
+                            <?php include "../../component/modal/viewMaterial.php";?>
 
                         </td>
                     </tr>
@@ -201,7 +220,7 @@
                         title: response.message
                     })
 
-                loadDataRiwayat();
+                loadDataRiwayat(<?php echo $_SESSION['user']['level']?>);
             }
         })
     }
@@ -231,7 +250,7 @@
                         title: response.message
                     })
 
-                loadDataRiwayat();
+                loadDataRiwayat(<?php echo $_SESSION['user']['level']?>);
             }
         })
     }
@@ -259,7 +278,7 @@
                         icon: response.status == 0?'success':'warning',
                         title: response.message
                     })
-                loadDataRiwayat()
+                loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
             }
         })
     }
@@ -288,7 +307,7 @@
                         title: response.message
                     })
                     
-                loadDataRiwayat()
+                loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
             }
         })
         $('#editMaterial'+idMaterial).modal('hide');

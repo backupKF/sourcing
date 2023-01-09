@@ -1,5 +1,8 @@
 <?php
+  if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
     header('Location: ../../dashboard/index.php');
+    exit();
+  };
 ?>
 
 <!-- Modal Form View Material -->
