@@ -46,8 +46,8 @@
                         <td style="font-size: 12px;"><?php echo $row['dateSourcing']?></td>
                         <td style="font-size: 12px;"><?php echo $row['projectCode']?></td>
                         <td style="font-size: 12px;"><?php echo $row['projectName']?></td>
-                        <td style="font-size: 12px;">-</td>
-                        <td style="font-size: 12px;">-</td>
+                        <td style="font-size: 12px;"><?php echo $row['teamLeader']?></td>
+                        <td style="font-size: 12px;"><?php echo $row['researcher']?></td>
                         
                         <td style="font-size: 12px;">
                         <?php

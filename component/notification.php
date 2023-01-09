@@ -3,12 +3,14 @@
 
     session_start();
 
-    // if(empty($_POST)) {
-    //     header('http/1.1 403 forbidden');
-    //     exit();
-    // };
+    // Me-forbidden ketika tidak ada data $_POST yang masuk ke halaman ini
+    if(empty($_POST)) {
+        header('http/1.1 403 forbidden');
+        exit();
+    };
 
 
+    // Jika data Post View terisi maka user dianggap sudah membaca notifikasi
     if(isset($_POST['view'])){
         if($_POST['view'] != ''){
             $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1 WHERE idUser=".$_SESSION['user']['id'];
@@ -20,7 +22,7 @@
         foreach($notifications as $data){
                 $checkNotif = $conn->query("SELECT readingStatus FROM TB_StatusNotifications INNER JOIN TB_Notifications ON TB_StatusNotifications.idNotification = TB_Notifications.id WHERE idUser=".$_SESSION['user']['id']." AND idNotification=".$data['id'])->fetchAll();
                 if(empty($checkNotif) || $checkNotif[0]['readingStatus'] == 0){
-                    if(!empty($data['sourcingNumber']) && empty($data['idMaterial']) && empty($data['idSupplier']) && $_SESSION['user']['level'] != 3){
+                    if(!empty($data['sourcingNumber']) && empty($data['idMaterial']) && empty($data['idSupplier']) && $_SESSION['user']['level'] != 4){
                         // Notifikasi untuk pengajuan sourcing
                         $output .= '
                             <div class="my-1">
@@ -31,7 +33,7 @@
                             </div>
                             <hr>
                         ';
-                    }else if(!empty($data['sourcingNumber']) && !empty($data['idMaterial']) && empty($data['idSupplier']) && $_SESSION['user']['level'] != 3){
+                    }else if(!empty($data['sourcingNumber']) && !empty($data['idMaterial']) && empty($data['idSupplier']) && $_SESSION['user']['level'] != 4){
                         // Notifikasi untuk edit material riwayat, feedback tl, feedback rpic, edit status riwayat
                         $output .= '
                             <div class="my-1">
@@ -64,7 +66,7 @@
                             </div>
                             <hr>
                         ';
-                    }else if($_SESSION['user']['level'] != 3){
+                    }else if($_SESSION['user']['level'] != 4){
                         // Notifikasi untuk hapus material riwayat
                         $output .= '
                             <div class="my-1">
@@ -79,6 +81,7 @@
                 }
         }
 
+        // Jika variabel output kosong maka, variabel output menampilkan pesan Not Found
         if(empty($output)){
             $output .= '<li><a href="#" class="text-bold text-italic">Not Found</a></li>';
         }
@@ -86,6 +89,7 @@
         $status_notifications = $conn->query("SELECT * FROM TB_StatusNotifications WHERE notifStatus=0 AND idUser=".$_SESSION['user']['id'])->fetchAll();
         $count = count($status_notifications);
 
+        // Nilai yang akan dibalikan ke halaman navbar
         $data = array(
             'notification' => $output,
             'unseen_notification' => $count,
@@ -94,6 +98,7 @@
         echo json_encode($data);
     }
 
+    // Fungsi untuk menghitung waktu notifikasi yang sudah berlalu
     function time_elapsed_string($datetime, $full = false) {
         $now = new DateTime;
         $ago = new DateTime($datetime);

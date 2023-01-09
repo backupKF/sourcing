@@ -3,11 +3,14 @@
 
     session_start();
 
+    // me-forbidden jika tidak ada data POST atau GET yang masuk ke Halaman ini
     if(empty($_POST) && empty($_GET)){
         header('http/1.1 403 forbidden');
     }
 
+    // Kondisi untuk mengelola tambah supplier
     if(isset($_POST['idMaterial'])){
+        // mengisi variabel dengan data POST
         $supplier = trim(strip_tags($_POST['supplier']));
         $manufacture = trim(strip_tags($_POST['manufacture']));
         $originCountry = trim(strip_tags($_POST['originCountry']));
@@ -17,6 +20,7 @@
         $documentInfo = trim(strip_tags($_POST['documentInfo']));
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
 
+        // Memasukan data supplier ke database
         $sql = "INSERT INTO TB_Supplier (supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, idMaterial) 
         VALUES (?,?,?,?,?,?,?,?)";
         $params = array(
@@ -35,6 +39,7 @@
         //Send Notification
         if($insert == true){
             $materialName = $conn->query("SELECT materialName FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll();
+            // Mengirim Notifikasi
             $response = sendNotification("Supplier behasil ditambahkan!!", $materialName[0]['materialName'], "menambahkan supplier material sourcing : ", NULL, $idMaterial, NULL);
         }
 
@@ -71,14 +76,15 @@
         //Send Notifications for users
         if($insertNotif == true){
             $totalUser = $conn->query("SELECT count(id) AS total FROM TB_Admin")->fetchAll();
-            $user = $conn->query("SELECT id FROM TB_Admin")->fetchAll();
+            $user = $conn->query("SELECT id, level FROM TB_Admin")->fetchAll();
             $idNotification = $conn->query("SELECT id FROM TB_Notifications WHERE randomId='".$randomId."'")->fetchAll();
             for($i = 0; $i < $totalUser[0]['total']; $i++){
-                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, idUser, idNotification, randomIdNotification, created) 
-                VALUES (?,?,?,?,?,?)";
+                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, levelUser, idUser, idNotification, randomIdNotification, created) 
+                VALUES (?,?,?,?,?,?,?)";
                 $params = array(
                     0,
                     0,
+                    $user[$i]['level'],
                     $user[$i]['id'],
                     $idNotification[0]['id'],
                     $randomId,

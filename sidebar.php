@@ -1,6 +1,7 @@
 <?php
     session_start();
 
+    // me-redirect saat user masuk kehalaman ini
     if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
         header('Location: dashboard/index.php');
         exit();
@@ -34,7 +35,8 @@
                 </a>
             </li>
             <?php
-                if($_SESSION['user']['level'] != 3){
+                if($_SESSION['user']['level'] != 4){
+                // User Proc tidak bisa mengakses halaman ini
             ?>
                 <!-- Opsi Pengajuan Sourcing -->
                 <li class="nav-items">
@@ -47,7 +49,8 @@
                 </li>
             <?php
                 }
-                if($_SESSION['user']['level'] != 3){
+                if($_SESSION['user']['level'] != 4){
+                // User Proc tidak bisa mengakses halaman ini
             ?>
             <!-- Opsi Riwayat Sourcing -->
             <li class="nav-items">
@@ -98,6 +101,7 @@
                     <div class="text-center" style="font-family:'poppinsSemiBold';font-size:18px;"><?php echo $_SESSION['user']['name']?></div>
                     <div class="text-center" style="font-family:'poppinsThin';font-size:14px;"><?php echo $_SESSION['user']['teamLeader']?></div>
                 </div>
+                <!-- Action Logout -->
                 <div class="col-2 p-0 d-flex align-items-center">
                     <a href="../controller/logout.php" class="text-white">
                         <svg style="width:24px;height:24px" viewBox="0 0 24 24">

@@ -1,12 +1,13 @@
 <?php
-  if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-    header('Location: ../../dashboard/index.php');
-    exit();
-  };
+    // me-redirect saat user masuk kehalaman ini
+    if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+        header('Location: ../../dashboard/index.php');
+        exit();
+    };
 ?>
 
 
-<!-- Modal UpdateSupplier-->
+<!-- Modal Feedback Rnd-->
 <div class="modal" id="feedbackRnd<?php echo $row['id']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="width: 1500px;">
@@ -36,6 +37,7 @@
                     </div>
                     <button type="button" class="btn btn-primary btn-sm" onclick="funcFeedbackRnd(<?php echo $row['id']?>)">Submit</button>
                 </form>
+                <!-- Tampilan Content Feedback Rnd -->
                 <div class="overflow-auto" style="height:200px;background-color:#f1fca7"> 
                     <?php
                         $dataDetailFeedbackRnd = $conn->query("SELECT * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$row['id']}' ORDER BY id DESC")->fetchAll();

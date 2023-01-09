@@ -9,7 +9,7 @@
         exit();
     }
 
-    if($_SESSION['user']['level'] == 3){
+    if($_SESSION['user']['level'] == 4){
         header("Location: ../dashboard/index.php");
         exit();
     }

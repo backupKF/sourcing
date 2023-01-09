@@ -1,12 +1,13 @@
 <?php
-  if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-    header('Location: ../../dashboard/index.php');
-    exit();
-  };
+    // me-redirect saat user masuk kehalaman ini
+    if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+        header('Location: ../../dashboard/index.php');
+        exit();
+    };
 ?>
 
 
-<!-- Modal Tambah Supplier-->
+<!-- Modal Add Supplier-->
 <div class="modal" id="tambahSupplier<?php echo $_GET['idMaterial']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content" style="width: 500px;">

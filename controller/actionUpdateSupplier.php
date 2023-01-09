@@ -3,6 +3,7 @@
 
     session_start();
 
+    // me-forbidden jika tidak ada data POST atau GET yang masuk ke Halaman ini
     if(empty($_POST) && empty($_GET)){
         header('http/1.1 403 forbidden');
     }
@@ -17,14 +18,94 @@
         $documentInfo = trim(strip_tags($_POST['documentInfo']));
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
 
+        $checkValue = $conn->query("SELECT supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+        $changeSupplier = "";
+        $changeManufacture = "";
+        $changeOriginCountry = "";
+        $changeLeadTime = "";
+        $changeCatalogOrCasNumber = "";
+        $changeGradeOrReference = "";
+        $changeDocumentInfo = "";
+
+        if(!empty($supplier)){
+            if($supplier != $checkValue[0]['supplier']){
+                $changeSupplier = ", supplier";
+            }else{
+                $changeSupplier = "";
+            }
+        }else{
+            $supplier = "-";
+        }
+
+        if(!empty($manufacture)){
+            if($manufacture != $checkValue[0]['manufacture']){
+                $changeManufacture = ", manufacture";
+            }else{
+                $changeManufacture = "";
+            }
+        }else{
+            $manufacture = "-";
+        }
+
+        if(!empty($originCountry)){
+            if($originCountry != $checkValue[0]['originCountry']){
+                $changeOriginCountry = ", Origin Country";
+            }else{
+                $changeOriginCountry = "";
+            }
+        }else{
+            $originCountry = "-";
+        }
+
+        if(!empty($leadTime)){
+            if($leadTime != $checkValue[0]['leadTime']){
+                $changeLeadTime = ", Lead Time";
+            }else{
+                $changeLeadTime = "";
+            }
+        }else{
+            $leadTime = "-";
+        }
+
+        if(!empty($catalogOrCasNumber)){
+            if($catalogOrCasNumber != $checkValue[0]['catalogOrCasNumber']){
+                $changeCatalogOrCasNumber = ", Catalog Or Cas Number";
+            }else{
+                $changeCatalogOrCasNumber = "";
+            }
+        }else{
+            $catalogOrCasNumber = "-";
+        }
+
+        if(!empty($gradeOrReference)){
+            if($gradeOrReference != $checkValue[0]['gradeOrReference']){
+                $changeGradeOrReference = ", Grade Or Reference";
+            }else{
+                $changeGradeOrReference = "";
+            }
+        }else{
+            $gradeOrReference = "-";
+        }
+
+        if(!empty($documentInfo)){
+            if($documentInfo != $checkValue[0]['documentInfo']){
+                $changeDocumentInfo = ", Document Info";
+            }else{
+                $changeDocumentInfo = "";
+            }
+        }else{
+            $documentInfo = "-";
+        }
+
         $sql = "UPDATE TB_Supplier SET supplier = ?, manufacture = ?, originCountry = ?, leadTime = ?, catalogOrCasNumber = ?, gradeOrReference = ?, documentInfo = ? WHERE id = ?";
         $query = $conn->prepare($sql);
         $update = $query->execute(array($supplier, $manufacture, $originCountry, $leadTime, $catalogOrCasNumber, $gradeOrReference, $documentInfo, $idSupplier));
     
         // Send Notifikasi
         if($update == true){
+            $message = "mengedit data".$changeSupplier.$changeManufacture.$changeOriginCountry.$changeLeadTime.$changeCatalogOrCasNumber.$changeGradeOrReference.$changeDocumentInfo.". Pada supplier : ";
             $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-            $response = sendNotification("Supplier berhasil diedit!!", $dataSupplier[0]['supplier'], "mengedit supplier :  ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+            $response = sendNotification("Supplier berhasil diedit!!", $dataSupplier[0]['supplier'], $message, NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
         }
 
         echo json_encode($response);
@@ -106,14 +187,15 @@
         //Send Notifications for users
         if($insertNotif == true){
             $totalUser = $conn->query("SELECT count(id) AS total FROM TB_Admin")->fetchAll();
-            $user = $conn->query("SELECT id FROM TB_Admin")->fetchAll();
+            $user = $conn->query("SELECT id, level FROM TB_Admin")->fetchAll();
             $idNotification = $conn->query("SELECT id FROM TB_Notifications WHERE randomId='".$randomId."'")->fetchAll();
             for($i = 0; $i < $totalUser[0]['total']; $i++){
-                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, idUser, idNotification, randomIdNotification, created) 
-                VALUES (?,?,?,?,?,?)";
+                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, levelUser, idUser, idNotification, randomIdNotification, created) 
+                VALUES (?,?,?,?,?,?,?)";
                 $params = array(
                     0,
                     0,
+                    $user[$i]['level'],
                     $user[$i]['id'],
                     $idNotification[0]['id'],
                     $randomId,

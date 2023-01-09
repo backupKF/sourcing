@@ -1,11 +1,12 @@
 <?php
-  if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-    header('Location: ../../dashboard/index.php');
-    exit();
-  };
+    // me-redirect saat user masuk kehalaman ini
+    if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+        header('Location: ../../dashboard/index.php');
+        exit();
+    };
 ?>
 
-<!-- Modal Form View Material -->
+<!-- Modal View Material -->
 <div class="modal" id="viewMaterial<?php echo $row['id']?>" data-bs-backdrop="static">
     <div class="modal-dialog modal-sm modal-dialog-scrollable">
         <div class="modal-content" style="width: 500px;">

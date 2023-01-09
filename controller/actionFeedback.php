@@ -3,10 +3,12 @@
 
     session_start();
 
+    // me-forbidden jika tidak ada data POST atau GET yang masuk ke Halaman ini
     if(empty($_POST) && empty($_GET)){
         header('http/1.1 403 forbidden');
     }
 
+    // Kondisi untuk mengelola feedback document requirement
     if(isset($_POST['feedbackDocReq'])){
         $CoA = trim(strip_tags($_POST['CoA']));
         $MSDS = trim(strip_tags($_POST['MSDS']));
@@ -46,6 +48,7 @@
         echo json_encode($response);
     }
 
+    // Kondisi untuk mengelola feedback Rnd
     if(isset($_POST['feedbackRnd'])){
         $priceReview = trim(strip_tags($_POST['priceReview']));
         $dateFeedback = date("Y-m-d");
@@ -81,6 +84,7 @@
         echo json_encode($response);
     }
 
+    // Kondisi untuk mengelola feedback proc
     if(isset($_POST['feedbackProc'])){
         $dateFeedback = date("Y-m-d");
         $feedback = trim(strip_tags($_POST['feedback']));
@@ -107,6 +111,7 @@
         echo json_encode($response);
     }
 
+    // Kondisi untuk menngelola final feedback Rnd
     if(isset($_POST['formFinalFeedbackRnd'])){
         // Check Input Final Feedback Rnd
         $finalFeedbackRnd = trim(strip_tags($_POST['finalFeedbackRnd']));
@@ -160,14 +165,15 @@
         //Send Notifications for users
         if($insertNotif == true){
             $totalUser = $conn->query("SELECT count(id) AS total FROM TB_Admin")->fetchAll();
-            $user = $conn->query("SELECT id FROM TB_Admin")->fetchAll();
+            $user = $conn->query("SELECT id, level FROM TB_Admin")->fetchAll();
             $idNotification = $conn->query("SELECT id FROM TB_Notifications WHERE randomId='".$randomId."'")->fetchAll();
             for($i = 0; $i < $totalUser[0]['total']; $i++){
-                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, idUser, idNotification, randomIdNotification, created) 
-                VALUES (?,?,?,?,?,?)";
+                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, levelUser, idUser, idNotification, randomIdNotification, created) 
+                VALUES (?,?,?,?,?,?,?)";
                 $params = array(
                     0,
                     0,
+                    $user[$i]['level'],
                     $user[$i]['id'],
                     $idNotification[0]['id'],
                     $randomId,

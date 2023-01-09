@@ -1,12 +1,13 @@
 <?php
-  if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-    header('Location: ../../dashboard/index.php');
-    exit();
-  };
+    // me-redirect saat user masuk kehalaman ini
+    if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+        header('Location: ../../dashboard/index.php');
+        exit();
+    };
 ?>
 
 
-<!-- Formulir Material -->
+<!-- Modal Update Material List -->
 <div class="modal" id="editMaterial<?php echo $row['id']; ?>" data-bs-backdrop="static">
     <div class="modal-dialog modal-sm modal-dialog-scrollable">
         <div class="modal-content" style="width: 500px;">
@@ -57,12 +58,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Material Deskripsi -->
+                    <!-- Material Name -->
                    <div class="mb-3">
-                        <label for="materialName" class="form-label fw-bold">Material Deskripsi</label>
+                        <label for="materialName" class="form-label fw-bold">Material Name</label>
                         <textarea class="form-control" id="materialName" rows="3" name="materialName" required><?php echo !empty($row['materialName'])? $row['materialName']:''; ?></textarea>
                         <div class="invalid-feedback">
-                            Masukan Material Deskripsi (*Tandai (-) jika tidak Diisi).
+                            Masukan Material Name (*Tandai (-) jika tidak Diisi).
                         </div>
                     </div>
                     <!-- Priority -->

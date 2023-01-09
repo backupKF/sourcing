@@ -2,7 +2,8 @@
     include "../dbConfig.php";
 
     session_start();
-
+    
+    // me-forbidden jika tidak ada data POST atau GET yang masuk ke Halaman ini
     if(empty($_POST) && empty($_GET)){
         header('http/1.1 403 forbidden');
     }
@@ -28,49 +29,141 @@
         $vendor = trim(strip_tags($_POST['vendor']));
         $documentReq = trim(strip_tags($_POST['documentReq']));
 
-        if(empty($materialCategory)) {
-            $materialCategory = "-"; 
+        $checkValue = $conn->query("SELECT materialCategory, materialName, materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, priority, vendor, documentReq FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll();
+        $changeMaterialCategory = "";
+        $changeMaterialName = "";
+        $changePriority = "";
+        $changeMaterialSpesification = "";
+        $changeCatalogOrCasNumber = "";
+        $changeCompany = "";
+        $changeWebsite = "";
+        $changeFinishDossageForm = "";
+        $changeKeterangan = "";
+        $changeVendor = "";
+        $changeDocumentReq = "";
+
+        if(!empty($materialCategory)){
+            if($materialCategory != $checkValue[0]['materialCategory']){
+                $changeMaterialCategory = ", material category";
+            }else{
+                $changeMaterialCategory = "";
+            }
+        }else{
+            $materialCategory = "-";
         }
-        if(empty($materialName)) {
-            $materialName = "-"; 
+
+        if(!empty($materialName)){
+            if($materialName != $checkValue[0]['materialName']){
+                $changeMaterialName = ", material name";
+            }else{
+                $changeMaterialName = "";
+            }
+        }else{
+            $materialName = "-";
         }
-        if(empty($materialSpesification)) {
-            $materialSpesification = "-"; 
+
+        if(!empty($materialSpesification)){
+            if($materialSpesification != $checkValue[0]['materialSpesification']){
+                $changeMaterialSpesification = ", spesification";
+            }else{
+                $changeMaterialSpesification = "";
+            }
+        }else{
+            $materialSpesification = "-";
         }
-        if(empty($catalogOrCasNumber)){
+
+        if(!empty($catalogOrCasNumber)){
+            if($catalogOrCasNumber != $checkValue[0]['catalogOrCasNumber']){
+                $changeCatalogOrCasNumber = ", Catalog Or Cas Number";
+            }else{
+                $changeCatalogOrCasNumber = "";
+            }
+        }else{
             $catalogOrCasNumber = "-";
         }
-        if(empty($company)){
+
+        if(!empty($company)){
+            if($company != $checkValue[0]['company']){
+                $changeCompany = ", company";
+            }else{
+                $changeCompany = "";
+            }
+        }else{
             $company = "-";
         }
-        if(empty($website)){
+
+        if(!empty($website)){
+            if($website != $checkValue[0]['website']){
+                $changeWebsite = ", website";
+            }else{
+                $changeWebsite = "";
+            }
+        }else{
             $website = "-";
         }
-        if(empty($finishDossageForm)) {
-            $finishDossageForm = "-"; 
+
+        if(!empty($finishDossageForm)){
+            if($finishDossageForm != $checkValue[0]['finishDossageForm']){
+                $changeFinishDossageForm = ", Finish Dossage Form";
+            }else{
+                $changeFinishDossageForm = "";
+            }
+        }else{
+            $finishDossageForm = "-";
         }
-        if(empty($keterangan)) {
-            $keterangan = "-"; 
+
+        if(!empty($keterangan)){
+            if($keterangan != $checkValue[0]['keterangan']){
+                $changeKeterangan = ", keterangan";
+            }else{
+                $changeKeterangan = "";
+            }
+        }else{
+            $keterangan = "-";
         }
-        if(empty($documentReq)) {
-            $documentReq = "-"; 
+
+        if(!empty($documentReq)){
+            if($documentReq != $checkValue[0]['documentReq']){
+                $changeDocumentReq = ", Document Requirement";
+            }else{
+                $changeDocumentReq = "";
+            }
+        }else{
+            $documentReq = "-";
         }
+
+       
         
         if(isset($priority) && isset($vendor)){
-            if(empty($priority)) {
-                $priority = "-"; 
+            if(!empty($priority)){
+                if($priority != $checkValue[0]['priority']){
+                    $changePriority = ", priority";
+                }else{
+                    $changePriority = "";
+                }
+            }else{
+                $priority = "-";
             }
-            if(empty($vendor)) {
-                $vendor = "-"; 
+
+            if(!empty($vendor)){
+                if($vendor != $checkValue[0]['vendor']){
+                    $changeVendor = ", vendor";
+                }else{
+                    $changeVendor = "";
+                }
+            }else{
+                $vendor = "-";
             }
 
             $sql = "UPDATE TB_PengajuanSourcing SET materialCategory = ?, materialName = ?, priority = ?, materialSpesification = ?, catalogOrCasNumber = ?, company = ?, website = ?, finishDossageForm = ?, keterangan = ?, vendor = ?, documentReq = ? WHERE id = ?";
             $query = $conn->prepare($sql);
             $update = $query->execute(array($materialCategory, $materialName, $priority, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $vendor, $documentReq, $idMaterial));
-    
+
+            $message = "memperbaharui data".$changeMaterialCategory.$changeMaterialName.$changePriority.$changeMaterialSpesification.$changeCatalogOrCasNumber.$changeCompany.$changeWebsite.$changeFinishDossageForm.$changeKeterangan.$changeVendor.$changeDocumentReq.". Pada material sourcing : ";
+
             //Create Notification
             if($update == true){
-                $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui data material sourcing, Material : ", NULL, $idMaterial, NULL);
+                $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), $message, NULL, $idMaterial, NULL, NULL);
             }
 
         }else{
@@ -78,9 +171,11 @@
             $query = $conn->prepare($sql);
             $update = $query->execute(array($materialCategory, $materialName, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $documentReq, $idMaterial));
         
+            $message = "memperbaharui data riwayat".$changeMaterialCategory.$changeMaterialName.$changeMaterialSpesification.$changeCatalogOrCasNumber.$changeCompany.$changeWebsite.$changeFinishDossageForm.$changeKeterangan.$changeDocumentReq.". Pada material sourcing : ";
+
             //Create Notification
             if($update == true){
-                $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui data riwayat material sourcing, Material : ", $sourcingNumber, $idMaterial, NULL);
+                $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), $message, $sourcingNumber, $idMaterial, NULL, true);
             }
         }
        
@@ -99,7 +194,7 @@
 
         //Send Notification
         if($update == true){
-            $response = sendNotification("Status Sourcing berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui status sourcing, Material : ", NULL, $idMaterial, NULL);
+            $response = sendNotification("Status Sourcing berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui status sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
         }
        
         echo json_encode($response);
@@ -117,7 +212,7 @@
 
         //Send Notification
         if($update == true){
-            $response = sendNotification("Summary Report berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui sumary repory sourcing, Material : ", NULL, $idMaterial, NULL);
+            $response = sendNotification("Summary Report berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui sumary repory sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
         }
        
         echo json_encode($response);
@@ -134,7 +229,7 @@
 
          //Send Notification
         if($delete == true){
-            $response = sendNotification("Material Berhasil Di Hapus!!", $materialName, "menghapus riwayat sourcing, Material : ", NULL, NULL, NULL);
+            $response = sendNotification("Material Berhasil Di Hapus!!", $materialName, "menghapus riwayat sourcing, Material : ", NULL, NULL, NULL, true);
         }
 
         echo json_encode($response);
@@ -153,7 +248,7 @@
 
         //Send Notification
         if($update == true){
-            $response = sendNotification("Feedback Team Leader Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback Team Leader, Material : ", $sourcingNumber, $idMaterial, NULL);
+            $response = sendNotification("Feedback Team Leader Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback Team Leader, Material : ", $sourcingNumber, $idMaterial, NULL, true);
         }
 
         echo json_encode($response);
@@ -172,7 +267,7 @@
 
         //Send Notification
         if($update == true){
-            $response = sendNotification("Feedback RPIC Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback RPIC, Material : ", $sourcingNumber, $idMaterial, NULL);
+            $response = sendNotification("Feedback RPIC Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback RPIC, Material : ", $sourcingNumber, $idMaterial, NULL, true);
         }
 
         echo json_encode($response);
@@ -190,7 +285,7 @@
 
         //Send Notification
         if($update == true){
-            $response = sendNotification("Status Riwayat Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui status riwayat, Material : ", $sourcingNumber, $idMaterial, NULL);
+            $response = sendNotification("Status Riwayat Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui status riwayat, Material : ", $sourcingNumber, $idMaterial, NULL, true);
         }
 
         echo json_encode($response);
@@ -199,7 +294,7 @@
 
 
     // Function For Send Nofitication
-    function sendNotification($responseInfo, $subject, $message, $sourcingNumber, $idMaterial, $idSupplier){
+    function sendNotification($responseInfo, $subject, $message, $sourcingNumber, $idMaterial, $idSupplier, $dontSendLevel4){
         include "../dbConfig.php";
         //Create Notification
         $response = array(
@@ -228,20 +323,26 @@
         //Send Notifications for users
         if($insertNotif == true){
             $totalUser = $conn->query("SELECT count(id) AS total FROM TB_Admin")->fetchAll();
-            $user = $conn->query("SELECT id FROM TB_Admin")->fetchAll();
+            $user = $conn->query("SELECT id, level FROM TB_Admin")->fetchAll();
             $idNotification = $conn->query("SELECT id FROM TB_Notifications WHERE randomId='".$randomId."'")->fetchAll();
             for($i = 0; $i < $totalUser[0]['total']; $i++){
-                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, idUser, idNotification, randomIdNotification, created) 
-                VALUES (?,?,?,?,?,?)";
+                $sql = "INSERT INTO TB_StatusNotifications (readingStatus, notifStatus, levelUser, idUser, idNotification, randomIdNotification, created) 
+                VALUES (?,?,?,?,?,?,?)";
                 $params = array(
                     0,
                     0,
+                    $user[$i]['level'],
                     $user[$i]['id'],
                     $idNotification[0]['id'],
                     $randomId,
                     $dateNotif,
                 );
                 $query = $conn->prepare($sql)->execute($params);
+            }
+            if($dontSendLevel4 == true){
+                $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1 WHERE levelUser = 4";
+                $query = $conn->prepare($sql);
+                $update = $query->execute();
             }
         }
 

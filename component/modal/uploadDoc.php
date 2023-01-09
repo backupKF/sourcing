@@ -1,12 +1,13 @@
 <?php
-  if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-    header('Location: ../../dashboard/index.php');
-    exit();
-  };
+    // me-redirect saat user masuk kehalaman ini
+    if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+        header('Location: ../../dashboard/index.php');
+        exit();
+    };
 ?>
 
 
-<!-- Modal UpdateSupplier-->
+<!-- Modal Upload Document -->
 <div class="modal" id="uploadDoc<?php echo $row['id']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="width: 1500px;">

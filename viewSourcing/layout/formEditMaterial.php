@@ -11,6 +11,10 @@
 
     if($_SESSION['user']['level'] == 1){
 ?>
+<div class="d-flex justify-content-end">
+    <span class="badge text-bg-info" style="font-size:15px;font-family:poppinsSemiBold"><?php echo $dataMaterial[0]['statusSourcing']?></span>
+</div>
+ 
 <form class="was-validated" id="formEditMaterial">
     <!-- Material Category -->
     <label class="form-label fw-bold">Material Category</label>
@@ -55,12 +59,12 @@
 
     <div class="row">
         <div class="col m-0 mt-1">
-            <!-- Material Deskripsi -->
+            <!-- Material Name -->
             <div class="mb-3">
-                <label for="materialName" class="form-label fw-bold">Material Deskripsi</label>
+                <label for="materialName" class="form-label fw-bold">Material Name</label>
                 <textarea class="form-control form-control-sm" id="materialName" rows="3" name="materialName" required><?php echo !empty($dataMaterial[0]['materialName'])? $dataMaterial[0]['materialName']:''; ?></textarea>
                 <div class="invalid-feedback">
-                    Masukan Material Deskripsi (*Tandai (-) jika tidak Diisi).
+                    Masukan Material Name (*Tandai (-) jika tidak Diisi).
                 </div>
             </div>
         </div>
@@ -165,6 +169,12 @@
             Masukan Keterangan Material (*Tandai (-) jika tidak Diisi).
                     </div>
     </div>
+    <!-- Keterangan -->
+    <div class="mb-3">
+        <label for="keterangan" class="form-label fw-bold">Sumary Report</label>
+        <textarea class="form-control form-control-sm" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['sumaryReport'])? $dataMaterial[0]['sumaryReport']:''; ?></textarea>
+    </div>
+
     <button type="button" class="btn btn-warning btn-sm" style="width:120px;margin-left:12px" onclick="funcUpdateMaterialViewSourcing()">
         Edit Material
     </button>
@@ -175,6 +185,9 @@
     
     if($_SESSION['user']['level'] != 1){
 ?>
+    <div class="d-flex justify-content-end">
+        <span class="badge text-bg-info" style="font-size:15px;font-family:poppinsSemiBold"><?php echo $dataMaterial[0]['statusSourcing']?></span>
+    </div>
     <!-- Material Category -->
     <div class="row">
     <div class="col m-0 mt-1">
@@ -189,9 +202,9 @@
 
     <div class="row">
         <div class="col m-0 mt-1">
-            <!-- Material Deskripsi -->
+            <!-- Material Name -->
             <div class="mb-3">
-                <label for="materialName" class="form-label fw-bold">Material Deskripsi</label>
+                <label for="materialName" class="form-label fw-bold">Material Name</label>
                 <textarea class="form-control form-control-sm" id="materialName" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['materialName'])? $dataMaterial[0]['materialName']:''; ?></textarea>
             </div>
         </div>
@@ -268,6 +281,12 @@
     <div class="mb-3">
         <label for="keterangan" class="form-label fw-bold">Keterangan</label>
         <textarea class="form-control form-control-sm" id="keterangan" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['keterangan'])? $dataMaterial[0]['keterangan']:''; ?></textarea>
+    </div>
+
+    <!-- Keterangan -->
+    <div class="mb-3">
+        <label for="keterangan" class="form-label fw-bold">Sumary Report</label>
+        <textarea class="form-control form-control-sm" id="sumaryReport" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['sumaryReport'])? $dataMaterial[0]['sumaryReport']:''; ?></textarea>
     </div>
 <?php
     }

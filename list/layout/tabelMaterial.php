@@ -27,7 +27,9 @@
                 <th scope="col" style="font-size: 13px;width:250px" class="text-center">Document Requirement</th>
                 <th scope="col" style="font-size: 13px;width:100px" class="text-center">Status</th>
                 <th scope="col" style="font-size: 13px;width:250px" class="text-center">Summary Report</th>
-                <th scope="col" style="font-size: 13px;width:100px" class="text-center">Action</th>
+                <?php if($_SESSION['user']['level'] == 1){?>
+                    <th scope="col" style="font-size: 13px;width:100px" class="text-center">Action</th>
+                <?php } ?>
             </tr>
         </thead>
         <tbody>
@@ -92,17 +94,19 @@
                         <?php include "../../component/modal/sumaryReport.php"?>
                     </div>
                     <?php }else{?>
-                        <div><?php echo $row['sumaryReport']?></div>
+                        <div style="font-size:12px"><?php echo $row['sumaryReport']?></div>
                     <?php }?>
                 </td>
-                <!-- Column Action Material -->
-                <td>
-                    <!-- Edit Material -->
-                    <button type="button" class="btn btn-warning p-0" data-bs-toggle="modal" style="width:100%;height:30px" data-bs-target="#editMaterial<?php echo $row['id']?>">
-                        <div style="font-size:13px">Edit Material</div>
-                    </button>
-                    <?php include "../../component/modal/updateMaterialList.php"?>
-                </td>
+                <?php if($_SESSION['user']['level'] == 1){?>
+                    <!-- Column Action Material -->
+                    <td>
+                        <!-- Edit Material -->
+                        <button type="button" class="btn btn-warning p-0" data-bs-toggle="modal" style="width:100%;height:30px" data-bs-target="#editMaterial<?php echo $row['id']?>">
+                            <div style="font-size:13px">Edit Material</div>
+                        </button>
+                        <?php include "../../component/modal/updateMaterialList.php"?>
+                    </td>
+                <?php } ?>
             </tr>
         <?php
             }
