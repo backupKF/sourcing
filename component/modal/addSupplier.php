@@ -79,8 +79,15 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                <button type="button" class="btn btn-primary" onclick="funcAddSupplier(<?php echo $_GET['idMaterial']?>)">Submit</button>
+                <button type="submit" class="btn btn-primary" form="formAddSupplier<?php echo $_GET['idMaterial']?>">Submit</button>
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("formAddSupplier<?php echo $_GET['idMaterial']?>").addEventListener('submit', event => {
+    event.preventDefault();
+    // actual logic, e.g. validate the form
+    funcAddSupplier(<?php echo $_GET['idMaterial']?>)
+    });
+</script>

@@ -15,7 +15,7 @@
     <span class="badge text-bg-info" style="font-size:15px;font-family:poppinsSemiBold"><?php echo $dataMaterial[0]['statusSourcing']?></span>
 </div>
  
-<form class="was-validated" id="formEditMaterial">
+<form class="was-validated" id="formEditMaterial" autocomplete="off">
     <!-- Material Category -->
     <label class="form-label fw-bold">Material Category</label>
     <div class="row">
@@ -175,7 +175,7 @@
         <textarea class="form-control form-control-sm" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['sumaryReport'])? $dataMaterial[0]['sumaryReport']:''; ?></textarea>
     </div>
 
-    <button type="button" class="btn btn-warning btn-sm" style="width:120px;margin-left:12px" onclick="funcUpdateMaterialViewSourcing()">
+    <button type="submit" class="btn btn-warning btn-sm" style="width:120px;margin-left:12px">
         Edit Material
     </button>
 </form>
@@ -329,7 +329,11 @@
             $("input#website").removeAttr("disabled");
         });
 
-                   
+        document.getElementById("formEditMaterial").addEventListener('submit', event => {
+            event.preventDefault();
+            // actual logic, e.g. validate the form
+            funcUpdateMaterialViewSourcing()
+        });   
     })
 
     function funcUpdateMaterialViewSourcing(){

@@ -17,14 +17,14 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form id="uploadFile<?php echo $row['id']?>">
+                <form id="uploadFile<?php echo $row['id']?>" autocomplete="off">
                     <input type="hidden" name="idSupplier" value="<?php echo $row['id']?>">
                     <div class="form-group">
                         <label for="file">File:</label>
                         <input type="file" class="form-control" id="file" name="file" required />
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-info submitBtn mt-3" onclick="funcUploadDoc(<?php echo $row['id']?>)">Submit</button>
+                        <button type="submit" class="btn btn-info submitBtn mt-3" from="uploadFile<?php echo $row['id']?>">Submit</button>
                     </div>
                 </form>
             </div>
@@ -50,4 +50,10 @@
             }
         })
     })
+
+    document.getElementById("uploadFile<?php echo $row['id']?>").addEventListener('submit', event => {
+    event.preventDefault();
+    // actual logic, e.g. validate the form
+    funcUploadDoc(<?php echo $row['id']?>)
+    });
 </script>

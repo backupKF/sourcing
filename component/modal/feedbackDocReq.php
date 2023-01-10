@@ -20,7 +20,7 @@
                 <?php 
                     $feedbackDocReq = $conn->query("SELECT * FROM TB_FeedbackDocReq WHERE idSupplier='{$row['id']}'")->fetchAll();
                 ?>
-                <form class="was-validated" id="formFeedbackDocReq<?php echo $row['id']?>">
+                <form class="was-validated" id="formFeedbackDocReq<?php echo $row['id']?>" autocomplete="off">
                     <input type="hidden" name="idFeedbackDocReq" value="<?php echo $feedbackDocReq[0]['id']?>">
                      <!-- Feedback Doc CoA -->
                      <div class="row">
@@ -160,8 +160,15 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                <input type="submit" class="btn btn-primary" name="submit" value="Submit" onclick="funcFeedbackDocReq(<?php echo $row['id']?>)">
+                <input type="submit" class="btn btn-primary" name="submit" value="Submit" form="formFeedbackDocReq<?php echo $row['id']?>">
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("formFeedbackDocReq<?php echo $row['id']?>").addEventListener('submit', event => {
+        event.preventDefault();
+        // actual logic, e.g. validate the form
+        funcFeedbackDocReq(<?php echo $row['id']?>)
+    });
+</script>

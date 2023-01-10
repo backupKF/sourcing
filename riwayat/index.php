@@ -38,8 +38,7 @@
         <script src="../plugin/datatable/js/jquery.dataTables.min.js"></script>
         <script src="../plugin/sweetalert/sweetalert.js"></script>
 
-        <title>Sourcing | Riwayat</title>
-        
+        <title>Sourcing | Riwayat</title>                                       
     </head>
     <body class="bg-dark bg-opacity-10">
   

@@ -21,7 +21,7 @@
                     
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="was-validated" id="formEditMaterial<?php echo $row['id']?>">
+                <form class="was-validated" id="formEditMaterial<?php echo $row['id']?>" autocomplete="off">
                     <!-- Material Category -->
                     <label class="form-label fw-bold">Material Category</label>
                     <div class="row">
@@ -144,7 +144,7 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close">Back</button>
-                <button type="button" class="btn btn-primary" onclick="funcUpdateMaterial(<?php echo $row['id']?>)">Submit</button>
+                <button type="submit" class="btn btn-primary" form="formEditMaterial<?php echo $row['id']?>">Submit</button>
             </div>
         </div>
     </div>
@@ -188,5 +188,11 @@
                 $("input#company").removeAttr("disabled");
                 $("input#website").removeAttr("disabled");
             });
+        });
+
+        document.getElementById("formEditMaterial<?php echo $row['id']?>").addEventListener('submit', event => {
+            event.preventDefault();
+            // actual logic, e.g. validate the form
+            funcUpdateMaterial(<?php echo $row['id']?>)
         });
  </script>

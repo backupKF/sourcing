@@ -17,7 +17,7 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="p-1 was-validated" id="formSumaryReport<?php echo $row['id']?>">
+                <form class="p-1 was-validated" id="formSumaryReport<?php echo $row['id']?>" autocomplete="off">
                     <input type="hidden" name="idMaterial" value="<?php echo $row['id']?>">
                     <!-- Sumary Report  -->
                     <div class="mb-1">
@@ -27,7 +27,7 @@
                             Masukan Sumary Report (*Tandai (-) jika tidak Diisi).
                         </div>
                     </div>
-                    <button type="button" class="btn btn-warning btn-sm m-0" onclick="funcUpdateSumaryReport(<?php echo $row['id']?>,'<?php echo $row['materialName']?>')">Submit</button>
+                    <button type="submit" class="btn btn-warning btn-sm m-0">Submit</button>
                 </form>
             </div>
             <!-- Modal Footer -->
@@ -37,3 +37,10 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("formSumaryReport<?php echo $row['id']?>").addEventListener('submit', event => {
+        event.preventDefault();
+        // actual logic, e.g. validate the form
+        funcUpdateSumaryReport(<?php echo $row['id']?>,'<?php echo $row['materialName']?>')
+    });
+</script>

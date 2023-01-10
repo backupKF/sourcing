@@ -22,8 +22,9 @@
     <script src="../plugin/datatable/js/jquery.dataTables.min.js"></script>
     <title>Dashboard</title>
     <style>
-        .poppins {
-            font-family: 'Poppins';
+        #table-info_paginate span a.paginate_button{
+            font-size: 13px;
+            font-family: 'poppinsMedium'
         }
     </style>
     </head>
@@ -36,20 +37,22 @@
 
         <br>
 
-        <!-- Tabel Info -->
         <div class="container position-absolute p-0" style="left:250px;top:70px">
-            <div class="card" style="width:1020px;margin-top:10px;background-color:#f5fcde">
+            <!-- Tombol Kembali -->
+            <a href="index.php" class="btn btn-danger mt-2">Back</a>
+            <!-- Tabel Info -->
+            <div class="card" style="width:1050px;margin-top:10px;background-color:">
                 <div class="card-body">
-                    <h3 class="text-center border-bottom pb-2" style="font-size:20px">Tabel Info Material Sourcing [Status <?php echo $_GET['status']?>]</h3>
-                    <table class="display responsive nowrap m-1" id="table-info" style="width:100%">
+                    <h3 class="text-center border-bottom pb-2" style="font-size:20px;font-family:poppinsBold">Material Sourcing {Status <?php echo $_GET['status']?>}</h3>
+                    <table class="display responsive nowrap m-1" id="table-info">
                         <thead>
                             <tr>
-                                <th style="font-size:13px">No</th>
-                                <th style="font-size:13px">Material Name</th>
-                                <th style="font-size:13px">Material Category</th>
-                                <th style="font-size:13px;width:600px">Spesifikasi</th>
-                                <th style="font-size:13px">Target Launching</th>
-                                <th style="font-size:13px">Supplier</th>
+                                <th style="font-size:13px;font-family:poppinsRegular;width:10px">No</th>
+                                <th style="font-size:13px;font-family:poppinsRegular;width:150px">Material Name</th>
+                                <th style="font-size:13px;font-family:poppinsRegular;width:150px">Material Category</th>
+                                <th style="font-size:13px;font-family:poppinsRegular;width:300px">Spesifikasi</th>
+                                <th style="font-size:13px;font-family:poppinsRegular;width:150px">Target Launching</th>
+                                <th style="font-size:13px;font-family:poppinsRegular;width:250px">Supplier</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,24 +64,24 @@
                                         foreach($getData as $row){
                             ?>
                                             <tr>
-                                                <td style="font-size:12px"><?php echo $no++?></td>
-                                                <td style="font-size:12px"><?php echo $row['materialName']?></td>
-                                                <td style="font-size:12px"><?php echo $row['materialCategory']?></td>
-                                                <td class="text-wrap" style="font-size:12px"><?php echo $row['materialSpesification']?></td>
-                                                <td style="font-size:12px">-</td>
-                                                <td style="font-size:12px"><?php echo $row['supplier']?></td>
+                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $no++?></td>
+                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $row['materialName']?></td>
+                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $row['materialCategory']?></td>
+                                                <td style="font-size:12px;font-family:poppinsRegular" class="text-wrap"><?php echo $row['materialSpesification']?></td>
+                                                <td style="font-size:12px;font-family:poppinsRegular">-</td>
+                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $row['supplier']?></td>
                                             </tr>
                             <?php
                                         }
                                     }else{
                             ?>
                                             <tr>
-                                                <td style="font-size:12px"><?php echo $no++?></td>
-                                                <td style="font-size:12px"><?php echo $data['materialName']?></td>
-                                                <td style="font-size:12px"><?php echo $data['materialCategory']?></td>
-                                                <td style="font-size:12px"><?php echo $data['materialSpesification']?></td>
-                                                <td style="font-size:12px">-</td>
-                                                <td style="font-size:12px">-</td>
+                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $no++?></td>
+                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $data['materialName']?></td>
+                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $data['materialCategory']?></td>
+                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $data['materialSpesification']?></td>
+                                                <td style="font-size:12px;font-family:poppinsRegular">-</td>
+                                                <td style="font-size:12px;font-family:poppinsRegular">-</td>
                                             </tr>
                             <?php
                                     }
@@ -88,34 +91,52 @@
                     </table>
                 </div>
             </div>
-            <a href="index.php" class="btn btn-danger mt-2">Back</a>
-
         </div>
-        <!-- -- -->
 
         <script>
             $(document).ready(function(){
                 var projectInfo = $('#table-info').DataTable({
-                    lengthMenu: [10, 15],
+                    lengthMenu: [5, 10],
                     scrollX: true,
                 })
                 $('.dataTables_filter input[type="search"]').css(
-                    {'height':'25px','display':'inline-block'}
+                    {
+                     'height':'25px',
+                     'font-family':'poppinsRegular',
+                     'display':'inline-block'
+                    }
                 );
                 $('.dataTables_filter label').css(
-                    {'font-size':'15px','display':'inline-block'}
+                    {
+                     'font-size':'15px',
+                     'font-family':'poppinsSemiBold',
+                     'display':'inline-block'
+                    }
                 );
-                $('.dataTables_length label').css(
-                    {'font-size':'15px','display':'inline-block'}
+                $('.dataTables_length').css(
+                    {
+                     'font-size':'15px',
+                     'font-family':'poppinsSemiBold',
+                    }
                 );
-                $('.dataTables_length select option').css(
-                    {'font-size':'2px'}
+                $('.dataTables_length select').css(
+                    {
+                     'height':'25px',
+                     'font-family':'poppinsRegular',
+                     'padding':'0'
+                    }
                 );
                 $('.dataTables_info').css(
-                    {'font-size':'15px'}
+                    {
+                        'font-size':'13px',
+                        'font-family': 'poppinsSemiBold'
+                    }
                 );
                 $('.dataTables_paginate').css(
-                    {'font-size':'15px'}
+                    {
+                        'font-size':'13px',
+                        'font-family': 'poppinsSemiBold'
+                    }
                 );
             })
         </script>

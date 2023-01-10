@@ -17,7 +17,7 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="p-1 was-validated" id="formFinalFeedbackRnd<?php echo $row['id']?>">
+                <form class="p-1 was-validated" id="formFinalFeedbackRnd<?php echo $row['id']?>" autocomplete="off">
                     <!-- Final Feedback RnD -->
                     <div class="mb-1">
                         <label for="finalFeedbackRnd" class="form-label fw-bold" style="margin-button:2px">Final Feedback RND</label>
@@ -26,7 +26,7 @@
                             Masukan Review Harga (*Tandai (-) jika tidak Diisi).
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="funcFinalFeedbackRnd(<?php echo $row['id']?>)">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                 </form>
             </div>
             <!-- Modal Footer -->
@@ -36,3 +36,10 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("formFinalFeedbackRnd<?php echo $row['id']?>").addEventListener('submit', event => {
+        event.preventDefault();
+        // actual logic, e.g. validate the form
+        funcFinalFeedbackRnd(<?php echo $row['id']?>)
+    });
+</script>

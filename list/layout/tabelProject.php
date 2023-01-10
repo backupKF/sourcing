@@ -1,6 +1,11 @@
 <?php
     header('Location: ../index.php')
 ?>
+<style>
+    div.dataTables_filter, div.dataTables_length {
+        padding-bottom: 10px;
+    }
+</style>
 
 <!-- Card Table -->
 <div class="card" style="width:1100px">
@@ -11,8 +16,8 @@
                 <tr>
                     <td class="d-none"></td>
                     <td style="width:5%"></td>
-                    <td style="width:5%">No</td>
-                    <td style="width:80%">Name</td>
+                    <td style="font-size:14px;font-family:poppinsSemiBold;width:5%">No</td>
+                    <td style="font-size:14px;font-family:poppinsSemiBold;width:80%">Name</td>
                 </tr>
             </thead>
             <tbody>
@@ -25,8 +30,8 @@
                     <tr>
                         <td class="d-none"><?php echo $row['projectCode']?></td>
                         <td class="dt-control"></td>
-                        <td><?php echo $no++?></td>
-                        <td><?php echo $row['projectCode'], ' | ', $row['projectName']?></td>
+                        <td style="font-size:14px;font-family:poppinsMedium;"><?php echo $no++?></td>
+                        <td style="font-size:14px;font-family:poppinsMedium;"><?php echo $row['projectCode'], ' | ', $row['projectName']?></td>
                     </tr>
                 <?php
                     }
@@ -61,6 +66,46 @@ $(document).ready(function(){
                 tr.addClass('shown');
             }
     });
+
+    $('.dataTables_filter input[type="search"]').css(
+        {
+            'height':'25px',
+            'font-family':'poppinsRegular',
+            'display':'inline-block'
+        }
+    );
+    $('.dataTables_filter label').css(
+        {
+            'font-size':'15px',
+            'font-family':'poppinsSemiBold',
+            'display':'inline-block'
+        }
+    );
+    $('.dataTables_length').css(
+        {
+            'font-size':'15px',
+            'font-family':'poppinsSemiBold',
+        }
+    );
+    $('.dataTables_length select').css(
+        {
+            'height':'25px',
+            'font-family':'poppinsRegular',
+            'padding':'0'
+        }
+    );
+    $('.dataTables_info').css(
+        {
+            'font-size':'13px',
+            'font-family': 'poppinsSemiBold'
+        }
+    );
+    $('.dataTables_paginate').css(
+        {
+            'font-size':'13px',
+            'font-family': 'poppinsSemiBold'
+        }
+    );
 })
 
 // Membuat Tabel Material didalam sebuah fungsi

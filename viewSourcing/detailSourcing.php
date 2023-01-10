@@ -49,7 +49,7 @@
         <!-- Detail Sourcing -->
         <div class="container position-absolute p-0" style="left:230px;top:70px">
             <!-- Card Table -->
-            <div class="card" style="width:1050px">
+            <div class="card" style="width:1100px">
                 <div class="card-body">
                     <!-- Formulir Material -->
                     <div id="formEditMaterial"></div>

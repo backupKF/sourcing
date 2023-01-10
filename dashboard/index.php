@@ -4,6 +4,7 @@
 
     session_start();
     
+    // Apabila user belum login maka akan me-redirect ke halaman login
     if(!isset($_SESSION['login'])){
         header("Location: ../login.php");
         exit();

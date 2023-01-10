@@ -17,7 +17,7 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="was-validated" id="formUpdateSupplier<?php echo $row['id']?>">
+                <form class="was-validated" id="formUpdateSupplier<?php echo $row['id']?>" autocomplete="off">
                 <input type="hidden" name="idSupplier" value="<?php echo $row['id']?>">
 
                 <!-- Input Supplier -->
@@ -81,8 +81,15 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                <input type="submit" class="btn btn-primary" name="submit" value="Submit" onclick="funcUpdateSupplier(<?php echo $row['id']?>)">
+                <input type="submit" class="btn btn-primary" name="submit" value="Submit"  form="formUpdateSupplier<?php echo $row['id']?>">
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("formUpdateSupplier<?php echo $row['id']?>").addEventListener('submit', event => {
+    event.preventDefault();
+    // actual logic, e.g. validate the form
+    funcUpdateSupplier(<?php echo $row['id']?>)
+    });
+</script>

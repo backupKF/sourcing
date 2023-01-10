@@ -4,8 +4,14 @@
     }
 ?>
 
+<style>
+    div.dataTables_filter, div.dataTables_length {
+        padding-bottom: 10px;
+    }
+</style>
+
 <!-- Button tambah supplier -->
-<div class="text-center">
+<div>
     <button type="button" style="width:150px" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#tambahSupplier<?php echo $_GET['idMaterial']?>">
         Tambah Supplier
     </button>
@@ -13,14 +19,14 @@
 <?php include "../../component/modal/addSupplier.php"?>  
                 
 <table id="table-supplier" class="pt-2 table table-striped">
-    <thead>
+    <thead class="bg-warning">
         <tr>
-            <th style="font-size:13px;width:10px" class="text-center">No</th>
-            <th style="font-size:13px;width:180px" class="text-center">Supplier</th>
-            <th style="font-size:13px;width:180px" class="text-center">Manufacture</th>
-            <th style="font-size:13px;width:180px" class="text-center">Origin Country</th>
-            <th style="font-size:13px;width:180px" class="text-center">Lead Time</th>
-            <th style="font-size:13px;width:250px" class="text-center">
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:10px" class="text-center">No</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Supplier</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Manufacture</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Origin Country</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Lead Time</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">
                 <div class="container">
                     <div class="row d-flex justify-content-center">
                         Information MoQ, UoM, Price
@@ -33,15 +39,15 @@
                     </div>
                 </div>
             </th>
-            <th style="font-size:13px;width:180px" class="text-center">Catalog or CAS Number</th>
-            <th style="font-size:13px;width:180px" class="text-center">Grade/Reference</th>
-            <th style="font-size:13px;width:180px" class="text-center">Document Info</th>
-            <th style="font-size:13px;width:180px" class="text-center">Document</th>
-            <th style="font-size:13px;width:250px" class="text-center">Feedback Doc Req</th>
-            <th style="font-size:13px;width:250px" class="text-center">Feedback R&D</th>
-            <th style="font-size:13px;width:250px" class="text-center">Feedback Proc</th>
-            <th style="font-size:13px;width:250px" class="text-center">Final Feedback R&D</th>
-            <th style="font-size:13px;width:90px" class="text-center">Action Supplier</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Catalog or CAS Number</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Grade/Reference</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Document Info</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Document</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Feedback Doc Req</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Feedback R&D</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Feedback Proc</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Final Feedback R&D</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:90px" class="text-center">Action Supplier</th>
         </tr>
     </thead>
     <tbody>
@@ -53,15 +59,15 @@
         ?>
         <tr>
             <!-- Column Nomer -->
-            <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo ${'no'. $_GET['idMaterial']}++?></div></td>
+            <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo ${'no'. $_GET['idMaterial']}++?></div></td>
              <!-- Column Supplier -->
-            <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['supplier']?></div></td>
+            <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['supplier']?></div></td>
             <!-- Column Manufacture -->
-            <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['manufacture']?></div></td>
+            <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['manufacture']?></div></td>
             <!-- Column Origin Country -->
-            <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['originCountry']?></div></td>
+            <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['originCountry']?></div></td>
             <!-- Column Lead Time -->
-            <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['leadTime']?></div></td>
+            <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['leadTime']?></div></td>
             <!-- Column Information MoQ, UoM, dan Price -->
             <td class="p-0">
                 <!-- Button Modal Tambah Informasi MoQ, UoM, dan Price -->
@@ -85,12 +91,12 @@
                                 $detailSupplier = $conn->query("SELECT idDetailSupplier, MoQ, UoM, price FROM TB_DetailSupplier INNER JOIN TB_Supplier ON TB_DetailSupplier.idSupplier = TB_Supplier.id WHERE idSupplier='{$row['id']}'")->fetchAll();
                                 foreach($detailSupplier as $detail){
                             ?>
-                            <tr>
-                                <td class="text-center p-0" style="font-size:12px;width:60px"><?php echo $detail['MoQ']?></td>
-                                <td class="text-center p-0" style="font-size:12px;width:60px"><?php echo $detail['UoM']?></td>
-                                <td class="text-center p-0" style="font-size:12px;width:60px"><?php echo $detail['price']?></td>
-                                <td class="text-center p-0" style="font-size:12px;width:60px">
-                                <button type="button" class="btn btn-danger btn-sm d-inline ms-1" onclick="funcDeleteDetailInfo(<?php echo $detail['idDetailSupplier']?>,<?php echo $row['id']?>)">Delete</a>
+                            <tr style="font-size:12px;font-family:poppinsRegular;">
+                                <td class="text-center p-0" style="width:60px"><?php echo $detail['MoQ']?></td>
+                                <td class="text-center p-0" style="width:60px"><?php echo $detail['UoM']?></td>
+                                <td class="text-center p-0" style="width:60px"><?php echo $detail['price']?></td>
+                                <td class="text-center p-0" style="width:60px">
+                                <button type="button" style="width:50px;height:20px;font-size:10px;font-family:poppinsSemiBold" class="btn btn-danger d-inline ms-1 p-0" onclick="funcDeleteDetailInfo(<?php echo $detail['idDetailSupplier']?>,<?php echo $row['id']?>)">Delete</a>
                                 </td>
                             </tr>
                             <?php
@@ -102,11 +108,11 @@
             <!-- -- -->
             </td>
             <!-- Column Catalog Or Cas Number -->
-            <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['catalogOrCasNumber']?></div></td>
+            <td><div class="text-center text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['catalogOrCasNumber']?></div></td>
             <!-- Column Grade Or Reference -->
-            <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['gradeOrReference']?></div></td>
+            <td><div class="text-center text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['gradeOrReference']?></div></td>
             <!-- Column Document Info -->
-            <td><div class="text-center text-wrap" style="font-size:13px;"><?php echo $row['documentInfo']?></div></td>
+            <td><div class="text-center text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['documentInfo']?></div></td>
             <!-- Column Document -->
             <td>
                 <div class="row">
@@ -129,12 +135,12 @@
                 <?php 
                     $feedbackDocReq = $conn->query("SELECT * FROM TB_FeedbackDocReq WHERE idSupplier='{$row['id']}'")->fetchAll();
                 ?>
-                <div style="height:114px;font-size:12px">
+                <div style="height:114px;font-size:12px;font-family:poppinsSemiBold">
                     <div class="row" style="padding-top:30px">
                         <div class="col">
                             <!-- Feedback Doc Req CoA -->
                             <div class="row">
-                                <div class="col fw-bold">
+                                <div class="col">
                                     CoA
                                 </div>
                                 <div class="col">
@@ -144,7 +150,7 @@
                             </div>
                             <!-- Feedback Doc Req MSDS -->
                             <div class="row">
-                                <div class="col fw-bold">
+                                <div class="col">
                                     MSDS
                                 </div>
                                 <div class="col">
@@ -154,7 +160,7 @@
                             </div>
                             <!-- Feedback Doc Req MoA -->
                             <div class="row">
-                                <div class="col fw-bold">
+                                <div class="col">
                                     MoA
                                 </div>
                                 <div class="col">
@@ -166,7 +172,7 @@
                         <div class="col">
                             <!-- Feedback Doc Req Halal -->
                             <div class="row">
-                                <div class="col fw-bold">
+                                <div class="col">
                                     Halal
                                 </div>
                                 <div class="col">
@@ -176,7 +182,7 @@
                             </div>
                             <!-- Feedback Doc Req DMF -->
                             <div class="row">
-                                <div class="col fw-bold">
+                                <div class="col">
                                     DMF
                                 </div>
                                 <div class="col">
@@ -186,7 +192,7 @@
                             </div>
                             <!-- Feedback Doc Req GMP -->
                             <div class="row">
-                                <div class="col fw-bold">
+                                <div class="col">
                                     GMP
                                 </div>
                                 <div class="col">
@@ -208,28 +214,29 @@
             </td>
             <!-- Column Feedback Rnd -->
             <td>
-                <div class="overflow-auto" style="height:110px">
-                    <!-- Title Review Harga-->
-                    <div class="fw-bold" style="font-size:13px;">
-                        Review Harga:
-                    </div>
-                    <!-- Isi Feedback Rnd Review Harga -->
-                    <div style="font-size:13px;">
-                        <?php echo !empty($row['feedbackRndPriceReview'])?$row['feedbackRndPriceReview']:'-'?>
-                    </div> 
-                    <!-- Title Sampel dan Lainnya-->
-                    <div class="fw-bold" style="font-size:13px;">
-                        Sampel dan lainnya:
-                    </div>
-                    <!-- Isi Detail Feedback Rnd-->
+                <div class="overflow-auto" style="height:110px;font-size:12px;font-family:poppinsSemiBold;">
+                    <!-- Mengambil data Feedback Rnd -->
                     <?php
                         $feedbackRnd = $conn->query("SELECT TOP 1 * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$row['id']}' ORDER BY ID DESC")->fetchAll();
                     ?>
+                    <!-- Tanggal Feedback -->
+                    <div class="bg-success bg-opacity-75 y p-0" style="width:95px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $feedbackRnd[0]['dateFeedback']?></div>
+                    <!-- Title Review Harga-->
                     <div>
-                        <div class="text-success p-0" style="width:85px;font-size:11px"><?php echo $feedbackRnd[0]['dateFeedback']?></div>
-                        <div class="text-wrap p-0" style="font-size:12px;"><?php echo $feedbackRnd[0]['sampel']?></div>
-                        <div class="fw-bold p-0" style="font-size:9px"><?php echo !empty($feedbackRnd[0]['writer'])? 'By: '.$feedbackRnd[0]['writer']:'-'; ?></div>
+                        Review Harga:
                     </div>
+                    <!-- Isi Feedback Rnd Review Harga -->
+                    <div style="font-family:poppinsMedium;font-size:11px">
+                        <?php echo !empty($row['feedbackRndPriceReview'])?$row['feedbackRndPriceReview']:'-'?>
+                    </div> 
+                    <!-- Title Sampel dan Lainnya-->
+                    <div>
+                        Sampel dan lainnya:
+                    </div>
+                    <!-- Isi Detail Feedback Rnd-->
+                    <div class="text-wrap p-0" style="font-size:11px;font-family:poppinsMedium;"><?php echo $feedbackRnd[0]['sampel']?></div>
+                    <!-- Penulis -->
+                    <div class="fw-bold p-0" style="font-size:10px;font-family:poppinsBold;"><?php echo !empty($feedbackRnd[0]['writer'])? 'By: '.$feedbackRnd[0]['writer']:'-'; ?></div>
                 </div>
                 <!-- Action Feedback Rnd -->
                 <div>
@@ -241,6 +248,7 @@
             </td>
             <!-- Column Feedback Proc -->
             <td>
+                <!-- Mengambil data Feedback Proc -->
                 <?php
                     $feedbackProc = $conn->query("SELECT TOP 1 * FROM TB_FeedbackProc WHERE idSupplier='{$row['id']}' ORDER BY ID DESC")->fetchAll();
                 ?>
@@ -248,9 +256,12 @@
                     <!-- Isi Feedback Proc -->
                     <div style="height:70px">
                         <div class="p-0">
-                            <div class="text-success" style="width:85px;font-size:11px"><?php echo $feedbackProc[0]['dateFeedbackProc']?></div>
-                            <div class="text-wrap" style="font-size:12px"><?php echo $feedbackProc[0]['feedback']?></div>
-                            <div class="fw-bold" style="font-size:9px"><?php echo !empty($feedbackProc[0]['writer'])? 'By: '.$feedbackProc[0]['writer']:'-'; ?></div>
+                            <!-- Tanggal Feedback Proc -->
+                            <div class="bg-success bg-opacity-75 y p-0" style="width:95px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $feedbackProc[0]['dateFeedbackProc']?></div>
+                            <!-- Isi Detail Feedback Proc-->
+                            <div class="text-wrap p-0" style="font-size:11px;font-family:poppinsMedium;"><?php echo $feedbackProc[0]['feedback']?></div>
+                            <!-- Penulis -->
+                            <div class="fw-bold p-0" style="font-size:10px;font-family:poppinsBold;"><?php echo !empty($feedbackProc[0]['writer'])? 'By: '.$feedbackProc[0]['writer']:'-'; ?></div>
                         </div>
                     </div>
                 </div>
@@ -268,8 +279,10 @@
                     <!-- Isi Final Feedback Rnd -->
                     <div style="height:70px">
                         <div class="p-0">
-                            <div class="text-success ps-0" style="width:85px;font-size:11px"><?php echo $row['dateFinalFeedbackRnd']?></div>
-                            <div class="text-wrap" style="font-size:12px"><?php echo !empty($row['finalFeedbackRnd'])? $row['finalFeedbackRnd']:'-'; ?></div>
+                            <!-- Tanggal Final Feedback Rnd -->
+                            <div class="bg-success bg-opacity-75 y p-0" style="width:95px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $row['dateFinalFeedbackRnd']?></div>
+                            <!-- Isi Feedback -->
+                            <div class="text-wrap" style="font-size:11px;font-family:poppinsMedium;"><?php echo !empty($row['finalFeedbackRnd'])? $row['finalFeedbackRnd']:'-'; ?></div>
                         </div>
                     </div>
                 </div>
@@ -306,6 +319,46 @@
             deferRender: true,
             lengthMenu: [2],
         });
+
+        $('.dataTables_filter input[type="search"]').css(
+            {
+                'height':'25px',
+                'font-family':'poppinsRegular',
+                'display':'inline-block'
+            }
+        );
+        $('.dataTables_filter label').css(
+            {
+                'font-size':'15px',
+                'font-family':'poppinsSemiBold',
+                'display':'inline-block'
+            }
+        );
+        $('.dataTables_length').css(
+            {
+                'font-size':'15px',
+                'font-family':'poppinsSemiBold',
+            }
+        );
+        $('.dataTables_length select').css(
+            {
+                'height':'25px',
+                'font-family':'poppinsRegular',
+                'padding':'0'
+            }
+        );
+        $('.dataTables_info').css(
+            {
+                'font-size':'13px',
+                'font-family': 'poppinsSemiBold'
+            }
+        );
+        $('.dataTables_paginate').css(
+            {
+                'font-size':'13px',
+                'font-family': 'poppinsSemiBold'
+            }
+        );
     })
 
     function funcAddSupplier(idMaterial){

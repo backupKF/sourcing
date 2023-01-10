@@ -17,7 +17,7 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="p-1 was-validated" id="formFeedbackProc<?php echo $row['id']?>">
+                <form class="p-1 was-validated" id="formFeedbackProc<?php echo $row['id']?>" autocomplete="off">
                     <input type="hidden" name="feedbackProc" value="true">
                     <input type="hidden" name="idSupplier" value="<?php echo $row['id']?>">
                     <input type="hidden" name="writer" value="anonymous">
@@ -29,7 +29,7 @@
                             Masukan Feedback Proc (*Tandai (-) jika tidak Diisi).
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="funcFeedbackProc(<?php echo $row['id']?>)">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                 </form>
                 <!-- Tampilan content riwayat feedback proc -->
                 <div class="overflow-auto" style="height:200px;background-color:#f1fca7">
@@ -38,7 +38,7 @@
                         foreach($dataDetailFeedbackProc as $dataProc){
                     ?>
                         <div class="my-2">
-                            <div class="text-success text-center fs-6" style="width:85px">
+                            <div class="text-success text-center" style="width:100px;font-size:15px">
                                 <?php echo $dataProc['dateFeedbackProc']?>
                             </div>
                             <div style="font-size:14px;width:440px" class="text-wrap">
@@ -61,3 +61,10 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("formFeedbackProc<?php echo $row['id']?>").addEventListener('submit', event => {
+        event.preventDefault();
+        // actual logic, e.g. validate the form
+        funcFeedbackProc(<?php echo $row['id']?>)
+    });
+</script>

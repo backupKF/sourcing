@@ -17,7 +17,7 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="p-1 was-validated" id="formFeedbackRnd<?php echo $row['id']?>">
+                <form class="p-1 was-validated" id="formFeedbackRnd<?php echo $row['id']?>" autocomplete="off">
                     <input type="hidden" name="writer" value="anonymous">
                     <!-- Review Harga -->
                     <div class="mb-1">
@@ -35,7 +35,7 @@
                             Masukan Sampel dan lainnya (*Tandai (-) jika tidak Diisi).
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="funcFeedbackRnd(<?php echo $row['id']?>)">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                 </form>
                 <!-- Tampilan Content Feedback Rnd -->
                 <div class="overflow-auto" style="height:200px;background-color:#f1fca7"> 
@@ -67,3 +67,10 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("formFeedbackRnd<?php echo $row['id']?>").addEventListener('submit', event => {
+        event.preventDefault();
+        // actual logic, e.g. validate the form
+        funcFeedbackRnd(<?php echo $row['id']?>)
+    });
+</script>
