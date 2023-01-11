@@ -138,9 +138,9 @@
         echo json_encode($response);
     }
 
-    // Sistem Hapus Detail Supplier
-    if(($_REQUEST['actionType'] == 'delete') && !empty($_GET['id'])){
-        $idDetailMaterial = $_GET['id'];
+    // Kondisi saat menghapus detail Supplier
+    if(($_REQUEST['actionType'] == 'delete') && !empty($_GET['idDetailSupplier'])){
+        $idDetailMaterial = $_GET['idDetailSupplier'];
         $idSupplier = $_GET['idSupplier'];
 
         //Delete data from SQL server 
@@ -153,7 +153,7 @@
             $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
             $response = sendNotification("Berhasil menghapus detail supplier!!", $dataSupplier[0]['supplier'], "menghapus detail supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
         }
-
+        // $response = $_GET['idSupplier'];
         echo json_encode($response);
     }
 

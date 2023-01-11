@@ -4,6 +4,7 @@
 
     session_start();
     
+    // Apabila user belum login maka akan me-redirect ke halaman login
     if(!isset($_SESSION['login'])){
         header("Location: ../login.php");
         exit();
@@ -20,13 +21,9 @@
     <script src="../plugin/jquery/jquery.min.js"></script>
     <link href='../plugin/datatable/css/jquery.dataTables.min.css'  rel='stylesheet'>
     <script src="../plugin/datatable/js/jquery.dataTables.min.js"></script>
+
     <title>Dashboard</title>
-    <style>
-        #table-info_paginate span a.paginate_button{
-            font-size: 13px;
-            font-family: 'poppinsMedium'
-        }
-    </style>
+    
     </head>
     <body class="position-relative">
         <!-- Sidebar -->
@@ -44,6 +41,7 @@
             <div class="card" style="width:1050px;margin-top:10px;background-color:">
                 <div class="card-body">
                     <h3 class="text-center border-bottom pb-2" style="font-size:20px;font-family:poppinsBold">Material Sourcing {Status <?php echo $_GET['status']?>}</h3>
+                    <!-- Table Info -->
                     <table class="display responsive nowrap m-1" id="table-info">
                         <thead>
                             <tr>
@@ -95,10 +93,13 @@
 
         <script>
             $(document).ready(function(){
+                // Datatable table info
                 var projectInfo = $('#table-info').DataTable({
                     lengthMenu: [5, 10],
                     scrollX: true,
                 })
+
+                // CSS Table
                 $('.dataTables_filter input[type="search"]').css(
                     {
                      'height':'25px',

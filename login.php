@@ -28,7 +28,7 @@
                 <div class="text-center fs-3 mt-2" style="font-family:'poppinsBold'">Login</div>
                 <div class="card-body">
                     <!-- Form Login -->
-                    <form action="controller/authenticate.php" method="POST" class="was-validated">
+                    <form action="controller/authenticate.php" method="POST" autocomplete="off">
                         <div class="mb-3 row">
                             <!-- Input Username -->
                             <div class="col">

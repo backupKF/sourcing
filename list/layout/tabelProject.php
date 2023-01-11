@@ -45,7 +45,9 @@
 
 <script>
 $(document).ready(function(){
-    var projectTable = $('#table-project').DataTable()
+    var projectTable = $('#table-project').DataTable({
+        stateSave: true,
+    })
 
     // Menampilkan tabel material, apabila user melakukan event click ditabel project
     $('#table-project tbody').on('click', 'td.dt-control', function () {

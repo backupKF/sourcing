@@ -4,6 +4,7 @@
 
     session_start();
     
+    // Kondosi apabila user belum login, maka akan me-redirect ke halaman login
     if(!isset($_SESSION['login'])){
         header("Location: ../login.php");
         exit();
@@ -33,7 +34,7 @@
     
     <br>
 
-    <div class="container position-absolute p-0" style="left:230px;top:70px">
+    <div class="container position-absolute p-0" style="left:235px;top:70px">
         <!-- Tabel View-->
         <?php require "layout/tabelView.php";?>
     </div>

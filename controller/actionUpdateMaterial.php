@@ -201,6 +201,7 @@
         exit();
     }
 
+    // Kondisi saat mengisi sumary report
     if(isset($_POST['sumaryReport'])){
         $dateSumaryReport = date("Y-m-d");
         $sumaryReport = trim(strip_tags($_POST['sumaryReport']));
@@ -219,6 +220,7 @@
         exit();
     }
 
+    // kondisi saat menghapus material
     if(isset($_GET['actionType'])){
         $idMaterial = $_GET['idMaterial'];
         $materialName = $_GET['materialName'];

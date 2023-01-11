@@ -1,16 +1,11 @@
 <?php
     session_start();
 
+    // Kondisi dimana apabila tidak ada data get maka akan meredirect ke halaman index.php
     if(empty($_GET)){
         header('Location: ../index.php');
     }
 ?>
-
-<style>
-    div.dataTables_filter, div.dataTables_length {
-        padding-bottom: 10px;
-    }
-</style>
 
 <!-- Tabel Material -->
     <table id="table-material<?php echo $_GET['projectCode']?>" class="table-bordered">
@@ -42,6 +37,7 @@
         <?php
             include "../../dbConfig.php";
             $no= 1;
+            // Mengambil data material
             $dataMaterial = $conn->query("SELECT * FROM TB_PengajuanSourcing WHERE projectCode='{$_GET['projectCode']}' AND feedbackRPIC=1 ORDER BY id DESC")->fetchAll();
             foreach($dataMaterial as $row){
         ?>
@@ -83,21 +79,18 @@
                         // Jika user bukan level 1
                         }else{
                     ?>
-                        <div style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['statusSourcing']?></div>
+                        <div style="font-size:12px;font-family:poppinsRegular;" class="text-center"><?php echo $row['statusSourcing']?></div>
                     <?php 
                         }
                     ?>
                 </td>
                 <!-- Column Summary Report -->
                 <td>
+                    <!-- Tanggal Feedback -->
+                    <div class="ps-0" style="width:85px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $row['dateSumaryReport']?></div>
+                    <!-- Isi Final Feedback Rnd -->
                     <div class="overflow-auto" style="height:65px">
-                            <!-- Isi Final Feedback Rnd -->
-                            <div style="height:30px">
-                                <div class="p-0">
-                                    <div class="ps-0" style="width:85px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $row['dateSumaryReport']?></div>
-                                    <div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo !empty($row['sumaryReport'])? $row['sumaryReport']:'-'; ?></div>
-                                </div>
-                            </div>
+                        <div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo !empty($row['sumaryReport'])? $row['sumaryReport']:'-'; ?></div>
                     </div>
 
                     <!-- Action Final Feedback Rnd -->
@@ -165,6 +158,7 @@
                     }
             });
 
+            // CSS Tabel
             $('.dataTables_filter input[type="search"]').css(
                 {
                     'height':'25px',
@@ -214,14 +208,13 @@
 
         // Membuat Tabel Supplier didalam sebuah fungsi
         function tableSupplier(d){
-            // $(document).ready(function(){
-                loadDataSupplier(d)
-            // })
+            loadDataSupplier(d)
             return (
                 '<div class="container-fluid m-0 p-0" id="contentDataSupplier'+d+'"></div>'
             )
         }
 
+        // Load Data Supplier
         function loadDataSupplier(d){
             $.ajax({
                 url: 'layout/tabelSupplier.php',
@@ -297,6 +290,7 @@
             $('#sumaryReport'+idMaterial).modal('hide');
         }
 
+        // Send data to Action Update Material for update material
         function funcUpdateMaterial(idMaterial){
             $.ajax({
                 type: "POST",

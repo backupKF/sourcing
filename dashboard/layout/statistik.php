@@ -1,11 +1,13 @@
 <?php
-  header('Location: ../index.php')
+  // me-redirect saat user masuk kehalaman ini
+  if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+    header('Location: ../../dashboard/index.php');
+    exit(); 
+  };
 ?>
 
 <div class="container m-0" style="width:95%">
   <div class="row">
-    <!-- Baris Card Total Sourcing dan Card Pending Sumary Report -->
-
     <div class="row p-0">
       <!-- Card Status Done -->
       <div class="col-2">
@@ -144,6 +146,8 @@
   </div>
 
   <div class="row">
+    <!-- Baris Statistik, Card Total Sourcing dan Card Pending Sumary Report -->
+
       <div class="col-8 p-0">
         <!-- Card Graph -->
           <div class="card shadow mb-3 bg-body rounded" style="width:100%">

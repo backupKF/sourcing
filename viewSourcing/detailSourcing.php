@@ -70,6 +70,7 @@
             loadDataMaterial(<?php echo $_GET['idMaterial']?>)
         })
 
+        // Function Load Data Supplier
         function loadDataSupplier(idMaterial, idSupplier){
             $.ajax({
                 type: 'GET',
@@ -81,6 +82,7 @@
             });
         }
 
+        // Function Load Data Material
         function loadDataMaterial(id){
             $.ajax({
                 type: 'GET',

@@ -4,11 +4,13 @@
 
     session_start();
     
+    // Kondisi jika user belum login, maka akan me-redirect ke halaman login
     if(!isset($_SESSION['login'])){
         header("Location: ../login.php");
         exit();
     }
 
+    // Kondisi jika user == level 4, maka akan meredirect ke halaman dashboard
     if($_SESSION['user']['level'] == 4){
         header("Location: ../dashboard/index.php");
         exit();
@@ -62,6 +64,7 @@
             loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
         })
 
+    // Function Load Data Riwayat
     function loadDataRiwayat(userLevel){
         $.ajax({
             type: 'GET',

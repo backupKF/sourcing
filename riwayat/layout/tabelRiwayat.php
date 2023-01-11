@@ -10,49 +10,70 @@
         <table class="table p-1" id="table-riwayat">
             <thead>
                 <tr>
-                    <th scope="col" style="font-size: 13px;width:10px" class="text-center">No</th>
-                    <th scope="col" style="font-size: 13px;width:150px" class="text-center">Sourcing Number</th>
-                    <th scope="col" style="font-size: 13px;width:150px" class="text-center">Material Name</th>
-                    <th scope="col" style="font-size: 13px;width:90px" class="text-center">Date Sourcing</th>
-                    <th scope="col" style="font-size: 13px;width:100px" class="text-center">Project Code</th>
-                    <th scope="col" style="font-size: 13px;width:120px" class="text-center">Project Name</th>
-                    <th scope="col" style="font-size: 13px;width:90px" class="text-center">Team Leader</th>
-                    <th scope="col" style="font-size: 13px;width:90px" class="text-center">Researcher</th>
-                    <th scope="col" style="font-size: 13px;width:100px" class="text-center">Feedback TL</th>
-                    <th scope="col" style="font-size: 13px;width:100px" class="text-center">Feedback RPIC</th>
-                    <th scope="col" style="font-size: 13px;width:120px" class="text-center">Date Approved TL</th>
-                    <th scope="col" style="font-size: 13px;width:125px" class="text-center">Date Accepted RPIC</th>
-                    <th scope="col" style="font-size: 13px;width:90px" class="text-center">Status</th>
-                    <th scope="col" style="font-size: 13px;width:180px" class="text-center">Edit Material</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:10px" class="text-center">No</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:150px" class="text-center">Sourcing Number</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:150px" class="text-center">Material Name</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Date Sourcing</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:100px" class="text-center">Project Code</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:120px" class="text-center">Project Name</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Team Leader</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Researcher</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:100px" class="text-center">Feedback TL</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:100px" class="text-center">Feedback RPIC</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:120px" class="text-center">Date Approved TL</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:125px" class="text-center">Date Accepted RPIC</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Status</th>
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:180px" class="text-center">Action Material</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                     include "../../dbConfig.php";
                     if(!empty($_GET["sn"]) && empty($_GET["idMaterial"])){
+                        // Jika terdapat data GET Sourcing Number
                         $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode WHERE sourcingNumber=".$_GET['sn']." ORDER BY id DESC")->fetchAll();
                     }else if(!empty($_GET["sn"]) && !empty($_GET["idMaterial"])){
+                        // Jika terdapat data GET Sourcing Number dan Id Material
                         $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode WHERE sourcingNumber=".$_GET['sn']." AND id=".$_GET['idMaterial']." ORDER BY id DESC")->fetchAll();
                     }else{
+                        // Jika selain dati kondisi di atas
                         $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode ORDER BY id DESC")->fetchAll();
                     }
                     $no=1;
                     foreach($dataRiwayat as $row){
                 ?>
                      <tr>
-                        <td style="font-size: 12px;"><?php echo $no++?></td>
-                        <td style="font-size: 12px;" class="text-center"><?php echo $row['sourcingNumber']?></td>
-                        <td style="font-size: 12px;"><?php echo $row['materialName']?></td>
-                        <td style="font-size: 12px;"><?php echo $row['dateSourcing']?></td>
-                        <td style="font-size: 12px;"><?php echo $row['projectCode']?></td>
-                        <td style="font-size: 12px;"><?php echo $row['projectName']?></td>
-                        <td style="font-size: 12px;"><?php echo $row['teamLeader']?></td>
-                        <td style="font-size: 12px;"><?php echo $row['researcher']?></td>
-                        
-                        <td style="font-size: 12px;">
+                        <!-- Column Number -->
+                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $no++?></td>
+
+                        <!-- Column Sourcing Number -->
+                        <td style="font-size:12px;font-family:poppinsRegular;" class="text-center"><?php echo $row['sourcingNumber']?></td>
+
+                        <!-- Column Material Name -->
+                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['materialName']?></td>
+
+                        <!-- Column Date Sourcing -->
+                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['dateSourcing']?></td>
+
+                        <!-- Column Project Code -->
+                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['projectCode']?></td>
+
+                        <!-- Column Project Name -->
+                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['projectName']?></td>
+
+                        <!-- Column Team Leader -->
+                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['teamLeader']?></td>
+
+                        <!-- Column Researcher -->
+                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['researcher']?></td> 
+
+                        <!-- Column feedback tl -->
+                        <td style="font-size:12px;font-family:poppinsRegular;">
                         <?php
+                            // Jika user level == 2 dan feedback tl == false/0
                             if($_GET['userLevel'] == 2 && $row['feedbackTL'] == 0){
                         ?>
+                            <!-- Menampilkan action feedback tl -->
                             <form onclick="funcFeedbackTL(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackTL_<?php echo $row['id']?>">
                                 <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackTL">
                                     <option selected>NO STATUS</option>
@@ -60,22 +81,27 @@
                                 </select>
                             </form>
                         <?php
+                            // Jika user level selain == 2 dan feedback tl == false/0
                             }else if($_GET['userLevel'] != 2 && $row['feedbackTL'] == 0){
                         ?>
-                            <div class="text-center">NO STATUS</div>
+                            <div class="text-center text-danger">NO STATUS</div>
                         <?php
+                            //Jika Selain kondisi diatas 
                             }else{
                         ?>
-                            <div class="text-center">APPROVED</div>
+                            <div class="text-center text-success">APPROVED</div>
                         <?php
                             }
                         ?>
                         </td>
-                  
-                        <td style="font-size: 12px;">
+
+                        <!-- Column feedback RPIC -->
+                        <td style="font-size:12px;font-family:poppinsRegular;">
                         <?php
+                            // Jika user level == 1 dan feedback rpic == false/0
                             if($_GET['userLevel'] == 1 && $row['feedbackRPIC'] == 0){
                         ?>
+                            <!-- Menampilkan action feedback rpic -->
                             <form onclick="funcFeedbackRPIC(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackRPIC_<?php echo $row['id']?>">
                                     <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackRPIC">
                                         <option selected>NO STATUS</option>
@@ -83,10 +109,12 @@
                                     </select>
                             </form>
                         <?php
+                            // Jika user level selain == 2 dan feedback rpic == false/0
                             }else if($_GET['userLevel'] != 1 && $row['feedbackRPIC'] == 0){
                         ?>
                             <div class="text-center">NO STATUS</div>
                         <?php
+                            //Jika Selain kondisi diatas
                             }else{
                         ?>
                             <div class="text-center">ACCEPTED</div>
@@ -95,13 +123,19 @@
                         ?>
                         </td>
 
-                        <td style="font-size: 12px;"><?php echo $row['dateApprovedTL']?></td>
-                        <td style="font-size: 12px;"><?php echo $row['dateAcceptedRPIC']?></td>
+                        <!-- Column Date Approved TL -->
+                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['dateApprovedTL']?></td>
+
+                        <!-- Column Date Aceppted RPIC -->
+                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['dateAcceptedRPIC']?></td>
                         
-                        <td style="font-size: 12px;">
+                        <!-- Column Status -->
+                        <td style="font-size:12px;font-family:poppinsRegular;">
                             <?php
+                                // Jika user level == 1
                                 if($_GET['userLevel'] == 1){
                             ?>
+                                <!-- Action Status -->
                                 <form onclick="funcStatusRiwayat(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formStatusRiwayat_<?php echo $row['id']?>">
                                     <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="statusRiwayat">
                                         <option <?php echo ($row['statusRiwayat']=="NO STATUS")?'selected':'';?>>NO STATUS</option>
@@ -111,23 +145,27 @@
                                     </select>
                                 </form>
                             <?php
+                                // Jika selain dari kondisi diatas
                                 }else{
                             ?>
-                                <div class="text-center" style="font-size: 12px;"><?php echo $row['statusRiwayat']?></div>
+                                <div class="text-center"><?php echo $row['statusRiwayat']?></div>
                             <?php
                                 }
                             ?>
                         </td>
-                        
+
+                        <!--Column Action Material -->
                         <td>
                             <!-- Button -->
                             <div class="text-center">
+                                <!-- Jika Feedback Tl == 1/true -->
                                 <?php if($row['feedbackTL'] != 1){ ?>
                                     <!-- Button Edit Material -->
                                     <button class="btn btn-warning btn-sm d-inline ms-1" type="button" data-bs-target="#editMaterial<?php echo $row['id']?>" data-bs-toggle="modal">Edit</button>
                                 <?php } ?>
                                 <!-- Button View Material -->
                                 <button class="btn btn-success btn-sm d-inline ms-1" type="button" data-bs-target="#viewMaterial<?php echo $row['id']?>" data-bs-toggle="modal">View</button>
+                                <!-- Jika user level == 1 -->
                                 <?php 
                                     if($_GET['userLevel'] == 1){ ?>  
                                     <!-- Button Delete -->
@@ -156,15 +194,56 @@
 
 <script>
     $(document).ready(function() {
+        // Datatable tabel riwayat
         var tableRiwayat = $('#table-riwayat').DataTable({
             scrollX: true,
             stateSave: true,
+            lengthMenu: [5 , 10, 15],
         })
-    });
-    $('.dataTables_scrollBody tbody').css(
-        {'height':'20px'}
-    );
 
+        // CSS Table
+        $('.dataTables_filter input[type="search"]').css(
+            {
+                'height':'25px',
+                'font-family':'poppinsRegular',
+                'display':'inline-block'
+            }
+        );
+        $('.dataTables_filter label').css(
+            {
+                'font-size':'15px',
+                'font-family':'poppinsSemiBold',
+                'display':'inline-block'
+            }
+        );
+        $('.dataTables_length').css(
+            {
+                'font-size':'15px',
+                'font-family':'poppinsSemiBold',
+            }
+        );
+        $('.dataTables_length select').css(
+            {
+                'height':'25px',
+                'font-family':'poppinsRegular',
+                'padding':'0'
+            }
+        );
+        $('.dataTables_info').css(
+            {
+                'font-size':'13px',
+                'font-family': 'poppinsSemiBold'
+            }
+        );
+        $('.dataTables_paginate').css(
+            {
+                'font-size':'13px',
+                'font-family': 'poppinsSemiBold'
+            }
+        );
+    });
+
+    // Send data to Action Update Material for feedback tl
     function funcFeedbackTL(idMaterial, materialName, sourcingNumber){
         let feedbackTL = $('form#formFeedbackTL_'+idMaterial+' select#feedbackTL').val();
         $.ajax({
@@ -195,6 +274,7 @@
         })
     }
 
+    // Send data to Action Update Material for feedback rpic
     function funcFeedbackRPIC(idMaterial, materialName, sourcingNumber){
         let feedbackRPIC = $('form#formFeedbackRPIC_'+idMaterial+' select#feedbackRPIC').val();
         $.ajax({
@@ -225,6 +305,7 @@
         })
     }
 
+    // Send data to Action Update Material for status riwayat
     function funcStatusRiwayat(idMaterial, materialName, sourcingNumber){
         let statusRiwayat = $('form#formStatusRiwayat_'+idMaterial+' select#statusRiwayat').val();
         $.ajax({
@@ -255,6 +336,7 @@
         })
     }
 
+    // Send data to Action Update Material for delete material
     function funcDeleteMaterial(idMaterial, materialName){
         $.ajax({
             type: 'GET',
@@ -283,6 +365,7 @@
         })
     }
 
+    // Send data to Action Update Material for update material
     function funcUpdateMaterial(idMaterial, sourcingNumber){
         $.ajax({
             type: "POST",

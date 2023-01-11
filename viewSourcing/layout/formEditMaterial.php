@@ -3,22 +3,26 @@
 
     include "../../dbConfig.php";
 
+    // Ketika tidak ada data get yang masuk maka akan me-redirect kehalaman index
     if(empty($_GET)){
         header('Location: ../index.php');
     }
     
+    // Mengambil data material
     $dataMaterial = $conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id='{$_GET['idMaterial']}' AND feedbackRPIC=1")->fetchAll();
 
+    // Jika user level 1
     if($_SESSION['user']['level'] == 1){
 ?>
+<!-- Status Sourcing -->
 <div class="d-flex justify-content-end">
     <span class="badge text-bg-info" style="font-size:15px;font-family:poppinsSemiBold"><?php echo $dataMaterial[0]['statusSourcing']?></span>
 </div>
  
 <form class="was-validated" id="formEditMaterial" autocomplete="off">
     <!-- Material Category -->
-    <label class="form-label fw-bold">Material Category</label>
-    <div class="row">
+    <label class="form-label" style="font-size:17px;font-family:poppinsBold">Material Category</label>
+    <div class="row" style="font-size:15px;font-family:poppinsRegular">
         <div class="col">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="materialCategory" id="api" value="API" <?php echo $dataMaterial[0]['materialCategory']=="API"? 'checked' :''; ?> required>
@@ -57,11 +61,11 @@
 
     <hr class="m-0">
 
-    <div class="row">
+    <div class="row" style="font-size:15px;font-family:poppinsRegular">
         <div class="col m-0 mt-1">
             <!-- Material Name -->
             <div class="mb-3">
-                <label for="materialName" class="form-label fw-bold">Material Name</label>
+                <label for="materialName" class="form-label" style="font-size:17px;font-family:poppinsBold">Material Name</label>
                 <textarea class="form-control form-control-sm" id="materialName" rows="3" name="materialName" required><?php echo !empty($dataMaterial[0]['materialName'])? $dataMaterial[0]['materialName']:''; ?></textarea>
                 <div class="invalid-feedback">
                     Masukan Material Name (*Tandai (-) jika tidak Diisi).
@@ -71,7 +75,7 @@
         <div class="col m-0 mt-1">   
             <!-- Material Spesification -->
             <div class="mb-3">
-            <label for="materialSpesification" class="form-label fw-bold">Material Spesification</label>
+            <label for="materialSpesification" class="form-label" style="font-size:17px;font-family:poppinsBold">Material Spesification</label>
             <textarea class="form-control form-control-sm" id="materialSpesification" rows="3" name="materialSpesification" required><?php echo !empty($dataMaterial[0]['materialSpesification'])? $dataMaterial[0]['materialSpesification']:''; ?></textarea>
             <div class="invalid-feedback">
                  Masukan Material Spesification (*Tandai (-) jika tidak Diisi).
@@ -81,11 +85,11 @@
                     
     <hr class="m-0">
 
-    <div class="row">
+    <div class="row" style="font-size:15px;font-family:poppinsRegular">
         <div class="col m-0 mt-1">
             <!-- Priority -->
             <div class="mb-3">
-                <label for="priority" class="form-label fw-bold">Priority</label>
+                <label for="priority" class="form-label" style="font-size:17px;font-family:poppinsBold">Priority</label>
                 <input type="number" class="form-control form-control-sm" id="priority" name="priority" required value="<?php echo !empty($dataMaterial[0]['priority'])? $dataMaterial[0]['priority']:'';?>">
                 <div class="invalid-feedback">
                     Masukan Priority (*Tandai (-) jika tidak Diisi).
@@ -95,7 +99,7 @@
         <div class="col m-0 mt-1">
             <!-- Finish Dossage Form -->
             <div class="mb-3">
-                <label for="finishDossageForm" class="form-label fw-bold">Finish Dossage Form</label>
+                <label for="finishDossageForm" class="form-label" style="font-size:17px;font-family:poppinsBold">Finish Dossage Form</label>
                 <input type="text" class="form-control form-control-sm" id="finishDossageForm" name="finishDossageForm" required value="<?php echo !empty($dataMaterial[0]['finishDossageForm'])? $dataMaterial[0]['finishDossageForm']:''; ?>">
                 <div class="invalid-feedback">
                     Masukan Finish Dossage Form (*Tandai (-) jika tidak Diisi).
@@ -105,7 +109,7 @@
         <div class="col m-0 mt-1">
             <!-- Vendor Terdaftar AERO -->
             <div class="mb-3">
-                <label for="vendor" class="form-label fw-bold">Vendor Terdaftar AERO</label>
+                <label for="vendor" class="form-label" style="font-size:17px;font-family:poppinsBold">Vendor Terdaftar AERO</label>
                 <input type="text" class="form-control form-control-sm" id="vendor" name="vendor" required value="<?php echo !empty($dataMaterial[0]['vendor'])? $dataMaterial[0]['vendor']:'';?>">
                 <div class="invalid-feedback">
                     Masukan Vendor Terdaftar AERO (*Tandai (-) jika tidak Diisi).
@@ -115,7 +119,7 @@
         <div class="col m-0 mt-1">
             <!-- Document Requirement -->
             <div class="mb-3">
-                <label for="documentReq" class="form-label fw-bold">Document Requirement</label>
+                <label for="documentReq" class="form-label" style="font-size:17px;font-family:poppinsBold">Document Requirement</label>
                 <input type="text" class="form-control form-control-sm" id="documentReq" name="documentReq" required value="<?php echo !empty($dataMaterial[0]['documentReq'])? $dataMaterial[0]['documentReq']:'';?>">
                 <div class="invalid-feedback">
                         Masukan Document Requirement (*Tandai (-) jika tidak Diisi).
@@ -126,11 +130,11 @@
                     
     <hr class="m-0">
 
-    <div class="row">
+    <div class="row" style="font-size:15px;font-family:poppinsRegular">
         <div class="col m-0 mt-1">
             <!-- Catalog Or CAS Number -->
             <div class="mb-3">
-                <label for="catalogOrCasNumber" class="form-label fw-bold">Catalog Or CAS Number</label>
+                <label for="catalogOrCasNumber" class="form-label" style="font-size:17px;font-family:poppinsBold">Catalog Or CAS Number</label>
                 <input type="text" class="form-control form-control-sm" id="catalogOrCasNumber" name="catalogOrCasNumber" required value="<?php echo !empty($dataMaterial[0]['catalogOrCasNumber'])? $dataMaterial[0]['catalogOrCasNumber']:'';?>" <?php echo $dataMaterial[0]['materialCategory']=="Rapid Test" || $dataMaterial[0]['materialCategory']=="Intermediate" ? '' :'disabled'; ?>>
                 <div class="invalid-feedback">
                     Masukan Catalog Or CAS Number (*Tandai (-) jika tidak Diisi).
@@ -140,7 +144,7 @@
         <div class="col m-0 mt-1">
             <!-- Company< -->
             <div class="mb-3">
-                <label for="company" class="form-label fw-bold">Company</label>
+                <label for="company" class="form-label" style="font-size:17px;font-family:poppinsBold">Company</label>
                 <input type="text" class="form-control form-control-sm" id="company" name="company" required value="<?php echo !empty($dataMaterial[0]['company'])? $dataMaterial[0]['company']:''; ?>" <?php echo $dataMaterial[0]['materialCategory']=="Rapid Test"? '' :'disabled'; ?>>
                 <div class="invalid-feedback">
                     Masukan Company Produk (*Tandai (-) jika tidak Diisi).
@@ -150,7 +154,7 @@
         <div class="col m-0 mt-1">
             <!-- Website -->
             <div class="mb-3">
-                <label for="website" class="form-label fw-bold">Website</label>
+                <label for="website" class="form-label" style="font-size:17px;font-family:poppinsBold">Website</label>
                 <input type="text" class="form-control form-control-sm" id="website" name="website" required value="<?php echo !empty($dataMaterial[0]['website'])? $dataMaterial[0]['website']:''; ?>" <?php echo $dataMaterial[0]['materialCategory']=="Rapid Test"? '' :'disabled'; ?>>
                 <div class="invalid-feedback">
                     Masukan Website Produk (*Tandai (-) jika tidak Diisi).
@@ -162,19 +166,20 @@
     <hr class="m-0">
 
     <!-- Keterangan -->
-    <div class="mb-3">
-        <label for="keterangan" class="form-label fw-bold">Keterangan</label>
+    <div class="mb-3" style="font-size:15px;font-family:poppinsRegular">
+        <label for="keterangan" class="form-label" style="font-size:17px;font-family:poppinsBold">Keterangan</label>
         <textarea class="form-control form-control-sm" id="keterangan" rows="3" name="keterangan" required><?php echo !empty($dataMaterial[0]['keterangan'])? $dataMaterial[0]['keterangan']:''; ?></textarea>
         <div class="invalid-feedback">
             Masukan Keterangan Material (*Tandai (-) jika tidak Diisi).
-                    </div>
+        </div>
     </div>
-    <!-- Keterangan -->
-    <div class="mb-3">
-        <label for="keterangan" class="form-label fw-bold">Sumary Report</label>
+    <!-- Sumary Repory -->
+    <div class="mb-3" style="font-size:15px;font-family:poppinsRegular">
+        <label for="keterangan" class="form-label" style="font-size:17px;font-family:poppinsBold">Sumary Report</label>
         <textarea class="form-control form-control-sm" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['sumaryReport'])? $dataMaterial[0]['sumaryReport']:''; ?></textarea>
     </div>
 
+    <!-- Button Edit Material -->
     <button type="submit" class="btn btn-warning btn-sm" style="width:120px;margin-left:12px">
         Edit Material
     </button>
@@ -182,17 +187,18 @@
 
 <?php
     }
-    
+    // Jika bukan level 1
     if($_SESSION['user']['level'] != 1){
 ?>
+    <!-- Status Sourcing -->
     <div class="d-flex justify-content-end">
         <span class="badge text-bg-info" style="font-size:15px;font-family:poppinsSemiBold"><?php echo $dataMaterial[0]['statusSourcing']?></span>
     </div>
     <!-- Material Category -->
-    <div class="row">
+    <div class="row" style="font-size:15px;font-family:poppinsRegular">
     <div class="col m-0 mt-1">
             <div class="mb-3">
-                <label for="materialCategory" class="form-label fw-bold">Material Category</label>
+                <label for="materialCategory" class="form-label" style="font-size:17px;font-family:poppinsBold">Material Category</label>
                 <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['materialCategory'])? $dataMaterial[0]['materialCategory']:'';?>" disabled readonly>
             </div>
         </div>
@@ -200,50 +206,50 @@
 
     <hr class="m-0">
 
-    <div class="row">
+    <div class="row" style="font-size:15px;font-family:poppinsRegular">
         <div class="col m-0 mt-1">
             <!-- Material Name -->
             <div class="mb-3">
-                <label for="materialName" class="form-label fw-bold">Material Name</label>
+                <label for="materialName" class="form-label" style="font-size:17px;font-family:poppinsBold">Material Name</label>
                 <textarea class="form-control form-control-sm" id="materialName" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['materialName'])? $dataMaterial[0]['materialName']:''; ?></textarea>
             </div>
         </div>
         <div class="col m-0 mt-1">   
             <!-- Material Spesification -->
         <div class="mb-3">
-            <label for="materialSpesification" class="form-label fw-bold">Material Spesification</label>
+            <label for="materialSpesification" class="form-label" style="font-size:17px;font-family:poppinsBold">Material Spesification</label>
             <textarea class="form-control form-control-sm" id="materialSpesification" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['materialSpesification'])? $dataMaterial[0]['materialSpesification']:''; ?></textarea>
         </div>
     </div>
                     
     <hr class="m-0">
 
-    <div class="row">
+    <div class="row" style="font-size:15px;font-family:poppinsRegular">
         <div class="col m-0 mt-1">
             <!-- Priority -->
             <div class="mb-3">
-                <label for="priority" class="form-label fw-bold">Priority</label>
+                <label for="priority" class="form-label" style="font-size:17px;font-family:poppinsBold">Priority</label>
                 <input type="number" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['priority'])? $dataMaterial[0]['priority']:'';?>" disabled readonly>
             </div>
         </div>
         <div class="col m-0 mt-1">
             <!-- Finish Dossage Form -->
             <div class="mb-3">
-                <label for="finishDossageForm" class="form-label fw-bold">Finish Dossage Form</label>
+                <label for="finishDossageForm" class="form-label" style="font-size:17px;font-family:poppinsBold">Finish Dossage Form</label>
                 <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['finishDossageForm'])? $dataMaterial[0]['finishDossageForm']:''; ?>" disabled readonly>
             </div>
         </div>
         <div class="col m-0 mt-1">
             <!-- Vendor Terdaftar AERO -->
             <div class="mb-3">
-                <label for="vendor" class="form-label fw-bold">Vendor Terdaftar AERO</label>
+                <label for="vendor" class="form-label" style="font-size:17px;font-family:poppinsBold">Vendor Terdaftar AERO</label>
                 <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['vendor'])? $dataMaterial[0]['vendor']:'';?>" disabled readonly>
             </div>
         </div>
         <div class="col m-0 mt-1">
             <!-- Document Requirement -->
             <div class="mb-3">
-                <label for="documentReq" class="form-label fw-bold">Document Requirement</label>
+                <label for="documentReq" class="form-label" style="font-size:17px;font-family:poppinsBold">Document Requirement</label>
                 <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['documentReq'])? $dataMaterial[0]['documentReq']:'';?>" disabled readonly>
             </div>
         </div>
@@ -251,25 +257,25 @@
                     
     <hr class="m-0">
 
-    <div class="row">
+    <div class="row" style="font-size:15px;font-family:poppinsRegular">
         <div class="col m-0 mt-1">
             <!-- Catalog Or CAS Number -->
             <div class="mb-3">
-                <label for="catalogOrCasNumber" class="form-label fw-bold">Catalog Or CAS Number</label>
+                <label for="catalogOrCasNumber" class="form-label" style="font-size:17px;font-family:poppinsBold">Catalog Or CAS Number</label>
                 <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['catalogOrCasNumber'])? $dataMaterial[0]['catalogOrCasNumber']:'';?>" disabled readonly>
             </div>
         </div>
         <div class="col m-0 mt-1">
             <!-- Company< -->
             <div class="mb-3">
-                <label for="company" class="form-label fw-bold">Company</label>
+                <label for="company" class="form-label" style="font-size:17px;font-family:poppinsBold">Company</label>
                 <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['company'])? $dataMaterial[0]['company']:''; ?>" disabled readonly>
             </div>
         </div>
         <div class="col m-0 mt-1">
             <!-- Website -->
             <div class="mb-3">
-                <label for="website" class="form-label fw-bold">Website</label>
+                <label for="website" class="form-label" style="font-size:17px;font-family:poppinsBold">Website</label>
                 <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['website'])? $dataMaterial[0]['website']:'-'; ?>" disabled readonly>
             </div>
         </div>
@@ -278,14 +284,14 @@
     <hr class="m-0">
 
     <!-- Keterangan -->
-    <div class="mb-3">
-        <label for="keterangan" class="form-label fw-bold">Keterangan</label>
+    <div class="mb-3" style="font-size:15px;font-family:poppinsRegular">
+        <label for="keterangan" class="form-label" style="font-size:17px;font-family:poppinsBold">Keterangan</label>
         <textarea class="form-control form-control-sm" id="keterangan" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['keterangan'])? $dataMaterial[0]['keterangan']:''; ?></textarea>
     </div>
 
-    <!-- Keterangan -->
-    <div class="mb-3">
-        <label for="keterangan" class="form-label fw-bold">Sumary Report</label>
+    <!-- Sumary Report -->
+    <div class="mb-3" style="font-size:15px;font-family:poppinsRegular">
+        <label for="keterangan" class="form-label" style="font-size:17px;font-family:poppinsBold">Sumary Report</label>
         <textarea class="form-control form-control-sm" id="sumaryReport" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['sumaryReport'])? $dataMaterial[0]['sumaryReport']:''; ?></textarea>
     </div>
 <?php
@@ -329,6 +335,7 @@
             $("input#website").removeAttr("disabled");
         });
 
+        // Listening event submit
         document.getElementById("formEditMaterial").addEventListener('submit', event => {
             event.preventDefault();
             // actual logic, e.g. validate the form
@@ -336,6 +343,7 @@
         });   
     })
 
+    // Send data to Action Update Material for Update Material
     function funcUpdateMaterialViewSourcing(){
         $.ajax({
             type: "POST",

@@ -4,11 +4,13 @@
 
     session_start();
     
+    // Apabila user belum login maka akan me-redirect ke halaman login
     if(!isset($_SESSION['login'])){
         header("Location: ../login.php");
         exit();
     }
 
+    // Kondisi jika user == level 4, maka akan meredirect ke halaman dashboard
     if($_SESSION['user']['level'] == 4){
         header("Location: ../dashboard/index.php");
         exit();
@@ -28,12 +30,9 @@
         <link href='../plugin/datatable/css/jquery.dataTables.min.css'  rel='stylesheet'>
         <script src="../plugin/datatable/js/jquery.dataTables.min.js"></script>
         <script src="../plugin/sweetalert/sweetalert.js"></script>
+
         <title>Sourcing | Pengajuan</title>
-        <style>
-            .poppins {
-                font-family: 'Poppins';
-            }
-        </style>
+
     </head>
 
     <body class="bg-dark bg-opacity-10">
