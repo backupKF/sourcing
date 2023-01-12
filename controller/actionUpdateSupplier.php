@@ -115,14 +115,18 @@
         $MoQ = trim(strip_tags($_POST['MoQ']));
         $UoM = trim(strip_tags($_POST['UoM']));
         $price = trim(strip_tags($_POST['price']));
+        $hardCash = trim(strip_tags($_POST['hardCash']));
+        $quantity = trim(strip_tags($_POST['quantity']));
         $idSupplier = trim(strip_tags($_POST['id']));
+
+        $priceDetail = $hardCash.$price.$quantity;
 
         $sql = "INSERT INTO TB_DetailSupplier (MoQ, UoM, price, idSupplier) 
         VALUES (?,?,?,?)";
         $params = array(
             $MoQ,
             $UoM,
-            $price,
+            $priceDetail,
             $idSupplier,
         );
         $query = $conn->prepare($sql);

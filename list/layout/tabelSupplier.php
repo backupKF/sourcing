@@ -27,7 +27,7 @@
                     <div class="row d-flex justify-content-center">
                         Information MoQ, UoM, Price
                     </div>
-                    <div class="row">
+                    <div class="row text-center">
                         <div class="col">MoQ</div>
                         <div class="col">UoM</div>
                         <div class="col">Price</div>
@@ -285,15 +285,14 @@
 
             <!-- Column Final Feedback Rnd -->
             <td>
-                <div class="overflow-auto" style="height:110px">
-                    <!-- Tanggal Final Feedback Rnd -->
-                    <div class="bg-success bg-opacity-75" style="width:95px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $row['dateFinalFeedbackRnd']?></div>
-                    <!-- Isi Final Feedback Rnd -->
-                    <div class="overflow-auto" style="height:72px">
-                    <!-- Isi Feedback -->
-                        <div class="text-wrap pt-1" style="font-size:11px;font-family:poppinsMedium;"><?php echo !empty($row['finalFeedbackRnd'])? $row['finalFeedbackRnd']:'-'; ?></div>
-                    </div>
+                <!-- Tanggal Final Feedback Rnd -->
+                <div class="bg-success bg-opacity-75" style="width:95px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $row['dateFinalFeedbackRnd']?></div>
+                <!-- Isi Final Feedback Rnd -->
+                <div class="overflow-auto" style="height:80px">
+                    <div class="text-wrap pt-1" style="font-size:11px;font-family:poppinsMedium;"><?php echo !empty($row['finalFeedbackRnd'])? $row['finalFeedbackRnd']:'-'; ?></div>
                 </div>
+                <!-- Penulis -->
+                <div style="font-size:10px;font-family:poppinsBold;"><?php echo !empty($row['writerFinalFeedbackRnd'])? 'By: '.$row['writerFinalFeedbackRnd']:'-'; ?></div>
                 <!-- Action Final Feedback Rnd -->
                 <div>
                     <button type="button" class="btn btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#finalFeedbackRnd<?php echo $row['id']?>">

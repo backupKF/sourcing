@@ -42,7 +42,7 @@
                 <div class="card-body">
                     <h3 class="text-center border-bottom pb-2" style="font-size:20px;font-family:poppinsBold">Material Sourcing {Status <?php echo $_GET['status']?>}</h3>
                     <!-- Table Info -->
-                    <table class="display responsive nowrap m-1" id="table-info">
+                    <table id="table-info">
                         <thead>
                             <tr>
                                 <th style="font-size:13px;font-family:poppinsRegular;width:10px">No</th>

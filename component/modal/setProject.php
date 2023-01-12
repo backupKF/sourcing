@@ -8,14 +8,13 @@
     };
 ?>
 
-
 <!-- Modal Select Project -->
 <div class="modal" id="project" data-bs-backdrop="static">
     <div class="modal-dialog modal-sm modal-dialog-scrollable">
         <div class="modal-content" style="width: 500px;">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title">Pilih Project</h5>
+                <div class="modal-title">Pilih Project</div>
             </div>
                         
             <!-- Modal Body -->

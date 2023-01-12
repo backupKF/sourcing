@@ -54,7 +54,7 @@
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['website']?></div></td>
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['finishDossageForm']?></div></td>
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['keterangan']?></div></td>
-                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;">-</div></td>
+                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['teamLeader']?></div></td>
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['vendor']?></div></td>
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['documentReq']?></div></td>
                 <!-- Column Status -->
@@ -79,16 +79,16 @@
                         // Jika user bukan level 1
                         }else{
                     ?>
-                        <div style="font-size:12px;font-family:poppinsRegular;" class="text-center"><?php echo $row['statusSourcing']?></div>
+                        <div class="text-center bg-success bg-opacity-75 m-0" style="font-size:12px;font-family:poppinsBold;"><?php echo $row['statusSourcing']?></div>
                     <?php 
                         }
                     ?>
                 </td>
                 <!-- Column Summary Report -->
                 <td>
-                    <!-- Tanggal Feedback -->
+                    <!-- Tanggal Sumary Report-->
                     <div class="ps-0" style="width:85px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $row['dateSumaryReport']?></div>
-                    <!-- Isi Final Feedback Rnd -->
+                    <!-- Isi Sumary Report -->
                     <div class="overflow-auto" style="height:65px">
                         <div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo !empty($row['sumaryReport'])? $row['sumaryReport']:'-'; ?></div>
                     </div>

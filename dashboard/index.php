@@ -1,6 +1,6 @@
 <?php
-    include "../dbConfig.php"; 
     $currentPage = 'dashboard';
+    include "../dbConfig.php"; 
 
     session_start();
     

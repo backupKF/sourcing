@@ -16,10 +16,10 @@
   </head>
   <body>
     <!-- Sidebar -->
-    <div class="d-flex flex-column vh-100 flex-shrink-0 text-white position-fixed" style="width: 217px;z-index:9999;background-color:#002b33">
+    <div class="d-flex flex-column vh-100 text-white position-fixed" style="width: 217px;z-index:9999;background-color:#002b33">
         <!-- Title -->
         <div class="m-3">
-            <h4 class="d-flex justify-content-center m-0" style="font-family:'poppinsSemiBold'">Kimia Farma</h4>
+            <h4 class="d-flex justify-content-center" style="font-family:'poppinsSemiBold'">Kimia Farma</h4>
             <h6 class="d-flex justify-content-center" style="font-family:'poppinsMedium'">E-SOURCE</h6>
             <hr>
         </div>
@@ -27,7 +27,7 @@
         <ul class="nav nav-pills flex-column m-3 mb-auto mt-3">
             <!-- Opsi Dashboard -->
             <li class="nav-items">
-                <a href="../dashboard/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='dashboard'){echo 'active';}?>" aria-current="page">
+                <a href="/sourcing/dashboard/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='dashboard'){echo 'active';}?>" aria-current="page">
                     <svg style="width:16px;height:16px" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M13,3V9H21V3M13,21H21V11H13M3,21H11V15H3M3,13H11V3H3V13Z" />
                     </svg>
@@ -40,7 +40,7 @@
             ?>
                 <!-- Opsi Pengajuan Sourcing -->
                 <li class="nav-items">
-                    <a href="../pengajuan/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='pengajuan'){echo 'active';}?>" aria-current="page">
+                    <a href="/sourcing/pengajuan/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='pengajuan'){echo 'active';}?>" aria-current="page">
                         <svg style="width:16px;height:16px" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" />
                         </svg>
@@ -95,6 +95,7 @@
 
         <!-- Information Account -->
         <hr class="m-0">
+
         <div class="my-3">
             <div class="row">
                 <div class="col-10 ps-5">
@@ -111,6 +112,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
     
   </body>

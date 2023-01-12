@@ -1,6 +1,7 @@
 <?php
     header('Location: ../index.php')
 ?>
+<!-- CSS -->
 <style>
     div.dataTables_filter, div.dataTables_length {
         padding-bottom: 10px;
@@ -11,7 +12,7 @@
 <div class="card" style="width:1100px">
     <div class="card-body">
         <!-- Tabel Project -->
-        <table class="display responsive nowrap" id="table-project" style="width:100%">
+        <table id="table-project" style="width:100%">
             <thead>
                 <tr>
                     <td class="d-none"></td>
@@ -69,6 +70,7 @@ $(document).ready(function(){
             }
     });
 
+    // CSS 
     $('.dataTables_filter input[type="search"]').css(
         {
             'height':'25px',
@@ -112,14 +114,13 @@ $(document).ready(function(){
 
 // Membuat Tabel Material didalam sebuah fungsi
 function tableMaterial(d){
-    $(document).ready(function(){
-        loadDataMaterial(d)
-    })
+    loadDataMaterial(d)
     return (
         '<div class="container-fluid m-0 p-0" style="width:1050px" id="contentTableMaterial'+d+'"></div>'
     )
 }
 
+// Load Data Material
 function loadDataMaterial(d){
     $.ajax({
         url: 'layout/tabelMaterial.php',

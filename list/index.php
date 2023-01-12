@@ -3,6 +3,7 @@
 
     session_start();
     
+    // Jika user belum login maka akan me-redirect kehalaman login
     if(!isset($_SESSION['login'])){
         header("Location: ../login.php");
         exit();
@@ -22,21 +23,43 @@
         <script src="../plugin/sweetalert/sweetalert.js"></script>
 
         <title>Sourcing | List</title>
+
+        <!-- Style Folder Component -->
+        <style>
+            .form-control{
+                font-size: 14px;
+                font-family: 'poppinsRegular';
+            }
+            .form-label{
+                font-size:15px;
+                font-family: 'poppinsSemiBold';
+            }
+            .form-check{
+                font-size: 14px;
+                font-family: 'poppinsRegular';
+            }
+            .modal-header{  
+                display: flex;
+                justify-content: center;
+                font-size: 17px;
+                font-family: 'poppinsBold';
+                background-color: #e0fcd9;
+            }
+        </style>
     
     </head>
     <body class="bg-dark bg-opacity-10 position-relative">
-    <!-- Sidebar -->
-    <?php require "../sidebar.php" ?>
+        <!-- Sidebar -->
+        <?php require "../sidebar.php" ?>
 
-    <!-- Navbar -->
-    <?php require "../navbar.php"?>
-    
-    <br>
+        <!-- Navbar -->
+        <?php require "../navbar.php"?>
+        
+        <br>
 
-    <div class="container mt-0 position-absolute p-0" id="detail-sourcing" style="left:230px;top:70px">
-        <!-- Tabel Pengajuan -->
-        <?php require "layout/tabelProject.php"?>
-    </div>
-
+        <div class="container mt-0 position-absolute p-0" id="detail-sourcing" style="left:230px;top:70px">
+            <!-- Tabel Pengajuan -->
+            <?php require "layout/tabelProject.php"?>
+        </div>
     </body>
 </html>

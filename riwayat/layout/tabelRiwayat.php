@@ -1,13 +1,14 @@
 <?php
     session_start();
 
+    // Jika tidak ada data GET maka akan me-redirect ke halaman index
     if(empty($_GET)){
         header('Location: ../index.php');
     }
 ?>
 <div class="card" style="width:1050px">
     <div class="card-body">
-        <table class="table p-1" id="table-riwayat">
+        <table id="table-riwayat" class="table p-1">
             <thead>
                 <tr>
                     <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:10px" class="text-center">No</th>
@@ -36,7 +37,7 @@
                         // Jika terdapat data GET Sourcing Number dan Id Material
                         $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode WHERE sourcingNumber=".$_GET['sn']." AND id=".$_GET['idMaterial']." ORDER BY id DESC")->fetchAll();
                     }else{
-                        // Jika selain dati kondisi di atas
+                        // Jika selain dari kondisi di atas
                         $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode ORDER BY id DESC")->fetchAll();
                     }
                     $no=1;
@@ -84,22 +85,22 @@
                             // Jika user level selain == 2 dan feedback tl == false/0
                             }else if($_GET['userLevel'] != 2 && $row['feedbackTL'] == 0){
                         ?>
-                            <div class="text-center text-danger">NO STATUS</div>
+                            <div class="text-center bg-danger bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">NO STATUS</div>
                         <?php
                             //Jika Selain kondisi diatas 
                             }else{
                         ?>
-                            <div class="text-center text-success">APPROVED</div>
+                            <div class="text-center bg-success bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">APPROVED</div>
                         <?php
                             }
                         ?>
                         </td>
 
                         <!-- Column feedback RPIC -->
-                        <td style="font-size:12px;font-family:poppinsRegular;">
+                        <td style="font-size:12px;">
                         <?php
-                            // Jika user level == 1 dan feedback rpic == false/0
-                            if($_GET['userLevel'] == 1 && $row['feedbackRPIC'] == 0){
+                            // Jika user level == 1 dan feedback rpic == false/0 dan feedbackTL == 1
+                            if($_GET['userLevel'] == 1 && $row['feedbackRPIC'] == 0 && $row['feedbackTL'] == 1){
                         ?>
                             <!-- Menampilkan action feedback rpic -->
                             <form onclick="funcFeedbackRPIC(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackRPIC_<?php echo $row['id']?>">
@@ -109,15 +110,20 @@
                                     </select>
                             </form>
                         <?php
+                            // Jika user level == 1 dan feedback rpic == false/0 dan feedbackTL == 0
+                            }else if($_GET['userLevel'] == 1 && $row['feedbackRPIC'] == 0 && $row['feedbackTL'] == 0){
+                        ?>
+                            <div class="text-center bg-danger bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">NO STATUS</div>
+                        <?php
                             // Jika user level selain == 2 dan feedback rpic == false/0
                             }else if($_GET['userLevel'] != 1 && $row['feedbackRPIC'] == 0){
                         ?>
-                            <div class="text-center">NO STATUS</div>
+                            <div class="text-center bg-danger bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">NO STATUS</div>
                         <?php
                             //Jika Selain kondisi diatas
                             }else{
                         ?>
-                            <div class="text-center">ACCEPTED</div>
+                            <div class="text-center bg-success bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">ACCEPTED</div>
                         <?php
                             }
                         ?>
@@ -148,7 +154,7 @@
                                 // Jika selain dari kondisi diatas
                                 }else{
                             ?>
-                                <div class="text-center"><?php echo $row['statusRiwayat']?></div>
+                                <div class="text-center text-success bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px"><?php echo $row['statusRiwayat']?></div>
                             <?php
                                 }
                             ?>

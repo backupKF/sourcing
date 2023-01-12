@@ -23,7 +23,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="../plugin/font/css/font.css" rel="stylesheet"/>
-        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
         <link href="../plugin/bootstrap-5.2.2-dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="../plugin/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
         <script src="../plugin/jquery/jquery.min.js"></script>
@@ -32,6 +31,29 @@
         <script src="../plugin/sweetalert/sweetalert.js"></script>
 
         <title>Sourcing | Pengajuan</title>
+
+        <!-- Style Folder Component -->
+        <style>
+            .form-control{
+                font-size: 14px;
+                font-family: 'poppinsRegular';
+            }
+            .form-label{
+                font-size:15px;
+                font-family: 'poppinsSemiBold';
+            }
+            .form-check{
+                font-size: 14px;
+                font-family: 'poppinsRegular';
+            }
+            .modal-header{  
+                display: flex;
+                justify-content: center;
+                font-size: 17px;
+                font-family: 'poppinsBold';
+                background-color: #e0fcd9;
+            }
+        </style>
 
     </head>
 

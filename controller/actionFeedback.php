@@ -117,10 +117,11 @@
         $finalFeedbackRnd = trim(strip_tags($_POST['finalFeedbackRnd']));
         $dateFinalFeedbackRnd = date("Y-m-d");
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
+        $writerFinalFeedbackRnd = $_SESSION['user']['name'];
 
-        $sql = "UPDATE TB_Supplier SET dateFinalFeedbackRnd = ?, finalFeedbackRnd = ? WHERE id = ?";
+        $sql = "UPDATE TB_Supplier SET dateFinalFeedbackRnd = ?, finalFeedbackRnd = ?, writerFinalFeedbackRnd = ? WHERE id = ?";
         $query = $conn->prepare($sql);
-        $update = $query->execute(array($dateFinalFeedbackRnd, $finalFeedbackRnd, $idSupplier));
+        $update = $query->execute(array($dateFinalFeedbackRnd, $finalFeedbackRnd, $writerFinalFeedbackRnd, $idSupplier));
 
         if($update == true){
             $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();

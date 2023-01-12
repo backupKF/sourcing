@@ -6,13 +6,24 @@
     };
 ?>
 
+<style>
+    h5{
+        font-size:18px;
+        font-family:'poppinsSemiBold';
+    }
+    p{
+        font-size:14px;
+        font-family:'poppinsRegular';
+    }
+</style>
+
 <!-- Modal View Material -->
 <div class="modal" id="viewMaterial<?php echo $row['id']?>" data-bs-backdrop="static">
     <div class="modal-dialog modal-sm modal-dialog-scrollable">
         <div class="modal-content" style="width: 500px;">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title">Detail Material</h5>
+                <div class="modal-title">Detail Material</div>
             </div>
             <!-- Modal Body -->
             <div class="modal-body">

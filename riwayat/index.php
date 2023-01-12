@@ -40,7 +40,30 @@
         <script src="../plugin/datatable/js/jquery.dataTables.min.js"></script>
         <script src="../plugin/sweetalert/sweetalert.js"></script>
 
-        <title>Sourcing | Riwayat</title>                                       
+        <title>Sourcing | Riwayat</title>
+        
+        <!-- Style Folder Component -->
+        <style>
+            .form-control{
+                font-size: 14px;
+                font-family: 'poppinsRegular';
+            }
+            .form-label{
+                font-size:15px;
+                font-family: 'poppinsSemiBold';
+            }
+            .form-check{
+                font-size: 14px;
+                font-family: 'poppinsRegular';
+            }
+            .modal-header{  
+                display: flex;
+                justify-content: center;
+                font-size: 17px;
+                font-family: 'poppinsBold';
+                background-color: #e0fcd9;
+            }
+        </style>
     </head>
     <body class="bg-dark bg-opacity-10">
   
@@ -60,9 +83,9 @@
     </body>
 
     <script>
-        $(document).ready(function(){
-            loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
-        })
+    $(document).ready(function(){
+        loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
+    })
 
     // Function Load Data Riwayat
     function loadDataRiwayat(userLevel){

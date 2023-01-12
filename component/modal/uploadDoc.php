@@ -13,7 +13,7 @@
         <div class="modal-content" style="width: 1500px;">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">File Upload</h1>
+                <div class="modal-title" id="staticBackdropLabel">File Upload</div>
             </div>
             <!-- Modal Body -->
             <div class="modal-body">

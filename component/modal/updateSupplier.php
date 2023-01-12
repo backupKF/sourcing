@@ -13,7 +13,7 @@
         <div class="modal-content" style="width: 500px;">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Supplier</h1>
+                <div class="modal-title" id="staticBackdropLabel">Edit Supplier</div>
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
@@ -22,7 +22,7 @@
 
                 <!-- Input Supplier -->
                 <div class="mb-3">
-                    <label for="supplier" class="form-label fw-bold">Supplier</label>
+                    <label for="supplier" class="form-label">Supplier</label>
                     <input type="text" class="form-control supplier" id="supplier" name="supplier" value="<?php echo $row['supplier']?>" required>
                     <div class="invalid-feedback">
                          Masukan Supplier (*Tandai (-) jika tidak Diisi).
@@ -30,7 +30,7 @@
                 </div>
                 <!-- Input Manufacture -->
                 <div class="mb-3">
-                    <label for="manufacture" class="form-label fw-bold">Manufacture</label>
+                    <label for="manufacture" class="form-label">Manufacture</label>
                     <input type="text" class="form-control" id="manufacture" name="manufacture" value="<?php echo $row['manufacture']?>" required>
                     <div class="invalid-feedback">
                         Masukan Manufacture (*Tandai (-) jika tidak Diisi).
@@ -38,23 +38,23 @@
                 </div>
                 <!-- Input Origin Country -->
                 <div class="mb-3">
-                    <label for="originCountry" class="form-label fw-bold">Origin Country</label>
+                    <label for="originCountry" class="form-label">Origin Country</label>
                     <input type="text" class="form-control" id="originCountry" name="originCountry" value="<?php echo $row['originCountry']?>" required>
                     <div class="invalid-feedback">
                         Masukan Origin Country (*Tandai (-) jika tidak Diisi).
                     </div>
                 </div>
-                <!-- Input Lead Name -->
+                <!-- Input Lead Time -->
                 <div class="mb-3">
-                    <label for="leadTime" class="form-label fw-bold">Lead Name</label>
+                    <label for="leadTime" class="form-label">Lead Time</label>
                     <input type="date" class="form-control" id="leadTime" name="leadTime" placeholder="dd-mm-yyyy" value="<?php echo date('Y-m-d',strtotime($row["leadTime"]))?>" required>
                     <div class="invalid-feedback">
-                        Masukan Lead Name (*Tandai (-) jika tidak Diisi).
+                        Masukan Lead Time (*Tandai (-) jika tidak Diisi).
                     </div>
                 </div>
                 <!-- Input Catalog or CAS Number -->
                 <div class="mb-3">
-                    <label for="catalogOrCasNumber" class="form-label fw-bold">Catalog or CAS Number</label>
+                    <label for="catalogOrCasNumber" class="form-label">Catalog or CAS Number</label>
                     <input type="text" class="form-control" id="catalogOrCasNumber" name="catalogOrCasNumber" value="<?php echo $row['catalogOrCasNumber']?>" required>
                     <div class="invalid-feedback">
                         Masukan Catalog or CAS Number (*Tandai (-) jika tidak Diisi).
@@ -62,7 +62,7 @@
                 </div>
                 <!-- Grade/Reference Standard -->
                 <div class="mb-3">
-                    <label for="gradeOrReference" class="form-label fw-bold">Grade/Reference</label>
+                    <label for="gradeOrReference" class="form-label">Grade/Reference</label>
                     <input type="text" class="form-control" id="gradeOrReference" name="gradeOrReference" value="<?php echo $row['gradeOrReference']?>" required>
                     <div class="invalid-feedback">
                         Masukan Grade/Reference (*Tandai (-) jika tidak Diisi).
@@ -70,7 +70,7 @@
                 </div>
                  <!-- Document Info -->
                 <div class="mb-3">
-                    <label for="documentInfo" class="form-label fw-bold">Document Info</label>
+                    <label for="documentInfo" class="form-label">Document Info</label>
                     <input type="text" class="form-control" id="documentInfo" name="documentInfo" value="<?php echo $row['documentInfo']?>" required>
                     <div class="invalid-feedback">
                         Masukan Document Info (*Tandai (-) jika tidak Diisi).

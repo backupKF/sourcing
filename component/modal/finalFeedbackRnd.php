@@ -13,17 +13,17 @@
         <div class="modal-content" style="width: 1500px;">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Final Feedback RND</h1>
+                <div class="modal-title" id="staticBackdropLabel">Final Feedback RND</div>
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
                 <form class="p-1 was-validated" id="formFinalFeedbackRnd<?php echo $row['id']?>" autocomplete="off">
                     <!-- Final Feedback RnD -->
                     <div class="mb-1">
-                        <label for="finalFeedbackRnd" class="form-label fw-bold" style="margin-button:2px">Final Feedback RND</label>
+                        <label for="finalFeedbackRnd" class="form-label" style="margin-button:2px">Final Feedback RND</label>
                         <textarea class="form-control form-control-sm" id="finalFeedbackRnd" rows="3" name="finalFeedbackRnd" required><?php echo $row['finalFeedbackRnd']?></textarea>
                         <div class="invalid-feedback">
-                            Masukan Review Harga (*Tandai (-) jika tidak Diisi).
+                            Masukan Final Feedback Rnd (*Tandai (-) jika tidak Diisi).
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Submit</button>

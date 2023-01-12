@@ -31,7 +31,7 @@
                     // Mengisi Data Material
                     foreach($material as $materialData){
                         // Kondisi jika material memiliki Supplier
-                        if($supplier = $conn->query("SELECT TB_Supplier.id, materialName, materialCategory, supplier, manufacture, projectCode, statusSourcing, dateFinalFeedbackRnd, finalFeedbackRnd, idMaterial FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE idMaterial=".$materialData['id']."ORDER BY id DESC")->fetchAll()){
+                        if($supplier = $conn->query("SELECT TB_Supplier.id, materialName, materialCategory, supplier, manufacture, projectCode, statusSourcing, dateFinalFeedbackRnd, finalFeedbackRnd, writerFinalFeedbackRnd, idMaterial FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE idMaterial=".$materialData['id']."ORDER BY id DESC")->fetchAll()){
                             // Maka isi tabel dengan data yang ada di tabel supplier
                             foreach($supplier as $supplierData){
                 ?>
@@ -100,10 +100,11 @@
                             <!-- Tanggal Final Feedback Rnd -->
                             <div class="bg-success bg-opacity-75" style="width:95px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $supplierData['dateFinalFeedbackRnd']?></div>
                             <!-- Isi Final Feedback Rnd -->
-                            <div class="overflow-auto" style="height:72px">
-                                <!-- Isi Feedback -->
+                            <div class="overflow-auto" style="height:60px">
                                 <div class="text-wrap pt-1" style="font-size:11px;font-family:poppinsMedium;"><?php echo !empty($supplierData['finalFeedbackRnd'])? $supplierData['finalFeedbackRnd']:'-'; ?></div>
                             </div>
+                            <!-- Penulis -->
+                            <div style="font-size:10px;font-family:poppinsBold;"><?php echo !empty($supplierData['writerFinalFeedbackRnd'])? 'By: '.$supplierData['writerFinalFeedbackRnd']:'-'; ?></div>
                         </td>
 
                         <!-- Column Action -->

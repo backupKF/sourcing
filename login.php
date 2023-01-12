@@ -22,35 +22,33 @@
 
     </head>
     <body class="bg-dark bg-opacity-10">
-        <div style="height:100vh position-relative">
-            <div class="card position-absolute top-50 start-50 translate-middle" style="width:450px;height:300px">
-                <!-- Title -->
-                <div class="text-center fs-3 mt-2" style="font-family:'poppinsBold'">Login</div>
-                <div class="card-body">
-                    <!-- Form Login -->
-                    <form action="controller/authenticate.php" method="POST" autocomplete="off">
-                        <div class="mb-3 row">
-                            <!-- Input Username -->
-                            <div class="col">
-                                <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
-                                <span style="font-size:15px;" class="text-danger"><?php echo (!empty($_SESSION['message'])?'* '.$_SESSION['message']:'')?></span>
-                            </div>
+        <div class="card position-absolute top-50 start-50 translate-middle" style="width:450px;height:300px">
+             <!-- Title -->
+            <div class="text-center fs-3 mt-2" style="font-family:'poppinsBold'">Login</div>
+            <div class="card-body">
+                <!-- Form Login -->
+                <form action="controller/authenticate.php" method="POST" autocomplete="off">
+                    <div class="mb-3 row">
+                        <!-- Input Username -->
+                        <div class="col">
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
+                            <span style="font-size:15px;" class="text-danger"><?php echo (!empty($_SESSION['message'])?'* '.$_SESSION['message']:'')?></span>
                         </div>
+                    </div>
                         
-                        <div class="mb-3 row">
-                            <!-- Input Password -->
-                            <div class="col">
-                                <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
-                                <span style="font-size:15px;" class="text-danger"><?php echo (!empty($_SESSION['message'])?'* '.$_SESSION['message']:'')?></span>
-                            </div>
+                    <div class="mb-3 row">
+                        <!-- Input Password -->
+                        <div class="col">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                            <span style="font-size:15px;" class="text-danger"><?php echo (!empty($_SESSION['message'])?'* '.$_SESSION['message']:'')?></span>
                         </div>
                     </div>
-                    <!-- Button Submit -->
-                    <div class="text-center">
-                        <input type="submit" value="Submit" name="login" class="btn btn-primary mb-2" style="width:400px">
-                    </div>
-                </form>
-            </div>
+                </div>
+                <!-- Button Submit -->
+                <div class="text-center">
+                    <input type="submit" value="Submit" name="login" class="btn btn-primary mb-2" style="width:400px">
+                </div>
+            </form>
         </div>
     </body>
 </html>

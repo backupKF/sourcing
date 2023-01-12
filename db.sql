@@ -52,6 +52,7 @@ CREATE TABLE [dbo].[TB_Supplier] (
     [feedbackRndPriceReview] TEXT          CONSTRAINT [DEFAULT_TB_Supplier_feedbackRndPriceReview] DEFAULT ('') NOT NULL,
     [dateFinalFeedbackRnd]   DATE          NULL,
     [finalFeedbackRnd]       TEXT          CONSTRAINT [DEFAULT_TB_Supplier_finalFeedbackRnd] DEFAULT ('') NOT NULL,
+    [writerFinalFeedbackRnd] VARCHAR (50)  CONSTRAINT [DEFAULT_TB_Supplier_writerFinalFeedbackRnd] DEFAULT ('') NOT NULL,
     [idMaterial]             INT           NULL,
     CONSTRAINT [TB_Supplier_PK] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [TB_Supplier_FK] FOREIGN KEY ([idMaterial]) REFERENCES [dbo].[TB_PengajuanSourcing] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
@@ -61,7 +62,7 @@ CREATE TABLE [dbo].[TB_DetailSupplier] (
     [idDetailSupplier] INT             IDENTITY (0, 1) NOT NULL,
     [MoQ]              DECIMAL (18, 2) CONSTRAINT [DEFAULT_TB_DetailSupplier_MoQ] DEFAULT ((0)) NOT NULL,
     [UoM]              VARCHAR (10)    CONSTRAINT [DEFAULT_TB_DetailSupplier_UoM] DEFAULT ('') NOT NULL,
-    [price]            DECIMAL (18, 2) CONSTRAINT [DEFAULT_TB_DetailSupplier_price] DEFAULT ((0)) NOT NULL,
+    [price]            VARCHAR (30)    CONSTRAINT [DEFAULT_TB_DetailSupplier_price] DEFAULT ('') NOT NULL,
     [idSupplier]       INT             NULL,
     CONSTRAINT [TB_DetailSupplier_PK] PRIMARY KEY CLUSTERED ([idDetailSupplier] ASC),
     CONSTRAINT [TB_DetailSupplier_FK] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE

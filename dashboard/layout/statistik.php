@@ -150,10 +150,8 @@
 
       <div class="col-8 p-0">
         <!-- Card Graph -->
-          <div class="card shadow mb-3 bg-body rounded" style="width:100%">
-            <!-- <div class="card body"> -->
+          <div class="card shadow" style="width:100%">
               <div id="myChart" style="width:100%;height:250px;"></div>
-            <!-- </div> -->
           </div>
         <!--  -->
       </div>
