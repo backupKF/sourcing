@@ -34,6 +34,9 @@
 
         <!-- Style Folder Component -->
         <style>
+            div.dataTables_filter, div.dataTables_length {
+                padding-bottom: 10px;
+            }
             .form-control{
                 font-size: 14px;
                 font-family: 'poppinsRegular';

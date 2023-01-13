@@ -381,7 +381,7 @@
             $.ajax({
                 type: "POST",
                 url: "../controller/actionAddSupplier.php",
-                data: $('form#formAddSupplier'+idMaterial).serialize()+'&idMaterial='+idMaterial,
+                data: $('form#formAddSupplier'+idMaterial).serialize()+'&idMaterial='+idMaterial+'&addSupplier=true',
                 dataType: 'json',
                 success: function(response){
                     const Toast = Swal.mixin({

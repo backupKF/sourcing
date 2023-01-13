@@ -7,14 +7,14 @@
 
 <!-- Button tambah supplier -->
 <div>
-    <button type="button" style="width:150px" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#tambahSupplier<?php echo $_GET['idMaterial']?>">
+    <button type="button" style="width:150px" class="btn btn-primary btn-sm mb-2 mt-2" data-bs-toggle="modal" data-bs-target="#tambahSupplier<?php echo $_GET['idMaterial']?>">
         Tambah Supplier
     </button>
 </div>
 <?php include "../../component/modal/addSupplier.php"?>  
                 
 <!-- Tabel Supplier -->
-<table id="table-supplier-<?php echo $_GET['idMaterial']?>" class="pt-2 table table-striped" style="width:100%">
+<table id="table-supplier-<?php echo $_GET['idMaterial']?>" class="pt-2 table table-striped bg-light" style="width:100%">
     <thead class="bg-warning">
         <tr>
             <th style="font-size:13px;font-family:poppinsSemiBold;width:10px" class="text-center">No</th>
@@ -375,7 +375,7 @@
             $.ajax({
                 type: "POST",
                 url: "../controller/actionAddSupplier.php",
-                data: $('form#formAddSupplier'+idMaterial).serialize()+'&idMaterial='+idMaterial,
+                data: $('form#formAddSupplier'+idMaterial).serialize()+'&idMaterial='+idMaterial+'&addSupplier=true',
                 dataType: 'json',
                 success: function(response){
                     const Toast = Swal.mixin({

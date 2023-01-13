@@ -8,6 +8,18 @@
     };
 ?>
 
+<!-- CSS Table -->
+<style>
+    .column-project-value{
+        font-size:12px;
+        font-family:'poppinsMedium';
+    }
+    .column-project-head{
+        font-size:14px;
+        font-family:'poppinsMedium';
+    }
+</style>
+
 <!-- Modal Select Project -->
 <div class="modal" id="project" data-bs-backdrop="static">
     <div class="modal-dialog modal-sm modal-dialog-scrollable">
@@ -20,32 +32,42 @@
             <!-- Modal Body -->
             <div class="modal-body">
                 <!-- Select Project -->
-                <table class="table table-bordered p-2" id="tabel-info" style="width:100%">
-                    <thead>
-                        <tr class="d-none">
-                            <td>Project Code</td>
-                            <td>Project Name</td>
-                            <td></td>
+                <table class="table" id="tabel-info" style="width:100%">
+                    <thead style="background-color:#00b0aa">
+                        <tr>
+                            <td class="column-project-head">Project Code</td>
+                            <td class="column-project-head">Project Name</td>
+                            <td class="column-project-head"></td>
                         </tr>
                     </thead>
                     <tbody>
                     <?php
+                        // Mengambil data project
                         $dataProject = $conn->query("SELECT * FROM TB_Project")->fetchAll();
                         foreach($dataProject as $project) { 
                     ?>
-                        <form action="../controller/actionPengajuan.php" method="POST" id="formSetProject<?php echo $project['projectCode']?>">
-                            <tr>
-                                <td class="py-0" style="width:150px">
-                                    <input type="text" name="project" readonly class="form-control-plaintext" id="staticEmail" value="<?php echo $project['projectCode']?>">
-                                </td>
-                                <td class="py-0" style="width:250px">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<?php echo $project['projectName']?>"> 
-                                </td>
-                                <td class="text-center p-0 py-1" style="width:75px">
-                                    <input type="submit" form="formSetProject<?php echo $project['projectCode']?>" value="pilih" class="btn btn-primary btn-sm" name="setProject">
-                                </td>
-                            </tr>
-                        </form>
+                        <tr>
+                            <!-- Column Project Code -->
+                            <td class="py-0 column-project-value" style="width:150px">
+                                <div class="d-flex align-items-center"style="height:30px">
+                                    <?php echo $project['projectCode']?>
+                                </div>
+                            </td>
+                            <!-- Column Project Name -->
+                            <td class="py-0 column-project-value" style="width:250px">
+                                <div class="d-flex align-items-center"style="height:30px">
+                                    <?php echo $project['projectName']?>
+                                </div>
+                            </td>
+                            <!-- Action Button -->
+                            <td class="py-0 text-center" style="width:75px">
+                                <form action="../controller/actionPengajuan.php" method="POST">
+                                    <button class="btn btn-success btn-sm p-0 px-1" style="height:22px" type="submit" name="setProject" value=<?php echo $project['projectCode']?>>
+                                        <span style="font-size:11px;font-family:poppinsBold">Pilih</span>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
                     <?php } ?>
                     </tbody>
                 </table>
@@ -60,11 +82,10 @@
 </div>
 <!-- Modal Select Project -->
 <script>
-    // $(document).ready(function(){
-    //     $('#tabel-info').DataTable({
-    //         paging: false,
-    //         ordering: false,
-    //         info: false,
-    //     })
-    // })
+    $(document).ready(function(){
+        $('#tabel-info').DataTable({
+            lengthChange:false,
+            pageLength:5,
+        })
+    })
 </script>

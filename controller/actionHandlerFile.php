@@ -149,6 +149,9 @@
                 );
                 $query = $conn->prepare($sql)->execute($params);
             }
+            // Untuk user yang melakukan aksi tidak dikirimkan notifikasi
+            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND idNotification = ".$idNotification[0]['id']; 
+            $query = $conn->prepare($sql)->execute();
         }
 
         return $response;

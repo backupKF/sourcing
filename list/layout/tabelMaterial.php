@@ -8,7 +8,7 @@
 ?>
 
 <!-- Tabel Material -->
-    <table id="table-material<?php echo $_GET['projectCode']?>" class="table-bordered">
+    <table id="table-material<?php echo $_GET['projectCode']?>" class="table">
         <thead class="bg-primary" >
             <tr>
                 <th class="d-none"></th>
@@ -87,7 +87,7 @@
                 <!-- Column Summary Report -->
                 <td>
                     <!-- Tanggal Sumary Report-->
-                    <div class="ps-0" style="width:85px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $row['dateSumaryReport']?></div>
+                    <div class="ps-0" style="width:100px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $row['dateSumaryReport']?></div>
                     <!-- Isi Sumary Report -->
                     <div class="overflow-auto" style="height:65px">
                         <div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo !empty($row['sumaryReport'])? $row['sumaryReport']:'-'; ?></div>
@@ -210,7 +210,7 @@
         function tableSupplier(d){
             loadDataSupplier(d)
             return (
-                '<div class="container-fluid m-0 p-0" id="contentDataSupplier'+d+'"></div>'
+                '<div class="container-fluid m-0 p-0" style="background-color:#fffedb" id="contentDataSupplier'+d+'"></div>'
             )
         }
 

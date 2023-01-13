@@ -39,6 +39,7 @@
                 <!-- Tampilan Content Feedback Rnd -->
                 <div class="overflow-auto" style="height:160px;"> 
                     <?php
+                        // Mengambil data feedback rnd 
                         $dataDetailFeedbackRnd = $conn->query("SELECT * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$row['id']}' ORDER BY id DESC")->fetchAll();
                         foreach($dataDetailFeedbackRnd as $data){
                     ?>
@@ -65,6 +66,7 @@
     </div>
 </div>
 <script>
+    // Listen Event Submit
     document.getElementById("formFeedbackRnd<?php echo $row['id']?>").addEventListener('submit', event => {
         event.preventDefault();
         // actual logic, e.g. validate the form

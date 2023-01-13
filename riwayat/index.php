@@ -20,9 +20,9 @@
         if($checkNotif = $conn->query("SELECT * FROM TB_Notifications WHERE randomId='".$_GET['rs']."'")->fetchAll()){
             $checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id']." AND randomIdNotification='".$_GET['rs']."'")->fetchAll();
             if($checkUserReadNotif[0]['readingStatus'] == 0){
-                $sql = "UPDATE TB_StatusNotifications SET readingStatus = ? WHERE id = ?";
+                $sql = "UPDATE TB_StatusNotifications SET readingStatus = ? WHERE idUser = ? AND idNotification = ?";
                 $query = $conn->prepare($sql);
-                $update = $query->execute(array(1, $checkUserReadNotif[0]['id']));
+                $update = $query->execute(array(1, $checkUserReadNotif[0]['idUser'], $checkUserReadNotif[0]['idNotification']));
             }
         }
     }

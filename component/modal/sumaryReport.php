@@ -37,6 +37,7 @@
     </div>
 </div>
 <script>
+    // Listen Event Submit
     document.getElementById("formSumaryReport<?php echo $row['id']?>").addEventListener('submit', event => {
         event.preventDefault();
         // actual logic, e.g. validate the form

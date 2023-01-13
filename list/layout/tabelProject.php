@@ -12,7 +12,7 @@
 <div class="card" style="width:1100px">
     <div class="card-body">
         <!-- Tabel Project -->
-        <table id="table-project" style="width:100%">
+        <table id="table-project" class="table" style="width:100%">
             <thead>
                 <tr>
                     <td class="d-none"></td>

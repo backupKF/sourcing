@@ -30,6 +30,7 @@
                 <!-- Tampilan content riwayat feedback proc -->
                 <div class="overflow-auto" style="height:200px;">
                     <?php
+                        // Mengambil data feedback proc
                         $dataDetailFeedbackProc = $conn->query("SELECT * FROM TB_FeedbackProc WHERE idSupplier='{$row['id']}' ORDER BY id DESC")->fetchAll();
                         foreach($dataDetailFeedbackProc as $dataProc){
                     ?>
@@ -56,6 +57,7 @@
     </div>
 </div>
 <script>
+    // Listen Event Submit
     document.getElementById("formFeedbackProc<?php echo $row['id']?>").addEventListener('submit', event => {
         event.preventDefault();
         // actual logic, e.g. validate the form

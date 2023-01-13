@@ -12,7 +12,7 @@
     }
 
     if(isset($_POST['setProject'])){
-        $_SESSION['project'] = $_POST['project'];
+        $_SESSION['project'] = $_POST['setProject'];
         header('Location: ../pengajuan/index.php');   
     };
 
@@ -215,9 +215,13 @@
                 );
                 $query = $conn->prepare($sql)->execute($params);
             }
-            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1 WHERE levelUser = 4";
-            $query = $conn->prepare($sql);
-            $update = $query->execute();
+            // Untuk user dengan level 4 tidak dikirimkan notifikasi
+            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE levelUser = 4";
+            $query = $conn->prepare($sql)->execute();
+
+            // Untuk user yang melakukan aksi tidak dikirimkan notifikasi
+            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND idNotification = ".$idNotification[0]['id']; 
+            $query = $conn->prepare($sql)->execute();
         }
 
         return $response;

@@ -17,6 +17,7 @@
             <!-- Modal Body -->
             <div class="modal-body">
                 <?php 
+                    // Mengambil data Doc Req
                     $feedbackDocReq = $conn->query("SELECT * FROM TB_FeedbackDocReq WHERE idSupplier='{$row['id']}'")->fetchAll();
                 ?>
                 <form class="was-validated" id="formFeedbackDocReq<?php echo $row['id']?>" autocomplete="off">
@@ -165,6 +166,7 @@
     </div>
 </div>
 <script>
+    // Listen Event Submit
     document.getElementById("formFeedbackDocReq<?php echo $row['id']?>").addEventListener('submit', event => {
         event.preventDefault();
         // actual logic, e.g. validate the form

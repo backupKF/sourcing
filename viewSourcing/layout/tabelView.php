@@ -3,10 +3,10 @@
 ?>
 
 <!-- Card Table -->
-<div class="card" style="width:1100px">
+<div class="card" style="width:1050px">
     <div class="card-body">
         <!-- Tabel View -->
-        <table class="display responsive nowrap" id="table-view">
+        <table class="table" id="table-view">
             <thead>
                 <tr>
                     <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:30px">No</th>

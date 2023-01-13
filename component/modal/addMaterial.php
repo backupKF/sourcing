@@ -56,7 +56,7 @@
                         </div>
                     </div>
                     <!-- Material Name -->
-                    <div class="mb-3" style="font-size:14px;font-family:poppinsRegular">
+                    <div class="mb-3">
                         <label for="materialName" class="form-label">Material Name</label>
                         <textarea class="form-control" id="materialName" rows="3" name="materialName" required></textarea>
                         <div class="invalid-feedback">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <!-- Material Spesification -->
-                    <div class="mb-3" style="font-size:14px;font-family:poppinsRegular">
+                    <div class="mb-3">
                         <label for="materialSpesification" class="form-label">Material Spesification</label>
                         <textarea class="form-control" id="materialSpesification" rows="3" name="materialSpesification" required></textarea>
                         <div class="invalid-feedback">
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <!-- Catalog Or CAS Number -->
-                    <div class="mb-3" style="font-size:14px;font-family:poppinsRegular">
+                    <div class="mb-3">
                         <label for="catalogOrCasNumber" class="form-label">Catalog Or CAS Number</label>
                         <input type="text" class="form-control" id="catalogOrCasNumber" name="catalogOrCasNumber" required>
                         <div class="invalid-feedback">
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <!-- Company< -->
-                    <div class="mb-3" style="font-size:14px;font-family:poppinsRegular">
+                    <div class="mb-3">
                         <label for="company" class="form-label">Company</label>
                         <input type="text" class="form-control" id="company" name="company" required>
                         <div class="invalid-feedback">
@@ -88,7 +88,7 @@
                         </div>
                     </div>
                     <!-- Website -->
-                    <div class="mb-3" style="font-size:14px;font-family:poppinsRegular">
+                    <div class="mb-3">
                         <label for="website" class="form-label">Website</label>
                         <input type="text" class="form-control" id="website" name="website" required>
                         <div class="invalid-feedback">
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <!-- Finish Dossage Form -->
-                    <div class="mb-3" style="font-size:14px;font-family:poppinsRegular">
+                    <div class="mb-3">
                         <label for="finishDossageForm" class="form-label">Finish Dossage Form</label>
                         <input type="text" class="form-control" id="finishDossageForm" name="finishDossageForm" required>
                         <div class="invalid-feedback">
@@ -104,7 +104,7 @@
                         </div>
                     </div>
                     <!-- Keterangan -->
-                    <div class="mb-3" style="font-size:14px;font-family:poppinsRegular">
+                    <div class="mb-3">
                         <label for="keterangan" class="form-label">Keterangan</label>
                         <textarea class="form-control" id="keterangan" rows="3" name="keterangan" required></textarea>
                         <div class="invalid-feedback">
@@ -112,7 +112,7 @@
                         </div>
                     </div>
                     <!-- Document Requirement -->
-                    <div class="mb-3" style="font-size:14px;font-family:poppinsRegular">
+                    <div class="mb-3">
                         <label for="documentReq" class="form-label">Document Requirement</label>
                         <input type="text" class="form-control" id="documentReq" name="documentReq" required>
                         <div class="invalid-feedback">

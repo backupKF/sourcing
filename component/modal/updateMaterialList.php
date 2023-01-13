@@ -24,33 +24,33 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="materialCategory" id="api" value="API" <?php echo $row['materialCategory']=="API"? 'checked' :''; ?> required>
+                                <input class="form-check-input" type="radio" name="materialCategory" id="api<?php echo $row['id']?>" value="API" <?php echo $row['materialCategory']=="API"? 'checked' :''; ?> required>
                                 <label class="form-check-label" for="api">API</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="materialCategory" id="ekstrak" value="Ekstrak" <?php echo $row['materialCategory']=="Ekstrak"? 'checked' :''; ?> >
+                                <input class="form-check-input" type="radio" name="materialCategory" id="ekstrak<?php echo $row['id']?>" value="Ekstrak" <?php echo $row['materialCategory']=="Ekstrak"? 'checked' :''; ?> >
                                 <label class="form-check-label" for="ekstrak">Ekstrak</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="materialCategory" id="excipient" value="Excipient" <?php echo $row['materialCategory']=="Excipient"? 'checked' :''; ?> >
+                                <input class="form-check-input" type="radio" name="materialCategory" id="excipient<?php echo $row['id']?>" value="Excipient" <?php echo $row['materialCategory']=="Excipient"? 'checked' :''; ?> >
                                 <label class="form-check-label" for="excipient">Excipient</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="materialCategory" id="napsipre" value="Narkotik, Psikotropik & Prekursor" <?php echo $row['materialCategory']=="Narkotik, Psikotropik & Prekursor"? 'checked' :''; ?> >
+                                <input class="form-check-input" type="radio" name="materialCategory" id="napsipre<?php echo $row['id']?>" value="Narkotik, Psikotropik & Prekursor" <?php echo $row['materialCategory']=="Narkotik, Psikotropik & Prekursor"? 'checked' :''; ?> >
                                 <label class="form-check-label" for="napsipre">Narkotik, Psikotropik & Prekursor</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="materialCategory" id="packaging" value="Packaging" <?php echo $row['materialCategory']=="Packaging"? 'checked' :''; ?> >
+                                <input class="form-check-input" type="radio" name="materialCategory" id="packaging<?php echo $row['id']?>" value="Packaging" <?php echo $row['materialCategory']=="Packaging"? 'checked' :''; ?> >
                                 <label class="form-check-label" for="packaging">Packaging</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="materialCategory" id="intermediate" value="Intermediate" <?php echo $row['materialCategory']=="Intermediate"? 'checked' :''; ?> >
+                                <input class="form-check-input" type="radio" name="materialCategory" id="intermediate<?php echo $row['id']?>" value="Intermediate" <?php echo $row['materialCategory']=="Intermediate"? 'checked' :''; ?> >
                                 <label class="form-check-label" for="intermediate">Intermediate</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="materialCategory" id="rapidTest" value="Rapid Test" <?php echo $row['materialCategory']=="Rapid Test"? 'checked' :''; ?> >
+                                <input class="form-check-input" type="radio" name="materialCategory" id="rapidTest<?php echo $row['id']?>" value="Rapid Test" <?php echo $row['materialCategory']=="Rapid Test"? 'checked' :''; ?> >
                                 <label class="form-check-label" for="rapidTest">Rapid Test</label>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                     <!-- Catalog Or CAS Number -->
                     <div class="mb-3">
                         <label for="catalogOrCasNumber" class="form-label">Catalog Or CAS Number</label>
-                        <input type="text" class="form-control" id="catalogOrCasNumber" name="catalogOrCasNumber" required value="<?php echo !empty($row['catalogOrCasNumber'])? $row['catalogOrCasNumber']:'';?>" <?php echo $row['materialCategory']=="Rapid Test" || $row['materialCategory']=="Intermediate" ? '' :'disabled'; ?>>
+                        <input type="text" class="form-control" id="catalogOrCasNumber<?php echo $row['id']?>" name="catalogOrCasNumber" required value="<?php echo !empty($row['catalogOrCasNumber'])? $row['catalogOrCasNumber']:'';?>" <?php echo $row['materialCategory']=="Rapid Test" || $row['materialCategory']=="Intermediate" ? '' :'disabled'; ?>>
                         <div class="invalid-feedback">
                             Masukan Catalog Or CAS Number (*Tandai (-) jika tidak Diisi).
                         </div>
@@ -90,7 +90,7 @@
                     <!-- Company< -->
                     <div class="mb-3">
                         <label for="company" class="form-label">Company</label>
-                        <input type="text" class="form-control" id="company" name="company" required value="<?php echo !empty($row['company'])? $row['company']:''; ?>" <?php echo $row['materialCategory']=="Rapid Test"? '' :'disabled'; ?>>
+                        <input type="text" class="form-control" id="company<?php echo $row['id']?>" name="company" required value="<?php echo !empty($row['company'])? $row['company']:''; ?>" <?php echo $row['materialCategory']=="Rapid Test"? '' :'disabled'; ?>>
                         <div class="invalid-feedback">
                             Masukan Company Produk (*Tandai (-) jika tidak Diisi).
                         </div>
@@ -98,7 +98,7 @@
                     <!-- Website -->
                     <div class="mb-3">
                         <label for="website" class="form-label">Website</label>
-                        <input type="text" class="form-control" id="website" name="website" required value="<?php echo !empty($row['website'])? $row['website']:''; ?>" <?php echo $row['materialCategory']=="Rapid Test"? '' :'disabled'; ?>>
+                        <input type="text" class="form-control" id="website<?php echo $row['id']?>" name="website" required value="<?php echo !empty($row['website'])? $row['website']:''; ?>" <?php echo $row['materialCategory']=="Rapid Test"? '' :'disabled'; ?>>
                         <div class="invalid-feedback">
                             Masukan Website Produk (*Tandai (-) jika tidak Diisi).
                         </div>
@@ -150,43 +150,44 @@
 
  <script>
         $(document).ready(function() {
-            $( "input#api" ).click(function() {
-                $("input#catalogOrCasNumber").attr('disabled', 'disabled');
-                $("input#company").attr('disabled', 'disabled');
-                $("input#website").attr('disabled', 'disabled');
+            $( "input#api<?php echo $row['id']?>" ).click(function() {
+                $("input#catalogOrCasNumber<?php echo $row['id']?>").attr('disabled', 'disabled');
+                $("input#company<?php echo $row['id']?>").attr('disabled', 'disabled');
+                $("input#website<?php echo $row['id']?>").attr('disabled', 'disabled');
             });
-            $( "input#ekstrak" ).click(function() {
-                $("input#catalogOrCasNumber").attr('disabled', 'disabled');
-                $("input#company").attr('disabled', 'disabled');
-                $("input#website").attr('disabled', 'disabled');
+            $( "input#ekstrak<?php echo $row['id']?>" ).click(function() {
+                $("input#catalogOrCasNumber<?php echo $row['id']?>").attr('disabled', 'disabled');
+                $("input#company<?php echo $row['id']?>").attr('disabled', 'disabled');
+                $("input#website<?php echo $row['id']?>").attr('disabled', 'disabled');
             });
-            $( "input#excipient" ).click(function() {
-                $("input#catalogOrCasNumber").attr('disabled', 'disabled');
-                $("input#company").attr('disabled', 'disabled');
-                $("input#website").attr('disabled', 'disabled');
+            $( "input#excipient<?php echo $row['id']?>" ).click(function() {
+                $("input#catalogOrCasNumber<?php echo $row['id']?>").attr('disabled', 'disabled');
+                $("input#company<?php echo $row['id']?>").attr('disabled', 'disabled');
+                $("input#website<?php echo $row['id']?>").attr('disabled', 'disabled');
             });
-            $( "input#napsipre" ).click(function() {
-                $("input#catalogOrCasNumber").attr('disabled', 'disabled');
-                $("input#company").attr('disabled', 'disabled');
-                $("input#website").attr('disabled', 'disabled');
+            $( "input#napsipre<?php echo $row['id']?>" ).click(function() {
+                $("input#catalogOrCasNumber<?php echo $row['id']?>").attr('disabled', 'disabled');
+                $("input#company<?php echo $row['id']?>").attr('disabled', 'disabled');
+                $("input#website<?php echo $row['id']?>").attr('disabled', 'disabled');
             });
-            $( "input#packaging" ).click(function() {
-                $("input#catalogOrCasNumber").attr('disabled', 'disabled');
-                $("input#company").attr('disabled', 'disabled');
-                $("input#website").attr('disabled', 'disabled');
+            $( "input#packaging<?php echo $row['id']?>" ).click(function() {
+                $("input#catalogOrCasNumber<?php echo $row['id']?>").attr('disabled', 'disabled');
+                $("input#company<?php echo $row['id']?>").attr('disabled', 'disabled');
+                $("input#website<?php echo $row['id']?>").attr('disabled', 'disabled');
             });
-            $( "input#intermediate" ).click(function() {
-                $("input#catalogOrCasNumber").removeAttr('disabled');
-                $("input#company").attr('disabled', 'disabled');
-                $("input#website").attr('disabled', 'disabled');
+            $( "input#intermediate<?php echo $row['id']?>" ).click(function() {
+                $("input#catalogOrCasNumber<?php echo $row['id']?>").removeAttr('disabled');
+                $("input#company<?php echo $row['id']?>").attr('disabled', 'disabled');
+                $("input#website<?php echo $row['id']?>").attr('disabled', 'disabled');
             });
-            $( "input#rapidTest" ).click(function() {
-                $("input#catalogOrCasNumber").removeAttr("disabled");
-                $("input#company").removeAttr("disabled");
-                $("input#website").removeAttr("disabled");
+            $( "input#rapidTest<?php echo $row['id']?>" ).click(function() {
+                $("input#catalogOrCasNumber<?php echo $row['id']?>").removeAttr("disabled");
+                $("input#company<?php echo $row['id']?>").removeAttr("disabled");
+                $("input#website<?php echo $row['id']?>").removeAttr("disabled");
             });
         });
 
+        // Listen Event Submit
         document.getElementById("formEditMaterial<?php echo $row['id']?>").addEventListener('submit', event => {
             event.preventDefault();
             // actual logic, e.g. validate the form

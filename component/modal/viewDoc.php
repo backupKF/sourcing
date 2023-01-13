@@ -25,6 +25,7 @@
                     <?php
                         include "../../../dbConfig.php";
                         $no = 1;
+                        // Kondisi dimana terdapat MoQ, UoM, dan Price
                         if($dataSupplier = $conn->query("SELECT * FROM TB_File WHERE idSupplier='{$row['id']}'")->fetchAll()){
                             foreach($dataSupplier as $file){
                     ?>
@@ -35,6 +36,7 @@
                             </tbody>
                     <?php 
                             }
+                        // Jika Tidak ada
                         }else{
                     ?>
                         <tbody>

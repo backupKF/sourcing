@@ -9,7 +9,7 @@
     }
 
     // Kondisi untuk mengelola tambah supplier
-    if(isset($_POST['idMaterial'])){
+    if(isset($_POST['addSupplier'])){
         // mengisi variabel dengan data POST
         $supplier = trim(strip_tags($_POST['supplier']));
         $manufacture = trim(strip_tags($_POST['manufacture']));
@@ -92,6 +92,9 @@
                 );
                 $query = $conn->prepare($sql)->execute($params);
             }
+            // Untuk user yang melakukan aksi tidak dikirimkan notifikasi
+            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND idNotification = ".$idNotification[0]['id']; 
+            $query = $conn->prepare($sql)->execute();
         }
 
         return $response;

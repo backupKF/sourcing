@@ -8,7 +8,7 @@
 ?>
 <div class="card" style="width:1050px">
     <div class="card-body">
-        <table id="table-riwayat" class="table p-1">
+        <table id="table-riwayat" class="table">
             <thead>
                 <tr>
                     <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:10px" class="text-center">No</th>
