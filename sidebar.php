@@ -14,11 +14,83 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+
+  <style>
+    .sidebar{
+        width: 217px;
+        z-index:9999;
+        background-color:#002b33;
+        transition: 0.5s;
+        transition-property: left;
+    }
+    .toggle-sidebar{
+        width:35px;
+        height:35px;
+        background-color:#002b33;
+        position:fixed;
+        left:199px;
+        border-radius:100%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        color:white;
+        z-index:99999;
+    }
+
+    label #sidebar-btn:hover{
+        color: #004852;
+    }
+
+    #check:checked ~ .sidebar{
+        width: 70px;
+    }
+
+    #check:checked ~ .sidebar div.title-sidebar{
+        display: none;
+    }
+
+    #check:checked ~ .sidebar span{
+        display: none;
+    }
+
+    #check:checked ~ .sidebar a{
+        padding: 10px;
+        
+    }
+
+    #check:checked ~ .sidebar li{
+        margin-right:100px;
+    }
+
+    #check:checked ~ .sidebar div#information-user{
+        display: none;
+    }
+
+    #check:checked ~ .sidebar div a#action-logout{
+        display:absolute;
+        left:20px;
+    }
+    
+
+  </style>
+
   <body>
+    <input type="checkbox" id="check" class="d-none">
+
+    <div class="toggle-sidebar">
+        <label class="toggle-icon" for="check">
+            <svg style="width:24px;height:24px" id="sidebar-btn" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+            </svg>
+        </label>
+    </div>
+
+
     <!-- Sidebar -->
-    <div class="d-flex flex-column vh-100 text-white position-fixed" style="width: 217px;z-index:9999;background-color:#002b33">
+    <div class="d-flex flex-column vh-100 text-white position-fixed sidebar">
+
         <!-- Title -->
-        <div class="m-3">
+        <div class="m-3 title-sidebar">
             <h4 class="d-flex justify-content-center" style="font-family:'poppinsSemiBold'">Kimia Farma</h4>
             <h6 class="d-flex justify-content-center" style="font-family:'poppinsMedium'">E-SOURCE</h6>
             <hr>
@@ -98,13 +170,13 @@
 
         <div class="my-3">
             <div class="row">
-                <div class="col-10 ps-5">
+                <div class="col-10 ps-5" id="information-user">
                     <div class="text-center" style="font-family:'poppinsSemiBold';font-size:18px;"><?php echo $_SESSION['user']['name']?></div>
                     <div class="text-center" style="font-family:'poppinsThin';font-size:14px;"><?php echo $_SESSION['user']['teamLeader']?></div>
                 </div>
                 <!-- Action Logout -->
                 <div class="col-2 p-0 d-flex align-items-center">
-                    <a href="../controller/logout.php" class="text-white">
+                    <a href="../controller/logout.php" class="text-white" id="action-logout">
                         <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z" />
                         </svg>

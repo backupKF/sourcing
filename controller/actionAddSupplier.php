@@ -20,6 +20,29 @@
         $documentInfo = trim(strip_tags($_POST['documentInfo']));
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
 
+        if(empty($supplier)){
+            $supplier = '-';
+        }
+        if(empty($manufacture)){
+            $manufacture = '-';
+        }
+        if(empty($originCountry)){
+            $originCountry = '-';
+        }
+        if(empty($supplier)){
+            $supplier = '-';
+        }
+        if(empty($catalogOrCasNumber)){
+            $catalogOrCasNumber = '-';
+        }
+        if(empty($gradeOrReference)){
+            $gradeOrReference = '-';
+        }
+        if(empty($documentInfo)){
+            $documentInfo = '-';
+        }
+         
+
         // Memasukan data supplier ke database
         $sql = "INSERT INTO TB_Supplier (supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, idMaterial) 
         VALUES (?,?,?,?,?,?,?,?)";
