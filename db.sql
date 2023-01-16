@@ -44,7 +44,7 @@ CREATE TABLE [dbo].[TB_Supplier] (
     [supplier]               VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_supplier] DEFAULT ('') NOT NULL,
     [manufacture]            VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_manufacture] DEFAULT ('') NOT NULL,
     [originCountry]          VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_originCountry] DEFAULT ('') NOT NULL,
-    [leadTime]               DATE          NULL,
+    [leadTime]               VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_leadTime] DEFAULT ('') NOT NULL,
     [catalogOrCasNumber]     VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_catalogOrCasNumber] DEFAULT ('') NOT NULL,
     [gradeOrReference]       VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_gradeOrReference] DEFAULT ('') NOT NULL,
     [documentInfo]           VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_documentInfo] DEFAULT ('') NOT NULL,
@@ -141,6 +141,13 @@ CREATE TABLE [dbo].[TB_Admin] (
     [level]      INT           CONSTRAINT [DEFAULT_TB_Admin_level] DEFAULT ((0)) NOT NULL,
     [teamLeader] VARCHAR (10)  CONSTRAINT [DEFAULT_TB_Admin_teamLeader] DEFAULT ('') NOT NULL,
     CONSTRAINT [PK_TB_Admin] PRIMARY KEY CLUSTERED ([id] ASC)
+);
+
+CREATE TABLE [dbo].[TB_MasterVendor] (
+    [id]         INT           NOT NULL,
+    [vendorName] VARCHAR (100) CONSTRAINT [DEFAULT_NewTable_vendorName] DEFAULT ('') NOT NULL,
+    [location]   TEXT          CONSTRAINT [DEFAULT_NewTable_location] DEFAULT ('') NOT NULL,
+    CONSTRAINT [PK_NewTable] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 
 GO

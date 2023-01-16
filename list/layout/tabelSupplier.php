@@ -11,7 +11,8 @@
         Tambah Supplier
     </button>
 </div>
-<?php include "../../component/modal/addSupplier.php"?>  
+<?php include "../../component/modal/addSupplier.php"?>
+<?php include "../../component/modal/setVendor.php"?>  
                 
 <!-- Tabel Supplier -->
 <table id="table-supplier-<?php echo $_GET['idMaterial']?>" class="pt-2 table table-striped bg-light" style="width:100%">

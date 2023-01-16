@@ -20,10 +20,17 @@
                 <!-- Input Supplier -->
                 <div class="mb-3">
                     <label for="supplier" class="form-label">Supplier</label>
-                    <input type="text" class="form-control supplier" id="supplier" name="supplier" required>
-                    <div class="invalid-feedback">
-                         Masukan Supplier (*Tandai (-) jika tidak Diisi).
+                    <div class="row">
+                        <div class="col-10 pe-0">
+                            <input type="text" class="form-control" id="supplier" name="supplier" readonly required>
+                        </div>
+                        <div class="col-2">
+                            <button lass="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#vendor<?php echo $_GET['idMaterial']?>">Select</button>
+                        </div>
                     </div>
+                    <!-- <div class="invalid-feedback">
+                         Masukan Supplier (*Tandai (-) jika tidak Diisi).
+                    </div> -->
                 </div>
                 <!-- Input Manufacture -->
                 <div class="mb-3">

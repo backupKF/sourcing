@@ -19,7 +19,7 @@
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
         $idFeedbackDocReq = trim(strip_tags($_POST['idFeedbackDocReq']));
 
-        // if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
+        if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
             if(!empty($idFeedbackDocReq)){
                 $sql = "UPDATE TB_FeedbackDocReq SET CoA = ?, MSDS = ?, MoA = ?, Halal = ?, DMF = ?, GMP = ? WHERE id = ?";
                 $query = $conn->prepare($sql);
@@ -45,16 +45,14 @@
                 $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
                 $response = sendNotification("Feedback document requirement berhasil diperbaharui!!", $dataSupplier[0]['supplier'], "memperbaharui Feedback Document Requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
             }
-    
-            echo json_encode($response);
-        // }else{
-        //     $response = array(
-        //         "status" => 0,
-        //         "message" => "Data supplier tidak ditemukan", 
-        //     );
+        }else{
+            $response = array(
+                "status" => 0,
+                "message" => "Data supplier tidak ditemukan", 
+            );
+        }
 
-        //     echo json_encode($response);
-        // }
+        echo json_encode($response);
     }
 
     // Kondisi untuk mengelola feedback Rnd

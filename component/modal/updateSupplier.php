@@ -23,7 +23,7 @@
                 <!-- Input Supplier -->
                 <div class="mb-3">
                     <label for="supplier" class="form-label">Supplier</label>
-                    <input type="text" class="form-control supplier" id="supplier" name="supplier" value="<?php echo $row['supplier']?>" required>
+                    <input type="text" class="form-control" id="supplier" name="supplier" value="<?php echo $row['supplier']?>" required>
                     <div class="invalid-feedback">
                          Masukan Supplier (*Tandai (-) jika tidak Diisi).
                     </div>
