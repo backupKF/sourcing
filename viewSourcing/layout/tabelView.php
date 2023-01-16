@@ -3,7 +3,7 @@
 ?>
 
 <!-- Card Table -->
-<div class="card" style="width:1050px">
+<div class="card shadow bg-body rounded">
     <div class="card-body">
         <!-- Tabel View -->
         <table class="table" id="table-view">

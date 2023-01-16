@@ -47,7 +47,7 @@
                 <!-- Input Lead Time -->
                 <div class="mb-3">
                     <label for="leadTime" class="form-label">Lead Time</label>
-                    <input type="date" class="form-control" id="leadTime" name="leadTime" placeholder="dd-mm-yyyy" value="<?php echo date('Y-m-d',strtotime($row["leadTime"]))?>" required>
+                    <input type="text" class="form-control" id="leadTime" name="leadTime" value="<?php echo $row["leadTime"]?>" required>
                     <div class="invalid-feedback">
                         Masukan Lead Time (*Tandai (-) jika tidak Diisi).
                     </div>

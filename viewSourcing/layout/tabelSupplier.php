@@ -23,16 +23,14 @@
             <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Origin Country</th>
             <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Lead Time</th>
             <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">
-                <div class="container">
-                    <div class="row d-flex justify-content-center">
-                        Information MoQ, UoM, Price
-                    </div>
-                    <div class="row text-center">
-                        <div class="col">MoQ</div>
-                        <div class="col">UoM</div>
-                        <div class="col">Price</div>
-                        <div class="col">Action</div>
-                    </div>
+                <div class="row d-flex justify-content-center">
+                    Information MoQ, UoM, Price
+                </div>
+                <div class="row text-center">
+                    <div class="col">MoQ</div>
+                    <div class="col">UoM</div>
+                    <div class="col">Price</div>
+                    <div class="col">Action</div>
                 </div>
             </th>
             <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Catalog or CAS Number</th>

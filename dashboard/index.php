@@ -23,9 +23,35 @@
         
 
         <title>Dashboard</title>
+
+        <style>
+            /* CSS Sidebar Responsive */
+            .container{
+                margin-left:230px;
+            }
+
+            .container .statistik{
+                width:1050px;
+            }
+
+            .statistik .card-sourcing-sumary{
+                width:320px;
+                height:115px;
+            }
+
+            #check:checked ~ .container{
+                margin-left:100px;
+            }
+            #check:checked ~ .container .statistik{
+               width:1160px;
+            }
+            #check:checked ~ .container .statistik .card-sourcing-sumary{
+               width:355px;
+            }
+        </style>
     
     </head>
-    <body class="position-relative">
+    <body style="overflow-x: hidden;">
         <!-- Sidebar -->
         <?php require "../sidebar.php"?>
 
@@ -34,8 +60,7 @@
 
         <br>
 
-        <div class="container position-absolute p-0" style="left:250px;top:70px">
-            <h2 style="font-family:'poppinsBold'" class="mt-5 mb-3">Selamat Datang, <?php echo $_SESSION['user']['name']?></h2>
+        <div class="container">
             <!-- Statistik -->
             <?php include "layout/statistik.php"?>
         </div>

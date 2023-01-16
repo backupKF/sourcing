@@ -32,11 +32,29 @@
 
         <title>Sourcing | Pengajuan</title>
 
-        <!-- Style Folder Component -->
         <style>
+            /* CSS Sidebar Responsive */
+            .container{
+                margin-top:75px;
+                margin-left:220px;
+            }
+            .card{
+                width:1050px;
+                height:500px;
+                margin-top:10px;
+            }
+            #check:checked ~ .container{
+                margin-left:90px;
+            }
+            #check:checked ~ .container .card{
+                width:1160px;
+            }
+
             div.dataTables_filter, div.dataTables_length {
                 padding-bottom: 10px;
             }
+
+            /* CSS Input Modal */
             .form-control{
                 font-size: 14px;
                 font-family: 'poppinsRegular';
@@ -60,7 +78,7 @@
 
     </head>
 
-    <body class="bg-dark bg-opacity-10">
+    <body style="overflow-x: hidden;">
         <!-- Sidebar -->
         <?php require "../sidebar.php" ?>
 
@@ -69,7 +87,7 @@
 
         <br>
 
-        <div class="container position-absolute p-0" style="left:230px;top:50px">
+        <div class="container">
             <!-- Formulir Pengajuan -->
             <?php require "layout/formulirPengajuan.php"?>
         </div>

@@ -12,7 +12,7 @@
 ?>
 
 <!-- Form Data Pengajuan -->
-<div class="card" style="width: 1050px;height:550px;margin-top:20px">
+<div class="card shadow bg-body rounded">
     <div class="card-body">
         <h5 class="card-title">Kelola Data Pengajuan</h5>
         <hr>

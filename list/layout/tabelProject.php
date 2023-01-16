@@ -9,7 +9,7 @@
 </style>
 
 <!-- Card Table -->
-<div class="card" style="width:1100px">
+<div class="card shadow bg-body rounded">
     <div class="card-body">
         <!-- Tabel Project -->
         <table id="table-project" class="table" style="width:100%">
@@ -116,7 +116,7 @@ $(document).ready(function(){
 function tableMaterial(d){
     loadDataMaterial(d)
     return (
-        '<div class="container-fluid m-0 p-0" style="width:1050px" id="contentTableMaterial'+d+'"></div>'
+        '<div class="container-fluid m-0 p-0 contentMaterial" id="contentTableMaterial'+d+'"></div>'
     )
 }
 

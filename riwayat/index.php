@@ -41,9 +41,25 @@
         <script src="../plugin/sweetalert/sweetalert.js"></script>
 
         <title>Sourcing | Riwayat</title>
-        
-        <!-- Style Folder Component -->
+
         <style>
+            /* CSS Sidebar Responsive */
+            .container{
+                margin-top:75px;
+                margin-left:220px;
+            }
+            .card{
+                width:1050px;
+                margin-top:10px;
+            }
+            #check:checked ~ .container{
+                margin-left:90px;
+            }
+            #check:checked ~ .container .card{
+                width:1160px;
+            }
+
+            /* CSS Modal Input */
             .form-control{
                 font-size: 14px;
                 font-family: 'poppinsRegular';
@@ -65,7 +81,7 @@
             }
         </style>
     </head>
-    <body class="bg-dark bg-opacity-10">
+    <body style="overflow-x: hidden;">
   
     <!-- Sidebar -->
     <?php require "../sidebar.php" ?>
@@ -75,7 +91,7 @@
 
     <br>
     
-    <div class="container position-absolute p-0" style="left:230px;top:70px">
+    <div class="container">
         <!-- Tabel Riwayat -->
         <div id="tabel-riwayat"></div>
     </div>

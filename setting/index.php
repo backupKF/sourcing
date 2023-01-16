@@ -18,8 +18,19 @@ session_start();
 
     <title>Setting</title>
 
+    <style>
+        .container{
+            margin-left:425px;
+            margin-top:50px;
+        }
+        .card{
+            width:450px;
+            height:500px;
+        }
+    </style>
+
 </head>
-<body class="bg-dark bg-opacity-10">
+<body style="overflow-x: hidden;">
     <!-- Sidebar -->
     <?php require "../sidebar.php" ?>
 
@@ -28,8 +39,8 @@ session_start();
     
     <br>
     
-    <div class="container mt-0 position-absolute p-0" id="detail-sourcing" style="left:230px;top:25px">
-        <div class="card position-absolute" style="width:450px;height:500px;left:350px;top:100px">
+    <div class="container">
+        <div class="card shadow bg-body rounded">
             <div class="text-center fs-3 mt-2" style="font-family:'poppinsBold'">Change Password</div>
             <div class="card-body">
                 <div class="text-center text-success" style="font-family:poppinsSemiBold;font-size:12px"><?php echo (!empty($_SESSION['message']['success'])?'* '.$_SESSION['message']['success']:'')?></div>

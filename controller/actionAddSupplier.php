@@ -14,7 +14,7 @@
         $supplier = trim(strip_tags($_POST['supplier']));
         $manufacture = trim(strip_tags($_POST['manufacture']));
         $originCountry = trim(strip_tags($_POST['originCountry']));
-        $leadTime = date('Y-m-d', strtotime($_POST['leadTime'])); 
+        $leadTime = trim(strip_tags($_POST['leadTime'])); 
         $catalogOrCasNumber = trim(strip_tags($_POST['catalogOrCasNumber']));
         $gradeOrReference = trim(strip_tags($_POST['gradeOrReference']));
         $documentInfo = trim(strip_tags($_POST['documentInfo']));

@@ -23,9 +23,27 @@
     <script src="../plugin/datatable/js/jquery.dataTables.min.js"></script>
 
     <title>Dashboard</title>
+
+    <style>
+        /* CSS Sidebar Responsive */
+        .container{
+            margin-top:40px;
+            margin-left:220px;
+        }
+        .card{
+            width:1050px;
+            margin-top:10px;
+        }
+        #check:checked ~ .container{
+            margin-left:90px;
+        }
+        #check:checked ~ .container .card{
+            width:1160px;
+        }
+    </style>
     
     </head>
-    <body class="position-relative">
+    <body style="overflow-x: hidden;">
         <!-- Sidebar -->
         <?php require "../sidebar.php"?>
 
@@ -34,11 +52,11 @@
 
         <br>
 
-        <div class="container position-absolute p-0" style="left:250px;top:70px">
+        <div class="container">
             <!-- Tombol Kembali -->
             <a href="index.php" class="btn btn-danger mt-2">Back</a>
             <!-- Tabel Info -->
-            <div class="card" style="width:1050px;margin-top:10px;background-color:">
+            <div class="card shadow bg-body rounded">
                 <div class="card-body">
                     <h3 class="text-center border-bottom pb-2" style="font-size:20px;font-family:poppinsBold">Material Sourcing {Status <?php echo $_GET['status']?>}</h3>
                     <!-- Table Info -->

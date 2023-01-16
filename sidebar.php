@@ -16,37 +16,51 @@
   </head>
 
   <style>
-    .sidebar{
-        width: 217px;
-        z-index:9999;
-        background-color:#002b33;
-        transition: 0.5s;
-        transition-property: left;
-    }
     .toggle-sidebar{
-        width:35px;
-        height:35px;
+        width:54px;
+        height:54px;
         background-color:#002b33;
         position:fixed;
-        left:199px;
+        top:-1px;
+        left:185px;
         border-radius:100%;
         display:flex;
         justify-content:center;
         align-items:center;
         color:white;
         z-index:99999;
+        padding-top:6px;
+    }
+
+    .sidebar{
+        width: 217px;
+        z-index:9999;
+        background-color:#002b33;
     }
 
     label #sidebar-btn:hover{
-        color: #004852;
+        color: #82edff;
     }
 
     #check:checked ~ .sidebar{
         width: 70px;
     }
 
+    #check:checked ~ .toggle-sidebar{
+        left:18px;
+        width: 35px;
+        height:35px;
+        margin-top:15px;
+        background-color:black;
+        padding-top:0; 
+    }
+
     #check:checked ~ .sidebar div.title-sidebar{
         display: none;
+    }
+
+    #check:checked ~ .sidebar ul#list-options{
+        padding-top:50px;
     }
 
     #check:checked ~ .sidebar span{
@@ -55,7 +69,6 @@
 
     #check:checked ~ .sidebar a{
         padding: 10px;
-        
     }
 
     #check:checked ~ .sidebar li{
@@ -67,10 +80,8 @@
     }
 
     #check:checked ~ .sidebar div a#action-logout{
-        display:absolute;
-        left:20px;
+        margin-left:25px
     }
-    
 
   </style>
 
@@ -88,15 +99,16 @@
 
     <!-- Sidebar -->
     <div class="d-flex flex-column vh-100 text-white position-fixed sidebar">
-
         <!-- Title -->
         <div class="m-3 title-sidebar">
             <h4 class="d-flex justify-content-center" style="font-family:'poppinsSemiBold'">Kimia Farma</h4>
             <h6 class="d-flex justify-content-center" style="font-family:'poppinsMedium'">E-SOURCE</h6>
-            <hr>
         </div>
+        
+        <hr class="m-0">
+
         <!-- Navigation -->
-        <ul class="nav nav-pills flex-column m-3 mb-auto mt-3">
+        <ul class="nav nav-pills flex-column m-3 mb-auto mt-3" id="list-options">
             <!-- Opsi Dashboard -->
             <li class="nav-items">
                 <a href="/sourcing/dashboard/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='dashboard'){echo 'active';}?>" aria-current="page">
@@ -146,7 +158,7 @@
                 </a>
             </li>
             <!-- Opsi List Sourcing -->
-            <li class="nav-items">
+                <li class="nav-items">
                 <a href="/sourcing/list/index.php" style="font-size:14px" class="nav-link text-white <?php if($currentPage =='list'){echo 'active';}?>" aria-current="page">
                     <svg style="width:16px;height:16px" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M3,4H7V8H3V4M9,5V7H21V5H9M3,10H7V14H3V10M9,11V13H21V11H9M3,16H7V20H3V16M9,17V19H21V17H9" />
@@ -165,10 +177,11 @@
             </li>
         </ul>
 
-        <!-- Information Account -->
+        
         <hr class="m-0">
-
-        <div class="my-3">
+        
+        <!-- Information Account -->
+        <div class="my-1">
             <div class="row">
                 <div class="col-10 ps-5" id="information-user">
                     <div class="text-center" style="font-family:'poppinsSemiBold';font-size:18px;"><?php echo $_SESSION['user']['name']?></div>

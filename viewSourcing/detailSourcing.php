@@ -37,8 +37,25 @@
 
         <title>Sourcing | View</title>
 
-        <!-- Style Folder Component -->
         <style>
+            /* CSS Sidebar Responsive */
+            .container{
+                margin-left:220px;
+                margin-top:50px;
+                margin-bottom:25px;
+            }
+            .card{
+                width:1010px;
+                margin-top:10px;
+            }
+            #check:checked ~ .container{
+                margin-left:90px;
+            }
+            #check:checked ~ .container .card{
+                width:1160px;
+            }
+
+            /* CSS Modal Input */
             .form-control{
                 font-size: 14px;
                 font-family: 'poppinsRegular';
@@ -61,7 +78,7 @@
         </style>
         
     </head>
-    <body class="bg-dark bg-opacity-10">
+    <body style="overflow-x: hidden;">
         <!-- Sidebar -->
         <?php require "../sidebar.php" ?>
 
@@ -70,9 +87,9 @@
 
         <br>
         <!-- Detail Sourcing -->
-        <div class="container position-absolute p-0" style="left:230px;top:70px">
+        <div class="container">
             <!-- Card Table -->
-            <div class="card" style="width:1100px">
+            <div class="card shadow p-3 mb-5 bg-body rounded">
                 <div class="card-body">
                     <!-- Formulir Material -->
                     <div id="formEditMaterial"></div>

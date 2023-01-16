@@ -6,7 +6,7 @@
     };
 ?>
 
-<nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color:#e3fbff">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light shadow" style="background-color:#e3fbff">
     <div class="container-fluid">
         <div></div>
         <div class="nav navbar-nav navbar-right">

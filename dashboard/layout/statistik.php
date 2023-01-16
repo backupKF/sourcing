@@ -6,7 +6,9 @@
   };
 ?>
 
-<div class="container m-0" style="width:95%">
+<div class="statistik">
+  <h2 style="font-family:'poppinsBold'" class="mt-5 mb-3">Selamat Datang, <?php echo $_SESSION['user']['name']?></h2>
+
   <div class="row">
     <div class="row p-0">
       <!-- Card Status Done -->
@@ -161,7 +163,7 @@
            <!-- Card Total Sourcing -->
           <div class="col p-0">
             <a href="#" style="text-decoration:none;color:black">
-              <div class="card shadow mb-3 ms-3 bg-body rounded" style="width:320px;height:115px">
+              <div class="card shadow mb-3 ms-3 bg-body rounded card-sourcing-sumary">
                 <div class="card-body p-0">
                   <!-- Title -->
                   <h6 class="text-center p-1" style="background-color:#e6ffed;font-family:'poppinsRegular'">Total Sourcing</h6>
@@ -185,7 +187,7 @@
           <!-- Card Pending Sumary Report -->
           <div class="col p-0">
           <a href="#" style="text-decoration:none;color:black">
-            <div class="card shadow mb-3 ms-3 bg-body rounded" style="width:320px;height:115px">
+            <div class="card shadow mb-3 ms-3 bg-body rounded card-sourcing-sumary">
               <div class="card-body p-0">
                 <!-- Title -->
                 <h6 class="text-center p-1" style="background-color:#ffa1a1;font-family:'poppinsRegular'">Pending Sumary Report</h6>
