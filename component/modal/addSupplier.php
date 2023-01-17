@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     // me-redirect saat user masuk kehalaman ini
     if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
         header('Location: ../../dashboard/index.php');
@@ -22,10 +24,10 @@
                     <label for="supplier" class="form-label">Supplier</label>
                     <div class="row">
                         <div class="col-10 pe-0">
-                            <input type="text" class="form-control" id="supplier" name="supplier" readonly required>
+                            <input type="text" class="form-control" id="supplier" name="supplier" placeholder="<?php echo $_SESSION['vendor']?>" readonly required>
                         </div>
                         <div class="col-2">
-                            <button lass="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#vendor<?php echo $_GET['idMaterial']?>">Select</button>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#vendor<?php echo $_GET['idMaterial']?>">Select</button>
                         </div>
                     </div>
                     <!-- <div class="invalid-feedback">

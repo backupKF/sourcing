@@ -8,6 +8,10 @@
         header("Location: ../login.php");
         exit();
     }
+
+    if(isset($_POST['setVendor'])){
+        $_SESSION['vendor'] = $_POST['setVendor'];
+    }
 ?>
 <!doctype html>
 <html lang="en">
@@ -81,6 +85,7 @@
         <br>
 
         <div class="container">
+        <?php echo $_SESSION['vendor']?>
             <!-- Tabel Pengajuan -->
             <?php require "layout/tabelProject.php"?>
         </div>

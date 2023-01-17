@@ -42,6 +42,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td class="py-0 column-project-value" style="width:250px">
+                                <div class="d-flex align-items-center"style="height:30px">
+                                <form method="POST" id="setNewVendor<?php echo $_GET['idMaterial']?>">
+                                    <input class="form-control form-control-sm" type="text" placeholder="Isi Vendor Baru" name="setVendor" style="height:5px">
+                                </form>
+                                </div>
+                            </td>
+                            <td class="py-0 text-center" style="width:75px">
+                                <button class="btn btn-success btn-sm p-0 px-1" style="height:22px" type="submit" name="setProject" form="setNewVendor<?php echo $_GET['idMaterial']?>">
+                                    <span style="font-size:11px;font-family:poppinsBold">Pilih</span>
+                                </button>
+                            </td>
+                        </tr>
                     <?php
                         // Mengambil data project
                         $dataProject = $conn->query("SELECT * FROM TB_Project")->fetchAll();
@@ -56,7 +70,7 @@
                             </td>
                             <!-- Action Button -->
                             <td class="py-0 text-center" style="width:75px">
-                                <form action="../controller/actionPengajuan.php" method="POST">
+                                <form method="POST">
                                     <button class="btn btn-success btn-sm p-0 px-1" style="height:22px" type="submit" name="setProject" value=<?php echo $project['projectCode']?>>
                                         <span style="font-size:11px;font-family:poppinsBold">Pilih</span>
                                     </button>
