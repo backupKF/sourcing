@@ -6,13 +6,12 @@
 
     include "../dbConfig.php";
 
-    echo $_POST['setVandor'];
-
     // me-forbidden jika tidak ada data POST atau GET yang masuk ke Halaman ini
     if(empty($_POST) && empty($_GET)){
         header('http/1.1 403 forbidden');
     }
 
+    // Set Project
     if(isset($_POST['setProject'])){
         $_SESSION['project'] = $_POST['setProject'];
         header('Location: ../pengajuan/index.php');   

@@ -27,16 +27,6 @@
         $changeGradeOrReference = "";
         $changeDocumentInfo = "";
 
-        if(!empty($supplier)){
-            if($supplier != $checkValue[0]['supplier']){
-                $changeSupplier = ", supplier";
-            }else{
-                $changeSupplier = "";
-            }
-        }else{
-            $supplier = "-";
-        }
-
         if(!empty($manufacture)){
             if($manufacture != $checkValue[0]['manufacture']){
                 $changeManufacture = ", manufacture";
@@ -97,15 +87,53 @@
             $documentInfo = "-";
         }
 
-        $sql = "UPDATE TB_Supplier SET supplier = ?, manufacture = ?, originCountry = ?, leadTime = ?, catalogOrCasNumber = ?, gradeOrReference = ?, documentInfo = ? WHERE id = ?";
-        $query = $conn->prepare($sql);
-        $update = $query->execute(array($supplier, $manufacture, $originCountry, $leadTime, $catalogOrCasNumber, $gradeOrReference, $documentInfo, $idSupplier));
-    
-        // Send Notifikasi
-        if($update == true){
-            $message = "mengedit data".$changeSupplier.$changeManufacture.$changeOriginCountry.$changeLeadTime.$changeCatalogOrCasNumber.$changeGradeOrReference.$changeDocumentInfo.". Pada supplier : ";
-            $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-            $response = sendNotification("Supplier berhasil diedit!!", $dataSupplier[0]['supplier'], $message, NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+        if(!empty($supplier)){
+            if($supplier != $checkValue[0]['supplier']){
+                $changeSupplier = ", supplier";
+            }else{
+                $changeSupplier = "";
+            }
+
+
+            if($conn->query("SELECT * FROM TB_MasterVendor WHERE vendorName = '".$supplier."'")->fetchAll()){
+                $sql = "UPDATE TB_Supplier SET supplier = ?, manufacture = ?, originCountry = ?, leadTime = ?, catalogOrCasNumber = ?, gradeOrReference = ?, documentInfo = ? WHERE id = ?";
+                $query = $conn->prepare($sql);
+                $update = $query->execute(array($supplier, $manufacture, $originCountry, $leadTime, $catalogOrCasNumber, $gradeOrReference, $documentInfo, $idSupplier));
+                
+                // Send Notifikasi
+                if($update == true){
+                    $message = "mengedit data".$changeSupplier.$changeManufacture.$changeOriginCountry.$changeLeadTime.$changeCatalogOrCasNumber.$changeGradeOrReference.$changeDocumentInfo.". Pada supplier : ";
+                    $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+                    $response = sendNotification("Supplier berhasil diedit!!", $dataSupplier[0]['supplier'], $message, NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                }
+            }else{
+                // Memasukan data vendor ke database
+                $sqlAddVendor = "INSERT INTO TB_MasterVendor (vendorName) 
+                VALUES (?)";
+                $paramsAddVendor = array(
+                    $supplier
+                );
+                $queryAddVendor = $conn->prepare($sqlAddVendor);
+                $insertAddVendor =  $queryAddVendor->execute($paramsAddVendor);
+
+                if($insertAddVendor == true){
+                    $sql = "UPDATE TB_Supplier SET supplier = ?, manufacture = ?, originCountry = ?, leadTime = ?, catalogOrCasNumber = ?, gradeOrReference = ?, documentInfo = ? WHERE id = ?";
+                    $query = $conn->prepare($sql);
+                    $update = $query->execute(array($supplier, $manufacture, $originCountry, $leadTime, $catalogOrCasNumber, $gradeOrReference, $documentInfo, $idSupplier));
+                
+                    // Send Notifikasi
+                    if($update == true){
+                        $message = "mengedit data".$changeSupplier.$changeManufacture.$changeOriginCountry.$changeLeadTime.$changeCatalogOrCasNumber.$changeGradeOrReference.$changeDocumentInfo.". Pada supplier : ";
+                        $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+                        $response = sendNotification("Supplier berhasil diedit!!", $dataSupplier[0]['supplier'], $message, NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                    }
+                }
+            }
+        }else{
+            $response = array(
+                "status" => 1,
+                "message" => "Data supplier wajib di isi!!"
+            );
         }
 
         echo json_encode($response);

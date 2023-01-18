@@ -25,9 +25,13 @@
         <title>Dashboard</title>
 
         <style>
+            body{
+                overflow-x: hidden;
+            }
+
             /* CSS Sidebar Responsive */
             .container{
-                margin-left:230px;
+                margin-left:260px;
             }
 
             .container .statistik{
@@ -40,7 +44,7 @@
             }
 
             #check:checked ~ .container{
-                margin-left:100px;
+                margin-left:140px;
             }
             #check:checked ~ .container .statistik{
                width:1160px;
@@ -51,7 +55,7 @@
         </style>
     
     </head>
-    <body style="overflow-x: hidden;">
+    <body>
         <!-- Sidebar -->
         <?php require "../sidebar.php"?>
 

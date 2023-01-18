@@ -23,10 +23,19 @@
                 <!-- Input Supplier -->
                 <div class="mb-3">
                     <label for="supplier" class="form-label">Supplier</label>
-                    <input type="text" class="form-control" id="supplier" name="supplier" value="<?php echo $row['supplier']?>" required>
-                    <div class="invalid-feedback">
-                         Masukan Supplier (*Tandai (-) jika tidak Diisi).
+                    <div class="row">
+                        <?php $supplierName = $conn->query("SELECT supplier FROM TB_Supplier WHERE id = ".$row['id'])->fetchAll();?>
+                        <!-- Select Result -->
+                        <div class="col-10 pe-0">
+                            <input type="text" class="form-control" name="supplier" id="vendorInputUpdateSupplier" value="<?php echo $supplierName[0]['supplier']?>" readonly required>
+                        </div>
+                        <!-- Button Change Modal Vendor -->
+                        <div class="col-2">
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalSetVendorUpdateSupplier<?php echo $row['id']?>">Select</button>
+                        </div>
                     </div>
+                    <!-- Message Error -->
+                    <div id="errorSupplier" class="text-danger" style="font-size:14px;font-family:poppinsRegular"></div>
                 </div>
                 <!-- Input Manufacture -->
                 <div class="mb-3">
@@ -86,6 +95,10 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Set Vendor -->
+<?php include "setVendor.php"?>
+
 <script>
     // Listen Event Submit
     document.getElementById("formUpdateSupplier<?php echo $row['id']?>").addEventListener('submit', event => {

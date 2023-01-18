@@ -144,7 +144,7 @@ CREATE TABLE [dbo].[TB_Admin] (
 );
 
 CREATE TABLE [dbo].[TB_MasterVendor] (
-    [id]         INT           NOT NULL,
+    [id]         INT           IDENTITY (1, 1) NOT NULL,
     [vendorName] VARCHAR (100) CONSTRAINT [DEFAULT_NewTable_vendorName] DEFAULT ('') NOT NULL,
     [location]   TEXT          CONSTRAINT [DEFAULT_NewTable_location] DEFAULT ('') NOT NULL,
     CONSTRAINT [PK_NewTable] PRIMARY KEY CLUSTERED ([id] ASC)

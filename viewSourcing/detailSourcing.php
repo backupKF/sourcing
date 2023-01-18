@@ -38,9 +38,13 @@
         <title>Sourcing | View</title>
 
         <style>
+            body{
+                overflow-x: hidden;
+            }
+
             /* CSS Sidebar Responsive */
             .container{
-                margin-left:220px;
+                margin-left:260px;
                 margin-top:50px;
                 margin-bottom:25px;
             }
@@ -49,7 +53,7 @@
                 margin-top:10px;
             }
             #check:checked ~ .container{
-                margin-left:90px;
+                margin-left:125px;
             }
             #check:checked ~ .container .card{
                 width:1160px;
@@ -78,7 +82,7 @@
         </style>
         
     </head>
-    <body style="overflow-x: hidden;">
+    <body>
         <!-- Sidebar -->
         <?php require "../sidebar.php" ?>
 

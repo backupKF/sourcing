@@ -17,6 +17,7 @@
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:50px" class="text-center">Material Category</th>
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:150px" class="text-center">Material Name</th>
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:20px" class="text-center">Priority</th>
+                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:20px" class="text-center">Target Launching</th>
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:270px" class="text-center">Spesification</th>
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:100px" class="text-center">Catalog Or CAS Number</th>
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Company</th>
@@ -36,7 +37,7 @@
         <tbody>
         <?php
             include "../../dbConfig.php";
-            $no= 1;
+            ${'no'. $_GET['projectCode']} = 1;
             // Mengambil data material
             $dataMaterial = $conn->query("SELECT * FROM TB_PengajuanSourcing WHERE projectCode='{$_GET['projectCode']}' AND feedbackRPIC=1 ORDER BY id DESC")->fetchAll();
             foreach($dataMaterial as $row){
@@ -48,6 +49,7 @@
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['materialCategory']?></div></td>
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['materialName']?></div></td>
                 <td><div class="text-center" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['priority']?></div></td>
+                <td><div class="text-center" style="font-size:12px;font-family:poppinsRegular;">-</div></td>
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['materialSpesification']?></div></td>
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['catalogOrCasNumber']?></div></td>
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['company']?></div></td>

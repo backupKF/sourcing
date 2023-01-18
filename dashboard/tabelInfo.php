@@ -13,37 +13,40 @@
 <!doctype html>
 <html lang="en">
     <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../plugin/font/css/font.css" rel="stylesheet"/>
-    <link href="../plugin/bootstrap-5.2.2-dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="../plugin/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../plugin/jquery/jquery.min.js"></script>
-    <link href='../plugin/datatable/css/jquery.dataTables.min.css'  rel='stylesheet'>
-    <script src="../plugin/datatable/js/jquery.dataTables.min.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../plugin/font/css/font.css" rel="stylesheet"/>
+        <link href="../plugin/bootstrap-5.2.2-dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="../plugin/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../plugin/jquery/jquery.min.js"></script>
+        <link href='../plugin/datatable/css/jquery.dataTables.min.css'  rel='stylesheet'>
+        <script src="../plugin/datatable/js/jquery.dataTables.min.js"></script>
 
-    <title>Dashboard</title>
+        <title>Dashboard</title>
 
-    <style>
-        /* CSS Sidebar Responsive */
-        .container{
-            margin-top:40px;
-            margin-left:220px;
-        }
-        .card{
-            width:1050px;
-            margin-top:10px;
-        }
-        #check:checked ~ .container{
-            margin-left:90px;
-        }
-        #check:checked ~ .container .card{
-            width:1160px;
-        }
-    </style>
-    
+        <style>
+            body{
+                overflow-x: hidden;
+            }
+
+            /* CSS Sidebar Responsive */
+            .container{
+                margin-top:40px;
+                margin-left:255px;
+            }
+            .card{
+                width:1050px;
+                margin-top:10px;
+            }
+            #check:checked ~ .container{
+                margin-left:125px;
+            }
+            #check:checked ~ .container .card{
+                width:1160px;
+            }
+        </style>
     </head>
-    <body style="overflow-x: hidden;">
+    <body>
         <!-- Sidebar -->
         <?php require "../sidebar.php"?>
 

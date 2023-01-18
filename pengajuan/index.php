@@ -33,10 +33,14 @@
         <title>Sourcing | Pengajuan</title>
 
         <style>
+            body{
+                overflow-x: hidden;
+            }
+
             /* CSS Sidebar Responsive */
             .container{
                 margin-top:75px;
-                margin-left:220px;
+                margin-left:255px;
             }
             .card{
                 width:1050px;
@@ -44,7 +48,7 @@
                 margin-top:10px;
             }
             #check:checked ~ .container{
-                margin-left:90px;
+                margin-left:125px;
             }
             #check:checked ~ .container .card{
                 width:1160px;
@@ -78,7 +82,7 @@
 
     </head>
 
-    <body style="overflow-x: hidden;">
+    <body>
         <!-- Sidebar -->
         <?php require "../sidebar.php" ?>
 

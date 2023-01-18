@@ -8,10 +8,6 @@
         header("Location: ../login.php");
         exit();
     }
-
-    if(isset($_POST['setVendor'])){
-        $_SESSION['vendor'] = $_POST['setVendor'];
-    }
 ?>
 <!doctype html>
 <html lang="en">
@@ -29,10 +25,14 @@
         <title>Sourcing | List</title>
 
         <style>
+            body{
+                overflow-x: hidden;
+            }
+
             /* CSS Sidebar Responsive */
             .container{
                 margin-top:75px;
-                margin-left:220px;
+                margin-left:255px;
             }
             .card{
                 width:1050px;
@@ -42,7 +42,7 @@
                 width:1000px;
             }
             #check:checked ~ .container{
-                margin-left:90px;
+                margin-left:125px;
             }
             #check:checked ~ .container .card .contentMaterial{
                 width:1110px;
@@ -75,7 +75,7 @@
         </style>
     
     </head>
-    <body style="overflow-x: hidden;">
+    <body>
         <!-- Sidebar -->
         <?php require "../sidebar.php" ?>
 
@@ -85,7 +85,6 @@
         <br>
 
         <div class="container">
-        <?php echo $_SESSION['vendor']?>
             <!-- Tabel Pengajuan -->
             <?php require "layout/tabelProject.php"?>
         </div>

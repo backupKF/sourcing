@@ -376,19 +376,41 @@
 
     // Send data to Action Add Supplier for Add Supplier
     function funcAddSupplier(idMaterial){
-            $.ajax({
-                type: "POST",
-                url: "../controller/actionAddSupplier.php",
-                data: $('form#formAddSupplier'+idMaterial).serialize()+'&idMaterial='+idMaterial+'&addSupplier=true',
-                dataType: 'json',
-                success: function(response){
+        $.ajax({
+            type: "POST",
+            url: "../controller/actionAddSupplier.php",
+            data: $('form#formAddSupplier'+idMaterial).serialize()+'&idMaterial='+idMaterial+'&addSupplier=true',
+            dataType: 'json',
+            success: function(response){
+                if(response.status == 1){
+                    $("#errorSupplier").text("");
+                    $("#errorSupplier").append(response.message);
+
                     const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'bottom-end',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
+
+                }else{
+                    const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
                             toast.addEventListener('mouseenter', Swal.stopTimer)
                             toast.addEventListener('mouseleave', Swal.resumeTimer)
                         }
@@ -400,11 +422,87 @@
                     })
 
                     loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+                    $('#tambahSupplier<?php echo $_GET['idMaterial']?>').modal('hide');
                 }
-            })
-            $('#tambahSupplier<?php echo $_GET['idMaterial']?>').modal('hide');
+            }
+        })
     }
 
+    function funcSetNewVendor(idForm, formName){
+        if(formName == "formSetNewVendorAddSupplier"){
+            $.ajax({
+                type: "POST",
+                url: "../controller/actionAddSupplier.php",
+                data: $('form#formSetNewVendorAddSupplier'+idForm).serialize(),
+                dataType: 'json',
+                success: function(response){
+                    $("#errorSupplier").text("");
+
+                    $('#modalSetVendorAddSupplier'+idForm).modal('hide');
+
+                    $("#tambahSupplier"+idForm+" input#vendorInputAddSupplier").attr("value", response);
+
+                    $('#tambahSupplier'+idForm).modal('show');
+                }
+            })
+        }
+        if(formName == "formSetNewVendorUpdateSupplier"){
+            $.ajax({
+                type: "POST",
+                url: "../controller/actionAddSupplier.php",
+                data: $('form#formSetNewVendorUpdateSupplier'+idForm).serialize(),
+                dataType: 'json',
+                success: function(response){
+                    $("#errorSupplier").text("");
+
+                    $('#modalSetVendorUpdateSupplier'+idForm).modal('hide');
+
+                    $("#editSupplier"+idForm+" input#vendorInputUpdateSupplier").attr("value", response);
+
+                    $('#editSupplier'+idForm).modal('show');
+                }
+            })
+        }
+    }
+
+    function funcSetVendor(idForm, vendorName, formName){
+        if(formName == "formSetVendorAddSupplier"){
+            $.ajax({
+                type: "POST",
+                url: "../controller/actionAddSupplier.php",
+                data: {setVendor: vendorName},
+                dataType: 'json',
+                success: function(response){
+                    $("#errorSupplier").text("");
+
+                    $('#modalSetVendorAddSupplier'+idForm).modal('hide');
+
+                    $("#tambahSupplier"+idForm+" input#vendorInputAddSupplier").attr("value", response);
+
+                    $('#tambahSupplier'+idForm).modal('show');
+                }
+            })
+        }
+
+        if(formName == "formSetVendorUpdateSupplier"){
+            $.ajax({
+                type: "POST",
+                url: "../controller/actionAddSupplier.php",
+                data: {setVendor: vendorName},
+                dataType: 'json',
+                success: function(response){
+                    $("#errorSupplier").text("");
+
+                    $('#modalSetVendorUpdateSupplier'+idForm).modal('hide');
+
+                    $("#editSupplier"+idForm+" input#vendorInputUpdateSupplier").attr("value", response);
+
+                    $('#editSupplier'+idForm).modal('show');
+                }
+            })
+        }
+    }
+    
     // Send data to Action Update Supplier for Add Detail Supplier
     function funcAddDetailSupplier(idSupplier){
             $.ajax({

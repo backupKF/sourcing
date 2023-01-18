@@ -23,16 +23,17 @@
                 <div class="mb-3">
                     <label for="supplier" class="form-label">Supplier</label>
                     <div class="row">
+                        <!-- Select Result -->
                         <div class="col-10 pe-0">
-                            <input type="text" class="form-control" id="supplier" name="supplier" placeholder="<?php echo $_SESSION['vendor']?>" readonly required>
+                            <input type="text" class="form-control" name="supplier" id="vendorInputAddSupplier" value="" readonly required>
                         </div>
+                        <!-- Button Change Modal Vendor -->
                         <div class="col-2">
-                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#vendor<?php echo $_GET['idMaterial']?>">Select</button>
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalSetVendorAddSupplier<?php echo $_GET['idMaterial']?>">Select</button>
                         </div>
                     </div>
-                    <!-- <div class="invalid-feedback">
-                         Masukan Supplier (*Tandai (-) jika tidak Diisi).
-                    </div> -->
+                    <!-- Message Error -->
+                    <div id="errorSupplier" class="text-danger" style="font-size:14px;font-family:poppinsRegular"></div>
                 </div>
                 <!-- Input Manufacture -->
                 <div class="mb-3">
@@ -92,6 +93,10 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Set Vendor -->
+<?php include "setVendor.php"?>
+
 <script>
     // Listen Event Submit
     document.getElementById("formAddSupplier<?php echo $_GET['idMaterial']?>").addEventListener('submit', event => {
