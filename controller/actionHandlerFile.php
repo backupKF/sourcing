@@ -56,21 +56,31 @@
         if($uploadStatus == 1){ 
             // Include the database config file 
             $idSupplier = $_POST['idSupplier'];
-            // Insert form data in the database 
-            $sql = "INSERT INTO TB_File (fileName, fileHash, idSupplier) 
-            VALUES (?,?,?)";
-            $params = array(
-                $fileName,
-                $fileHash,
-                $idSupplier,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
 
-            // Send Notifikasi
-            if($insert == true){
-                $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                sendNotification(NULL, $dataSupplier[0]['supplier'], "menambahkan document requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+            // Cek Apakah data Supplier tersedia
+            if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
+                // Insert form data in the database 
+                $sql = "INSERT INTO TB_File (fileName, fileHash, idSupplier) 
+                VALUES (?,?,?)";
+                $params = array(
+                    $fileName,
+                    $fileHash,
+                    $idSupplier,
+                );
+                $query = $conn->prepare($sql);
+                $insert = $query->execute($params);
+
+                // Send Notifikasi
+                if($insert == true){
+                    $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+                    sendNotification(NULL, $dataSupplier[0]['supplier'], "menambahkan document requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                }
+
+            }else{
+                $response = array(
+                    "status" => 1,
+                    "message" => "Data supplier tidak ditemukan", 
+                );
             }
         }
         else{ 
@@ -89,17 +99,26 @@
         //Delete data in folder php
         unlink($filePath);
 
-        //Delete data from SQL server 
-        $sql = "DELETE FROM TB_File WHERE id = ?"; 
-        $query = $conn->prepare($sql); 
-        $delete = $query->execute(array($idFile));
+        // Cek Apakah data Supplier tersedia
+        if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
 
-        // Send Notifikasi
-        if($delete == true){
-            $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-            $response = sendNotification("Berhasil menghapus File!!", $dataSupplier[0]['supplier'], "menghapus document requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
-        }
+            //Delete data from SQL server 
+            $sql = "DELETE FROM TB_File WHERE id = ?"; 
+            $query = $conn->prepare($sql); 
+            $delete = $query->execute(array($idFile));
+
+            // Send Notifikasi
+            if($delete == true){
+                $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+                $response = sendNotification("Berhasil menghapus File!!", $dataSupplier[0]['supplier'], "menghapus document requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+            }
         
+        }else{
+            $response = array(
+                "status" => 1,
+                "message" => "Data supplier tidak ditemukan", 
+            );
+        }
         echo json_encode($response);
     }
 

@@ -8,6 +8,7 @@
         header('http/1.1 403 forbidden');
     }
 
+    // Response Error
     $response = array (
         "status" => 1,
         "message" => "Gagal menyimpan data!",
@@ -15,11 +16,11 @@
 
     // System Update Material
     if(isset($_POST['editMaterial'])){
-        $idMaterial = $_POST['idMaterial'];
-        $sourcingNumber = $_POST['sourcingNumber'];
+        $idMaterial = trim(strip_tags($_POST['idMaterial']));
+        $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
         $materialCategory = trim(strip_tags($_POST['materialCategory']));
         $materialName = trim(strip_tags($_POST['materialName']));
-        $priority = $_POST['priority'];
+        $priority = trim(strip_tags($_POST['priority']));
         $materialSpesification =  trim(strip_tags($_POST['materialSpesification']));
         $catalogOrCasNumber = trim(strip_tags($_POST['catalogOrCasNumber']));
         $company = trim(strip_tags($_POST['company']));
@@ -42,141 +43,162 @@
         $changeVendor = "";
         $changeDocumentReq = "";
 
-        if(!empty($materialCategory)){
-            if($materialCategory != $checkValue[0]['materialCategory']){
-                $changeMaterialCategory = ", material category";
-            }else{
-                $changeMaterialCategory = "";
-            }
-        }else{
-            $materialCategory = "-";
-        }
-
-        if(!empty($materialName)){
-            if($materialName != $checkValue[0]['materialName']){
-                $changeMaterialName = ", material name";
-            }else{
-                $changeMaterialName = "";
-            }
-        }else{
-            $materialName = "-";
-        }
-
-        if(!empty($materialSpesification)){
-            if($materialSpesification != $checkValue[0]['materialSpesification']){
-                $changeMaterialSpesification = ", spesification";
-            }else{
-                $changeMaterialSpesification = "";
-            }
-        }else{
-            $materialSpesification = "-";
-        }
-
-        if(!empty($catalogOrCasNumber)){
-            if($catalogOrCasNumber != $checkValue[0]['catalogOrCasNumber']){
-                $changeCatalogOrCasNumber = ", Catalog Or Cas Number";
-            }else{
-                $changeCatalogOrCasNumber = "";
-            }
-        }else{
-            $catalogOrCasNumber = "-";
-        }
-
-        if(!empty($company)){
-            if($company != $checkValue[0]['company']){
-                $changeCompany = ", company";
-            }else{
-                $changeCompany = "";
-            }
-        }else{
-            $company = "-";
-        }
-
-        if(!empty($website)){
-            if($website != $checkValue[0]['website']){
-                $changeWebsite = ", website";
-            }else{
-                $changeWebsite = "";
-            }
-        }else{
-            $website = "-";
-        }
-
-        if(!empty($finishDossageForm)){
-            if($finishDossageForm != $checkValue[0]['finishDossageForm']){
-                $changeFinishDossageForm = ", Finish Dossage Form";
-            }else{
-                $changeFinishDossageForm = "";
-            }
-        }else{
-            $finishDossageForm = "-";
-        }
-
-        if(!empty($keterangan)){
-            if($keterangan != $checkValue[0]['keterangan']){
-                $changeKeterangan = ", keterangan";
-            }else{
-                $changeKeterangan = "";
-            }
-        }else{
-            $keterangan = "-";
-        }
-
-        if(!empty($documentReq)){
-            if($documentReq != $checkValue[0]['documentReq']){
-                $changeDocumentReq = ", Document Requirement";
-            }else{
-                $changeDocumentReq = "";
-            }
-        }else{
-            $documentReq = "-";
-        }
-
-       
-        
-        if(isset($priority) && isset($vendor)){
-            if(!empty($priority)){
-                if($priority != $checkValue[0]['priority']){
-                    $changePriority = ", priority";
+        // Check apakah data material tersedia atau tidak
+        if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
+            // Check and Validation Material Category
+            if(!empty($materialCategory)){
+                if($materialCategory != $checkValue[0]['materialCategory']){
+                    $changeMaterialCategory = " Material Category,";
                 }else{
-                    $changePriority = "";
+                    $changeMaterialCategory = "";
                 }
             }else{
-                $priority = "-";
+                $materialCategory = "-";
             }
-
-            if(!empty($vendor)){
-                if($vendor != $checkValue[0]['vendor']){
-                    $changeVendor = ", vendor";
+    
+            // Check and Validation Material Name
+            if(!empty($materialName)){
+                if($materialName != $checkValue[0]['materialName']){
+                    $changeMaterialName = " Material Name,";
                 }else{
-                    $changeVendor = "";
+                    $changeMaterialName = "";
                 }
             }else{
-                $vendor = "-";
+                $materialName = "-";
             }
-
-            $sql = "UPDATE TB_PengajuanSourcing SET materialCategory = ?, materialName = ?, priority = ?, materialSpesification = ?, catalogOrCasNumber = ?, company = ?, website = ?, finishDossageForm = ?, keterangan = ?, vendor = ?, documentReq = ? WHERE id = ?";
-            $query = $conn->prepare($sql);
-            $update = $query->execute(array($materialCategory, $materialName, $priority, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $vendor, $documentReq, $idMaterial));
-
-            $message = "memperbaharui data".$changeMaterialCategory.$changeMaterialName.$changePriority.$changeMaterialSpesification.$changeCatalogOrCasNumber.$changeCompany.$changeWebsite.$changeFinishDossageForm.$changeKeterangan.$changeVendor.$changeDocumentReq.". Pada material sourcing : ";
-
-            //Create Notification
-            if($update == true){
-                $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), $message, NULL, $idMaterial, NULL, NULL);
+    
+            // Check and Validation Spesification
+            if(!empty($materialSpesification)){
+                if($materialSpesification != $checkValue[0]['materialSpesification']){
+                    $changeMaterialSpesification = " Spesification,";
+                }else{
+                    $changeMaterialSpesification = "";
+                }
+            }else{
+                $materialSpesification = "-";
+            }
+    
+            // Check and Validation Catalog Or Cas Number
+            if(!empty($catalogOrCasNumber)){
+                if($catalogOrCasNumber != $checkValue[0]['catalogOrCasNumber']){
+                    $changeCatalogOrCasNumber = " Catalog Or Cas Number,";
+                }else{
+                    $changeCatalogOrCasNumber = "";
+                }
+            }else{
+                $catalogOrCasNumber = "-";
+            }
+    
+            // Check and Validation Company
+            if(!empty($company)){
+                if($company != $checkValue[0]['company']){
+                    $changeCompany = " Company,";
+                }else{
+                    $changeCompany = "";
+                }
+            }else{
+                $company = "-";
+            }
+    
+            // Check and Validation Website
+            if(!empty($website)){
+                if($website != $checkValue[0]['website']){
+                    $changeWebsite = " Website,";
+                }else{
+                    $changeWebsite = "";
+                }
+            }else{
+                $website = "-";
+            }
+    
+            // Check and Validation Finish Dossage Form
+            if(!empty($finishDossageForm)){
+                if($finishDossageForm != $checkValue[0]['finishDossageForm']){
+                    $changeFinishDossageForm = " Finish Dossage Form,";
+                }else{
+                    $changeFinishDossageForm = "";
+                }
+            }else{
+                $finishDossageForm = "-";
+            }
+    
+            // Check and Validation Keterangan
+            if(!empty($keterangan)){
+                if($keterangan != $checkValue[0]['keterangan']){
+                    $changeKeterangan = " Keterangan,";
+                }else{
+                    $changeKeterangan = "";
+                }
+            }else{
+                $keterangan = "-";
+            }
+    
+            // Check and Validation Document Req
+            if(!empty($documentReq)){
+                if($documentReq != $checkValue[0]['documentReq']){
+                    $changeDocumentReq = " Document Requirement,";
+                }else{
+                    $changeDocumentReq = "";
+                }
+            }else{
+                $documentReq = "-";
+            }
+    
+           
+            // Kondisi dimana ada data priority dan vendor
+            if(isset($priority) && isset($vendor)){
+                // // Check and Validation Priority
+                if(!empty($priority)){
+                    if($priority != $checkValue[0]['priority']){
+                        $changePriority = " priority,";
+                    }else{
+                        $changePriority = "";
+                    }
+                }else{
+                    $priority = "-";
+                }
+    
+                // Check and Validation Vendor
+                if(!empty($vendor)){
+                    if($vendor != $checkValue[0]['vendor']){
+                        $changeVendor = " Vendor,";
+                    }else{
+                        $changeVendor = "";
+                    }
+                }else{
+                    $vendor = "-";
+                }
+    
+                $sql = "UPDATE TB_PengajuanSourcing SET materialCategory = ?, materialName = ?, priority = ?, materialSpesification = ?, catalogOrCasNumber = ?, company = ?, website = ?, finishDossageForm = ?, keterangan = ?, vendor = ?, documentReq = ? WHERE id = ?";
+                $query = $conn->prepare($sql);
+                $update = $query->execute(array($materialCategory, $materialName, $priority, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $vendor, $documentReq, $idMaterial));
+    
+                $message = "memperbaharui data material : ".$changeMaterialCategory.$changeMaterialName.$changePriority.$changeMaterialSpesification.$changeCatalogOrCasNumber.$changeCompany.$changeWebsite.$changeFinishDossageForm.$changeKeterangan.$changeVendor.$changeDocumentReq." pada material sourcing : ";
+    
+                //Create Notification
+                if($update == true){
+                    $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), $message, NULL, $idMaterial, NULL, NULL);
+                }
+    
+            }else{
+                $sql = "UPDATE TB_PengajuanSourcing SET materialCategory = ?, materialName = ?, materialSpesification = ?, catalogOrCasNumber = ?, company = ?, website = ?, finishDossageForm = ?, keterangan = ?, documentReq = ? WHERE id = ?";
+                $query = $conn->prepare($sql);
+                $update = $query->execute(array($materialCategory, $materialName, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $documentReq, $idMaterial));
+            
+                $message = "memperbaharui data riwayat : ".$changeMaterialCategory.$changeMaterialName.$changeMaterialSpesification.$changeCatalogOrCasNumber.$changeCompany.$changeWebsite.$changeFinishDossageForm.$changeKeterangan.$changeDocumentReq.". Pada material sourcing : ";
+    
+                //Create Notification
+                if($update == true){
+                    $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), $message, $sourcingNumber, $idMaterial, NULL, true);
+                }
             }
 
         }else{
-            $sql = "UPDATE TB_PengajuanSourcing SET materialCategory = ?, materialName = ?, materialSpesification = ?, catalogOrCasNumber = ?, company = ?, website = ?, finishDossageForm = ?, keterangan = ?, documentReq = ? WHERE id = ?";
-            $query = $conn->prepare($sql);
-            $update = $query->execute(array($materialCategory, $materialName, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $documentReq, $idMaterial));
-        
-            $message = "memperbaharui data riwayat".$changeMaterialCategory.$changeMaterialName.$changeMaterialSpesification.$changeCatalogOrCasNumber.$changeCompany.$changeWebsite.$changeFinishDossageForm.$changeKeterangan.$changeDocumentReq.". Pada material sourcing : ";
-
-            //Create Notification
-            if($update == true){
-                $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), $message, $sourcingNumber, $idMaterial, NULL, true);
-            }
+            // Response Error
+            $response = array (
+                "status" => 1,
+                "message" => "Data material tidak ditemukan!",
+            );
         }
        
         echo json_encode($response);
@@ -185,18 +207,28 @@
 
     // Action Update Status Material
     if(isset($_POST['statusSourcing'])){
-        $idMaterial = $_POST['idMaterial'];
-        $statusSourcing = $_POST['statusSourcing'];
+        $idMaterial = trim(strip_tags($_POST['idMaterial']));
+        $statusSourcing = trim(strip_tags($_POST['statusSourcing']));
 
-        $sql = "UPDATE TB_PengajuanSourcing SET statusSourcing = ? WHERE id = ?";
-        $query = $conn->prepare($sql);
-        $update = $query->execute(array($statusSourcing, $idMaterial));
+        // Check apakah data material tersedia atau tidak
+        if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
-        //Send Notification
-        if($update == true){
-            $response = sendNotification("Status Sourcing berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui status sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
+            $sql = "UPDATE TB_PengajuanSourcing SET statusSourcing = ? WHERE id = ?";
+            $query = $conn->prepare($sql);
+            $update = $query->execute(array($statusSourcing, $idMaterial));
+
+            //Send Notification
+            if($update == true){
+                $response = sendNotification("Status Sourcing berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui status sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
+            }
+
+        }else{
+            // Response Error
+            $response = array (
+                "status" => 1,
+                "message" => "Data material tidak ditemukan!",
+            );
         }
-       
         echo json_encode($response);
         exit();
     }
@@ -207,31 +239,52 @@
         $sumaryReport = trim(strip_tags($_POST['sumaryReport']));
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
 
-        $sql = "UPDATE TB_PengajuanSourcing SET dateSumaryReport = ?, sumaryReport = ? WHERE id = ?";
-        $query = $conn->prepare($sql);
-        $update = $query->execute(array($dateSumaryReport, $sumaryReport, $idMaterial));
+        // Check apakah data material tersedia atau tidak
+        if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
-        //Send Notification
-        if($update == true){
-            $response = sendNotification("Summary Report berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui sumary repory sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
+            $sql = "UPDATE TB_PengajuanSourcing SET dateSumaryReport = ?, sumaryReport = ? WHERE id = ?";
+            $query = $conn->prepare($sql);
+            $update = $query->execute(array($dateSumaryReport, $sumaryReport, $idMaterial));
+
+            //Send Notification
+            if($update == true){
+                $response = sendNotification("Summary Report berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui sumary repory sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
+            }
+
+        }else{
+            // Response Error
+            $response = array (
+                "status" => 1,
+                "message" => "Data material tidak ditemukan!",
+            );
         }
-       
         echo json_encode($response);
         exit();
     }
 
     // kondisi saat menghapus material
     if(isset($_GET['actionType'])){
-        $idMaterial = $_GET['idMaterial'];
-        $materialName = $_GET['materialName'];
+        $idMaterial = trim(strip_tags($_GET['idMaterial']));
+        $materialName = trim(strip_tags($_GET['materialName']));
 
-        $sql = "DELETE FROM TB_PengajuanSourcing WHERE id = ?";
-        $query = $conn->prepare($sql);
-        $delete = $query->execute(array($idMaterial));
+        // Check apakah data material tersedia atau tidak
+        if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
-         //Send Notification
-        if($delete == true){
-            $response = sendNotification("Material Berhasil Di Hapus!!", $materialName, "menghapus riwayat sourcing, Material : ", NULL, NULL, NULL, true);
+            $sql = "DELETE FROM TB_PengajuanSourcing WHERE id = ?";
+            $query = $conn->prepare($sql);
+            $delete = $query->execute(array($idMaterial));
+
+            //Send Notification
+            if($delete == true){
+                $response = sendNotification("Material Berhasil Di Hapus!!", $materialName, "menghapus riwayat sourcing, Material : ", NULL, NULL, NULL, true);
+            }
+
+        }else{
+            // Response Error
+            $response = array (
+                "status" => 1,
+                "message" => "Data material tidak ditemukan!",
+            );
         }
 
         echo json_encode($response);
@@ -244,13 +297,24 @@
         $dateApprovedTL = date("Y-m-d");
         $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
 
-        $sql = "UPDATE TB_PengajuanSourcing SET feedbackTL = ?, dateApprovedTL = ? WHERE id = ?";
-        $query = $conn->prepare($sql);
-        $update = $query->execute(array($feedbackTL, $dateApprovedTL, $idMaterial));
+        // Check apakah data material tersedia atau tidak
+        if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
-        //Send Notification
-        if($update == true){
-            $response = sendNotification("Feedback Team Leader Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback Team Leader, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+            $sql = "UPDATE TB_PengajuanSourcing SET feedbackTL = ?, dateApprovedTL = ? WHERE id = ?";
+            $query = $conn->prepare($sql);
+            $update = $query->execute(array($feedbackTL, $dateApprovedTL, $idMaterial));
+
+            //Send Notification
+            if($update == true){
+                $response = sendNotification("Feedback Team Leader Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback Team Leader, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+            }
+
+        }else{
+            // Response Error
+            $response = array (
+                "status" => 1,
+                "message" => "Data material tidak ditemukan!",
+            );
         }
 
         echo json_encode($response);
@@ -263,13 +327,24 @@
         $dateAcceptedRPIC = date("Y-m-d");
         $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
 
-        $sql = "UPDATE TB_PengajuanSourcing SET feedbackRPIC = ?, dateAcceptedRPIC = ? WHERE id = ?";
-        $query = $conn->prepare($sql);
-        $update = $query->execute(array($feedbackRPIC, $dateAcceptedRPIC, $idMaterial));
+        // Check apakah data material tersedia atau tidak
+        if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
-        //Send Notification
-        if($update == true){
-            $response = sendNotification("Feedback RPIC Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback RPIC, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+            $sql = "UPDATE TB_PengajuanSourcing SET feedbackRPIC = ?, dateAcceptedRPIC = ? WHERE id = ?";
+            $query = $conn->prepare($sql);
+            $update = $query->execute(array($feedbackRPIC, $dateAcceptedRPIC, $idMaterial));
+
+            //Send Notification
+            if($update == true){
+                $response = sendNotification("Feedback RPIC Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback RPIC, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+            }
+
+        }else{
+            // Response Error
+            $response = array (
+                "status" => 1,
+                "message" => "Data material tidak ditemukan!",
+            );
         }
 
         echo json_encode($response);
@@ -281,13 +356,24 @@
         $statusRiwayat = trim(strip_tags($_POST['statusRiwayat']));
         $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
 
-        $sql = "UPDATE TB_PengajuanSourcing SET statusRiwayat = ? WHERE id = ?";
-        $query = $conn->prepare($sql);
-        $update = $query->execute(array($statusRiwayat, $idMaterial));
+        // Check apakah data material tersedia atau tidak
+        if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
-        //Send Notification
-        if($update == true){
-            $response = sendNotification("Status Riwayat Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui status riwayat, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+            $sql = "UPDATE TB_PengajuanSourcing SET statusRiwayat = ? WHERE id = ?";
+            $query = $conn->prepare($sql);
+            $update = $query->execute(array($statusRiwayat, $idMaterial));
+
+            //Send Notification
+            if($update == true){
+                $response = sendNotification("Status Riwayat Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui status riwayat, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+            }
+
+        }else{
+            // Response Error
+            $response = array (
+                "status" => 1,
+                "message" => "Data material tidak ditemukan!",
+            );
         }
 
         echo json_encode($response);

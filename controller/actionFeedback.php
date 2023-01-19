@@ -19,7 +19,9 @@
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
         $idFeedbackDocReq = trim(strip_tags($_POST['idFeedbackDocReq']));
 
+        // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
+
             if(!empty($idFeedbackDocReq)){
                 $sql = "UPDATE TB_FeedbackDocReq SET CoA = ?, MSDS = ?, MoA = ?, Halal = ?, DMF = ?, GMP = ? WHERE id = ?";
                 $query = $conn->prepare($sql);
@@ -45,9 +47,10 @@
                 $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
                 $response = sendNotification("Feedback document requirement berhasil diperbaharui!!", $dataSupplier[0]['supplier'], "memperbaharui Feedback Document Requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
             }
+
         }else{
             $response = array(
-                "status" => 0,
+                "status" => 1,
                 "message" => "Data supplier tidak ditemukan", 
             );
         }
@@ -63,29 +66,39 @@
         $writer = $_SESSION['user']['name'];
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
 
-        if($priceReview){
-            $sql = "UPDATE TB_Supplier SET feedbackRndPriceReview = ? WHERE id = ?";
-            $query = $conn->prepare($sql);
-            $update = $query->execute(array($priceReview, $idSupplier));
-        }
-        
-        if($sampel){
-            $sql = "INSERT INTO TB_DetailFeedbackRnd (dateFeedback, sampel, writer, idSupplier) 
-            VALUES (?,?,?,?)";
-            $params = array(
-                $dateFeedback,
-                $sampel,
-                $writer,
-                $idSupplier,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
-        }
+        // Cek Apakah data Supplier tersedia
+        if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
 
-        // Send Notifikasi
-        if($update == true || $insert == true){
-            $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-            $response = sendNotification("Feedback R&D berhasil diperbaharui!!", $dataSupplier[0]['supplier'], "memperbaharui Feedback R&D, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+            if($priceReview){
+                $sql = "UPDATE TB_Supplier SET feedbackRndPriceReview = ? WHERE id = ?";
+                $query = $conn->prepare($sql);
+                $update = $query->execute(array($priceReview, $idSupplier));
+            }
+            
+            if($sampel){
+                $sql = "INSERT INTO TB_DetailFeedbackRnd (dateFeedback, sampel, writer, idSupplier) 
+                VALUES (?,?,?,?)";
+                $params = array(
+                    $dateFeedback,
+                    $sampel,
+                    $writer,
+                    $idSupplier,
+                );
+                $query = $conn->prepare($sql);
+                $insert = $query->execute($params);
+            }
+
+            // Send Notifikasi
+            if($update == true || $insert == true){
+                $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+                $response = sendNotification("Feedback R&D berhasil diperbaharui!!", $dataSupplier[0]['supplier'], "memperbaharui Feedback R&D, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+            }
+
+        }else{
+            $response = array(
+                "status" => 1,
+                "message" => "Data supplier tidak ditemukan", 
+            );
         }
 
         echo json_encode($response);
@@ -98,21 +111,31 @@
         $writer = $_SESSION['user']['name'];
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
         
-        $sql = "INSERT INTO TB_FeedbackProc (dateFeedbackProc, feedback, writer, idSupplier) 
-        VALUES (?,?,?,?)";
-        $params = array(
-            $dateFeedback,
-            $feedback,
-            $writer,
-            $idSupplier,
-        );
-        $query = $conn->prepare($sql);
-        $insert = $query->execute($params);
+        // Cek Apakah data Supplier tersedia
+        if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
 
-        // Send Notifikasi
-        if($insert == true){
-            $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-            $response = sendNotification("Feedback Proc berhasil diperbaharui!!", $dataSupplier[0]['supplier'],  "memperbaharui Feedback Proc, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+            $sql = "INSERT INTO TB_FeedbackProc (dateFeedbackProc, feedback, writer, idSupplier) 
+            VALUES (?,?,?,?)";
+            $params = array(
+                $dateFeedback,
+                $feedback,
+                $writer,
+                $idSupplier,
+            );
+            $query = $conn->prepare($sql);
+            $insert = $query->execute($params);
+
+            // Send Notifikasi
+            if($insert == true){
+                $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+                $response = sendNotification("Feedback Proc berhasil diperbaharui!!", $dataSupplier[0]['supplier'],  "memperbaharui Feedback Proc, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+            }
+
+        }else{
+            $response = array(
+                "status" => 1,
+                "message" => "Data supplier tidak ditemukan", 
+            );
         }
 
         echo json_encode($response);
@@ -126,19 +149,30 @@
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
         $writerFinalFeedbackRnd = $_SESSION['user']['name'];
 
-        $sql = "UPDATE TB_Supplier SET dateFinalFeedbackRnd = ?, finalFeedbackRnd = ?, writerFinalFeedbackRnd = ? WHERE id = ?";
-        $query = $conn->prepare($sql);
-        $update = $query->execute(array($dateFinalFeedbackRnd, $finalFeedbackRnd, $writerFinalFeedbackRnd, $idSupplier));
+        // Cek Apakah data Supplier tersedia
+        if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
 
-        if($update == true){
-            $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-            $response = sendNotification("Final Feeedback Rnd berhasil diperbaharui!", $dataSupplier[0]['supplier'], "memperbaharui Final Feedback R&D, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+            $sql = "UPDATE TB_Supplier SET dateFinalFeedbackRnd = ?, finalFeedbackRnd = ?, writerFinalFeedbackRnd = ? WHERE id = ?";
+            $query = $conn->prepare($sql);
+            $update = $query->execute(array($dateFinalFeedbackRnd, $finalFeedbackRnd, $writerFinalFeedbackRnd, $idSupplier));
+
+            if($update == true){
+                $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+                $response = sendNotification("Final Feeedback Rnd berhasil diperbaharui!", $dataSupplier[0]['supplier'], "memperbaharui Final Feedback R&D, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+            }else{
+                $response = array(
+                    "status" => 0,
+                    "message" => "Terjadi kesalahan saat memperbaharui Feedback!",
+                );
+            }
+
         }else{
             $response = array(
-                "status" => 0,
-                "message" => "Terjadi kesalahan saat memperbaharui Feedback!",
+                "status" => 1,
+                "message" => "Data supplier tidak ditemukan", 
             );
         }
+
         echo json_encode($response);
         exit();
     }

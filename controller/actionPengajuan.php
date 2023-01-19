@@ -17,6 +17,7 @@
         header('Location: ../pengajuan/index.php');   
     };
 
+    // Tambah Data Material
     $materials = $_SESSION['materials'];
     if(isset($_POST['tambahDataMaterial'])){
         $materialCategory = trim(strip_tags($_POST['materialCategory']));
@@ -58,7 +59,9 @@
             $documentReq = "-"; 
         }
 
-        $newData = ["materialCategory" => $materialCategory, 
+        // Mengumpulkan data material
+        $newDataMaterial = [
+                    "materialCategory" => $materialCategory, 
                     "materialName" => $materialName, 
                     "materialSpesification" => $materialSpesification,
                     "catalogOrCasNumber" => $catalogOrCasNumber,
@@ -69,13 +72,15 @@
                     "documentReq" => $documentReq,
                     "projectCode" => $setProject,
                 ];
-        $materials[] = $newData;
+                
+        $materials[] = $newDataMaterial;
         $_SESSION['project'] = $setProject;
         $_SESSION['materials'] = $materials;
 
         header('Location: ../pengajuan/index.php');
     }
 
+    // Menambah pengajuan
     if(isset($_POST['tambahPengajuan'])){
         $materials = $_SESSION['materials'];
 

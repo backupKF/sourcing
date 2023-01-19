@@ -8,11 +8,11 @@
 ?>
 
 <!-- Tabel Material -->
-    <table id="table-material<?php echo $_GET['projectCode']?>" class="table">
+    <table id="table-material<?php echo $_GET['projectCode']?>" class="table table-striped">
         <thead class="bg-primary" >
             <tr>
-                <th class="d-none"></th>
                 <th style="width:10px"></th>
+                <th class="d-none"></th>
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:10px" class="text-center">No</th>
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:50px" class="text-center">Material Category</th>
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:150px" class="text-center">Material Name</th>
@@ -43,9 +43,9 @@
             foreach($dataMaterial as $row){
         ?>
             <tr>
-                <td class="d-none"><?php echo $row['id']?></td>
                 <td class="dt-control"></td>
-                <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $no++?></td>
+                <td class="d-none"><?php echo $row['id']?></td>
+                <td style="font-size:12px;font-family:poppinsRegular;"><?php echo ${'no'. $_GET['projectCode']}++ ?></td>
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['materialCategory']?></div></td>
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['materialName']?></div></td>
                 <td><div class="text-center" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['priority']?></div></td>
@@ -147,7 +147,7 @@
                     var row = materialTable.row(tr);
                     if (row.child.isShown()) {
                         // Menghilangkan tabel material jika event click ditutup
-                        var table = $("#table-supplier"+row.data()[0], row.child());
+                        var table = $("#table-supplier"+row.data()[1], row.child());
                         table.DataTable().clear().destroy();
                         
                         // Fungsi untuk menyembunyikan baris
@@ -155,7 +155,7 @@
                         tr.removeClass('shown');
                     } else {
                         // Menampilkan tabel material jika event click dilakukan
-                        row.child( tableSupplier(row.data()[0])).show();
+                        row.child( tableSupplier(row.data()[1])).show();
                         tr.addClass('shown');
                     }
             });

@@ -323,7 +323,7 @@
             paging:true,
             stateSave: true,
             deferRender: true,
-            lengthMenu: [2],
+            lengthMenu: [2, 3],
         });
 
         // CSS Tabel
