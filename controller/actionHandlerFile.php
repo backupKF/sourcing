@@ -8,6 +8,8 @@
         header('http/1.1 403 forbidden');
     }
 
+
+    // Kondisi untuk meng-handle upload document
     if(isset($_FILES['file'])){
         // File Upload Folder
         $uploadDir = $_SERVER['DOCUMENT_ROOT']."/sourcing/assets/uploads/";
@@ -23,7 +25,7 @@
 
         // Default reponse
         $response = array(
-            'status' => 0,
+            'status' => 1,
             'message' => 'Gagal menyimpan file, silahkan coba lagi',
         );
 
@@ -42,6 +44,7 @@
                 if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){ 
                     $uploadedFile = $fileName; 
                     $response['message'] = 'Berhasil Mengupload File';
+                    $response['status'] = 0;
                     $uploadStatus = 1; 
                 }else{ 
                     $uploadStatus = 0; 
@@ -59,23 +62,29 @@
 
             // Cek Apakah data Supplier tersedia
             if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
-                // Insert form data in the database 
-                $sql = "INSERT INTO TB_File (fileName, fileHash, idSupplier) 
-                VALUES (?,?,?)";
-                $params = array(
-                    $fileName,
-                    $fileHash,
-                    $idSupplier,
-                );
-                $query = $conn->prepare($sql);
-                $insert = $query->execute($params);
+                // Handle Add Data File Upload To Database Tabel TB_File
+                try{
+                    $sql = "INSERT INTO TB_File (fileName, fileHash, idSupplier) 
+                    VALUES (?,?,?)";
+                    $params = array(
+                        $fileName,
+                        $fileHash,
+                        $idSupplier,
+                    );
+                    $query = $conn->prepare($sql);
+                    $insert = $query->execute($params);
 
-                // Send Notifikasi
-                if($insert == true){
-                    $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                    sendNotification(NULL, $dataSupplier[0]['supplier'], "menambahkan document requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                    // Send Notifikasi
+                    if($insert == true){
+                        $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+                        sendNotification(NULL, $dataSupplier[0]['supplier'], "menambahkan document requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                    }
+                }catch(Exception $e){
+                    $response = array(
+                        "status" => 1,
+                        "message" => "Data tidak dapat disimpan!",
+                    );
                 }
-
             }else{
                 $response = array(
                     "status" => 1,
@@ -102,10 +111,17 @@
         // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
 
-            //Delete data from SQL server 
-            $sql = "DELETE FROM TB_File WHERE id = ?"; 
-            $query = $conn->prepare($sql); 
-            $delete = $query->execute(array($idFile));
+            // Handle Delete Data File Upload To Database Tabel TB_File
+            try{
+                $sql = "DELETE FROM TB_File WHERE id = ?"; 
+                $query = $conn->prepare($sql); 
+                $delete = $query->execute(array($idFile));
+            }catch(Exception $e){
+                $response = array(
+                    "status" => 1,
+                    "message" => "Data tidak dapat disimpan!",
+                );
+            }
 
             // Send Notifikasi
             if($delete == true){
@@ -169,7 +185,7 @@
                 $query = $conn->prepare($sql)->execute($params);
             }
             // Untuk user yang melakukan aksi tidak dikirimkan notifikasi
-            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND idNotification = ".$idNotification[0]['id']; 
+            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND randomIdNotification = '".$randomId."'"; 
             $query = $conn->prepare($sql)->execute();
         }
 

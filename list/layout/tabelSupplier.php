@@ -229,7 +229,7 @@
                     $feedbackRnd = $conn->query("SELECT TOP 1 * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$row['id']}' ORDER BY ID DESC")->fetchAll();
                 ?>
                 <!-- Tanggal Feedback -->
-                <div class="bg-success bg-opacity-75 y p-0" style="width:95px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $feedbackRnd[0]['dateFeedback']?></div>
+                <div class="bg-success bg-opacity-75 y p-0" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $feedbackRnd[0]['dateFeedback']?></div>
                 <!-- Layout Content -->
                 <div class="overflow-auto" style="height:82px;font-size:12px;font-family:poppinsSemiBold;">
                     <!-- Title Review Harga-->
@@ -265,7 +265,7 @@
                     $feedbackProc = $conn->query("SELECT TOP 1 * FROM TB_FeedbackProc WHERE idSupplier='{$row['id']}' ORDER BY ID DESC")->fetchAll();
                 ?>
                 <!-- Tanggal Feedback Proc -->
-                <div class="bg-success bg-opacity-75" style="width:95px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $feedbackProc[0]['dateFeedbackProc']?></div>
+                <div class="bg-success bg-opacity-75" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $feedbackProc[0]['dateFeedbackProc']?></div>
                 <!-- Isi Feedback Proc -->
                 <div class="overflow-auto" style="height:80px">
                     <div class="text-wrap p-1" style="font-size:11px;font-family:poppinsMedium;"><?php echo $feedbackProc[0]['feedback']?></div>
@@ -284,7 +284,7 @@
             <!-- Column Final Feedback Rnd -->
             <td>
                 <!-- Tanggal Final Feedback Rnd -->
-                <div class="bg-success bg-opacity-75" style="width:95px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $row['dateFinalFeedbackRnd']?></div>
+                <div class="bg-success bg-opacity-75" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $row['dateFinalFeedbackRnd']?></div>
                 <!-- Isi Final Feedback Rnd -->
                 <div class="overflow-auto" style="height:80px">
                     <div class="text-wrap pt-1" style="font-size:11px;font-family:poppinsMedium;"><?php echo !empty($row['finalFeedbackRnd'])? $row['finalFeedbackRnd']:'-'; ?></div>

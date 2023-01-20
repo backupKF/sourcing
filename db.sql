@@ -20,7 +20,7 @@ CREATE TABLE [dbo].[TB_PengajuanSourcing] (
     [website]               VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_website] DEFAULT ('') NOT NULL,
     [finishDossageForm]     VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_finishDossageForm] DEFAULT ('') NOT NULL,
     [keterangan]            TEXT          CONSTRAINT [DEFAULT_TB_PengajuanSourcing_keterangan] DEFAULT ('') NOT NULL,
-    [vendor]                VARCHAR (200) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_vendor] DEFAULT ('') NOT NULL,
+    [vendor]                VARCHAR (200) NULL,
     [documentReq]           VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_documentReq] DEFAULT ('') NOT NULL,
     [projectCode]           VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_projectCode] DEFAULT ('') NOT NULL,
     [dateSourcing]          DATE          NULL,

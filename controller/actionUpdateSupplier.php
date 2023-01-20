@@ -8,7 +8,9 @@
         header('http/1.1 403 forbidden');
     }
 
+    // Kondisi untuk meng-handle mengedit Supplier
     if(isset($_POST['idSupplier'])){
+        //Mengambil data dan memformat data
         $supplier = trim(strip_tags($_POST['supplier']));
         $manufacture = trim(strip_tags($_POST['manufacture']));
         $originCountry = trim(strip_tags($_POST['originCountry']));
@@ -18,6 +20,7 @@
         $documentInfo = trim(strip_tags($_POST['documentInfo']));
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
 
+        // Variabel untuk pengecekan data supplier
         $checkValue = $conn->query("SELECT supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
         $changeSupplier = "";
         $changeManufacture = "";
@@ -29,10 +32,10 @@
 
         // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
-
+            // Check and Validation Manufacture
             if(!empty($manufacture)){
                 if($manufacture != $checkValue[0]['manufacture']){
-                    $changeManufacture = ", manufacture";
+                    $changeManufacture = " Manufacture,";
                 }else{
                     $changeManufacture = "";
                 }
@@ -40,9 +43,10 @@
                 $manufacture = "-";
             }
 
+            // Check and Validation Origin Country
             if(!empty($originCountry)){
                 if($originCountry != $checkValue[0]['originCountry']){
-                    $changeOriginCountry = ", Origin Country";
+                    $changeOriginCountry = " Origin Country,";
                 }else{
                     $changeOriginCountry = "";
                 }
@@ -50,9 +54,10 @@
                 $originCountry = "-";
             }
 
+            // Check and Validation Lead Time
             if(!empty($leadTime)){
                 if($leadTime != $checkValue[0]['leadTime']){
-                    $changeLeadTime = ", Lead Time";
+                    $changeLeadTime = " Lead Time,";
                 }else{
                     $changeLeadTime = "";
                 }
@@ -60,9 +65,10 @@
                 $leadTime = "-";
             }
 
+            // Check and Validation Catalog Or Cas Number
             if(!empty($catalogOrCasNumber)){
                 if($catalogOrCasNumber != $checkValue[0]['catalogOrCasNumber']){
-                    $changeCatalogOrCasNumber = ", Catalog Or Cas Number";
+                    $changeCatalogOrCasNumber = " Catalog Or Cas Number,";
                 }else{
                     $changeCatalogOrCasNumber = "";
                 }
@@ -70,9 +76,10 @@
                 $catalogOrCasNumber = "-";
             }
 
+            // Check and Validation Grade Or Reference
             if(!empty($gradeOrReference)){
                 if($gradeOrReference != $checkValue[0]['gradeOrReference']){
-                    $changeGradeOrReference = ", Grade Or Reference";
+                    $changeGradeOrReference = " Grade Or Reference,";
                 }else{
                     $changeGradeOrReference = "";
                 }
@@ -80,9 +87,10 @@
                 $gradeOrReference = "-";
             }
 
+            // Check and Validation Document Info
             if(!empty($documentInfo)){
                 if($documentInfo != $checkValue[0]['documentInfo']){
-                    $changeDocumentInfo = ", Document Info";
+                    $changeDocumentInfo = " Document Info,";
                 }else{
                     $changeDocumentInfo = "";
                 }
@@ -90,45 +98,71 @@
                 $documentInfo = "-";
             }
 
+            // Check and Validation Supplier
             if(!empty($supplier)){
                 if($supplier != $checkValue[0]['supplier']){
-                    $changeSupplier = ", supplier";
+                    $changeSupplier = " supplier,";
                 }else{
                     $changeSupplier = "";
                 }
 
-
+                // Jika Nama Vendor Sudah Terdaftar
                 if($conn->query("SELECT * FROM TB_MasterVendor WHERE vendorName = '".$supplier."'")->fetchAll()){
-                    $sql = "UPDATE TB_Supplier SET supplier = ?, manufacture = ?, originCountry = ?, leadTime = ?, catalogOrCasNumber = ?, gradeOrReference = ?, documentInfo = ? WHERE id = ?";
-                    $query = $conn->prepare($sql);
-                    $update = $query->execute(array($supplier, $manufacture, $originCountry, $leadTime, $catalogOrCasNumber, $gradeOrReference, $documentInfo, $idSupplier));
-                    
-                    // Send Notifikasi
-                    if($update == true){
-                        $message = "mengedit data".$changeSupplier.$changeManufacture.$changeOriginCountry.$changeLeadTime.$changeCatalogOrCasNumber.$changeGradeOrReference.$changeDocumentInfo.". Pada supplier : ";
-                        $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                        $response = sendNotification("Supplier berhasil diedit!!", $dataSupplier[0]['supplier'], $message, NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
-                    }
-                }else{
-                    // Memasukan data vendor ke database
-                    $sqlAddVendor = "INSERT INTO TB_MasterVendor (vendorName) 
-                    VALUES (?)";
-                    $paramsAddVendor = array(
-                        $supplier
-                    );
-                    $queryAddVendor = $conn->prepare($sqlAddVendor);
-                    $insertAddVendor =  $queryAddVendor->execute($paramsAddVendor);
-
-                    if($insertAddVendor == true){
+                    // Handle Update Data Supplier To Database Tabel TB_Supplier
+                    try{
                         $sql = "UPDATE TB_Supplier SET supplier = ?, manufacture = ?, originCountry = ?, leadTime = ?, catalogOrCasNumber = ?, gradeOrReference = ?, documentInfo = ? WHERE id = ?";
                         $query = $conn->prepare($sql);
                         $update = $query->execute(array($supplier, $manufacture, $originCountry, $leadTime, $catalogOrCasNumber, $gradeOrReference, $documentInfo, $idSupplier));
-                    
+                        
                         // Send Notifikasi
                         if($update == true){
-                            $message = "mengedit data".$changeSupplier.$changeManufacture.$changeOriginCountry.$changeLeadTime.$changeCatalogOrCasNumber.$changeGradeOrReference.$changeDocumentInfo.". Pada supplier : ";
+                            $message = "mengedit data".$changeSupplier.$changeManufacture.$changeOriginCountry.$changeLeadTime.$changeCatalogOrCasNumber.$changeGradeOrReference.$changeDocumentInfo." pada supplier : ";
                             $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
                             $response = sendNotification("Supplier berhasil diedit!!", $dataSupplier[0]['supplier'], $message, NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                        }
+                    }catch(Exception $e){
+                        $response = array(
+                            "status" => 1,
+                            "message" => "Data tidak dapat disimpan!",
+                        );
+                    }
+                }else{
+                    // Jika nama vendor belum terdaftar
+                    // Handle Add Data Vendor Name To Database Tabel TB_MasterVendor
+                    try{
+                        $sqlAddVendor = "INSERT INTO TB_MasterVendor (vendorName) 
+                        VALUES (?)";
+                        $paramsAddVendor = array(
+                            $supplier
+                        );
+                        $queryAddVendor = $conn->prepare($sqlAddVendor);
+                        $insertAddVendor =  $queryAddVendor->execute($paramsAddVendor);
+                    }catch(Exception $e){
+                        $response = array(
+                            "status" => 1,
+                            "message" => "Data tidak dapat disimpan!",
+                        );
+                    }
+
+                    // Jika InsertAddVendor Berhasil
+                    if($insertAddVendor == true){
+                        // Handle Update Data Supplier To Database Tabel TB_Supplier
+                        try{
+                            $sql = "UPDATE TB_Supplier SET supplier = ?, manufacture = ?, originCountry = ?, leadTime = ?, catalogOrCasNumber = ?, gradeOrReference = ?, documentInfo = ? WHERE id = ?";
+                            $query = $conn->prepare($sql);
+                            $update = $query->execute(array($supplier, $manufacture, $originCountry, $leadTime, $catalogOrCasNumber, $gradeOrReference, $documentInfo, $idSupplier));
+                        
+                            // Send Notifikasi
+                            if($update == true){
+                                $message = "mengedit data".$changeSupplier.$changeManufacture.$changeOriginCountry.$changeLeadTime.$changeCatalogOrCasNumber.$changeGradeOrReference.$changeDocumentInfo." pada supplier : ";
+                                $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+                                $response = sendNotification("Supplier berhasil diedit!!", $dataSupplier[0]['supplier'], $message, NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                            }
+                        }catch(Exception $e){
+                            $response = array(
+                                "status" => 1,
+                                "message" => "Data tidak dapat disimpan!",
+                            );
                         }
                     }
                 }
@@ -150,7 +184,9 @@
         exit();
     }
 
+    // Kondisi untuk meng-handle tambah MoU, MoQ, dan Price
     if(isset($_POST['addDetail'])){
+        //Mengambil data dan memformat data
         $MoQ = trim(strip_tags($_POST['MoQ']));
         $UoM = trim(strip_tags($_POST['UoM']));
         $price = trim(strip_tags($_POST['price']));
@@ -158,26 +194,34 @@
         $quantity = trim(strip_tags($_POST['quantity']));
         $idSupplier = trim(strip_tags($_POST['id']));
 
+        // Membuat detail info price
         $priceDetail = $hardCash.$price.$quantity;
 
         // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
+            // Handle Add Data Detail MoQ, UoM, Price To Database Tabel TB_DetailSupplier
+            try{
+                $sql = "INSERT INTO TB_DetailSupplier (MoQ, UoM, price, idSupplier) 
+                VALUES (?,?,?,?)";
+                $params = array(
+                    $MoQ,
+                    $UoM,
+                    $priceDetail,
+                    $idSupplier,
+                );
+                $query = $conn->prepare($sql);
+                $insert = $query->execute($params);
 
-            $sql = "INSERT INTO TB_DetailSupplier (MoQ, UoM, price, idSupplier) 
-            VALUES (?,?,?,?)";
-            $params = array(
-                $MoQ,
-                $UoM,
-                $priceDetail,
-                $idSupplier,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
-
-            // Send Notifikasi
-            if($insert == true){
-                $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                $response = sendNotification("Berhasil memasukan detail supplier!!", $dataSupplier[0]['supplier'] , "menambahkan detail supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                // Send Notifikasi
+                if($insert == true){
+                    $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+                    $response = sendNotification("Berhasil memasukan detail supplier!!", $dataSupplier[0]['supplier'] , "menambahkan detail supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                }
+            }catch(Exception $e){
+                $response = array(
+                    "status" => 1,
+                    "message" => "Data tidak dapat disimpan!",
+                );
             }
 
         }else{
@@ -192,23 +236,31 @@
         exit();
     }
 
-    // Kondisi saat menghapus detail Supplier
+    // Kondisi untuk meng-handle hapus MoU, MoQ, dan Price
     if(($_REQUEST['actionType'] == 'delete') && !empty($_GET['idDetailSupplier'])){
+        //Mengambil data dan memformat data
         $idDetailSupplier = $_GET['idDetailSupplier'];
         $idSupplier = $_GET['idSupplier'];
 
         // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
 
-            //Delete data from SQL server 
-            $sql = "DELETE FROM TB_DetailSupplier WHERE idDetailSupplier = ?"; 
-            $query = $conn->prepare($sql); 
-            $delete = $query->execute(array($idDetailSupplier));
-            
-            // Send Notifikasi
-            if($delete == true){
-                $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                $response = sendNotification("Berhasil menghapus detail supplier!!", $dataSupplier[0]['supplier'], "menghapus detail supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+            // Handle Delete Data Detail MoQ, UoM, Price To Database Tabel TB_DetailSupplier
+            try{
+                $sql = "DELETE FROM TB_DetailSupplier WHERE idDetailSupplier = ?"; 
+                $query = $conn->prepare($sql); 
+                $delete = $query->execute(array($idDetailSupplier));
+                
+                // Send Notifikasi
+                if($delete == true){
+                    $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+                    $response = sendNotification("Berhasil menghapus detail supplier!!", $dataSupplier[0]['supplier'], "menghapus detail supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                }
+            }catch(Exception $e){
+                $response = array(
+                    "status" => 1,
+                    "message" => "Data tidak dapat disimpan!",
+                );
             }
 
         }else{
@@ -269,7 +321,7 @@
                 $query = $conn->prepare($sql)->execute($params);
             }
             // Untuk user yang melakukan aksi tidak dikirimkan notifikasi
-            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND idNotification = ".$idNotification[0]['id']; 
+            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND randomIdNotification = '".$randomId."'"; 
             $query = $conn->prepare($sql)->execute();
         }
 

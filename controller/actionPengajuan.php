@@ -11,15 +11,17 @@
         header('http/1.1 403 forbidden');
     }
 
-    // Set Project
+    // Kondisi untuk meng-handle set project
     if(isset($_POST['setProject'])){
         $_SESSION['project'] = $_POST['setProject'];
-        header('Location: ../pengajuan/index.php');   
+        header('Location: ../pengajuan/index.php');
+        exit(); 
     };
 
-    // Tambah Data Material
+    // Kondisi untuk meng-handle tambah data material
     $materials = $_SESSION['materials'];
     if(isset($_POST['tambahDataMaterial'])){
+        // Mengambil data dan memformat data
         $materialCategory = trim(strip_tags($_POST['materialCategory']));
         $materialName = trim(strip_tags($_POST['materialName']));
         $materialSpesification =  trim(strip_tags($_POST['materialSpesification']));
@@ -31,6 +33,7 @@
         $documentReq = trim(strip_tags($_POST['documentReq']));
         $setProject = trim(strip_tags($_POST['setProject']));
 
+        // Melakukan pengecekan data
         if(empty($materialCategory)) {
             $materialCategory = "-"; 
         }
@@ -78,9 +81,10 @@
         $_SESSION['materials'] = $materials;
 
         header('Location: ../pengajuan/index.php');
+        exit();
     }
 
-    // Menambah pengajuan
+    // Kondisi untuk meng-handle data material untuk masuk ke riwayat pengajuan
     if(isset($_POST['tambahPengajuan'])){
         $materials = $_SESSION['materials'];
 
@@ -119,6 +123,7 @@
             echo sendNotification('', '', "menambah material sourcing", $sourcingNumber, NULL, NULL);
         }
         header('Location: ../riwayat/index.php');
+        exit();
     }
 
     function autoNumber($year, $tl, $number) {
@@ -222,11 +227,11 @@
                 $query = $conn->prepare($sql)->execute($params);
             }
             // Untuk user dengan level 4 tidak dikirimkan notifikasi
-            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE levelUser = 4";
+            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE levelUser = 4 AND randomIdNotification = '".$randomId."'";
             $query = $conn->prepare($sql)->execute();
 
             // Untuk user yang melakukan aksi tidak dikirimkan notifikasi
-            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND idNotification = ".$idNotification[0]['id']; 
+            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND randomIdNotification = '".$randomId."'"; 
             $query = $conn->prepare($sql)->execute();
         }
 

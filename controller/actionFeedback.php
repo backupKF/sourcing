@@ -8,8 +8,9 @@
         header('http/1.1 403 forbidden');
     }
 
-    // Kondisi untuk mengelola feedback document requirement
+    // Kondisi untuk meng-handle feedback document requirement
     if(isset($_POST['feedbackDocReq'])){
+        //Mengambil data dan memformat data
         $CoA = trim(strip_tags($_POST['CoA']));
         $MSDS = trim(strip_tags($_POST['MSDS']));
         $MoA = trim(strip_tags($_POST['MoA']));
@@ -21,25 +22,42 @@
 
         // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
-
+            // Jika id feedback doc req ditemukan
             if(!empty($idFeedbackDocReq)){
-                $sql = "UPDATE TB_FeedbackDocReq SET CoA = ?, MSDS = ?, MoA = ?, Halal = ?, DMF = ?, GMP = ? WHERE id = ?";
-                $query = $conn->prepare($sql);
-                $update = $query->execute(array($CoA, $MSDS, $MoA, $Halal, $DMF, $GMP, $idFeedbackDocReq));
+                // Handle Update Data Feedback Doc Req To Database Tabel TB_FeedbackDocReq
+                try{
+                    $sql = "UPDATE TB_FeedbackDocReq SET CoA = ?, MSDS = ?, MoA = ?, Halal = ?, DMF = ?, GMP = ? WHERE id = ?";
+                    $query = $conn->prepare($sql);
+                    $update = $query->execute(array($CoA, $MSDS, $MoA, $Halal, $DMF, $GMP, $idFeedbackDocReq));
+                }catch(Exception $e){
+                    $response = array(
+                        "status" => 1,
+                        "message" => "Data tidak dapat disimpan!",
+                    );
+                }
             }else{
-                $sql = "INSERT INTO TB_FeedbackDocReq (CoA, MSDS, MoA, Halal, DMF, GMP, idSupplier) 
-                VALUES (?,?,?,?,?,?,?)";
-                $params = array(
-                    $CoA,
-                    $MSDS,
-                    $MoA,
-                    $Halal,
-                    $DMF,
-                    $GMP,
-                    $idSupplier,
-                );
-                $query = $conn->prepare($sql);
-                $insert = $query->execute($params);
+                // Jika id feedback doc req tidak ditemukan
+                // Handle Add Data Feedback Doc Req To Database Tabel TB_FeedbackDocReq
+                try{
+                     $sql = "INSERT INTO TB_FeedbackDocReq (CoA, MSDS, MoA, Halal, DMF, GMP, idSupplier) 
+                    VALUES (?,?,?,?,?,?,?)";
+                    $params = array(
+                        $CoA,
+                        $MSDS,
+                        $MoA,
+                        $Halal,
+                        $DMF,
+                        $GMP,
+                        $idSupplier,
+                    );
+                    $query = $conn->prepare($sql);
+                    $insert = $query->execute($params);
+                }catch(Exception $e){
+                    $response = array(
+                        "status" => 1,
+                        "message" => "Data tidak dapat disimpan!",
+                    );
+                }
             }
     
             // Send Notifikasi
@@ -58,8 +76,9 @@
         echo json_encode($response);
     }
 
-    // Kondisi untuk mengelola feedback Rnd
+    // Kondisi untuk meng-handle feedback rnd
     if(isset($_POST['feedbackRnd'])){
+        //Mengambil data dan memformat data
         $priceReview = trim(strip_tags($_POST['priceReview']));
         $dateFeedback = date("Y-m-d");
         $sampel = trim(strip_tags($_POST['sampel']));
@@ -68,24 +87,41 @@
 
         // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
-
+            // Kondisi untuk meng-handle price review
             if($priceReview){
-                $sql = "UPDATE TB_Supplier SET feedbackRndPriceReview = ? WHERE id = ?";
-                $query = $conn->prepare($sql);
-                $update = $query->execute(array($priceReview, $idSupplier));
+                // Handle Update Data Feedback Rnd Price Review To Database Tabel TB_Supplier
+                try{
+                    $sql = "UPDATE TB_Supplier SET feedbackRndPriceReview = ? WHERE id = ?";
+                    $query = $conn->prepare($sql);
+                    $update = $query->execute(array($priceReview, $idSupplier));
+                }catch(Exception $e){
+                    $response = array(
+                        "status" => 1,
+                        "message" => "Data tidak dapat disimpan!",
+                    );
+                }
             }
             
+            // Kondisi untuk menghandle sampel
             if($sampel){
-                $sql = "INSERT INTO TB_DetailFeedbackRnd (dateFeedback, sampel, writer, idSupplier) 
-                VALUES (?,?,?,?)";
-                $params = array(
-                    $dateFeedback,
-                    $sampel,
-                    $writer,
-                    $idSupplier,
-                );
-                $query = $conn->prepare($sql);
-                $insert = $query->execute($params);
+                // Handle Update Data Detail Feedback Rnd To Database Tabel TB_DetailFeedbackRnd
+                try{
+                    $sql = "INSERT INTO TB_DetailFeedbackRnd (dateFeedback, sampel, writer, idSupplier) 
+                    VALUES (?,?,?,?)";
+                    $params = array(
+                        $dateFeedback,
+                        $sampel,
+                        $writer,
+                        $idSupplier,
+                    );
+                    $query = $conn->prepare($sql);
+                    $insert = $query->execute($params);
+                }catch(Exception $e){
+                    $response = array(
+                        "status" => 1,
+                        "message" => "Data tidak dapat disimpan!",
+                    );
+                }
             }
 
             // Send Notifikasi
@@ -104,8 +140,9 @@
         echo json_encode($response);
     }
 
-    // Kondisi untuk mengelola feedback proc
+    // Kondisi untuk meng-handle feedback proc
     if(isset($_POST['feedbackProc'])){
+        //Mengambil data dan memformat data
         $dateFeedback = date("Y-m-d");
         $feedback = trim(strip_tags($_POST['feedback']));
         $writer = $_SESSION['user']['name'];
@@ -113,17 +150,24 @@
         
         // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
-
-            $sql = "INSERT INTO TB_FeedbackProc (dateFeedbackProc, feedback, writer, idSupplier) 
-            VALUES (?,?,?,?)";
-            $params = array(
-                $dateFeedback,
-                $feedback,
-                $writer,
-                $idSupplier,
-            );
-            $query = $conn->prepare($sql);
-            $insert = $query->execute($params);
+            // Handle Update Data Feedback Proc To Database Tabel TB_FeedbackProc
+            try{
+                $sql = "INSERT INTO TB_FeedbackProc (dateFeedbackProc, feedback, writer, idSupplier) 
+                VALUES (?,?,?,?)";
+                $params = array(
+                    $dateFeedback,
+                    $feedback,
+                    $writer,
+                    $idSupplier,
+                );
+                $query = $conn->prepare($sql);
+                $insert = $query->execute($params);
+            }catch(Exception $e){
+                $response = array(
+                    "status" => 1,
+                    "message" => "Data tidak dapat disimpan!",
+                );
+            }
 
             // Send Notifikasi
             if($insert == true){
@@ -141,9 +185,9 @@
         echo json_encode($response);
     }
 
-    // Kondisi untuk menngelola final feedback Rnd
+    // Kondisi untuk meng-handle final feedback rnd
     if(isset($_POST['formFinalFeedbackRnd'])){
-        // Check Input Final Feedback Rnd
+        //Mengambil data dan memformat data
         $finalFeedbackRnd = trim(strip_tags($_POST['finalFeedbackRnd']));
         $dateFinalFeedbackRnd = date("Y-m-d");
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
@@ -151,18 +195,25 @@
 
         // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
+            // Handle Update Data Final Feedback Rnd To Database Tabel TB_Supplier
+            try{
+                $sql = "UPDATE TB_Supplier SET dateFinalFeedbackRnd = ?, finalFeedbackRnd = ?, writerFinalFeedbackRnd = ? WHERE id = ?";
+                $query = $conn->prepare($sql);
+                $update = $query->execute(array($dateFinalFeedbackRnd, $finalFeedbackRnd, $writerFinalFeedbackRnd, $idSupplier));
 
-            $sql = "UPDATE TB_Supplier SET dateFinalFeedbackRnd = ?, finalFeedbackRnd = ?, writerFinalFeedbackRnd = ? WHERE id = ?";
-            $query = $conn->prepare($sql);
-            $update = $query->execute(array($dateFinalFeedbackRnd, $finalFeedbackRnd, $writerFinalFeedbackRnd, $idSupplier));
-
-            if($update == true){
-                $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                $response = sendNotification("Final Feeedback Rnd berhasil diperbaharui!", $dataSupplier[0]['supplier'], "memperbaharui Final Feedback R&D, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
-            }else{
+                if($update == true){
+                    $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
+                    $response = sendNotification("Final Feeedback Rnd berhasil diperbaharui!", $dataSupplier[0]['supplier'], "memperbaharui Final Feedback R&D, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                }else{
+                    $response = array(
+                        "status" => 0,
+                        "message" => "Terjadi kesalahan saat memperbaharui Feedback!",
+                    );
+                }
+            }catch(Exception $e){
                 $response = array(
-                    "status" => 0,
-                    "message" => "Terjadi kesalahan saat memperbaharui Feedback!",
+                    "status" => 1,
+                    "message" => "Data tidak dapat disimpan!",
                 );
             }
 
@@ -224,7 +275,7 @@
                 $query = $conn->prepare($sql)->execute($params);
             }
             // Untuk user yang melakukan aksi tidak dikirimkan notifikasi
-            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND idNotification = ".$idNotification[0]['id']; 
+            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND randomIdNotification = '".$randomId."'"; 
             $query = $conn->prepare($sql)->execute();
         }
 

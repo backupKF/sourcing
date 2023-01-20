@@ -8,14 +8,9 @@
         header('http/1.1 403 forbidden');
     }
 
-    // Response Error
-    $response = array (
-        "status" => 1,
-        "message" => "Gagal menyimpan data!",
-    );
-
-    // System Update Material
+    // Kondisi untuk meng-handle mengedit material
     if(isset($_POST['editMaterial'])){
+        //Mengambil data dan memformat data
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
         $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
         $materialCategory = trim(strip_tags($_POST['materialCategory']));
@@ -30,6 +25,7 @@
         $vendor = trim(strip_tags($_POST['vendor']));
         $documentReq = trim(strip_tags($_POST['documentReq']));
 
+        // Variabel untuk pengecekan data material
         $checkValue = $conn->query("SELECT materialCategory, materialName, materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, priority, vendor, documentReq FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll();
         $changeMaterialCategory = "";
         $changeMaterialName = "";
@@ -43,7 +39,7 @@
         $changeVendor = "";
         $changeDocumentReq = "";
 
-        // Check apakah data material tersedia atau tidak
+        // Check apakah data material tersedia
         if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
             // Check and Validation Material Category
             if(!empty($materialCategory)){
@@ -146,11 +142,11 @@
     
            
             // Kondisi dimana ada data priority dan vendor
-            if(isset($priority) && isset($vendor)){
-                // // Check and Validation Priority
+            if(!empty($priority) || !empty($vendor)){
+                // Check and Validation Priority
                 if(!empty($priority)){
                     if($priority != $checkValue[0]['priority']){
-                        $changePriority = " priority,";
+                        $changePriority = " Priority,";
                     }else{
                         $changePriority = "";
                     }
@@ -168,29 +164,48 @@
                 }else{
                     $vendor = "-";
                 }
-    
-                $sql = "UPDATE TB_PengajuanSourcing SET materialCategory = ?, materialName = ?, priority = ?, materialSpesification = ?, catalogOrCasNumber = ?, company = ?, website = ?, finishDossageForm = ?, keterangan = ?, vendor = ?, documentReq = ? WHERE id = ?";
-                $query = $conn->prepare($sql);
-                $update = $query->execute(array($materialCategory, $materialName, $priority, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $vendor, $documentReq, $idMaterial));
-    
-                $message = "memperbaharui data material : ".$changeMaterialCategory.$changeMaterialName.$changePriority.$changeMaterialSpesification.$changeCatalogOrCasNumber.$changeCompany.$changeWebsite.$changeFinishDossageForm.$changeKeterangan.$changeVendor.$changeDocumentReq." pada material sourcing : ";
-    
-                //Create Notification
-                if($update == true){
-                    $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), $message, NULL, $idMaterial, NULL, NULL);
+                
+                // Handle Update Data Material Sourcing To Database Tabel TB_PengajuanSourcing
+                try{
+                    $sql = "UPDATE TB_PengajuanSourcing SET materialCategory = ?, materialName = ?, priority = ?, materialSpesification = ?, catalogOrCasNumber = ?, company = ?, website = ?, finishDossageForm = ?, keterangan = ?, vendor = ?, documentReq = ? WHERE id = ?";
+                    $query = $conn->prepare($sql);
+                    $update = $query->execute(array($materialCategory, $materialName, $priority, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $vendor, $documentReq, $idMaterial));
+        
+                    $message = "memperbaharui data material : ".$changeMaterialCategory.$changeMaterialName.$changePriority.$changeMaterialSpesification.$changeCatalogOrCasNumber.$changeCompany.$changeWebsite.$changeFinishDossageForm.$changeKeterangan.$changeVendor.$changeDocumentReq." pada material sourcing : ";
+        
+                    //Create Notification
+                    if($update == true){
+                        $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), $message, NULL, $idMaterial, NULL, NULL);
+                    }
+                }catch(Exception $e){
+                    $response = array(
+                        "status" => 1,
+                        "message" => "Data tidak dapat disimpan!",
+                    );
                 }
+                
     
             }else{
-                $sql = "UPDATE TB_PengajuanSourcing SET materialCategory = ?, materialName = ?, materialSpesification = ?, catalogOrCasNumber = ?, company = ?, website = ?, finishDossageForm = ?, keterangan = ?, documentReq = ? WHERE id = ?";
-                $query = $conn->prepare($sql);
-                $update = $query->execute(array($materialCategory, $materialName, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $documentReq, $idMaterial));
-            
-                $message = "memperbaharui data riwayat : ".$changeMaterialCategory.$changeMaterialName.$changeMaterialSpesification.$changeCatalogOrCasNumber.$changeCompany.$changeWebsite.$changeFinishDossageForm.$changeKeterangan.$changeDocumentReq.". Pada material sourcing : ";
-    
-                //Create Notification
-                if($update == true){
-                    $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), $message, $sourcingNumber, $idMaterial, NULL, true);
+
+                // Handle Update Data Material Riwayat To Database Tabel TB_PengajuanSourcing
+                try{
+                    $sql = "UPDATE TB_PengajuanSourcing SET materialCategory = ?, materialName = ?, materialSpesification = ?, catalogOrCasNumber = ?, company = ?, website = ?, finishDossageForm = ?, keterangan = ?, documentReq = ? WHERE id = ?";
+                    $query = $conn->prepare($sql);
+                    $update = $query->execute(array($materialCategory, $materialName, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $documentReq, $idMaterial));
+                
+                    $message = "memperbaharui data riwayat : ".$changeMaterialCategory.$changeMaterialName.$changeMaterialSpesification.$changeCatalogOrCasNumber.$changeCompany.$changeWebsite.$changeFinishDossageForm.$changeKeterangan.$changeDocumentReq.". Pada material sourcing : ";
+        
+                    //Create Notification
+                    if($update == true){
+                        $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), $message, $sourcingNumber, $idMaterial, NULL, true);
+                    }
+                }catch(Exception $e){
+                    $response = array(
+                        "status" => 1,
+                        "message" => "Data tidak dapat disimpan!",
+                    );
                 }
+
             }
 
         }else{
@@ -205,21 +220,30 @@
         exit();
     }
 
-    // Action Update Status Material
+    // Kondisi untuk meng-handle mengedit status sourcing
     if(isset($_POST['statusSourcing'])){
+        // Mengambil dan memformat data
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
         $statusSourcing = trim(strip_tags($_POST['statusSourcing']));
 
         // Check apakah data material tersedia atau tidak
         if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
-            $sql = "UPDATE TB_PengajuanSourcing SET statusSourcing = ? WHERE id = ?";
-            $query = $conn->prepare($sql);
-            $update = $query->execute(array($statusSourcing, $idMaterial));
+            // Handle Update Data Status Sourcing To Database Tabel TB_PengajuanSourcing
+            try{
+                $sql = "UPDATE TB_PengajuanSourcing SET statusSourcing = ? WHERE id = ?";
+                $query = $conn->prepare($sql);
+                $update = $query->execute(array($statusSourcing, $idMaterial));
 
-            //Send Notification
-            if($update == true){
-                $response = sendNotification("Status Sourcing berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui status sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
+                //Send Notification
+                if($update == true){
+                    $response = sendNotification("Status Sourcing berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui status sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
+                }
+            }catch(Exception $e){
+                $response = array(
+                    "status" => 1,
+                    "message" => "Data tidak dapat disimpan!",
+                );
             }
 
         }else{
@@ -233,8 +257,9 @@
         exit();
     }
 
-    // Kondisi saat mengisi sumary report
+    // Kondisi untuk meng-handle mengedit sumary report
     if(isset($_POST['sumaryReport'])){
+        // Mengambil data dan memformat data
         $dateSumaryReport = date("Y-m-d");
         $sumaryReport = trim(strip_tags($_POST['sumaryReport']));
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
@@ -242,13 +267,21 @@
         // Check apakah data material tersedia atau tidak
         if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
-            $sql = "UPDATE TB_PengajuanSourcing SET dateSumaryReport = ?, sumaryReport = ? WHERE id = ?";
-            $query = $conn->prepare($sql);
-            $update = $query->execute(array($dateSumaryReport, $sumaryReport, $idMaterial));
+            // Handle Update Data Sumary Report To Database Tabel TB_PengajuanSourcing
+            try{
+                $sql = "UPDATE TB_PengajuanSourcing SET dateSumaryReport = ?, sumaryReport = ? WHERE id = ?";
+                $query = $conn->prepare($sql);
+                $update = $query->execute(array($dateSumaryReport, $sumaryReport, $idMaterial));
 
-            //Send Notification
-            if($update == true){
-                $response = sendNotification("Summary Report berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui sumary repory sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
+                //Send Notification
+                if($update == true){
+                    $response = sendNotification("Summary Report berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui sumary repory sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
+                }
+            }catch(Exception $e){
+                $response = array(
+                    "status" => 1,
+                    "message" => "Data tidak dapat disimpan!",
+                );
             }
 
         }else{
@@ -262,21 +295,30 @@
         exit();
     }
 
-    // kondisi saat menghapus material
+    // Kondisi untuk meng-handle menghapus material riwayat
     if(isset($_GET['actionType'])){
+        // Mengambil data dan memformat data
         $idMaterial = trim(strip_tags($_GET['idMaterial']));
         $materialName = trim(strip_tags($_GET['materialName']));
 
         // Check apakah data material tersedia atau tidak
         if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
-            $sql = "DELETE FROM TB_PengajuanSourcing WHERE id = ?";
-            $query = $conn->prepare($sql);
-            $delete = $query->execute(array($idMaterial));
+            // Handle Delete Data Naterial Riwayat To Database Tabel TB_PengajuanSourcing
+            try{
+                $sql = "DELETE FROM TB_PengajuanSourcing WHERE id = ?";
+                $query = $conn->prepare($sql);
+                $delete = $query->execute(array($idMaterial));
 
-            //Send Notification
-            if($delete == true){
-                $response = sendNotification("Material Berhasil Di Hapus!!", $materialName, "menghapus riwayat sourcing, Material : ", NULL, NULL, NULL, true);
+                //Send Notification
+                if($delete == true){
+                    $response = sendNotification("Material Berhasil Di Hapus!!", $materialName, "menghapus riwayat sourcing, Material : ", NULL, NULL, NULL, true);
+                }
+            }catch(Exception $e){
+                $response = array(
+                    "status" => 1,
+                    "message" => "Data tidak dapat disimpan!",
+                );
             }
 
         }else{
@@ -291,7 +333,9 @@
         exit();
     }
 
+    // Kondisi untuk meng-handle mengedit feedback team leader
     if(isset($_POST['feedbackTL'])){
+        // Mengambil data dan memformat data
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
         $feedbackTL = trim(strip_tags($_POST['feedbackTL']));
         $dateApprovedTL = date("Y-m-d");
@@ -300,13 +344,21 @@
         // Check apakah data material tersedia atau tidak
         if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
-            $sql = "UPDATE TB_PengajuanSourcing SET feedbackTL = ?, dateApprovedTL = ? WHERE id = ?";
-            $query = $conn->prepare($sql);
-            $update = $query->execute(array($feedbackTL, $dateApprovedTL, $idMaterial));
+            // Handle Update Data Feedback Team Leader To Database Tabel TB_PengajuanSourcing
+            try{
+                $sql = "UPDATE TB_PengajuanSourcing SET feedbackTL = ?, dateApprovedTL = ? WHERE id = ?";
+                $query = $conn->prepare($sql);
+                $update = $query->execute(array("$feedbackTL", $dateApprovedTL, $idMaterial));
 
-            //Send Notification
-            if($update == true){
-                $response = sendNotification("Feedback Team Leader Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback Team Leader, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+                //Send Notification
+                if($update == true){
+                    $response = sendNotification("Feedback Team Leader Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback Team Leader, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+                }
+            }catch(Exception $e){
+                $response = array(
+                    "status" => 1,
+                    "message" => "Data tidak dapat disimpan!",
+                );
             }
 
         }else{
@@ -321,7 +373,9 @@
         exit();
     }
 
+    // Kondisi untuk meng-handle mengedit feedback RPIC
     if(isset($_POST['feedbackRPIC'])){
+        // Mengambil data dan memformat data
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
         $feedbackRPIC = trim(strip_tags($_POST['feedbackRPIC']));
         $dateAcceptedRPIC = date("Y-m-d");
@@ -330,13 +384,21 @@
         // Check apakah data material tersedia atau tidak
         if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
-            $sql = "UPDATE TB_PengajuanSourcing SET feedbackRPIC = ?, dateAcceptedRPIC = ? WHERE id = ?";
-            $query = $conn->prepare($sql);
-            $update = $query->execute(array($feedbackRPIC, $dateAcceptedRPIC, $idMaterial));
+            // Handle Update Data Feedback RPIC To Database Tabel TB_PengajuanSourcing
+            try{
+                $sql = "UPDATE TB_PengajuanSourcing SET feedbackRPIC = ?, dateAcceptedRPIC = ? WHERE id = ?";
+                $query = $conn->prepare($sql);
+                $update = $query->execute(array($feedbackRPIC, $dateAcceptedRPIC, $idMaterial));
 
-            //Send Notification
-            if($update == true){
-                $response = sendNotification("Feedback RPIC Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback RPIC, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+                //Send Notification
+                if($update == true){
+                    $response = sendNotification("Feedback RPIC Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback RPIC, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+                }
+            }catch(Exception $e){
+                $response = array(
+                    "status" => 1,
+                    "message" => "Data tidak dapat disimpan!",
+                );
             }
 
         }else{
@@ -351,7 +413,9 @@
         exit();
     }
 
+    // Kondisi untuk meng-handle mengedit status riwayat
     if(isset($_POST['statusRiwayat'])){
+        // Mengambil data dan memformat data
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
         $statusRiwayat = trim(strip_tags($_POST['statusRiwayat']));
         $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
@@ -359,13 +423,21 @@
         // Check apakah data material tersedia atau tidak
         if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
-            $sql = "UPDATE TB_PengajuanSourcing SET statusRiwayat = ? WHERE id = ?";
-            $query = $conn->prepare($sql);
-            $update = $query->execute(array($statusRiwayat, $idMaterial));
+            // Handle Update Data Status Riwayat To Database Tabel TB_PengajuanSourcing
+            try{
+                $sql = "UPDATE TB_PengajuanSourcing SET statusRiwayat = ? WHERE id = ?";
+                $query = $conn->prepare($sql);
+                $update = $query->execute(array($statusRiwayat, $idMaterial));
 
-            //Send Notification
-            if($update == true){
-                $response = sendNotification("Status Riwayat Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui status riwayat, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+                //Send Notification
+                if($update == true){
+                    $response = sendNotification("Status Riwayat Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui status riwayat, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+                }
+            }catch(Exception $e){
+                $response = array(
+                    "status" => 1,
+                    "message" => "Data tidak dapat disimpan!",
+                );
             }
 
         }else{
@@ -429,11 +501,11 @@
             }
             // Jika user level sama dengan 4, maka tidak akan dikirimkan status
             if($dontSendLevel4 == true){
-                $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE levelUser = 4";
+                $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE levelUser = 4 AND randomIdNotification = '".$randomId."'";
                 $query = $conn->prepare($sql)->execute();
             }
             // Untuk user yang melakukan aksi tidak dikirimkan notifikasi
-            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND idNotification = ".$idNotification[0]['id']; 
+            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND randomIdNotification = '".$randomId."'"; 
             $query = $conn->prepare($sql)->execute();
         }
 

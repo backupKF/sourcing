@@ -36,7 +36,7 @@
                     ?>
                         <div class="ms-1 my-2">
                             <!-- Tanggal Feedback Proc -->
-                            <div class="bg-success bg-opacity-75" style="width:95px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $dataProc['dateFeedbackProc']?></div>
+                            <div class="bg-success bg-opacity-75" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $dataProc['dateFeedbackProc']?></div>
                             <!-- Isi Feedback Proc -->
                             <div class="text-wrap" style="font-size:14px;font-family:poppinsMedium;"><?php echo $dataProc['feedback']?></div>
                             <!-- Penulis -->

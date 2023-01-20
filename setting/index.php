@@ -20,7 +20,7 @@ session_start();
 
     <style>
         .container{
-            margin-left:425px;
+            margin-left:450px;
             margin-top:50px;
         }
         .card{
@@ -33,7 +33,7 @@ session_start();
 <body style="overflow-x: hidden;">
     <!-- Sidebar -->
     <?php require "../sidebar.php" ?>
-
+    
     <!-- Navbar -->
     <?php require "../navbar.php"?>
     

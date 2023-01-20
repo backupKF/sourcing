@@ -19,7 +19,7 @@
     <span class="badge text-bg-info" style="font-size:15px;font-family:poppinsSemiBold"><?php echo $dataMaterial[0]['statusSourcing']?></span>
 </div>
  
-<form class="was-validated" id="formEditMaterial" autocomplete="off">
+<form class="was-validated" id="formEditMaterial<?php echo $dataMaterial[0]['id']?>" autocomplete="off">
     <!-- Material Category -->
     <label class="form-label" style="font-size:17px;font-family:poppinsBold">Material Category</label>
     <div class="row" style="font-size:15px;font-family:poppinsRegular">
@@ -336,7 +336,7 @@
         });
 
         // Listening event submit
-        document.getElementById("formEditMaterial").addEventListener('submit', event => {
+        document.getElementById("formEditMaterial<?php echo $dataMaterial[0]['id'] ?>").addEventListener('submit', event => {
             event.preventDefault();
             // actual logic, e.g. validate the form
             funcUpdateMaterialViewSourcing()
@@ -348,7 +348,7 @@
         $.ajax({
             type: "POST",
             url: "../controller/actionUpdateMaterial.php",
-            data: $('form#formEditMaterial').serialize()+'&editMaterial=true&idMaterial=<?php echo $_GET['idMaterial']?>',
+            data: $('form#formEditMaterial<?php echo $dataMaterial[0]['id'] ?>').serialize()+'&editMaterial=true&idMaterial=<?php echo $_GET['idMaterial']?>',
             dataType: 'json',
             success: function(response){
                 const Toast = Swal.mixin({

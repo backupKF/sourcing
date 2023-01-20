@@ -45,7 +45,7 @@
                     ?>
                         <div class="ms-1 my-2">
                             <!-- Tanggal Feedback Rnd -->
-                            <div class="bg-success bg-opacity-75" style="width:95px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $data['dateFeedback']?></div>
+                            <div class="bg-success bg-opacity-75" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $data['dateFeedback']?></div>
                             <!-- Isi Feedback Rnd -->
                             <div class="text-wrap" style="font-size:14px;font-family:poppinsMedium;"><?php echo $data['sampel']?></div>
                             <!-- Penulis -->

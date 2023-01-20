@@ -12,7 +12,7 @@
         <div class="nav navbar-nav navbar-right">
             <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                 <!-- Informasi jumlah notif yang baru dan belum dibaca -->
-                <span class="bg-danger text-center position-absolute d-none text-light count" style="border-radius:10px;width:20px;height:20px;font-size:15px;z-index:20;right:40px;bottom:25px"></span>
+                <span class="bg-danger text-light text-center position-absolute d-none count" style="border-radius:100%;min-width:20px;min-height:20px;font-size:13px;font-family:poppinsMedium;z-index:20;right:40px;bottom:25px"></span>
                 <!-- -- -->
                 
                 <ul class="navbar-nav" style="z-index:20">

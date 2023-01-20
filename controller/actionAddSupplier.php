@@ -6,17 +6,22 @@
     // me-forbidden jika tidak ada data POST atau GET yang masuk ke Halaman ini
     if(empty($_POST) && empty($_GET)){
         header('http/1.1 403 forbidden');
+        exit();
     }
 
+    // Kondisi untuk meng-handle data POST Set New Vendor
     if(isset($_POST['setNewVendor'])){
         echo json_encode($_POST['setNewVendor']);
+        exit();
     }
 
+    // Kondisi untuk meng-handle data POST Set Vendor
     if(isset($_POST['setVendor'])){
         echo json_encode($_POST['setVendor']);
+        exit();
     }
 
-    // Kondisi untuk mengelola tambah supplier
+    // Kondisi untuk meng-handle tambah supplier
     if(isset($_POST['addSupplier'])){
         // mengisi variabel dengan data POST
         $supplier = trim(strip_tags($_POST['supplier']));
@@ -28,6 +33,7 @@
         $documentInfo = trim(strip_tags($_POST['documentInfo']));
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
 
+        // Melakukan pengecekan data
         if(empty($manufacture)){
             $manufacture = '-';
         }
@@ -48,45 +54,13 @@
         }
         
         if(!empty($supplier)){
+            // Jika Nama Vendor Sudah Terdaftar
             if($conn->query("SELECT * FROM TB_MasterVendor WHERE vendorName = '".$supplier."'")->fetchAll()){
-                // Memasukan data supplier ke database
-                $sql = "INSERT INTO TB_Supplier (supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, idMaterial) 
-                VALUES (?,?,?,?,?,?,?,?)";
-                $params = array(
-                    $supplier,
-                    $manufacture,
-                    $originCountry,
-                    $leadTime,
-                    $catalogOrCasNumber,
-                    $gradeOrReference,
-                    $documentInfo,
-                    $idMaterial,
-                );
-                $query = $conn->prepare($sql);
-                $insert = $query->execute($params);
-
-                //Send Notification
-                if($insert == true){
-                    $materialName = $conn->query("SELECT materialName FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll();
-                    // Mengirim Notifikasi
-                    $response = sendNotification("Supplier behasil ditambahkan!!", $materialName[0]['materialName'], "menambahkan supplier material sourcing : ", NULL, $idMaterial, NULL);
-                }
-
-            }else{
-                // Memasukan data vendor ke database
-                $sqlAddVendor = "INSERT INTO TB_MasterVendor (vendorName) 
-                VALUES (?)";
-                $paramsAddVendor = array(
-                    $supplier
-                );
-                $queryAddVendor = $conn->prepare($sqlAddVendor);
-                $insertAddVendor =  $queryAddVendor->execute($paramsAddVendor);
-
-                if($insertAddVendor == true){
-                    // Memasukan data supplier ke database
-                    $sqlAddSupplier = "INSERT INTO TB_Supplier (supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, idMaterial) 
+                // Handle Add Data Supplier To Database Tabel TB_Supplier
+                try{
+                    $sql = "INSERT INTO TB_Supplier (supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, idMaterial) 
                     VALUES (?,?,?,?,?,?,?,?)";
-                    $paramsAddSupplier = array(
+                    $params = array(
                         $supplier,
                         $manufacture,
                         $originCountry,
@@ -96,14 +70,70 @@
                         $documentInfo,
                         $idMaterial,
                     );
-                    $queryAddSupplier = $conn->prepare($sqlAddSupplier);
-                    $insertAddSupplier = $queryAddSupplier->execute($paramsAddSupplier);
+                    $query = $conn->prepare($sql);
+                    $insert = $query->execute($params);
+                }catch(Exception $e){
+                    $response = array(
+                        "status" => 1,
+                        "message" => "Data tidak dapat disimpan!",
+                    );
+                }
 
-                    //Send Notification
-                    if($insertAddSupplier == true){
-                        $materialName = $conn->query("SELECT materialName FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll();
-                        // Mengirim Notifikasi
-                        $response = sendNotification("Supplier behasil ditambahkan!!", $materialName[0]['materialName'], "menambahkan supplier material sourcing : ", NULL, $idMaterial, NULL);
+                //Send Notification
+                if($insert == true){
+                    $materialName = $conn->query("SELECT materialName FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll();
+                    // Mengirim Notifikasi
+                    $response = sendNotification("Supplier behasil ditambahkan!!", $materialName[0]['materialName'], "menambahkan supplier material sourcing : ", NULL, $idMaterial, NULL);
+                }
+
+            }else{
+                // Jika nama vendor belum terdaftar
+                // Handle Add Data Vendor Name To Database Tabel TB_MasterVendor
+                try{
+                    $sqlAddVendor = "INSERT INTO TB_MasterVendor (vendorName) 
+                    VALUES (?)";
+                    $paramsAddVendor = array(
+                        $supplier
+                    );
+                    $queryAddVendor = $conn->prepare($sqlAddVendor);
+                    $insertAddVendor =  $queryAddVendor->execute($paramsAddVendor);
+                }catch(Exception $e){
+                    $response = array(
+                        "status" => 1,
+                        "message" => "Data tidak dapat disimpan!",
+                    );
+                }
+
+                // Jika InsertAddVendor Berhasil
+                if($insertAddVendor == true){
+                    // Handle Update Data Supplier To Database Tabel TB_Supplier
+                    try{
+                        $sqlAddSupplier = "INSERT INTO TB_Supplier (supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, idMaterial) 
+                        VALUES (?,?,?,?,?,?,?,?)";
+                        $paramsAddSupplier = array(
+                            $supplier,
+                            $manufacture,
+                            $originCountry,
+                            $leadTime,
+                            $catalogOrCasNumber,
+                            $gradeOrReference,
+                            $documentInfo,
+                            $idMaterial,
+                        );
+                        $queryAddSupplier = $conn->prepare($sqlAddSupplier);
+                        $insertAddSupplier = $queryAddSupplier->execute($paramsAddSupplier);
+
+                        //Send Notification
+                        if($insertAddSupplier == true){
+                            $materialName = $conn->query("SELECT materialName FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll();
+                            // Mengirim Notifikasi
+                            $response = sendNotification("Supplier behasil ditambahkan!!", $materialName[0]['materialName'], "menambahkan supplier material sourcing : ", NULL, $idMaterial, NULL);
+                        }
+                    }catch(Exception $e){
+                        $response = array(
+                            "status" => 1,
+                            "message" => "Data tidak dapat disimpan!",
+                        );
                     }
                 }
             }
@@ -115,6 +145,7 @@
         }
 
         echo json_encode($response);
+        exit();
     }
 
       // Function For Send Nofitication
@@ -164,7 +195,7 @@
                 $query = $conn->prepare($sql)->execute($params);
             }
             // Untuk user yang melakukan aksi tidak dikirimkan notifikasi
-            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND idNotification = ".$idNotification[0]['id']; 
+            $sql = "UPDATE TB_StatusNotifications SET notifStatus = 1, readingStatus = 1 WHERE idUser = ".$_SESSION['user']['id']." AND randomIdNotification = '".$randomId."'"; 
             $query = $conn->prepare($sql)->execute();
         }
 
