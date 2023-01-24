@@ -31,7 +31,7 @@
         $finishDossageForm = trim(strip_tags($_POST['finishDossageForm']));
         $keterangan = trim(strip_tags($_POST['keterangan']));
         $documentReq = trim(strip_tags($_POST['documentReq']));
-        $setProject = trim(strip_tags($_POST['setProject']));
+        $projectCode = trim(strip_tags($_POST['projectCode']));
 
         // Melakukan pengecekan data
         if(empty($materialCategory)) {
@@ -73,11 +73,11 @@
                     "finishDossageForm" => $finishDossageForm,
                     "keterangan" => $keterangan,
                     "documentReq" => $documentReq,
-                    "projectCode" => $setProject,
+                    "projectCode" => $projectCode,
                 ];
                 
         $materials[] = $newDataMaterial;
-        $_SESSION['project'] = $setProject;
+        $_SESSION['project'] = $projectCode;
         $_SESSION['materials'] = $materials;
 
         header('Location: ../pengajuan/index.php');

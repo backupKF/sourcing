@@ -38,7 +38,7 @@
         <!-- Cek apakah user sudah memilih project -->
         <?php if(isset($_SESSION['project'])){?>
         <!-- Form Tambah Pengajuan Sourcing-->
-            <button class="btn btn-outline-primary btn-sm mt-1 mb-3 ms-1" type="button" data-bs-target="#tambahMaterial" data-bs-toggle="modal">
+            <button class="btn btn-outline-primary btn-sm mt-1 mb-3 ms-1" type="button" data-bs-target="#modalTambahMaterial" data-bs-toggle="modal">
                 Tambah Data Material
             </button>
         <?php 

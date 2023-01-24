@@ -530,30 +530,40 @@
 
     // Send data to Action Update Supplier for Delete Detail Supplier
     function funcDeleteDetailInfo(idDetailSupplier, idSupplier){
-        $.ajax({
-            type: 'GET',
-            url: '../controller/actionUpdateSupplier.php',
-            data:{idDetailSupplier: idDetailSupplier, actionType: "delete", idSupplier: idSupplier},
-            dataType: 'json',
-            success: function(response){
-                const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'bottom-end',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
+        Swal.fire({
+            title: 'Apakah anda yakin untuk detail MoU, UoM, Price?',
+            showDenyButton: true,
+            confirmButtonText: 'Ya',
+            denyButtonText: `Tidak`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'GET',
+                    url: '../controller/actionUpdateSupplier.php',
+                    data:{idDetailSupplier: idDetailSupplier, actionType: "delete", idSupplier: idSupplier},
+                    dataType: 'json',
+                    success: function(response){
+                        const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
 
-                    Toast.fire({
-                        icon: response.status == 0?'success':'warning',
-                        title: response.message
-                    })
+                            Toast.fire({
+                                icon: response.status == 0?'success':'warning',
+                                title: response.message
+                            })
 
-                loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+                        loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+                    }
+                })
             }
         })
     }

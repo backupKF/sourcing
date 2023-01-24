@@ -44,6 +44,12 @@
             #check:checked ~ .container .card{
                 width:1160px;
             }
+
+            /* CSS Alert */
+            .swal2-title{
+                font-family:poppinsMedium;
+                font-size:25px;
+            }
         </style>
 
     </head>

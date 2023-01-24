@@ -7,7 +7,7 @@
 ?>
 
 <!-- Modal Add Material -->
-<div class="modal" id="tambahMaterial<?php echo $row['id']; ?>" data-bs-backdrop="static">
+<div class="modal" id="modalTambahMaterial" data-bs-backdrop="static">
     <div class="modal-dialog modal-sm modal-dialog-scrollable">
         <div class="modal-content" style="width: 500px;">
 
@@ -18,7 +18,7 @@
                     
             <!-- Modal Body -->
             <div class="modal-body">
-                <form action="../controller/actionPengajuan.php" method="POST" class="was-validated" id="tambahMaterial<?php echo $_SESSION['project'] ?>" autocomplete="off">
+                <form action="../controller/actionPengajuan.php" method="POST" class="was-validated" id="formTambahMaterial<?php echo $_SESSION['project'] ?>" autocomplete="off">
                     <!-- Material Category -->
                     <label class="form-label">Material Category</label>
                     <div class="row">
@@ -120,14 +120,14 @@
                         </div>
                     </div>
                     <!-- Set Project -->
-                    <input type="hidden" name="setProject" value="<?php echo $_SESSION['project']?>">
+                    <input type="hidden" name="projectCode" value="<?php echo $_SESSION['project']?>">
                 </form>
             </div>
                         
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close">Back</button>
-                <input type="submit" value="submit" class="btn btn-primary" name="tambahDataMaterial" form="tambahMaterial<?php echo $_SESSION['project'] ?>">
+                <input type="submit" value="submit" class="btn btn-primary" name="tambahDataMaterial" form="formTambahMaterial<?php echo $_SESSION['project'] ?>">
             </div>
         </div>
     </div>

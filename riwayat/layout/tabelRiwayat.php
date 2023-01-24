@@ -344,29 +344,39 @@
 
     // Send data to Action Update Material for delete material
     function funcDeleteMaterial(idMaterial, materialName){
-        $.ajax({
-            type: 'GET',
-            url: '../controller/actionUpdateMaterial.php',
-            data:{ idMaterial: idMaterial, actionType: "delete", materialName: materialName },
-            dataType: 'json',
-            success: function(response){
-                const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'bottom-end',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
+        Swal.fire({
+            title: 'Apakah anda yakin untuk menghapus material ini?',
+            showDenyButton: true,
+            confirmButtonText: 'Ya',
+            denyButtonText: `Tidak`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'GET',
+                    url: '../controller/actionUpdateMaterial.php',
+                    data:{ idMaterial: idMaterial, actionType: "delete", materialName: materialName },
+                    dataType: 'json',
+                    success: function(response){
+                        const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
 
-                    Toast.fire({
-                        icon: response.status == 0?'success':'warning',
-                        title: response.message
-                    })
-                loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
+                            Toast.fire({
+                                icon: response.status == 0?'success':'warning',
+                                title: response.message
+                            })
+                        loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
+                    }
+                })
             }
         })
     }

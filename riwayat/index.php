@@ -83,6 +83,12 @@
                 font-family: 'poppinsBold';
                 background-color: #e0fcd9;
             }
+
+            /* CSS Alert */
+            .swal2-title{
+                font-family:poppinsMedium;
+                font-size:25px;
+            }
         </style>
     </head>
     <body>

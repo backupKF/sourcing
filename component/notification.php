@@ -79,14 +79,6 @@
                         ';
                     }
                 }
-
-                // Hapus otomatis notifikasi yang sudah dibaca semua oleh user
-                $checkReadingStatusUsers = $conn->query("SELECT count(readingStatus) FROM TB_StatusNotifications WHERE readingStatus = 1 AND idNotification =".$data['id'])->fetchAll();
-                $checkUsers = $conn->query("SELECT count(idUser) FROM TB_StatusNotifications WHERE idNotification =".$data['id'])->fetchAll();
-                if($checkReadingStatusUsers[0][0] == $checkUsers[0][0]){
-                    $sql = "DELETE FROM TB_Notifications WHERE id = ?";
-                    $query = $conn->prepare($sql)->execute(array($data['id']));
-                }
         }
 
         // Jika variabel output kosong maka, variabel output menampilkan pesan Not Found
