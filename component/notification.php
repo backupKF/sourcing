@@ -18,67 +18,68 @@
             $update = $query->execute();
         }
 
-        $notifications = $conn->query("SELECT * FROM TB_Notifications ORDER BY id DESC")->fetchAll();
+        // $notifications = $conn->query("SELECT * FROM TB_StatusNotifications INNER JOIN TB_Notifications ON TB_StatusNotifications.idNotification = TB_Notifications.id WHERE idUser=".$_SESSION['user']['id'])->fetchAll();
+        $notifications = $conn->query("SELECT * FROM TB_StatusNotifications INNER JOIN TB_Notifications ON TB_StatusNotifications.idNotification = TB_Notifications.id WHERE idUser=".$_SESSION['user']['id']." ORDER BY id DESC")->fetchAll();
         foreach($notifications as $data){
-                $checkNotif = $conn->query("SELECT readingStatus FROM TB_StatusNotifications INNER JOIN TB_Notifications ON TB_StatusNotifications.idNotification = TB_Notifications.id WHERE idUser=".$_SESSION['user']['id']." AND idNotification=".$data['id'])->fetchAll();
-                if(empty($checkNotif) || $checkNotif[0]['readingStatus'] == 0){
-                    if(!empty($data['sourcingNumber']) && empty($data['idMaterial']) && empty($data['idSupplier']) && $_SESSION['user']['level'] != 4){
-                        // Notifikasi untuk pengajuan sourcing
-                        $output .= '
-                            <div class="my-1">
-                                <strong>'.$data['person'].'</strong>
-                                <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
-                                <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
-                                <a href="../riwayat/index.php?rs='.$data['randomId'].'&sn='.$data['sourcingNumber'].'"><small>Lihat Selengkapnya...</small></a>
-                            </div>
-                            <hr>
-                        ';
-                    }else if(!empty($data['sourcingNumber']) && !empty($data['idMaterial']) && empty($data['idSupplier']) && $_SESSION['user']['level'] != 4){
-                        // Notifikasi untuk edit material riwayat, feedback tl, feedback rpic, edit status riwayat
-                        $output .= '
-                            <div class="my-1">
-                                <strong>'.$data['person'].'</strong>
-                                <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
-                                <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
-                                <a href="../riwayat/index.php?rs='.$data['randomId'].'&sn='.$data['sourcingNumber'].'&idMaterial='.$data['idMaterial'].'"><small>Lihat Selengkapnya...</small></a>
-                            </div>
-                            <hr>
-                        ';
-                    }else if(empty($data['sourcingNumber']) && !empty($data['idMaterial']) && empty($data['idSupplier'])){
-                        // Notifikasi untuk edit material sourcing, sumary report, status sourcing, tambah supplier
-                        $output .= '
-                            <div class="my-1">
-                                <strong>'.$data['person'].'</strong>
-                                <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
-                                <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
-                                <a href="../viewSourcing/detailSourcing.php?rs='.$data['randomId'].'&idMaterial='.$data['idMaterial'].'"><small>Lihat Selengkapnya...</small></a>
-                            </div>
-                            <hr>
-                        ';
-                    }else if(empty($data['sourcingNumber']) && !empty($data['idMaterial']) && !empty($data['idSupplier'])){
-                        // Notifikasi untuk supplier
-                        $output .= '
-                            <div class="my-1">
-                                <strong>'.$data['person'].'</strong>
-                                <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
-                                <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
-                                <a href="../viewSourcing/detailSourcing.php?rs='.$data['randomId'].'&idMaterial='.$data['idMaterial'].'&idSupplier='.$data['idSupplier'].'"><small>Lihat Selengkapnya...</small></a>
-                            </div>
-                            <hr>
-                        ';
-                    }else if($_SESSION['user']['level'] != 4){
-                        // Notifikasi untuk hapus material riwayat
-                        $output .= '
-                            <div class="my-1">
-                                <strong>'.$data['person'].'</strong>
-                                <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
-                                <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
-                                <a href="../riwayat/index.php?rs='.$data['randomId'].'"><small>Lihat Selengkapnya...</small></a>
-                            </div>
-                            <hr>
-                        ';
-                    }
+            // Check readingStatus
+            if($data['readingStatus'] == 0){
+                if(!empty($data['sourcingNumber']) && empty($data['idMaterial']) && empty($data['idSupplier']) && $_SESSION['user']['level'] != 4){
+                    // Notifikasi untuk pengajuan sourcing
+                    $output .= '
+                        <div class="my-1">
+                            <strong>'.$data['person'].'</strong>
+                            <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
+                            <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
+                            <a href="../riwayat/index.php?rs='.$data['randomId'].'&sn='.$data['sourcingNumber'].'"><small>Lihat Selengkapnya...</small></a>
+                        </div>
+                        <hr>
+                    ';
+                }else if(!empty($data['sourcingNumber']) && !empty($data['idMaterial']) && empty($data['idSupplier']) && $_SESSION['user']['level'] != 4){
+                    // Notifikasi untuk edit material riwayat, feedback tl, feedback rpic, edit status riwayat
+                    $output .= '
+                        <div class="my-1">
+                            <strong>'.$data['person'].'</strong>
+                            <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
+                            <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
+                            <a href="../riwayat/index.php?rs='.$data['randomId'].'&sn='.$data['sourcingNumber'].'&idMaterial='.$data['idMaterial'].'"><small>Lihat Selengkapnya...</small></a>
+                        </div>
+                        <hr>
+                    ';
+                }else if(empty($data['sourcingNumber']) && !empty($data['idMaterial']) && empty($data['idSupplier'])){
+                    // Notifikasi untuk edit material sourcing, sumary report, status sourcing, tambah supplier
+                    $output .= '
+                        <div class="my-1">
+                            <strong>'.$data['person'].'</strong>
+                            <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
+                            <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
+                            <a href="../viewSourcing/detailSourcing.php?rs='.$data['randomId'].'&idMaterial='.$data['idMaterial'].'"><small>Lihat Selengkapnya...</small></a>
+                        </div>
+                        <hr>
+                    ';
+                }else if(empty($data['sourcingNumber']) && !empty($data['idMaterial']) && !empty($data['idSupplier'])){
+                    // Notifikasi untuk supplier
+                    $output .= '
+                        <div class="my-1">
+                            <strong>'.$data['person'].'</strong>
+                            <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
+                            <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
+                            <a href="../viewSourcing/detailSourcing.php?rs='.$data['randomId'].'&idMaterial='.$data['idMaterial'].'&idSupplier='.$data['idSupplier'].'"><small>Lihat Selengkapnya...</small></a>
+                        </div>
+                        <hr>
+                    ';
+                }else if($_SESSION['user']['level'] != 4){
+                    // Notifikasi untuk hapus material riwayat
+                    $output .= '
+                        <div class="my-1">
+                            <strong>'.$data['person'].'</strong>
+                            <em>'.$data['message'].'<small><b>'.$data['subject'].'</b></small></em><br>
+                            <sub class="m-0"><i> ~ '.time_elapsed_string($data['created']).'</i></sub><br>
+                            <a href="../riwayat/index.php?rs='.$data['randomId'].'"><small>Lihat Selengkapnya...</small></a>
+                        </div>
+                        <hr>
+                    ';
                 }
+            }
         }
 
         // Jika variabel output kosong maka, variabel output menampilkan pesan Not Found

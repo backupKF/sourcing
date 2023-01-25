@@ -86,7 +86,7 @@
         // Fungsi untuk mereload data notif setiap 3 detik
         setInterval(() => {
             load_unseen_notification();
-        }, 3000);
+        }, 10000);
 
     })
 </script>

@@ -134,17 +134,6 @@ CREATE TABLE [dbo].[TB_StatusNotifications] (
     CONSTRAINT [FK_TB_StatusNotifications_TB_Notifications] FOREIGN KEY ([idNotification]) REFERENCES [dbo].[TB_Notifications] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Indexs Table Status Notifications
-GO
-CREATE NONCLUSTERED INDEX [Index_TB_StatusNotifications_2]
-    ON [dbo].[TB_StatusNotifications]([idNotification] ASC);
-
-
-GO
-CREATE NONCLUSTERED INDEX [Index_TB_StatusNotifications_1]
-    ON [dbo].[TB_StatusNotifications]([idNotification] ASC, [idUser] ASC);
--- 
-
 CREATE TABLE [dbo].[TB_Admin] (
     [id]         INT           IDENTITY (1, 1) NOT NULL,
     [username]   VARCHAR (50)  CONSTRAINT [DEFAULT_TB_Admin_username] DEFAULT ('') NOT NULL,
