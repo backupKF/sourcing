@@ -117,7 +117,7 @@
     function loadDataRiwayat(userLevel){
         $.ajax({
             type: 'GET',
-            url: 'layout/tabelRiwayat.php',
+            url: 'layout/tabelRiwayatServerSide.php',
             <?php
                 if(empty($_GET['sn']) && empty($_GET['idMaterial'])){
             ?>
