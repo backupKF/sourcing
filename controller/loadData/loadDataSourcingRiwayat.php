@@ -1,6 +1,9 @@
 <?php
     include "../../dbConfig.php";
 
+	// $nyobain = $conn->query("SELECT TB_PengajuanSourcing.id, materialName FROM TB_PengajuanSourcing WHERE feedbackRPIC = 1")->fetchAll();
+	// echo json_encode($nyobain);
+
     $params = $columns = $totalRecords = $data = array();
 
     $params = $_REQUEST;
@@ -10,8 +13,15 @@
     // check search value exist
 	if( !empty($params['search']['value']) ) {   
 		$where .=" WHERE ";
-		$where .=" materialCategory LIKE '".$params['search']['value']."%' ";    
+		$where .=" TB_PengajuanSourcing.sourcingNumber LIKE '".$params['search']['value']."%' ";
 		$where .=" OR materialName LIKE '".$params['search']['value']."%' ";
+		// $where .=" OR TB_Project.projectCode LIKE '".$params['search']['value']."%' ";
+		// $where .=" OR TB_Project.projectName LIKE '".$params['search']['value']."%' ";
+		$where .=" OR teamLeader LIKE '".$params['search']['value']."%' ";
+		$where .=" OR researcher LIKE '".$params['search']['value']."%' ";
+		$where .=" OR dateApprovedTL LIKE '".$params['search']['value']."%' ";
+		$where .=" OR dateAcceptedRPIC LIKE '".$params['search']['value']."%' ";
+		$where .=" OR statusRiwayat LIKE '".$params['search']['value']."%' ";
 	}
 
     // getting total number records without any search

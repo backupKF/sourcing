@@ -6,6 +6,18 @@
         header('Location: ../index.php');
     }
 ?>
+
+<style>
+    h5{
+        font-size:18px;
+        font-family:'poppinsSemiBold';
+    }
+    p{
+        font-size:14px;
+        font-family:'poppinsRegular';
+    }
+</style>
+
 <div class="card shadow bg-body rounded">
     <div class="card-body">
         <table id="table-riwayat1" class="table">
@@ -24,7 +36,7 @@
                     <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:120px" class="text-center">Date Approved TL</th>
                     <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:125px" class="text-center">Date Accepted RPIC</th>
                     <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Status</th>
-                    <!-- <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:180px" class="text-center">Action Material</th> -->
+                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:180px" class="text-center">Action Material</th>
                 </tr>
             </thead>
         </table>
@@ -43,9 +55,6 @@
             ajax: {
                 url: '../controller/loadData/loadDataSourcingRiwayat.php',
                 type: 'POST',
-                data: {
-                    userLevel: <?php echo $_GET['userLevel']?>
-                }
             },
             columns: [
                 {
@@ -119,10 +128,10 @@
                             return (
                                 '<form onclick="funcStatusRiwayat('+data.id+', `'+data.materialName+'`, '+data.sourcingNumber+')" id="formStatusRiwayat_'+data.id+'">'+
                                     '<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="statusRiwayat">'+
-                                        '<option '+data.statusRiwayat+' == "NO STATUS"?("selected":""); >NO STATUS</option>'+
-                                        '<option '+data.statusRiwayat+' == "ON PROCESS" ? "selected" : ""; value="ON PROCESS">ON PROCESS</option>'+
-                                        '<option '+data.statusRiwayat+' == "HOLD"?("selected":""); value="HOLD">HOLD</option>'+
-                                        '<option '+data.statusRiwayat+' == "CANCEL"?("selected":""); value="CANCEL">CANCEL</option>'+
+                                        '<option '+ (data.statusRiwayat == "NO STATUS" ? "selected":"") +' >NO STATUS</option>'+
+                                        '<option '+ (data.statusRiwayat == "ON PROCESS" ? "selected":"") +' value="ON PROCESS">ON PROCESS</option>'+
+                                        '<option '+ (data.statusRiwayat == "HOLD" ? "selected":"") +' value="HOLD">HOLD</option>'+
+                                        '<option '+ (data.statusRiwayat == "CANCEL" ? "selected":"") +' value="CANCEL">CANCEL</option>'+
                                    ' </select>'+
                                ' </form>'
                             )
@@ -131,12 +140,58 @@
                         }
                     }
                 },
-            ]
+                {
+                    data: function(data){
 
-            
+                        if(data.feedbackTL != 1){
+                            return (
+                                // Button
+                                '<div>'+
+                                    '<div class="text-center">'+
+                                        // Button Edit Material 
+                                        '<button class="btn btn-warning btn-sm d-inline ms-1" type="button" data-bs-target="#editMaterial'+data.id+'" data-bs-toggle="modal">Edit</button>'+
+                                        // Button View Material
+                                        '<button class="btn btn-success btn-sm d-inline ms-1" type="button" data-bs-target="#viewMaterial'+data.id+'" data-bs-toggle="modal">View</button>'+
+                                        // Jika user level == 1 
+                                        <?php 
+                                            if($_SESSION['user']['level'] == 1){ ?>  
+                                            // Button Delete
+                                            '<button class="btn btn-danger btn-sm d-inline ms-1" type="button" onclick="funcDeleteMaterial('+data.id+', `'+data.materialName+'`, '+data.sourcingNumber+')">Delete</a>'+
+                                        <?php } ?>
+                                    '</div>'+
+
+                                    '<!-- Modal Update Material -->'+
+                                    <?php include "../../component/modal/updateMaterialRiwayat.php"; ?>
+
+                                    '<!-- Modal View Material -->'+
+                                    <?php include "../../component/modal/viewMaterial.php"; ?>
+                                '</div>'
+                            ) 
+                        }else{
+                            return (
+                                // Button
+                                '<div>'+
+                                    '<div class="text-center">'+
+                                        // Button View Material
+                                        '<button class="btn btn-success btn-sm d-inline ms-1" type="button" data-bs-target="#viewMaterial'+data.id+'" data-bs-toggle="modal">View</button>'+
+                                        // Jika user level == 1 
+                                        <?php 
+                                            if($_SESSION['user']['level'] == 1){ ?>  
+                                            // Button Delete
+                                            '<button class="btn btn-danger btn-sm d-inline ms-1" type="button" onclick="funcDeleteMaterial('+data.id+', `'+data.materialName+'`, '+data.sourcingNumber+')">Delete</a>'+
+                                        <?php } ?>
+                                    '</div>'+
+
+                                    '<!-- Modal View Material -->'+
+                                    <?php include "../../component/modal/viewMaterial.php"; ?>
+                                '</div>'
+                            )
+                        }
+                    }
+                },
+            ]
         })
 
-        // CSS Table
         $('.dataTables_filter input[type="search"]').css(
             {
                 'height':'25px',
@@ -176,7 +231,57 @@
                 'font-family': 'poppinsSemiBold'
             }
         );
+
     });
+
+    // Set Format Form Update Material, if Material Category API
+    function formatFormAPI(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Ekstrak
+    function formatFormEkstrak(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Excipient
+    function formatFormExcipient(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Nasipre
+    function formatFormNasipre(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Packaging
+    function formatFormPackaging(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Intermediate
+    function formatFormIntermediate(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).removeAttr("disabled");
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Rapid Test
+    function formatFormRapidTest(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).removeAttr("disabled");
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).removeAttr("disabled");
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).removeAttr("disabled");
+    }
 
     // Send data to Action Update Material for feedback tl
     function funcFeedbackTL(idMaterial, materialName, sourcingNumber){
@@ -208,8 +313,6 @@
                 }
             })
         }
-
-    
 
     // Send data to Action Update Material for feedback rpic
     function funcFeedbackRPIC(idMaterial, materialName, sourcingNumber){
@@ -314,32 +417,38 @@
 
     // Send data to Action Update Material for update material
     function funcUpdateMaterial(idMaterial, sourcingNumber){
-        $.ajax({
-            type: "POST",
-            url: "../controller/actionUpdateMaterial.php",
-            data: $('form#formEditMaterial'+idMaterial).serialize()+'&editMaterial=true&idMaterial='+idMaterial+'&sourcingNumber='+sourcingNumber,
-            dataType: 'json',
-            success: function(response){
-                const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'bottom-end',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
+        // Check Submit
+        $("form#formEditMaterial"+idMaterial).submit(function(e){
+            e.preventDefault();
 
-                    Toast.fire({
-                        icon: response.status == 0?'success':'warning',
-                        title: response.message
-                    })
-                    
-                loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
-            }
-        })
-        $('#editMaterial'+idMaterial).modal('hide');
+            // actual logic, e.g. validate the form
+            $.ajax({
+                type: "POST",
+                url: "../controller/actionUpdateMaterial.php",
+                data: $('form#formEditMaterial'+idMaterial).serialize()+'&editMaterial=true&idMaterial='+idMaterial+'&sourcingNumber='+sourcingNumber,
+                dataType: 'json',
+                success: function(response){
+                    const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'bottom-end',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+
+                        Toast.fire({
+                            icon: response.status == 0?'success':'warning',
+                            title: response.message
+                        })
+                        
+                    loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
+                }
+            })
+            $('#editMaterial'+idMaterial).modal('hide');
+        });
     }
 </script>
