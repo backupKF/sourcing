@@ -54,7 +54,7 @@
                     data: "manufacture"
                 },
                 {
-                    data: "projectCode"
+                    data: "projectName"
                 },
                 {
                     data: "statusSourcing"
@@ -70,7 +70,7 @@
                                     '<div class="text-wrap pt-1" style="font-size:11px;font-family:poppinsMedium;">'+data.sampelFeedbackRnd+'</div>'+
                                 '</div>'+
                                 '<!-- Penulis -->'+
-                                '<div style="font-size:10px;font-family:poppinsBold;">'+data.writerFeedbackRnd+'</div>'
+                                '<div style="font-size:10px;font-family:poppinsBold;">By: '+data.writerFeedbackRnd+'</div>'
                             )
                         }else{
                             return '<div class="text-center">-</div>'
@@ -88,7 +88,7 @@
                                     '<div class="text-wrap p-1" style="font-size:11px;font-family:poppinsMedium;">'+data.feedbackProc+'</div>'+
                                 '</div>'+
                                 '<!-- Penulis -->'+
-                                '<div style="font-size:10px;font-family:poppinsBold;">'+data.writerFeedbackProc+'</div>'
+                                '<div style="font-size:10px;font-family:poppinsBold;">By: '+data.writerFeedbackProc+'</div>'
                             )
                         }else{
                             return '<div class="text-center">-</div>'
@@ -106,7 +106,7 @@
                                     '<div class="text-wrap pt-1" style="font-size:11px;font-family:poppinsMedium;">'+data.finalFeedbackRnd+'</div>'+
                                 '</div>'+
                                 '<!-- Penulis -->'+
-                                '<div style="font-size:10px;font-family:poppinsBold;">'+data.writerFinalFeedbackRnd+'</div>'
+                                '<div style="font-size:10px;font-family:poppinsBold;">By: '+data.writerFinalFeedbackRnd+'</div>'
                             )
                         }else{
                             return '<div class="text-center">-</div>'

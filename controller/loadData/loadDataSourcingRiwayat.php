@@ -1,22 +1,19 @@
 <?php
     include "../../dbConfig.php";
 
-	// $nyobain = $conn->query("SELECT TB_PengajuanSourcing.id, materialName FROM TB_PengajuanSourcing WHERE feedbackRPIC = 1")->fetchAll();
-	// echo json_encode($nyobain);
-
     $params = $columns = $totalRecords = $data = array();
 
     $params = $_REQUEST;
 
     $where = $sqlTot = $sqlRec = "";
 
-    // check search value exist
+    //check search value exist
 	if( !empty($params['search']['value']) ) {   
 		$where .=" WHERE ";
 		$where .=" TB_PengajuanSourcing.sourcingNumber LIKE '".$params['search']['value']."%' ";
 		$where .=" OR materialName LIKE '".$params['search']['value']."%' ";
-		// $where .=" OR TB_Project.projectCode LIKE '".$params['search']['value']."%' ";
-		// $where .=" OR TB_Project.projectName LIKE '".$params['search']['value']."%' ";
+		$where .=" OR TB_Project.projectCode LIKE '".$params['search']['value']."%' ";
+		$where .=" OR TB_Project.projectName LIKE '".$params['search']['value']."%' ";
 		$where .=" OR teamLeader LIKE '".$params['search']['value']."%' ";
 		$where .=" OR researcher LIKE '".$params['search']['value']."%' ";
 		$where .=" OR dateApprovedTL LIKE '".$params['search']['value']."%' ";
@@ -26,7 +23,7 @@
 
     // getting total number records without any search
 	$sql = "SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
-	$sqlTot = "SELECT count(*) FROM TB_PengajuanSourcing";
+	$sqlTot = "SELECT count(*) FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
 	$sqlRec .= $sql;
 
     //concatenate search sql if value exist

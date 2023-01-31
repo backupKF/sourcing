@@ -13,7 +13,7 @@
     <div class="row p-0">
       <!-- Card Status Done -->
       <div class="col-2">
-        <a href="tabelInfo.php?status=Done" style="text-decoration:none;color:black">
+        <a href="tabelInfoServerSide.php?status=Done" style="text-decoration:none;color:black">
           <div class="card shadow mb-3 bg-body rounded" style="height:105px">
             <div class="card-body p-0">
               <!-- Title -->
@@ -35,7 +35,7 @@
       </div>
       <!-- Card Status Open -->
       <div class="col-2">
-        <a href="tabelInfo.php?status=Open" style="text-decoration:none;color:black">
+        <a href="tabelInfoServerSide.php?status=Open" style="text-decoration:none;color:black">
           <div class="card shadow mb-3 bg-body rounded" style="height:105px">
             <div class="card-body p-0">
               <!-- Title -->
@@ -57,7 +57,7 @@
       </div>
       <!-- Status Re-Open -->
       <div class="col-2">
-        <a href="tabelInfo.php?status=Re-Open" style="text-decoration:none;color:black">
+        <a href="tabelInfoServerSide.php?status=Re-Open" style="text-decoration:none;color:black">
           <div class="card shadow mb-3 bg-body rounded" style="height:105px">
             <div class="card-body p-0">
               <!-- Title -->
@@ -79,7 +79,7 @@
       </div>
       <!-- Status Drop -->
       <div class="col-2">
-        <a href="tabelInfo.php?status=Drop" style="text-decoration:none;color:black">
+        <a href="tabelInfoServerSide.php?status=Drop" style="text-decoration:none;color:black">
           <div class="card shadow mb-3 bg-body rounded" style="height:105px">
             <div class="card-body p-0">
               <!-- Title -->
@@ -101,7 +101,7 @@
       </div>
       <!-- Status Not Yet -->
       <div class="col-2">
-        <a href="tabelInfo.php?status=Not Yet" style="text-decoration:none;color:black">
+        <a href="tabelInfoServerSide.php?status=Not Yet" style="text-decoration:none;color:black">
           <div class="card shadow mb-3 bg-body rounded" style="height:105px">
             <div class="card-body p-0">
               <!-- Title -->
@@ -123,7 +123,7 @@
       </div>
       <!-- Status Hold -->
       <div class="col-2">
-        <a href="tabelInfo.php?status=Hold" style="text-decoration:none;color:black">
+        <a href="tabelInfoServerSide.php?status=Hold" style="text-decoration:none;color:black">
           <div class="card shadow mb-3 bg-body rounded" style="height:105px">
             <div class="card-body p-0">
               <!-- Title -->
