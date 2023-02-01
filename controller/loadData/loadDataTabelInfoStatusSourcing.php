@@ -12,7 +12,7 @@
 	if( !empty($params['search']['value']) ) { 
 		$whereMaterialSourcing .=" AND (materialName LIKE '".$params['search']['value']."%' ";    
 		$whereMaterialSourcing .=" OR materialCategory LIKE '".$params['search']['value']."%' ";
-		$whereMaterialSourcing .=" OR materialSpesification LIKE '".$params['search']['value']."%' ";
+		$whereMaterialSourcing .=" OR materialSpesification LIKE '".$params['search']['value']."%') ";
 	}
 
     //getting total number records without any search
@@ -36,12 +36,14 @@
 		foreach($queryRecords as $row ) {
 			if($sqlPutSupplier = $conn->query("SELECT materialName, materialCategory, materialSpesification, supplier FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE idMaterial='".$row['id']."' ORDER BY TB_Supplier.id DESC")->fetchAll()){
 				foreach($sqlPutSupplier as $supplier){
-                    // $records['targetLauncing'] = "-";
+					$supplier['targetLaunching'] = "-";
+
 					$records[] = $supplier;
 				}
 			}else{
-                $records['supplier'] = "-";
-                // $records['targetLauncing'] = "-";
+                $row['supplier'] = "-";
+                $row['targetLaunching'] = "-";
+
 				$records[] = $row;
 			}
 		}	
@@ -54,11 +56,12 @@
 				);
 
 	}else{
-		$sqlRecSupplier = $conn->query("SELECT materialName, materialCategory, materialSpesification, supplier FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%' ORDER BY idMaterial DESC  OFFSET ".$params['start']." ROWS FETCH FIRST ".$params['length']." ROWS ONLY")->fetchAll();
-		$sqlTolSupplier = $conn->query("SELECT count(*) FROM TB_Supplier WHERE supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%'")->fetchAll();
+		$sqlRecSupplier = $conn->query("SELECT materialName, materialCategory, materialSpesification, supplier FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusSourcing = '".$_GET['status']."' AND (supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%') ORDER BY idMaterial DESC  OFFSET ".$params['start']." ROWS FETCH FIRST ".$params['length']." ROWS ONLY")->fetchAll();
+		$sqlTolSupplier = $conn->query("SELECT count(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE statusSourcing = '".$_GET['status']."' AND (supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%')")->fetchAll();
 	
 		foreach($sqlRecSupplier as $supplier){
-            // $records['targetLauncing'] = "-";
+            $supplier['targetLaunching'] = "-";
+
 			$records[] = $supplier;
 		}
 		$json_data = array(

@@ -49,7 +49,7 @@
 
             /* CSS Sidebar Responsive */
             .container{
-                margin-top:75px;
+                margin-top:50px;
                 margin-left:255px;
             }
             .card{

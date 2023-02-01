@@ -23,7 +23,6 @@
         <table id="table-riwayat1" class="table">
             <thead>
                 <tr>
-                    <!-- <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:10px" class="text-center">No</th> -->
                     <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:150px" class="text-center">Sourcing Number</th>
                     <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:150px" class="text-center">Material Name</th>
                     <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Date Sourcing</th>
@@ -48,6 +47,8 @@
         // Datatable tabel riwayat
         var tableRiwayat = $('#table-riwayat1').DataTable({
             scrollX: true,
+            scrollY: '420px',
+            scrollCollapse: true,
             stateSave: true,
             lengthMenu: [5 , 10, 15],
             processing: true,

@@ -9,7 +9,6 @@
         <table class="table" id="table-view">
             <thead>
                 <tr>
-                    <!-- <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:30px">No</th> -->
                     <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:100px">Material Name</th>
                     <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:100px">Material Category</th>
                     <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:100px">Supplier</th>
@@ -32,8 +31,11 @@
         // Datatable table view
         var tableView = $('#table-view').DataTable({
             scrollX : true,
+            scrollY: '420px',
+            scrollCollapse: true,
             stateSave: true,
-            lengthMenu: [5 , 10, 15],
+            lengthChange: false,
+            pageLength: 6,
             processing: true,
             serverSide: true,
             ajax: {

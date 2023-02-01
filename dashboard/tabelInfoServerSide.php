@@ -66,7 +66,6 @@
                     <table id="table-info" class="table">
                         <thead>
                             <tr>
-                                <!-- <th style="font-size:13px;font-family:poppinsRegular;width:10px">No</th> -->
                                 <th style="font-size:13px;font-family:poppinsRegular;width:150px">Material Name</th>
                                 <th style="font-size:13px;font-family:poppinsRegular;width:150px">Material Category</th>
                                 <th style="font-size:13px;font-family:poppinsRegular;width:300px">Spesifikasi</th>
@@ -84,12 +83,18 @@
                 // Datatable table info
                 var projectInfo = $('#table-info').DataTable({
                     scrollX : true,
-                    lengthMenu: [5 , 10, 15],
+                    lengthChange: false,
+                    pageLength: 7,
+                    scrollY: '360px',
+                    scrollCollapse: true,
                     processing: true,
                     serverSide: true,
                     ajax: {
                         url: '../controller/loadData/loadDataTabelInfoStatusSourcing.php',
-                        type: 'POST',
+                        type: 'GET',
+                        data: {
+                            status: "<?php echo $_GET['status']?>",
+                        }
                     },
                     columns: [
                         {
@@ -102,7 +107,7 @@
                             data: "materialSpesification"
                         },
                         {
-                            data: null
+                            data: "targetLaunching"
                         },
                         {
                             data: "supplier"
