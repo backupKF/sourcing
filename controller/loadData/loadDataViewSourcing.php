@@ -1,13 +1,16 @@
 <?php
     include "../../dbConfig.php";
 
+	// Mendeklarasikan Variabel Array
     $params = $records = array();
 
+	// Mengisi variabel $params dengan Request dari Client
     $params = $_REQUEST;
 
-    $whereMaterialSourcing = $sqlRecMaterialSourcing = "";
+	// Mendeklarasikan Variabel untuk pencarian
+    $whereMaterialSourcing = "";
 
-    //check search value exist
+    // Pengelolaan data yang dicari user
 	$whereMaterialSourcing .= " WHERE feedbackRPIC=1 ";
 	if( !empty($params['search']['value']) ) { 
 		$whereMaterialSourcing .=" AND (materialName LIKE '".$params['search']['value']."%' ";    
@@ -16,25 +19,29 @@
 		$whereMaterialSourcing .=" OR statusSourcing LIKE '".$params['search']['value']."%') ";
 	}
 
-    //getting total number records without any search
-	$sqlPutMaterialSourcing = "SELECT id, materialName, materialCategory, projectName, statusSourcing FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
+    // Mengambil data dan total data yang dicari user
+	$sqlRecMaterialSourcing = "SELECT id, materialName, materialCategory, projectName, statusSourcing FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
 	$sqlTotMaterialSourcing = "SELECT count(*) FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
-	$sqlRecMaterialSourcing .= $sqlPutMaterialSourcing;
 
-    //concatenate search sql if value exist
+    // Jika user melakukan pencarian data maka data diambil sesuai dengan pencarian
 	if(isset($whereMaterialSourcing) && $whereMaterialSourcing != '') {
-		$sqlTotMaterialSourcing .= $whereMaterialSourcing;
 		$sqlRecMaterialSourcing .= $whereMaterialSourcing;
+		$sqlTotMaterialSourcing .= $whereMaterialSourcing;
 	}
 
+	// Mengambil data sesuai dengan page yang dipilih user
     $sqlRecMaterialSourcing .=  " ORDER BY id DESC  OFFSET ".$params['start']." ROWS FETCH FIRST ".$params['length']." ROWS ONLY";
 	
+	// Pengambilan Total data dari database
     $totalRecords = $conn->query($sqlTotMaterialSourcing)->fetchAll();
 	
+	// Pengambilan Data dari database
 	$queryRecords = $conn->query($sqlRecMaterialSourcing)->fetchAll();
 
+	// Jika variabel $queryRecords Ditemukan maka;
 	if(!empty($queryRecords)){
 		foreach($queryRecords as $row ) {
+			// Jika material memiliki supplier
 			if($sqlPutSupplier = $conn->query("SELECT TB_Supplier.id, materialName, materialCategory, supplier, manufacture, statusSourcing, dateFinalFeedbackRnd, finalFeedbackRnd, writerFinalFeedbackRnd, idMaterial FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE idMaterial=".$row['id']." ORDER BY id DESC")->fetchAll()){
 				foreach($sqlPutSupplier as $supplier){
 					$feedbackRnd = $conn->query("SELECT TOP 1 * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$supplier['id']}' ORDER BY ID DESC")->fetchAll();
@@ -53,6 +60,7 @@
 					$records[] = $supplier;
 				}
 			}else{
+				// Jika material tidak memiliki supplier
 				$row["supplier"] = "-";
 				$row['manufacture'] = "-";
 
@@ -70,6 +78,7 @@
 			}
 		}	
 
+		// Mengampung data ke dalam sebuah array
 		$json_data = array(
 				"draw"            => intval( $params['draw'] ),   
 				"recordsTotal"    => $totalRecords[0][0],  
@@ -78,8 +87,9 @@
 				);
 
 	}else{
-		$sqlRecSupplier = $conn->query("SELECT TB_Supplier.id, materialName, materialCategory, supplier, manufacture, statusSourcing, dateFinalFeedbackRnd, finalFeedbackRnd, writerFinalFeedbackRnd, projectCode, idMaterial FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%' ORDER BY idMaterial DESC  OFFSET ".$params['start']." ROWS FETCH FIRST ".$params['length']." ROWS ONLY")->fetchAll();
-		$sqlTolSupplier = $conn->query("SELECT count(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%'")->fetchAll();
+		// Jika variabel $queryRecords tidak ditemukan maka;
+		$sqlRecSupplier = $conn->query("SELECT TB_Supplier.id, materialName, materialCategory, supplier, manufacture, statusSourcing, dateFinalFeedbackRnd, finalFeedbackRnd, writerFinalFeedbackRnd, projectCode, idMaterial FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE feedbackRPIC=1 AND (supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%') ORDER BY idMaterial DESC  OFFSET ".$params['start']." ROWS FETCH FIRST ".$params['length']." ROWS ONLY")->fetchAll();
+		$sqlTolSupplier = $conn->query("SELECT count(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE feedbackRPIC=1 AND (supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%')")->fetchAll();
 	
 		foreach($sqlRecSupplier as $supplier){
 			$projectName = $conn->query("SELECT projectName FROM TB_Project WHERE projectCode='".$supplier['projectCode']."'")->fetchAll();
@@ -98,6 +108,8 @@
 
 			$records[] = $supplier;
 		}
+
+		// Mengampung data ke dalam sebuah array
 		$json_data = array(
 			"draw"            => intval( $params['draw'] ),   
 			"recordsTotal"    => $sqlTolSupplier[0][0],  
@@ -106,5 +118,5 @@
 			);
 	}
 
-	echo json_encode($json_data);  // send data as json format
+	echo json_encode($json_data);  // Mengirim json format
 ?>

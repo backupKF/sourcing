@@ -103,7 +103,7 @@
                     <!-- Tabel Supplier -->
                     <div id="tabelSupplier"></div>
 
-                    <a href="../viewSourcing/index.php" class="btn btn-secondary">Back</a>
+                    <a href="../viewSourcing/index.php" class="btn btn-danger">Back</a>
                 </div>
             </div>
         </div>

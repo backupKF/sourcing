@@ -2,25 +2,54 @@
     header('Location: ../index.php')
 ?>
 
+<style>
+    /* CSS Tabel Riwayat */
+    th{
+        font-size:12px;
+        font-family:poppinsSemiBold;
+    }
+    td {
+        font-size:12px;
+        font-family:poppinsRegular;
+    }
+    .test{
+        color:blue;
+    }
+</style>
+
 <!-- Card Table -->
 <div class="card shadow bg-body rounded">
     <div class="card-body">
         <!-- Tabel View -->
-        <table class="table" id="table-view">
+        <table class="table table-striped table-hover" id="table-view">
             <thead>
                 <tr>
-                    <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:100px">Material Name</th>
-                    <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:100px">Material Category</th>
-                    <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:100px">Supplier</th>
-                    <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:100px">Manufacture</th>
-                    <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:100px">Project Name</th>
-                    <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:100px">Status</th>
-                    <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:180px">Feedback R&D</th>
-                    <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:180px">Feedback Proc</th>
-                    <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:180px">Final Feedback</th>
-                    <th class="text-center" style="font-size:14px;font-family:poppinsSemiBold;width:100px">Action</th>
+                    <th style="width:100px">Material Name</th>
+                    <th style="width:100px">Material Category</th>
+                    <th style="width:100px">Supplier</th>
+                    <th style="width:100px">Manufacture</th>
+                    <th style="width:100px">Project Name</th>
+                    <th style="width:100px">Status</th>
+                    <th style="width:180px">Feedback R&D</th>
+                    <th style="width:180px">Feedback Proc</th>
+                    <th style="width:180px">Final Feedback</th>
+                    <th style="width:100px">Action</th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr>
+                    <th style="width:100px">Material Name</th>
+                    <th style="width:100px">Material Category</th>
+                    <th style="width:100px">Supplier</th>
+                    <th style="width:100px">Manufacture</th>
+                    <th style="width:100px">Project Name</th>
+                    <th style="width:100px">Status</th>
+                    <th style="width:180px">Feedback R&D</th>
+                    <th style="width:180px">Feedback Proc</th>
+                    <th style="width:180px">Final Feedback</th>
+                    <th style="width:100px">Action</th>
+                </tr>
+            </tfoot>
         </table>
     </div>            
 </div>
@@ -31,7 +60,7 @@
         // Datatable table view
         var tableView = $('#table-view').DataTable({
             scrollX : true,
-            scrollY: '420px',
+            scrollY: '385px',
             scrollCollapse: true,
             stateSave: true,
             lengthChange: false,

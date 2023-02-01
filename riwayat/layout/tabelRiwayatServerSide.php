@@ -8,6 +8,17 @@
 ?>
 
 <style>
+    /* CSS Tabel Riwayat */
+    th{
+        font-size:12px;
+        font-family:poppinsSemiBold;
+    }
+    td {
+        font-size:12px;
+        font-family:poppinsRegular;
+    }
+
+    /* CSS Modal View Material */
     h5{
         font-size:18px;
         font-family:'poppinsSemiBold';
@@ -20,24 +31,41 @@
 
 <div class="card shadow bg-body rounded">
     <div class="card-body">
-        <table id="table-riwayat1" class="table">
+        <table id="table-riwayat" class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:150px" class="text-center">Sourcing Number</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:150px" class="text-center">Material Name</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Date Sourcing</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:100px" class="text-center">Project Code</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:120px" class="text-center">Project Name</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Team Leader</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Researcher</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:100px" class="text-center">Feedback TL</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:100px" class="text-center">Feedback RPIC</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:120px" class="text-center">Date Approved TL</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:125px" class="text-center">Date Accepted RPIC</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Status</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:180px" class="text-center">Action Material</th>
+                    <th scope="col" style="width:150px">Sourcing Number</th>
+                    <th scope="col" style="width:150px">Material Name</th>
+                    <th scope="col" style="width:90px">Date Sourcing</th>
+                    <th scope="col" style="width:100px">Project Code</th>
+                    <th scope="col" style="width:120px">Project Name</th>
+                    <th scope="col" style="width:90px">Team Leader</th>
+                    <th scope="col" style="width:90px">Researcher</th>
+                    <th scope="col" style="width:100px">Feedback TL</th>
+                    <th scope="col" style="width:100px">Feedback RPIC</th>
+                    <th scope="col" style="width:120px">Date Approved TL</th>
+                    <th scope="col" style="width:125px">Date Accepted RPIC</th>
+                    <th scope="col" style="width:90px">Status</th>
+                    <th scope="col" style="width:180px">Action Material</th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr>
+                    <th scope="col" style="width:150px">Sourcing Number</th>
+                    <th scope="col" style="width:150px">Material Name</th>
+                    <th scope="col" style="width:90px">Date Sourcing</th>
+                    <th scope="col" style="width:100px">Project Code</th>
+                    <th scope="col" style="width:120px">Project Name</th>
+                    <th scope="col" style="width:90px">Team Leader</th>
+                    <th scope="col" style="width:90px">Researcher</th>
+                    <th scope="col" style="width:100px">Feedback TL</th>
+                    <th scope="col" style="width:100px">Feedback RPIC</th>
+                    <th scope="col" style="width:120px">Date Approved TL</th>
+                    <th scope="col" style="width:125px">Date Accepted RPIC</th>
+                    <th scope="col" style="width:90px">Status</th>
+                    <th scope="col" style="width:180px">Action Material</th>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>
@@ -45,9 +73,9 @@
 <script>
     $(document).ready(function() {
         // Datatable tabel riwayat
-        var tableRiwayat = $('#table-riwayat1').DataTable({
+        var tableRiwayat = $('#table-riwayat').DataTable({
             scrollX: true,
-            scrollY: '420px',
+            scrollY: '410px',
             scrollCollapse: true,
             stateSave: true,
             lengthMenu: [5 , 10, 15],
@@ -55,7 +83,20 @@
             serverSide: true,
             ajax: {
                 url: '../controller/loadData/loadDataSourcingRiwayat.php',
-                type: 'POST',
+                type: 'GET',
+        <?php
+            if(!empty($_GET['sn']) && empty($_GET['idMaterial'])){
+        ?>
+                data: {sn: <?php echo $_GET['sn']?>},
+        <?php
+            }
+
+            if(!empty($_GET['sn']) && !empty($_GET['idMaterial'])){
+        ?>
+                data: {sn: <?php echo $_GET['sn']?>, idMaterial: <?php echo $_GET['idMaterial']?>},
+        <?php 
+            }
+        ?>
             },
             columns: [
                 {
@@ -173,6 +214,8 @@
                                 // Button
                                 '<div>'+
                                     '<div class="text-center">'+
+                                        // Button Edit Material 
+                                        '<button class="btn btn-warning btn-sm d-inline ms-1" type="button" disabled>Edit</button>'+
                                         // Button View Material
                                         '<button class="btn btn-success btn-sm d-inline ms-1" type="button" data-bs-target="#viewMaterial'+data.id+'" data-bs-toggle="modal">View</button>'+
                                         // Jika user level == 1 

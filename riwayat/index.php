@@ -110,7 +110,7 @@
 
     <script>
     $(document).ready(function(){
-        loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
+        loadDataRiwayat()
     })
 
     // Function Load Data Riwayat
@@ -121,17 +121,17 @@
             <?php
                 if(empty($_GET['sn']) && empty($_GET['idMaterial'])){
             ?>
-                data: {getData: true, userLevel: userLevel},
+                data: {getData: true},
             <?php
                 }
                 if(!empty($_GET['sn']) && empty($_GET['idMaterial'])){
             ?>
-                data: {sn: <?php echo $_GET['sn']?>, userLevel: userLevel},
+                data: {sn: <?php echo $_GET['sn']?>},
             <?php
                 }
                 if(!empty($_GET['sn']) && !empty($_GET['idMaterial'])){
             ?>
-                data: {sn: <?php echo $_GET['sn']?>, idMaterial: <?php echo $_GET['idMaterial']?>, userLevel: userLevel},
+                data: {sn: <?php echo $_GET['sn']?>, idMaterial: <?php echo $_GET['idMaterial']?>},
             <?php
                 }
             ?>
