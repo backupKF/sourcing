@@ -17,12 +17,13 @@
 <table id="table-supplier-<?php echo $_GET['idMaterial']?>" class="pt-2 table table-striped bg-light" style="width:100%">
     <thead class="bg-warning">
         <tr>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:10px" class="text-center">No</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Supplier</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Manufacture</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Origin Country</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Lead Time</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:10px">No</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Material Name</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Supplier</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Manufacture</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Origin Country</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Lead Time</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px">
                 <div class="row d-flex justify-content-center">
                     Information MoQ, UoM, Price
                 </div>
@@ -33,15 +34,15 @@
                     <div class="col">Action</div>
                 </div>
             </th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Catalog or CAS Number</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Grade/Reference</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Document Info</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Document</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Feedback Doc Req</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Feedback R&D</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Feedback Proc</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Final Feedback R&D</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:90px" class="text-center">Action Supplier</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Catalog or CAS Number</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Grade/Reference</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Document Info</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Document</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px">Feedback Doc Req</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px">Feedback R&D</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px">Feedback Proc</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px">Final Feedback R&D</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:90px">Action Supplier</th>
         </tr>
     </thead>
     <tbody>
@@ -55,7 +56,10 @@
             <!-- Column Nomer -->
             <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo ${'no'. $_GET['idMaterial']}++?></div></td>
 
-             <!-- Column Supplier -->
+            <!-- Column Material Name -->
+            <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $_GET['materialName']?></div></td>
+
+            <!-- Column Supplier -->
             <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['supplier']?></div></td>
 
             <!-- Column Manufacture -->

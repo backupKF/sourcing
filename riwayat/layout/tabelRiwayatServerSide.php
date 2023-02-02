@@ -17,6 +17,26 @@
         font-size:12px;
         font-family:poppinsRegular;
     }
+    table.dataTable thead>tr>th.sorting, 
+    table.dataTable thead>tr>th.sorting_asc, 
+    table.dataTable thead>tr>th.sorting_desc, 
+    table.dataTable thead>tr>th.sorting_asc_disabled, 
+    table.dataTable thead>tr>th.sorting_desc_disabled, 
+    table.dataTable thead>tr>td.sorting, 
+    table.dataTable thead>tr>td.sorting_asc, 
+    table.dataTable thead>tr>td.sorting_desc, 
+    table.dataTable thead>tr>td.sorting_asc_disabled, 
+    table.dataTable thead>tr>td.sorting_desc_disabled {
+        cursor: pointer;
+        position: sticky;
+        padding-right: 26px;
+    }
+    table .sticky-column-materialName {
+        position: sticky;
+        left: 0;
+        background: white;
+        z-index: 1;
+    }
 
     /* CSS Modal View Material */
     h5{
@@ -52,7 +72,7 @@
             <tfoot>
                 <tr>
                     <th scope="col" style="width:150px">Sourcing Number</th>
-                    <th scope="col" style="width:150px">Material Name</th>
+                    <th scope="col" style="width:150px" class="sticky-column-materialName">Material Name</th>
                     <th scope="col" style="width:90px">Date Sourcing</th>
                     <th scope="col" style="width:100px">Project Code</th>
                     <th scope="col" style="width:120px">Project Name</th>
@@ -103,6 +123,7 @@
                     data: 'sourcingNumber'
                 },
                 {
+                    class: 'sticky-column-materialName',
                     data: 'materialName'
                 },
                 {

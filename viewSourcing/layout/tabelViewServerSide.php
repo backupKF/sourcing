@@ -15,6 +15,32 @@
     .test{
         color:blue;
     }
+    table.dataTable thead>tr>th.sorting, 
+    table.dataTable thead>tr>th.sorting_asc, 
+    table.dataTable thead>tr>th.sorting_desc, 
+    table.dataTable thead>tr>th.sorting_asc_disabled, 
+    table.dataTable thead>tr>th.sorting_desc_disabled, 
+    table.dataTable thead>tr>td.sorting, 
+    table.dataTable thead>tr>td.sorting_asc, 
+    table.dataTable thead>tr>td.sorting_desc, 
+    table.dataTable thead>tr>td.sorting_asc_disabled, 
+    table.dataTable thead>tr>td.sorting_desc_disabled {
+        cursor: pointer;
+        position: sticky;
+        padding-right: 26px;
+    }
+    table .sticky-column-supplier {
+        position: sticky;
+        left: 130px;
+        background: white;
+        z-index: 1;
+    }
+    table .sticky-column-materialName {
+        position: sticky;
+        left: 0;
+        background: white;
+        z-index: 1;
+    }
 </style>
 
 <!-- Card Table -->
@@ -38,9 +64,9 @@
             </thead>
             <tfoot>
                 <tr>
-                    <th style="width:100px">Material Name</th>
+                    <th style="width:100px" class="sticky-column-materialName">Material Name</th>
                     <th style="width:100px">Material Category</th>
-                    <th style="width:100px">Supplier</th>
+                    <th style="width:100px" class="sticky-column-supplier">Supplier</th>
                     <th style="width:100px">Manufacture</th>
                     <th style="width:100px">Project Name</th>
                     <th style="width:100px">Status</th>
@@ -62,6 +88,10 @@
             scrollX : true,
             scrollY: '385px',
             scrollCollapse: true,
+            fixedColumns:   {
+                left: 1,
+                right: 1
+            },
             stateSave: true,
             lengthChange: false,
             pageLength: 6,
@@ -73,12 +103,14 @@
             },
             columns: [
                 {
+                    className: 'sticky-column-materialName',
                     data: "materialName"
                 },
                 {
                     data: "materialCategory"
                 },
                 {
+                    className: 'sticky-column-supplier',
                     data: "supplier"
                 },
                 {

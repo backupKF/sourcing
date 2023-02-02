@@ -155,7 +155,7 @@
                         tr.removeClass('shown');
                     } else {
                         // Menampilkan tabel material jika event click dilakukan
-                        row.child( tableSupplier(row.data()[1])).show();
+                        row.child( tableSupplier(row.data()[1], row.data()[4])).show();
                         tr.addClass('shown');
                     }
             });
@@ -209,19 +209,19 @@
         })
 
         // Membuat Tabel Supplier didalam sebuah fungsi
-        function tableSupplier(d){
-            loadDataSupplier(d)
+        function tableSupplier(d, materialName){
+            loadDataSupplier(d, materialName)
             return (
                 '<div class="container-fluid m-0 p-0" style="background-color:#fffedb" id="contentDataSupplier'+d+'"></div>'
             )
         }
 
         // Load Data Supplier
-        function loadDataSupplier(d){
+        function loadDataSupplier(d, materialName){
             $.ajax({
                 url: 'layout/tabelSupplier.php',
                 type: 'get',
-                data: { idMaterial: d},
+                data: { idMaterial: d, materialName: materialName},
                 success: function(data) {
                     $('#contentDataSupplier'+d+'').html(data);
                 }

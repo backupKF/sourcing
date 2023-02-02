@@ -12,7 +12,7 @@
 <div class="card shadow bg-body rounded">
     <div class="card-body">
         <!-- Tabel Project -->
-        <table id="table-project" class="table" style="width:100%">
+        <table id="table-project" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <td class="d-none"></td>
@@ -48,6 +48,8 @@
 $(document).ready(function(){
     var projectTable = $('#table-project').DataTable({
         stateSave: true,
+        scrollY: '430px',
+        scrollCollapse: true,
     })
 
     // Menampilkan tabel material, apabila user melakukan event click ditabel project
