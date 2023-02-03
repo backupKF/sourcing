@@ -15,7 +15,7 @@
 		$where .= " WHERE sourcingNumber=".$_GET['sn'];
 	}else if(!empty($_GET["sn"]) && !empty($_GET["idMaterial"])){
 		// Jika terdapat data GET Sourcing Number dan Id Material
-		$where .= " WHERE sourcingNumber=".$_GET['sn']." AND id=".$_GET['idMaterial'];
+		$where .= " WHERE sourcingNumber=".$_GET['sn']." AND TB_PengajuanSourcing.id=".$_GET['idMaterial'];
 	}else{
 		// Jika selain dari kondisi di atas, check pencarian user
 		if( !empty($params['search']['value']) ) {   
@@ -33,7 +33,10 @@
 	}
 
     // Mengambil data dan total data yang dicari user
-	$sql = "SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
+	$sql = "SELECT TB_PengajuanSourcing.id, sourcingNumber, materialName, dateSourcing, TB_Project.projectCode, TB_Project.projectName,
+			materialCategory, materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, documentReq, 
+			teamLeader, researcher, feedbackTL, feedbackRPIC, dateApprovedTL, dateAcceptedRPIC, statusRiwayat FROM TB_PengajuanSourcing 
+			INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
 	$sqlTot = "SELECT count(*) FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
 	$sqlRec .= $sql;
 
@@ -44,7 +47,7 @@
 	}
 
 	// Mengambil data sesuai dengan page yang dipilih user
-    $sqlRec .=  " ORDER BY id DESC  OFFSET ".$params['start']." ROWS FETCH FIRST ".$params['length']." ROWS ONLY";
+    $sqlRec .=  " ORDER BY TB_PengajuanSourcing.id DESC  OFFSET ".$params['start']." ROWS FETCH FIRST ".$params['length']." ROWS ONLY";
 
 	// Pengambilan Total data dari database
 	$totalRecords = $conn->query($sqlTot)->fetchAll();

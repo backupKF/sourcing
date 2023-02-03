@@ -20,7 +20,7 @@
 	}
 
     // Mengambil data dan total data yang dicari user
-	$sqlRecMaterialSourcing = "SELECT id, materialName, materialCategory, projectName, statusSourcing FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
+	$sqlRecMaterialSourcing = "SELECT TB_PengajuanSourcing.id, materialName, materialCategory, projectName, statusSourcing FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
 	$sqlTotMaterialSourcing = "SELECT count(*) FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
 
     // Jika user melakukan pencarian data maka data diambil sesuai dengan pencarian

@@ -25,10 +25,10 @@
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:100px" class="text-center">Finish Dossage Form</th>
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Keterangan</th>
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:100px" class="text-center">PIC</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Vendor Terdaftar AERO</th>
+                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:280px" class="text-center">Vendor Terdaftar AERO</th>
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Document Requirement</th>
                 <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:100px" class="text-center">Status</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:260px" class="text-center">Summary Report</th>
+                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:280px" class="text-center">Summary Report</th>
                 <?php if($_SESSION['user']['level'] == 1){?>
                     <th scope="col" style="font-size: 13px;font-family:poppinsSemiBold;width:100px" class="text-center">Action</th>
                 <?php } ?>

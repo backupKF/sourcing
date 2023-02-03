@@ -32,14 +32,14 @@
             /* CSS Sidebar Responsive */
             .container{
                 margin-top:50px;
-                margin-left:255px;
+                margin-left:230px;
             }
             .card{
-                width:1050px;
+                width:1100px;
                 margin-top:10px;
             }
             .card .contentMaterial{
-                width:1000px;
+                width:1025px;
             }
             #check:checked ~ .container{
                 margin-left:125px;
@@ -92,7 +92,7 @@
 
         <div class="container">
             <!-- Tabel Pengajuan -->
-            <?php require "layout/tabelProject.php"?>
+            <?php require "layout/tabelProjectServerSide.php"?>
         </div>
     </body>
 </html>

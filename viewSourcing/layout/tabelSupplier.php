@@ -5,6 +5,32 @@
     }
 ?>
 
+<style>
+    table.dataTable thead>tr>th.sorting, 
+    table.dataTable thead>tr>th.sorting_asc, 
+    table.dataTable thead>tr>th.sorting_desc, 
+    table.dataTable thead>tr>th.sorting_asc_disabled, 
+    table.dataTable thead>tr>th.sorting_desc_disabled, 
+    table.dataTable thead>tr>td.sorting, 
+    table.dataTable thead>tr>td.sorting_asc, 
+    table.dataTable thead>tr>td.sorting_desc, 
+    table.dataTable thead>tr>td.sorting_asc_disabled, 
+    table.dataTable thead>tr>td.sorting_desc_disabled {
+        cursor: pointer;
+        position: sticky;
+        padding-right: 26px;
+    }
+    table .sticky-column-supplier {
+        position: sticky;
+        left: 0;
+        background: white;
+        z-index: 1;
+    }
+    table  {
+
+    }
+</style>
+
 <!-- Button tambah supplier -->
 <div>
     <button type="button" style="width:150px" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#tambahSupplier<?php echo $_GET['idMaterial']?>">
@@ -17,11 +43,11 @@
 <table id="table-supplier" class="pt-2 table table-striped">
     <thead class="bg-warning">
         <tr>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:10px" class="text-center">No</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Supplier</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Manufacture</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Origin Country</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Lead Time</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:10px">No</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="sticky-column-supplier bg-warning">Supplier</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Manufacture</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Origin Country</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Lead Time</th>
             <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">
                 <div class="row d-flex justify-content-center">
                     Information MoQ, UoM, Price
@@ -33,15 +59,15 @@
                     <div class="col">Action</div>
                 </div>
             </th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Catalog or CAS Number</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Grade/Reference</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Document Info</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px" class="text-center">Document</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Feedback Doc Req</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Feedback R&D</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Feedback Proc</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Final Feedback R&D</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:90px" class="text-center">Action Supplier</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Catalog or CAS Number</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Grade/Reference</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Document Info</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Document</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px">Feedback Doc Req</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px">Feedback R&D</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px">Feedback Proc</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px">Final Feedback R&D</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:90px">Action Supplier</th>
         </tr>
     </thead>
     <tbody>
@@ -61,7 +87,7 @@
             <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo ${'no'. $_GET['idMaterial']}++?></div></td>
 
              <!-- Column Supplier -->
-            <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['supplier']?></div></td>
+            <td class="sticky-column-supplier"><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['supplier']?></div></td>
 
             <!-- Column Manufacture -->
             <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['manufacture']?></div></td>
@@ -114,13 +140,13 @@
             </td>
 
             <!-- Column Catalog Or Cas Number -->
-            <td><div class="text-center text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['catalogOrCasNumber']?></div></td>
+            <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['catalogOrCasNumber']?></div></td>
 
             <!-- Column Grade Or Reference -->
-            <td><div class="text-center text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['gradeOrReference']?></div></td>
+            <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['gradeOrReference']?></div></td>
 
             <!-- Column Document Info -->
-            <td><div class="text-center text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['documentInfo']?></div></td>
+            <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['documentInfo']?></div></td>
 
             <!-- Column Document -->
             <td>

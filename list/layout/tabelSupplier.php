@@ -38,7 +38,7 @@
             <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Grade/Reference</th>
             <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Document Info</th>
             <th style="font-size:13px;font-family:poppinsSemiBold;width:180px">Document</th>
-            <th style="font-size:13px;font-family:poppinsSemiBold;width:250px">Feedback Doc Req</th>
+            <th style="font-size:13px;font-family:poppinsSemiBold;width:300px">Feedback Doc Req</th>
             <th style="font-size:13px;font-family:poppinsSemiBold;width:250px">Feedback R&D</th>
             <th style="font-size:13px;font-family:poppinsSemiBold;width:250px">Feedback Proc</th>
             <th style="font-size:13px;font-family:poppinsSemiBold;width:250px">Final Feedback R&D</th>
