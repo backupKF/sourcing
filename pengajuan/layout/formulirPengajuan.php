@@ -29,7 +29,7 @@
                     Select
                 </button>
                 <!-- Modal Set Project -->
-                <?php include "../component/modal/setProjectServerSide.php"?>
+                <?php include "../component/modal/client-side/setProjectServerSide.php"?>
             </div>
         </div>
                     
@@ -42,7 +42,7 @@
                 Tambah Data Material
             </button>
         <?php 
-            include "../component/modal/addMaterial.php";
+            include "../component/modal/client-side/addMaterial.php";
             // Jika User belum memilih project
             }else{
         ?>

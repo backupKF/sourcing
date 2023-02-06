@@ -29,7 +29,6 @@
             <!-- Modal Header -->
             <div class="modal-header">
                 <div class="modal-title">Select Vendor</div>
-                <?php echo $row['id']?>
             </div>
                         
             <!-- Modal Body -->

@@ -224,10 +224,10 @@
                                     '</div>'+
 
                                     '<!-- Modal Update Material -->'+
-                                    <?php include "../../component/modal/updateMaterialRiwayat.php"; ?>
+                                    <?php include "../../component/modal/server-side/updateMaterialRiwayat.php"; ?>
 
                                     '<!-- Modal View Material -->'+
-                                    <?php include "../../component/modal/viewMaterial.php"; ?>
+                                    <?php include "../../component/modal/server-side/viewMaterial.php"; ?>
                                 '</div>'
                             ) 
                         }else{
@@ -248,7 +248,7 @@
                                     '</div>'+
 
                                     '<!-- Modal View Material -->'+
-                                    <?php include "../../component/modal/viewMaterial.php"; ?>
+                                    <?php include "../../component/modal/server-side/viewMaterial.php"; ?>
                                 '</div>'
                             )
                         }

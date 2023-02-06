@@ -126,7 +126,6 @@ $(document).ready(function(){
 
 // Membuat Tabel Material didalam sebuah fungsi
 function tableMaterial(d){
-    console.log(d);
     loadDataMaterial(d)
     return (
         '<div class="container-fluid m-0 p-0 contentMaterial" id="contentTableMaterial'+d+'"></div>'

@@ -95,7 +95,7 @@
 </div>
 
 <!-- Modal Set Vendor -->
-<?php include "setVendor.php"?>
+<?php include "setVendorServerSide.php"?>
 
 <script>
     // Listen Event Submit
