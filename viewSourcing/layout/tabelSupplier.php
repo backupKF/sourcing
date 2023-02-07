@@ -109,7 +109,7 @@
                 <!-- -- -->
 
                 <!-- Modal Tambah Informasi MoQ, UoM, dan Price -->
-                <?php include "../../component/modal/addDetailSupplier.php"?>
+                <?php include "../../component/modal/client-side/addDetailSupplier.php"?>
                 <!-- -- -->
 
                 <!-- Tabel Informasi MoQ, UoM, dan Price -->

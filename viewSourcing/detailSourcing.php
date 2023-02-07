@@ -118,7 +118,7 @@
         function loadDataSupplier(idMaterial, idSupplier){
             $.ajax({
                 type: 'GET',
-                url: 'layout/tabelSupplier.php',
+                url: 'layout/tabelSupplierServerSide.php',
                 data: {idMaterial: idMaterial, idSupplier: idSupplier},
                 success: function(data){
                     $('#tabelSupplier').html(data);

@@ -485,7 +485,7 @@
         // Check Submit
         $("form#formEditMaterial"+idMaterial).submit(function(e){
             e.preventDefault();
-
+            
             // actual logic, e.g. validate the form
             $.ajax({
                 type: "POST",

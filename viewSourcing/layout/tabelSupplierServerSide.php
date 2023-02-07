@@ -1,4 +1,6 @@
 <?php
+    include "../../dbConfig.php";
+
     // Ketika tidak ada data get yang masuk maka akan me-redirect kehalaman index
     if(empty($_GET)){
         header('Location: ../index.php');
@@ -37,7 +39,7 @@
         Tambah Supplier
     </button>
 </div>
-<?php include "../../component/modal/addSupplier.php"?>  
+<?php include "../../component/modal/client-side/addSupplier.php"?>  
                 
 <!-- Tabel Supplier -->
 <table id="table-supplier" class="pt-2 table table-striped">
@@ -101,7 +103,33 @@
                     data: 'leadTime'
                 },
                 {
-                    data: null
+                    data: function(dataSupplier){
+                        return (
+                            '<!-- Button Modal Tambah Informasi MoQ, UoM, dan Price -->'+
+                            '<button type="button" class="btn btn-default p-0" style="width:30px" data-bs-toggle="modal" data-bs-target="#tambahDetailSupplier'+dataSupplier.id+'">'+
+                                '<svg style="width:24px;height:24px" viewBox="0 0 24 24">'+
+                                    '<path fill="currentColor" d="M17,18V5H7V18L12,15.82L17,18M17,3A2,2 0 0,1 19,5V21L12,18L5,21V5C5,3.89 5.9,3 7,3H17M11,7H13V9H15V11H13V13H11V11H9V9H11V7Z" />'+
+                                '</svg>'+   
+                            '</button>'+
+                            '<!-- -- -->'+
+
+                            '<!-- Modal Tambah Informasi MoQ, UoM, dan Price -->'+
+                            <?php include "../../component/modal/server-side/addDetailSupplier.php"?>
+                            '<!-- -- -->'+
+
+
+                            '<!-- Tabel Informasi MoQ, UoM, dan Price -->'+
+                            '<div class="overflow-auto" style="height:110px">'+
+                                '<!-- Tabel MoQ UoM Price -->'+
+                                '<table class="table table-bordered">'+
+                                    '<tbody class="content-DetailSupplier">'+
+                                        dataSupplier.outputDetailSupplier +
+                                    '</tbody>'+
+                                '</table>'+
+                           '</div>'+
+                            '<!-- -- -->'
+                        )
+                    }
                 },
                 {
                     data: 'catalogOrCasNumber'
@@ -116,13 +144,145 @@
                     data: null
                 },
                 {
-                    data: null
+                    data: function(dataSupplier){
+                        return (
+                            '<!-- Content Layout -->'+
+                            '<div style="height:114px;font-size:12px;font-family:poppinsSemiBold">'+
+                                '<div class="row" style="padding-top:30px">'+
+                                    '<div class="col">'+
+                                        '<!-- Feedback Doc Req CoA -->'+
+                                        '<div class="row">'+
+                                            '<div class="col">'+
+                                                'CoA'+
+                                            '</div>'+
+                                            '<div class="col">'+
+                                                '<div class="bg-success m-0 text-center text-white '+ (dataSupplier.docCoA == "ok" ? "":"d-none") +' border" style="width:55px">OK</div>'+
+                                                '<div class="bg-danger m-0 text-center text-white '+ (dataSupplier.docCoA == "notOk" ? "":"d-none") +' border" style="width:55px">NOT OK</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<!-- Feedback Doc Req MSDS -->'+
+                                        '<div class="row">'+
+                                            '<div class="col">'+
+                                                'MSDS'+
+                                            '</div>'+
+                                            '<div class="col">'+
+                                                '<div class="bg-success m-0 text-center text-white '+ (dataSupplier.docMSDS == "ok" ? "":"d-none") +' border" style="width:55px">OK</div>'+
+                                                '<div class="bg-danger m-0 text-center text-white '+ (dataSupplier.docMSDS == "notOk" ? "":"d-none") +' border" style="width:55px">NOT OK</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<!-- Feedback Doc Req MoA -->'+
+                                        '<div class="row">'+
+                                            '<div class="col">'+
+                                                'MoA'+
+                                            '</div>'+
+                                            '<div class="col">'+
+                                                '<div class="bg-success m-0 text-center text-white '+ (dataSupplier.docMoA == "ok" ? "":"d-none") +' border" style="width:55px">OK</div>'+
+                                                '<div class="bg-danger m-0 text-center text-white '+ (dataSupplier.docMoA == "notOk" ? "":"d-none") +' border" style="width:55px">NOT OK</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="col">'+
+                                        '<!-- Feedback Doc Req Halal -->'+
+                                        '<div class="row">'+
+                                            '<div class="col">'+
+                                                'Halal'+
+                                            '</div>'+
+                                            '<div class="col">'+
+                                                '<div class="bg-success m-0 text-center text-white '+ (dataSupplier.docHalal == "ok" ? "":"d-none") +' border" style="width:55px">OK</div>'+
+                                                '<div class="bg-danger m-0 text-center text-white '+ (dataSupplier.docHalal == "notOk" ? "":"d-none") +' border" style="width:55px">NOT OK</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<!-- Feedback Doc Req DMF -->'+
+                                        '<div class="row">'+
+                                            '<div class="col">'+
+                                                'DMF'+
+                                            '</div>'+
+                                            '<div class="col">'+
+                                                '<div class="bg-success m-0 text-center text-white '+ (dataSupplier.docDMF == "ok" ? "":"d-none") +' border" style="width:55px">OK</div>'+
+                                                '<div class="bg-danger m-0 text-center text-white '+ (dataSupplier.docDMF == "notOk" ? "":"d-none") +' border" style="width:55px">NOT OK</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="row">'+
+                                            '<div class="col">'+
+                                                'GMP'+
+                                            '</div>'+
+                                            '<div class="col">'+
+                                                '<div class="bg-success m-0 text-center text-white '+ (dataSupplier.docGMP == "ok" ? "":"d-none") +' border" style="width:55px">OK</div>'+
+                                                '<div class="bg-danger m-0 text-center text-white '+ (dataSupplier.docGMP == "notOk" ? "":"d-none") +' border" style="width:55px">NOT OK</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+
+                            '<!-- Action Feedback Doc Req -->'+
+                            '<div>'+
+                                '<button type="button" class="btn btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#feedbackDocReq'+dataSupplier.id+'">'+
+                                    '<div style="font-size:11px">FeedbackDocReq</div>'+
+                                '</button>'+
+                                <?php include "../../component/modal/server-side/feedbackDocReq.php"?>
+                            '</div>'+
+                            '<!-- -- -->'
+                        )
+                    }
                 },
                 {
-                    data: null
+                    data: function(dataSupplier){
+                        return (
+                            '<!-- Tanggal Feedback -->'+
+                            '<div class="bg-success bg-opacity-75 y p-0" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: '+dataSupplier.dateFeedbackRnd+'</div>'+
+                            '<!-- Layout Content -->'+
+                            '<div class="overflow-auto" style="height:82px;font-size:12px;font-family:poppinsSemiBold;">'+
+                                '<!-- Title Review Harga-->'+
+                                '<div>'+
+                                    '> Review Harga:'+
+                                '</div>'+
+                                '<!-- Isi Feedback Rnd Review Harga -->'+
+                                '<div style="font-family:poppinsMedium;font-size:11px">'+
+                                    (dataSupplier.feedbackRndPriceReview != "" ? dataSupplier.feedbackRndPriceReview : "-") +
+                                '</div>'+
+                                '<!-- Title Sampel dan Lainnya-->'+
+                                '<div>'+
+                                    '> Sampel dan lainnya:'+
+                                '</div>'+
+                                '<!-- Isi Sampel/Feedback-->'+
+                                '<div class="text-wrap pt-1" style="font-size:11px;font-family:poppinsMedium;">'+(dataSupplier.sampelFeedbackRnd != "" ? dataSupplier.sampelFeedbackRnd : "-")+'</div>'+
+                            '</div>'+
+                            '<!-- Penulis -->'+
+                            '<div style="font-size:10px;font-family:poppinsBold;">'+(dataSupplier.writerFeedbackRnd != "" ? "By: "+dataSupplier.writerFeedbackRnd : "")+'</div>'+
+
+                            '<!-- Action Feedback Rnd -->'+
+                            '<div>'+
+                                '<button type="button" class="btn btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#feedbackRnd'+dataSupplier.id+'">'+
+                                    '<div style="font-size:11px">Sampel dan lainnya</div>'+
+                                '</button>'+
+                                <?php include "../../component/modal/server-side/feedbackRnd.php"?>
+                            '</div>'
+                        )
+                    }
                 },
                 {
-                    data: "doc-MoA"
+                    data: function(dataSupplier){
+                        return (
+                            '<!-- Tanggal Feedback Proc -->'+
+                            '<div class="bg-success bg-opacity-75" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: '+dataSupplier.dateFeedbackProc+'</div>'+
+                            '<!-- Isi Feedback Proc -->'+
+                            '<div class="overflow-auto" style="height:80px">'+
+                                '<div class="text-wrap p-1" style="font-size:11px;font-family:poppinsMedium;">'+dataSupplier.feedbackProc+'</div>'+
+                            '</div>'+
+                            '<!-- Penulis -->'+
+                            '<div style="font-size:10px;font-family:poppinsBold;">'+(dataSupplier.writerFeedbackProc != "" ? "By: "+dataSupplier.writerFeedbackProc : "")+'</div>'+
+                            '<!-- Action Feedback Proc -->'+
+
+                            '<!-- Action Feedback Proc -->'+
+                            '<div>'+
+                                '<button type="button" class="btn btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#feedbackProc'+dataSupplier.id+'">'+
+                                    '<div style="font-size:11px">Feedback Proc</div>'+
+                                '</button>'+
+                                <?php include "../../component/modal/server-side/feedbackProc.php"?>
+                            '</div>'
+                        )
+                    }
                 },
                 {
                     data: null
@@ -307,6 +467,10 @@
     
     // Send data to Action Update Supplier for Add Detail Supplier
     function funcAddDetailSupplier(idSupplier){
+        // Check Submit
+        $("form#formAddDetail"+idSupplier).submit(function(e){
+            e.preventDefault();
+            // actual logic, e.g. validate the form
             $.ajax({
                 type: "POST",
                 url: "../controller/actionUpdateSupplier.php",
@@ -334,6 +498,7 @@
                 }
             })
             $('#tambahDetailSupplier'+idSupplier).modal('hide');
+        })
     }
 
     // Send data to Action Update Supplier for Delete Detail Supplier
@@ -443,6 +608,10 @@
 
     // Send data to Action Update Supplier for feedback doc req
     function funcFeedbackDocReq(idSupplier){
+        // Check Submit
+        $("form#formFeedbackDocReq"+idSupplier).submit(function(e){
+            e.preventDefault();
+            // actual logic, e.g. validate the form
             $.ajax({
                 type: "POST",
                 url: "../controller/actionFeedback.php",
@@ -470,6 +639,7 @@
                 }
             })
             $('#feedbackDocReq'+idSupplier).modal('hide');
+        })
     }
 
     // Send data to Action Update Supplier for feedback rnd
