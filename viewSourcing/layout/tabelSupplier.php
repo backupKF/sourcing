@@ -156,14 +156,14 @@
                         <button class="btn btn-primary btn-sm" data-bs-toggle="modal" style="width:80px" data-bs-target="#uploadDoc<?php echo $row['id']?>">
                             <div style="font-size:11px">Upload Doc</div>
                         </button>
-                        <?php include "../../component/modal/uploadDoc.php"?>
+                        <?php include "../../component/modal/client-side/uploadDoc.php"?>
                     </div>
                     <!-- View Document -->
                     <div class="col-lg-6">
                         <button class="btn btn-success btn-sm" data-bs-toggle="modal" style="width:80px" data-bs-target="#viewDoc<?php echo $row['id']?>">
                             <div style="font-size:11px">View Doc</div>
                         </button>
-                        <?php include "../../component/modal/viewDoc.php"?>
+                        <?php include "../../component/modal/client-side/viewDoc.php"?>
                     </div>
                 </div>
             </td>
@@ -341,7 +341,6 @@
                 <?php include "../../component/modal/client-side/updateSupplier.php"?>
             </td>
         </tr>
-        </script>
         <?php
             }
         ?>

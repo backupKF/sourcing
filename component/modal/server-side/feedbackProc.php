@@ -16,7 +16,7 @@
             '</div>'+
             '<!-- Modal Body -->'+
             '<div class="modal-body">'+
-                '<form class="p-1 was-validated" id="formFeedbackProc'+dataSupplier.id+'" autocomplete="off">'+
+                '<form class="p-1 was-validated" id="formFeedbackProc'+dataSupplier.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcFeedbackProc('+dataSupplier.id+');">'+
                     '<!-- Feedback Proc -->'+
                     '<div class="mb-1">'+
                         '<label for="feedback" class="form-label" style="margin-button:2px">Feedback Proc</label>'+
@@ -25,7 +25,7 @@
                             'Masukan Feedback Proc (*Tandai (-) jika tidak Diisi).'+
                         '</div>'+
                     '</div>'+
-                    '<button type="submit" class="btn btn-primary btn-sm">Submit</button>'+
+                    '<input type="submit" class="btn btn-primary btn-sm" value="Submit">'+
                 '</form>'+
                 '<!-- Tampilan content riwayat feedback proc -->'+
                 '<div class="overflow-auto" style="height:200px;">'+

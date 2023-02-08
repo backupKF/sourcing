@@ -72,6 +72,7 @@
         </tr>
     </thead>
 </table>
+<div class="test-hu"></div>
 
 <script>
     $(document).ready(function() {
@@ -117,7 +118,6 @@
                             <?php include "../../component/modal/server-side/addDetailSupplier.php"?>
                             '<!-- -- -->'+
 
-
                             '<!-- Tabel Informasi MoQ, UoM, dan Price -->'+
                             '<div class="overflow-auto" style="height:110px">'+
                                 '<!-- Tabel MoQ UoM Price -->'+
@@ -127,7 +127,7 @@
                                     '</tbody>'+
                                 '</table>'+
                            '</div>'+
-                            '<!-- -- -->'
+                           '<!-- -- -->'
                         )
                     }
                 },
@@ -141,7 +141,26 @@
                     data: 'documentInfo'
                 },
                 {
-                    data: null
+                    data: function(dataSupplier){
+                        return (
+                            '<div class="row">'+
+                                '<!-- Upload Document -->'+
+                                '<div class="col-lg-6">'+
+                                    '<button class="btn btn-primary btn-sm" data-bs-toggle="modal" style="width:80px" data-bs-target="#uploadDoc'+dataSupplier.id+'">'+
+                                        '<div style="font-size:11px">Upload Doc</div>'+
+                                    '</button>'+
+                                    <?php include "../../component/modal/server-side/uploadDoc.php"?>
+                                '</div>'+
+                                '<!-- View Document -->'+
+                                '<div class="col-lg-6">'+
+                                    '<button class="btn btn-success btn-sm" data-bs-toggle="modal" style="width:80px" data-bs-target="#viewDoc'+dataSupplier.id+'">'+
+                                        '<div style="font-size:11px">View Doc</div>'+
+                                    '</button>'+
+                                    <?php include "../../component/modal/server-side/viewDoc.php"?>
+                                '</div>'+
+                            '</div>'
+                        )
+                    }
                 },
                 {
                     data: function(dataSupplier){
@@ -285,13 +304,44 @@
                     }
                 },
                 {
-                    data: null
+                    data: function(dataSupplier){
+                        return (
+                            '<!-- Tanggal Final Feedback Rnd -->'+
+                            '<div class="bg-success bg-opacity-75" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: '+ dataSupplier.dateFinalFeedbackRnd +'</div>'+
+                            '<!-- Isi Final Feedback Rnd -->'+
+                            '<div class="overflow-auto" style="height:80px">'+
+                            '<!-- Isi Feedback -->'+
+                                '<div class="text-wrap pt-1" style="font-size:11px;font-family:poppinsMedium;">'+(dataSupplier.finalFeedbackRnd != "" ? dataSupplier.finalFeedbackRnd : "-")+'</div>'+
+                            '</div>'+
+                            '<!-- Penulis -->'+
+                            '<div style="font-size:10px;font-family:poppinsBold;">'+(dataSupplier.writerFinalFeedbackRnd != "" ? "By: "+dataSupplier.writerFinalFeedbackRnd : "")+'</div>'+
+                            '<!-- Action Final Feedback Rnd -->'+
+                            '<div>'+
+                                '<button type="button" class="btn btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#finalFeedbackRnd'+dataSupplier.id+'">'+
+                                    '<div style="font-size:12px">Final Feedback Rnd</div>'+
+                                '</button>'+
+                                <?php include "../../component/modal/server-side/finalFeedbackRnd.php"?>
+                            '</div>'
+                        )
+                    }
                 },
                 {
-                    data: null
-                },
-            ]
+                    data: function(dataSupplier){
+                        return (
+                            '<!-- Edit Supplier -->'+
+                            '<button type="button" class="btn btn-warning p-0" data-bs-toggle="modal" style="width:100%;height:30px" data-bs-target="#editSupplier'+dataSupplier.id+'">'+
+                                '<div style="font-size:13px">Edit Supplier</div>'+
+                            '</button>'+
+                            <?php include "../../component/modal/server-side/updateSupplier.php"?>
 
+                            '<!--  -----------  -->'
+                        )
+                    }
+                },
+            ],
+            drawCallback:function( settings){
+                $('.test-hu').html(settings.json.script)
+            }
         });
 
         // CSS Tabel
@@ -467,38 +517,33 @@
     
     // Send data to Action Update Supplier for Add Detail Supplier
     function funcAddDetailSupplier(idSupplier){
-        // Check Submit
-        $("form#formAddDetail"+idSupplier).submit(function(e){
-            e.preventDefault();
-            // actual logic, e.g. validate the form
-            $.ajax({
-                type: "POST",
-                url: "../controller/actionUpdateSupplier.php",
-                data: $('form#formAddDetail'+idSupplier).serialize()+'&id='+idSupplier+'&addDetail=true',
-                dataType: 'json',
-                success: function(response){
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'bottom-end',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
+        $.ajax({
+            type: "POST",
+            url: "../controller/actionUpdateSupplier.php",
+            data: $('form#formAddDetail'+idSupplier).serialize()+'&id='+idSupplier+'&addDetail=true',
+            dataType: 'json',
+            success: function(response){
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
 
-                    Toast.fire({
-                        icon: response.status == 0?'success':'warning',
-                        title: response.message
-                    })
+                Toast.fire({
+                    icon: response.status == 0?'success':'warning',
+                    title: response.message
+                })
 
-                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-                }
-            })
-            $('#tambahDetailSupplier'+idSupplier).modal('hide');
+                loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+            }
         })
+        $('#tambahDetailSupplier'+idSupplier).modal('hide');
     }
 
     // Send data to Action Update Supplier for Delete Detail Supplier
@@ -608,38 +653,33 @@
 
     // Send data to Action Update Supplier for feedback doc req
     function funcFeedbackDocReq(idSupplier){
-        // Check Submit
-        $("form#formFeedbackDocReq"+idSupplier).submit(function(e){
-            e.preventDefault();
-            // actual logic, e.g. validate the form
-            $.ajax({
-                type: "POST",
-                url: "../controller/actionFeedback.php",
-                data: $('form#formFeedbackDocReq'+idSupplier).serialize()+'&feedbackDocReq=true&idSupplier='+idSupplier,
-                dataType: 'json',
-                success: function(response){
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'bottom-end',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
+        $.ajax({
+            type: "POST",
+            url: "../controller/actionFeedback.php",
+            data: $('form#formFeedbackDocReq'+idSupplier).serialize()+'&feedbackDocReq=true&idSupplier='+idSupplier,
+            dataType: 'json',
+            success: function(response){
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
 
-                    Toast.fire({
-                        icon: response.status == 0?'success':'warning',
-                        title: response.message
-                    })
+                Toast.fire({
+                    icon: response.status == 0?'success':'warning',
+                    title: response.message
+                })
 
-                    loadDataSupplier(<?php echo $_GET['idMaterial']?>)
-                }
-            })
-            $('#feedbackDocReq'+idSupplier).modal('hide');
+                loadDataSupplier(<?php echo $_GET['idMaterial']?>)
+            }
         })
+        $('#feedbackDocReq'+idSupplier).modal('hide');
     }
 
     // Send data to Action Update Supplier for feedback rnd

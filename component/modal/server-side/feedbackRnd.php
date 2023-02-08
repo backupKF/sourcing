@@ -17,7 +17,7 @@
             '</div>'+
             '<!-- Modal Body -->'+
             '<div class="modal-body">'+
-                '<form class="p-1 was-validated" id="formFeedbackRnd'+dataSupplier.id+'" autocomplete="off">'+
+                '<form class="p-1 was-validated" id="formFeedbackRnd'+dataSupplier.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcFeedbackRnd('+dataSupplier.id+');">'+
                     '<!-- Review Harga -->'+
                     '<div class="mb-1">'+
                         '<label for="priceReview" class="form-label" style="margin-button:2px">Review Harga</label>'+
@@ -34,7 +34,7 @@
                             'Masukan Sampel dan lainnya (*Tandai (-) jika tidak Diisi).'+
                         '</div>'+
                     '</div>'+
-                    '<button type="submit" class="btn btn-primary btn-sm">Submit</button>'+
+                    '<input type="submit" class="btn btn-primary btn-sm" value="Submit">'+
                 '</form>'+
                 '<!-- Tampilan Content Feedback Rnd -->'+
                 '<div class="overflow-auto" style="height:160px;">'+

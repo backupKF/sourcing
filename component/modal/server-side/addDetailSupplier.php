@@ -15,7 +15,7 @@
             '</div>'+
             '<!-- Modal Body -->'+
             '<div class="modal-body">'+
-                '<form class="was-validated" id="formAddDetail'+dataSupplier.id+'" autocomplete="off">'+
+                '<form class="was-validated" id="formAddDetail'+dataSupplier.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcAddDetailSupplier('+dataSupplier.id+');">'+
                     '<!-- Input MoQ-->'+
                     '<div class="mb-3">'+
                         '<label for="MoQ" class="form-label">MoQ</label>'+
@@ -78,7 +78,7 @@
             '<!-- Modal Footer -->'+
             '<div class="modal-footer">'+
                 '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>'+
-                '<input type="submit" class="btn btn-primary" value="Submit" form="formAddDetail'+dataSupplier.id+'" onclick="funcAddDetailSupplier('+dataSupplier.id+')">'+
+                '<input type="submit" class="btn btn-primary" value="Submit" form="formAddDetail'+dataSupplier.id+'">'+
             '</div>'+
         '</div>'+
     '</div>'+

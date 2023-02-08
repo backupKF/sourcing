@@ -2,7 +2,7 @@
     include "../../dbConfig.php";
 
 	// Mendeklarasikan Variabel Array
-    $params = $totalRecords = $data = array();
+    $params = $totalRecords = $data = $scripts = array();
 
 	// Mengisi variabel $params dengan Request dari Client
     $params = $_REQUEST;
@@ -31,7 +31,7 @@
 	// }
 
     // Mengambil data dan total data yang dicari user
-	$sql = "SELECT id, supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, feedbackRndPriceReview, dateFinalFeedbackRnd
+	$sql = "SELECT id, supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, feedbackRndPriceReview, dateFinalFeedbackRnd,
             finalFeedbackRnd, writerFinalFeedbackRnd FROM TB_Supplier WHERE idMaterial =".$_GET['idMaterial'];
 	$sqlTot = "SELECT count(*) FROM TB_Supplier WHERE idMaterial =".$_GET['idMaterial'];
 	$sqlRec .= $sql;
@@ -61,7 +61,8 @@
 
 	// Menampung hasil data material kedalam array
 	foreach($queryRecords as $row ) {
-		$outputDetailSupplier = $outputFeedbackRnd = $outputFeedbackProc = '';
+
+		$outputDetailSupplier = $outputFeedbackRnd = $outputFeedbackProc = $outputViewDoc = $script = '';
 
 		// Get Detail Supplier
 		if($detailSupplier = $conn->query("SELECT * FROM TB_DetailSupplier WHERE idSupplier=".$row['id'])->fetchAll()){
@@ -124,6 +125,29 @@
 			$row['outputFeedbackProc'] = '-';
 		}
 
+		// Mengambil Daftar Document
+        if($file = $conn->query("SELECT * FROM TB_File WHERE idSupplier='{$row['id']}'")->fetchAll()){
+            foreach($file as $dataFile){
+				$outputViewDoc .= '
+					<tbody>
+						<td style="font-size:15px;font-family:poppinsItalic">'.$dataFile['fileName'].'</td>
+						<td><a class="text-decoration-none btn btn-success d-inline ms-1" style="width:80px;height:25px;font-size:13px;font-family:poppinsSemiBold;padding:3px" href="../assets/uploads/'.$dataFile['fileHash'].'" target="_blank">View</a></td>
+						<td><button type="button" style="width:50px;height:25px;font-size:13px;font-family:poppinsSemiBold" class="btn btn-danger d-inline ms-1 p-0" onclick="deleteFile('.$dataFile['id'].','.$row['id'].')">Delete</button></td>
+					</tbody>
+				';
+            }
+			$row['outputViewDoc'] = $outputViewDoc;
+        }else{
+			// Jika Tidak ada
+			$row['outputViewDoc'] = '
+				<tbody>
+					<td></td>
+					<td>Not Found</td>
+					<td></td>
+				</tbody>
+			';
+        }
+
 
         // Get Feedback Doc Req
         if($feedbackDocReq = $conn->query("SELECT * FROM TB_FeedbackDocReq WHERE idSupplier='{$row['id']}'")->fetchAll()){
@@ -170,15 +194,60 @@
 			$row['writerFeedbackProc'] = "";
 		}
 
+		$script .= '
+			<script>
+				$("#tabel-vendorUpdateSupplier'.$row['id'].'").DataTable({
+					lengthChange:false,
+                    pageLength:5,
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: "../controller/loadData/loadDataMasterVendor.php",
+                    },
+					columns: [
+						{
+							data: function(dataVendor){
+								return (
+									`<div class="py-0 column-project-value" style="width:250px">`+
+										`<!-- Column Project Name -->`+
+										`<div class="d-flex align-items-center"style="height:30px">`+
+                                            dataVendor.vendorName +
+                                        `</div>`+
+                                    `</div>`
+								)
+							}
+						},
+						{
+							data: function(dataVendor){
+								return (
+									`<!-- Action Button -->`+
+									`<div class="py-0" style="width:50px">`+
+										`<form id="formSetVendorUpdateSupplier`+dataVendor.id+`">`+
+											`<button type="button" class="btn btn-success btn-sm p-0 px-1" style="height:22px" name="setValue" value="`+dataVendor.vendorName+`" onclick="funcSetVendor('.$row['id'].',\``+dataVendor.vendorName+`\`, \`formSetVendorUpdateSupplier\`)">`+
+												`<span style="font-size:11px;font-family:poppinsBold">Pilih</span>`+
+											`</button>`+
+										`</form>`+
+									`</div>`
+								)
+							}
+						}
+					]
+				})
+			</script>
+		';		
+		
+		$scripts[] = $script;
+
 		$data[] = $row;
-	}	
+	}
 
 	// Mengampung hasil data ke dalam sebuah array
 	$json_data = array(
 			"draw"            => intval( $params['draw'] ),   
 			"recordsTotal"    => $totalRecords[0][0],  
 			"recordsFiltered" => $totalRecords[0][0],
-			"data"            => $data   // total data array
+			"data"            => $data,   // total data array
+			"script"		  => $scripts
 			);
 
 	echo json_encode($json_data);  // Mengirim json format

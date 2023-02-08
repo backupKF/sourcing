@@ -16,7 +16,7 @@
             '</div>'+
             '<!-- Modal Body -->'+
             '<div class="modal-body">'+
-                '<form class="was-validated" id="formFeedbackDocReq'+dataSupplier.id+'" autocomplete="off">'+
+                '<form class="was-validated" id="formFeedbackDocReq'+dataSupplier.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcFeedbackDocReq('+dataSupplier.id+');">'+
                     '<input type="hidden" name="idFeedbackDocReq" value="'+dataSupplier.idfeedbackDocReq+'">'+
                      '<!-- Feedback Doc CoA -->'+
                      '<div class="row">'+
@@ -156,7 +156,7 @@
             '<!-- Modal Footer -->'+
             '<div class="modal-footer">'+
                 '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>'+
-                '<input type="submit" class="btn btn-primary" name="submit" value="Submit" onclick="funcFeedbackDocReq('+dataSupplier.id+')" form="formFeedbackDocReq'+dataSupplier.id+'">'+
+                '<input type="submit" class="btn btn-primary" name="submit" value="Submit" form="formFeedbackDocReq'+dataSupplier.id+'">'+
             '</div>'+
         '</div>'+
     '</div>'+
