@@ -15,7 +15,7 @@
         font-family:'poppinsMedium';
     }
     .column-project-head{
-        font-size:14px;
+        font-size:13px;
         font-family:'poppinsMedium';
     }
 </style>
@@ -63,12 +63,15 @@
             },
             columns: [
                 {
+                    className: "column-project-value",
                     data: "projectCode"
                 },
                 {
+                    className: "column-project-value",
                     data: "projectName"
                 },
                 {
+                    className: "column-project-value",
                     data: function(data){
                         return (
                             '<form action="../controller/actionPengajuan.php" method="POST">'+

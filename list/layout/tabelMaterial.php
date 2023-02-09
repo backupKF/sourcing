@@ -57,7 +57,7 @@
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['finishDossageForm']?></div></td>
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['keterangan']?></div></td>
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['teamLeader']?></div></td>
-                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['vendor']?></div></td>
+                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['vendorAERO']?></div></td>
                 <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['documentReq']?></div></td>
                 <!-- Column Status -->
                 <td>
@@ -121,7 +121,7 @@
                         <button type="button" class="btn btn-sm btn-warning p-0" data-bs-toggle="modal" style="width:100%;height:30px" data-bs-target="#editMaterial<?php echo $row['id']?>">
                             <div style="font-size:13px">Edit Material</div>
                         </button>
-                        <?php include "../../component/modal/updateMaterialList.php"?>
+                        <?php include "../../component/modal/client-side/updateMaterialList.php"?>
                     </td>
                 <?php 
                     } 

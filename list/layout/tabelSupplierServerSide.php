@@ -47,7 +47,7 @@
 <?php include "../../component/modal/client-side/addSupplier.php"?>  
                 
 <!-- Tabel Supplier -->
-<table id="table-supplier" class="pt-2 table table-striped">
+<table id="table-supplier-<?php echo $_GET['idMaterial']?>" class="pt-2 table table-striped">
     <thead style="background-color:#c1c712">
         <tr>
             <th class="sticky-column-supplier headerColumn" style="width:180px;background-color:#c1c712">Supplier</th>
@@ -102,11 +102,11 @@
         </tr>
     </tfoot>
 </table>
-<div class="test-hu"></div>
+<div class="test-hu-<?php echo $_GET['idMaterial']?>"></div>
 
 <script>
     $(document).ready(function() {
-        var table = $('#table-supplier').DataTable({
+        var table = $('#table-supplier-<?php echo $_GET['idMaterial']?>').DataTable({
             scrollX: true,
             paging:true,
             stateSave: true,
@@ -116,19 +116,7 @@
             ajax: {
                 url: '../controller/loadData/loadDataSupplier.php',
                 type: 'GET',
-        <?php
-            if(!empty($_GET['idMaterial']) && empty($_GET['idSupplier'])){
-        ?>
                 data: {idMaterial: <?php echo $_GET['idMaterial']?>}
-        <?php
-            }
-
-            if(!empty($_GET['idMaterial']) && !empty($_GET['idSupplier'])){
-        ?>
-                data: {idMaterial: <?php echo $_GET['idMaterial']?>, idSupplier: <?php echo $_GET['idSupplier']?>},
-        <?php 
-            }
-        ?>
             },
             columns: [
                 {
@@ -388,7 +376,7 @@
                 },
             ],
             drawCallback:function( settings){
-                $('.test-hu').html(settings.json.script)
+                $('.test-hu-<?php echo $_GET['idMaterial']?>').html(settings.json.script)
             }
         });
 

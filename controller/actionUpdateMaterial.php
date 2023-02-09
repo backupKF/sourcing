@@ -22,11 +22,11 @@
         $website = trim(strip_tags($_POST['website']));
         $finishDossageForm = trim(strip_tags($_POST['finishDossageForm']));
         $keterangan = trim(strip_tags($_POST['keterangan']));
-        $vendor = trim(strip_tags($_POST['vendor']));
+        $vendorAERO = trim(strip_tags($_POST['vendorAERO']));
         $documentReq = trim(strip_tags($_POST['documentReq']));
 
         // Variabel untuk pengecekan data material
-        $checkValue = $conn->query("SELECT materialCategory, materialName, materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, priority, vendor, documentReq FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll();
+        $checkValue = $conn->query("SELECT materialCategory, materialName, materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, priority, vendorAERO, documentReq FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll();
         $changeMaterialCategory = "";
         $changeMaterialName = "";
         $changePriority = "";
@@ -141,8 +141,8 @@
             }
     
            
-            // Kondisi dimana ada data priority dan vendor
-            if(!empty($priority) || !empty($vendor)){
+            // Kondisi dimana ada data priority dan vendorAERO
+            if(!empty($priority) || !empty($vendorAERO)){
                 // Check and Validation Priority
                 if(!empty($priority)){
                     if($priority != $checkValue[0]['priority']){
@@ -155,21 +155,21 @@
                 }
     
                 // Check and Validation Vendor
-                if(!empty($vendor)){
-                    if($vendor != $checkValue[0]['vendor']){
+                if(!empty($vendorAERO)){
+                    if($vendorAERO != $checkValue[0]['vendorAERO']){
                         $changeVendor = " Vendor,";
                     }else{
                         $changeVendor = "";
                     }
                 }else{
-                    $vendor = "-";
+                    $vendorAERO = "-";
                 }
                 
                 // Handle Update Data Material Sourcing To Database Tabel TB_PengajuanSourcing
                 try{
-                    $sql = "UPDATE TB_PengajuanSourcing SET materialCategory = ?, materialName = ?, priority = ?, materialSpesification = ?, catalogOrCasNumber = ?, company = ?, website = ?, finishDossageForm = ?, keterangan = ?, vendor = ?, documentReq = ? WHERE id = ?";
+                    $sql = "UPDATE TB_PengajuanSourcing SET materialCategory = ?, materialName = ?, priority = ?, materialSpesification = ?, catalogOrCasNumber = ?, company = ?, website = ?, finishDossageForm = ?, keterangan = ?, vendorAERO = ?, documentReq = ? WHERE id = ?";
                     $query = $conn->prepare($sql);
-                    $update = $query->execute(array($materialCategory, $materialName, $priority, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $vendor, $documentReq, $idMaterial));
+                    $update = $query->execute(array($materialCategory, $materialName, $priority, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $vendorAERO, $documentReq, $idMaterial));
         
                     $message = "memperbaharui data material : ".$changeMaterialCategory.$changeMaterialName.$changePriority.$changeMaterialSpesification.$changeCatalogOrCasNumber.$changeCompany.$changeWebsite.$changeFinishDossageForm.$changeKeterangan.$changeVendor.$changeDocumentReq." pada material sourcing : ";
         

@@ -109,8 +109,8 @@
         <div class="col m-0 mt-1">
             <!-- Vendor Terdaftar AERO -->
             <div class="mb-3">
-                <label for="vendor" class="form-label" style="font-size:17px;font-family:poppinsBold">Vendor Terdaftar AERO</label>
-                <input type="text" class="form-control form-control-sm" id="vendor" name="vendor" required value="<?php echo !empty($dataMaterial[0]['vendor'])? $dataMaterial[0]['vendor']:'';?>">
+                <label for="vendorAERO" class="form-label" style="font-size:17px;font-family:poppinsBold">Vendor Terdaftar AERO</label>
+                <input type="text" class="form-control form-control-sm" id="vendorAERO" name="vendorAERO" required value="<?php echo !empty($dataMaterial[0]['vendorAERO'])? $dataMaterial[0]['vendorAERO']:'';?>">
                 <div class="invalid-feedback">
                     Masukan Vendor Terdaftar AERO (*Tandai (-) jika tidak Diisi).
                 </div>
@@ -242,8 +242,8 @@
         <div class="col m-0 mt-1">
             <!-- Vendor Terdaftar AERO -->
             <div class="mb-3">
-                <label for="vendor" class="form-label" style="font-size:17px;font-family:poppinsBold">Vendor Terdaftar AERO</label>
-                <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['vendor'])? $dataMaterial[0]['vendor']:'';?>" disabled readonly>
+                <label for="vendorAERO" class="form-label" style="font-size:17px;font-family:poppinsBold">Vendor Terdaftar AERO</label>
+                <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['vendorAERO'])? $dataMaterial[0]['vendorAERO']:'';?>" disabled readonly>
             </div>
         </div>
         <div class="col m-0 mt-1">

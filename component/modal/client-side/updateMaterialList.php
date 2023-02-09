@@ -121,8 +121,8 @@
                     </div>
                     <!-- Vendor Terdaftar AERO -->
                     <div class="mb-3">
-                        <label for="vendor" class="form-label">Vendor Terdaftar AERO</label>
-                        <input type="text" class="form-control" id="vendor" name="vendor" required value="<?php echo !empty($row['vendor'])? $row['vendor']:'';?>">
+                        <label for="vendorAERO" class="form-label">Vendor Terdaftar AERO</label>
+                        <input type="text" class="form-control" id="vendorAERO" name="vendorAERO" required value="<?php echo !empty($row['vendorAERO'])? $row['vendorAERO']:'';?>">
                         <div class="invalid-feedback">
                             Masukan Vendor Terdaftar AERO (*Tandai (-) jika tidak Diisi).
                         </div>

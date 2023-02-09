@@ -195,7 +195,7 @@
                 <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                   <span class="position-absolute top-50 start-50 translate-middle">
                     <?php
-                      $countSumaryReport= $conn->query('SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE sumaryReport IS NULL AND feedbackRPIC=1')->fetchAll();
+                      $countSumaryReport= $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE sumaryReport LIKE '' AND feedbackRPIC=1")->fetchAll();
                       echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countSumaryReport[0][0]." Sourcing</span><br>"; 
                     ?>
                   </span>

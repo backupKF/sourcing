@@ -10,30 +10,29 @@
 	//Mendeklarasikan Variabel untuk pencarian
     $where = $sqlTot = $sqlRec = "";
 
-	// if(!empty($_GET["sn"]) && empty($_GET["idMaterial"])){
-	// 	// Jika terdapat data GET Sourcing Number
-	// 	$where .= " WHERE sourcingNumber=".$_GET['sn'];
-	// }else if(!empty($_GET["sn"]) && !empty($_GET["idMaterial"])){
-	// 	// Jika terdapat data GET Sourcing Number dan Id Material
-	// 	$where .= " WHERE sourcingNumber=".$_GET['sn']." AND TB_PengajuanSourcing.id=".$_GET['idMaterial'];
-	// }else{
+	
+	if(!empty($_GET["idMaterial"]) && !empty($_GET["idSupplier"])){
+		// Jika terdapat data GET Sourcing Number dan Id Material
+		$where .= " WHERE id =".$_GET['idSupplier']." AND idMaterial=".$_GET['idMaterial'];
+	}
+	if(!empty($_GET["idMaterial"]) && empty($_GET["idSupplier"])){
 		// Jika selain dari kondisi di atas, check pencarian user
-		if( !empty($params['search']['value']) ) {   
-			$where .=" WHERE ";
-			$where .=" supplier LIKE '".$params['search']['value']."%' ";
+		$where .= " WHERE idMaterial =".$_GET['idMaterial'];
+		if( !empty($params['search']['value']) ) {
+			$where .=" AND (supplier LIKE '".$params['search']['value']."%' ";
 			$where .=" OR manufacture LIKE '".$params['search']['value']."%' ";
 			$where .=" OR originCountry LIKE '".$params['search']['value']."%' ";
 			$where .=" OR leadTime LIKE '".$params['search']['value']."%' ";
 			$where .=" OR catalogOrCasNumber LIKE '".$params['search']['value']."%' ";
 			$where .=" OR gradeOrReference LIKE '".$params['search']['value']."%' ";
-            $where .=" OR documentInfo LIKE '".$params['search']['value']."%' ";
+            $where .=" OR documentInfo LIKE '".$params['search']['value']."%') ";
 		}
-	// }
+	}
 
     // Mengambil data dan total data yang dicari user
 	$sql = "SELECT id, supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, feedbackRndPriceReview, dateFinalFeedbackRnd,
-            finalFeedbackRnd, writerFinalFeedbackRnd FROM TB_Supplier WHERE idMaterial =".$_GET['idMaterial'];
-	$sqlTot = "SELECT count(*) FROM TB_Supplier WHERE idMaterial =".$_GET['idMaterial'];
+            finalFeedbackRnd, writerFinalFeedbackRnd FROM TB_Supplier";
+	$sqlTot = "SELECT count(*) FROM TB_Supplier";
 	$sqlRec .= $sql;
 
 	// // Mengambil data dan total data yang dicari user

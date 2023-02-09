@@ -21,8 +21,8 @@
         font-family:'poppinsMedium';
     }
     .column-project-head{
-        font-size:14px;
-        font-family:'poppinsMedium';
+        font-size:13px;
+        font-family:'poppinsSemiBold';
     }
     .labelVendor{
         font-size:14px;
@@ -59,7 +59,7 @@
                 <label class="labelVendor mb-1">Cari Supplier :</label>
 
                 <!-- Select Project -->
-                <table class="table vendor" id="tabel-vendorAddSupplier<?php $_GET['idMaterial']?>" style="width:100%">
+                <table class="table vendor" id="tabel-vendorAddSupplier<?php echo $_GET['idMaterial']?>" style="width:100%">
                     <thead style="background-color:#00b0aa">
                         <tr>
                             <td class="column-project-head" style="width:100px">Vendor Name</td>
@@ -82,7 +82,7 @@
 
 <script>
     $(document).ready(function(){
-        $('#tabel-vendorAddSupplier<?php $_GET['idMaterial']?>').DataTable({
+        $('#tabel-vendorAddSupplier<?php echo $_GET['idMaterial']?>').DataTable({
             lengthChange:false,
             pageLength:5,
             processing: true,
@@ -92,6 +92,7 @@
             },
             columns: [
                 {
+                    className: 'column-project-value',
                     data: function(data){
                         return (
                             '<div class="py-0 column-project-value" style="width:250px">'+
@@ -105,6 +106,7 @@
                     }
                 },
                 {
+                    className: 'column-project-value',
                     data: function(data){
                         return (
                             '<!-- Action Button -->'+
@@ -120,6 +122,46 @@
                 }
             ]
         })
+        // CSS Tabel
+        $('.dataTables_filter input[type="search"]').css(
+            {
+                'height':'25px',
+                'font-family':'poppinsRegular',
+                'display':'inline-block'
+            }
+        );
+        $('.dataTables_filter label').css(
+            {
+                'font-size':'15px',
+                'font-family':'poppinsSemiBold',
+                'display':'inline-block'
+            }
+        );
+        $('.dataTables_length').css(
+            {
+                'font-size':'15px',
+                'font-family':'poppinsSemiBold',
+            }
+        );
+        $('.dataTables_length select').css(
+            {
+                'height':'25px',
+                'font-family':'poppinsRegular',
+                'padding':'0'
+            }
+        );
+        $('.dataTables_info').css(
+            {
+                'font-size':'13px',
+                'font-family': 'poppinsSemiBold'
+            }
+        );
+        $('.dataTables_paginate').css(
+            {
+                'font-size':'13px',
+                'font-family': 'poppinsSemiBold'
+            }
+        );
     })
 
     // Listen Event Submit

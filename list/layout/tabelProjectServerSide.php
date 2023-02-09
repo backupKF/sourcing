@@ -12,10 +12,9 @@
 <div class="card shadow bg-body rounded">
     <div class="card-body">
         <!-- Tabel Project -->
-        <table id="table-project" class="table table-striped" style="width:100%">
+        <table id="table-project" class="table" style="width:100%">
             <thead>
                 <tr>
-                    <td class="d-none"></td>
                     <td style="width:5%"></td>
                     <td style="font-size:14px;font-family:poppinsSemiBold;width:80%">Project</td>
                 </tr>
@@ -38,14 +37,6 @@ $(document).ready(function(){
             url: '../controller/loadData/loadDataProject.php',
         },
         columns: [
-            {
-                className: 'd-none',
-                data: function(data){
-                    return (
-                        '<div>'+ data.projectCode +'</div>'
-                    )
-                }
-            },
             {
                 className: 'dt-control',
                 data: function(data){
@@ -135,7 +126,7 @@ function tableMaterial(d){
 // Load Data Material
 function loadDataMaterial(d){
     $.ajax({
-        url: 'layout/tabelMaterial.php',
+        url: 'layout/tabelMaterialServerSide.php',
         type: 'get',
         data: { projectCode: d},
         success: function(data) {
