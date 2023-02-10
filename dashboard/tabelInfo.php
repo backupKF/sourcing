@@ -31,7 +31,7 @@
 
             /* CSS Sidebar Responsive */
             .container{
-                margin-top:40px;
+                margin-top:65px;
                 margin-left:255px;
             }
             .card{
@@ -43,6 +43,16 @@
             }
             #check:checked ~ .container .card{
                 width:1160px;
+            }
+
+            /* CSS Tabel Info Status */
+            th{
+                font-size:12px;
+                font-family:poppinsSemiBold;
+            }
+            td {
+                font-size:12px;
+                font-family:poppinsRegular;
             }
         </style>
     </head>
@@ -56,57 +66,42 @@
         <br>
 
         <div class="container">
-            <!-- Tombol Kembali -->
-            <a href="index.php" class="btn btn-danger mt-2">Back</a>
             <!-- Tabel Info -->
             <div class="card shadow bg-body rounded">
                 <div class="card-body">
-                    <h3 class="text-center border-bottom pb-2" style="font-size:20px;font-family:poppinsBold">Material Sourcing {Status <?php echo $_GET['status']?>}</h3>
+                    <div class="row">
+                        <div class="col-4">
+                            <!-- Tombol Kembali -->
+                            <a href="index.php" class="btn btn-danger btn-sm">Back</a>
+                        </div>
+                        <div class="col-8">
+                            <!-- title -->
+                            <h3 class="m-0" style="font-size:20px;font-family:poppinsBold">Material Sourcing {Status <?php echo $_GET['status']?>}</h3>
+                        </div>
+                    </div>
+
+                    <hr>
+
                     <!-- Table Info -->
-                    <table id="table-info" class="table">
+                    <table id="table-info" class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th style="font-size:13px;font-family:poppinsRegular;width:10px">No</th>
-                                <th style="font-size:13px;font-family:poppinsRegular;width:150px">Material Name</th>
-                                <th style="font-size:13px;font-family:poppinsRegular;width:150px">Material Category</th>
-                                <th style="font-size:13px;font-family:poppinsRegular;width:300px">Spesifikasi</th>
-                                <th style="font-size:13px;font-family:poppinsRegular;width:150px">Target Launching</th>
-                                <th style="font-size:13px;font-family:poppinsRegular;width:250px">Supplier</th>
+                                <th style="width:150px">Material Name</th>
+                                <th style="width:150px">Material Category</th>
+                                <th style="width:300px">Spesifikasi</th>
+                                <th style="width:150px">Target Launching</th>
+                                <th style="width:250px">Supplier</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php
-                                $getIdMaterial = $conn->query("SELECT id, materialName, materialCategory, materialSpesification FROM TB_PengajuanSourcing WHERE statusSourcing='{$_GET['status']}' ORDER BY id DESC")->fetchAll();
-                                $no=1;
-                                foreach($getIdMaterial as $data){
-                                    if($getData= $conn->query("SELECT * FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE idMaterial='{$data['id']}' ORDER BY TB_Supplier.id DESC")->fetchAll()){
-                                        foreach($getData as $row){
-                            ?>
-                                            <tr>
-                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $no++?></td>
-                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $row['materialName']?></td>
-                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $row['materialCategory']?></td>
-                                                <td style="font-size:12px;font-family:poppinsRegular" class="text-wrap"><?php echo $row['materialSpesification']?></td>
-                                                <td style="font-size:12px;font-family:poppinsRegular">-</td>
-                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $row['supplier']?></td>
-                                            </tr>
-                            <?php
-                                        }
-                                    }else{
-                            ?>
-                                            <tr>
-                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $no++?></td>
-                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $data['materialName']?></td>
-                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $data['materialCategory']?></td>
-                                                <td style="font-size:12px;font-family:poppinsRegular"><?php echo $data['materialSpesification']?></td>
-                                                <td style="font-size:12px;font-family:poppinsRegular">-</td>
-                                                <td style="font-size:12px;font-family:poppinsRegular">-</td>
-                                            </tr>
-                            <?php
-                                    }
-                                }
-                            ?>
-                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th style="width:150px">Material Name</th>
+                                <th style="width:150px">Material Category</th>
+                                <th style="width:300px">Spesifikasi</th>
+                                <th style="width:150px">Target Launching</th>
+                                <th style="width:250px">Supplier</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -116,9 +111,39 @@
             $(document).ready(function(){
                 // Datatable table info
                 var projectInfo = $('#table-info').DataTable({
-                    lengthMenu: [5, 10],
-                    scrollX: true,
+                    scrollX : true,
+                    lengthChange: false,
+                    pageLength: 7,
+                    scrollY: '320px',
+                    scrollCollapse: true,
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: '../controller/loadData/loadDataTabelInfoStatusSourcing.php',
+                        type: 'GET',
+                        data: {
+                            status: "<?php echo $_GET['status']?>",
+                        }
+                    },
+                    columns: [
+                        {
+                            data: "materialName"
+                        },
+                        {
+                            data: "materialCategory"
+                        },
+                        {
+                            data: "materialSpesification"
+                        },
+                        {
+                            data: "targetLaunching"
+                        },
+                        {
+                            data: "supplier"
+                        },
+                    ]
                 })
+
 
                 // CSS Table
                 $('.dataTables_filter input[type="search"]').css(

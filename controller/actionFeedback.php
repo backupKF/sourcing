@@ -19,6 +19,7 @@
         $GMP = trim(strip_tags($_POST['GMP']));
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
         $idFeedbackDocReq = trim(strip_tags($_POST['idFeedbackDocReq']));
+        $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
 
         // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
@@ -63,7 +64,7 @@
             // Send Notifikasi
             if($update == true || $insert == true){
                 $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                $response = sendNotification("Feedback document requirement berhasil diperbaharui!!", $dataSupplier[0]['supplier'], "memperbaharui Feedback Document Requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                $response = sendNotification("Feedback document requirement berhasil diperbaharui!!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", "memperbaharui Feedback Document Requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
             }
 
         }else{
@@ -84,6 +85,7 @@
         $sampel = trim(strip_tags($_POST['sampel']));
         $writer = $_SESSION['user']['name'];
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
+        $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
 
         // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
@@ -127,7 +129,7 @@
             // Send Notifikasi
             if($update == true || $insert == true){
                 $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                $response = sendNotification("Feedback R&D berhasil diperbaharui!!", $dataSupplier[0]['supplier'], "memperbaharui Feedback R&D, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                $response = sendNotification("Feedback R&D berhasil diperbaharui!!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", "memperbaharui Feedback R&D, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
             }
 
         }else{
@@ -147,6 +149,7 @@
         $feedback = trim(strip_tags($_POST['feedback']));
         $writer = $_SESSION['user']['name'];
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
+        $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
         
         // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
@@ -172,7 +175,7 @@
             // Send Notifikasi
             if($insert == true){
                 $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                $response = sendNotification("Feedback Proc berhasil diperbaharui!!", $dataSupplier[0]['supplier'],  "memperbaharui Feedback Proc, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                $response = sendNotification("Feedback Proc berhasil diperbaharui!!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")",  "memperbaharui Feedback Proc, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
             }
 
         }else{
@@ -192,6 +195,7 @@
         $dateFinalFeedbackRnd = date("Y-m-d");
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
         $writerFinalFeedbackRnd = $_SESSION['user']['name'];
+        $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
 
         // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
@@ -203,7 +207,7 @@
 
                 if($update == true){
                     $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                    $response = sendNotification("Final Feeedback Rnd berhasil diperbaharui!", $dataSupplier[0]['supplier'], "memperbaharui Final Feedback R&D, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                    $response = sendNotification("Final Feeedback Rnd berhasil diperbaharui!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", "memperbaharui Final Feedback R&D, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
                 }else{
                     $response = array(
                         "status" => 0,

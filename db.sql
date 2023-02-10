@@ -3,6 +3,7 @@ CREATE DATABASE rcproject;
 USE rcproject;
 
 CREATE TABLE [dbo].[TB_Project] (
+    [id]          INT           IDENTITY (1, 1) NOT NULL,
     [projectCode] VARCHAR (100) NOT NULL,
     [projectName] VARCHAR (100) CONSTRAINT [DEFAULT_TB_Project_projectName] DEFAULT ('') NOT NULL,
     CONSTRAINT [TB_Project_PK] PRIMARY KEY CLUSTERED ([projectCode] ASC)
@@ -20,7 +21,7 @@ CREATE TABLE [dbo].[TB_PengajuanSourcing] (
     [website]               VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_website] DEFAULT ('') NOT NULL,
     [finishDossageForm]     VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_finishDossageForm] DEFAULT ('') NOT NULL,
     [keterangan]            TEXT          CONSTRAINT [DEFAULT_TB_PengajuanSourcing_keterangan] DEFAULT ('') NOT NULL,
-    [vendor]                VARCHAR (200) NULL,
+    [vendorAERO]            VARCHAR (200) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_vendorAERO] DEFAULT ('') NOT NULL,
     [documentReq]           VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_documentReq] DEFAULT ('') NOT NULL,
     [projectCode]           VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_projectCode] DEFAULT ('') NOT NULL,
     [dateSourcing]          DATE          NULL,
@@ -32,7 +33,7 @@ CREATE TABLE [dbo].[TB_PengajuanSourcing] (
     [dateAcceptedRPIC]      DATE          NULL,
     [statusRiwayat]         VARCHAR (15)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_statusRiwayat] DEFAULT ('NO STATUS') NOT NULL,
     [statusSourcing]        VARCHAR (15)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_statusPengajuan] DEFAULT ('NO STATUS') NOT NULL,
-    [sumaryReport]          TEXT          NULL,
+    [sumaryReport]          TEXT          CONSTRAINT [DEFAULT_TB_PengajuanSourcing_sumaryReport] DEFAULT ('') NOT NULL,
     [dateSumaryReport]      DATE          NULL,
     [created]               DATETIME      NULL,
     CONSTRAINT [TB_PengajuanSourcing_PK] PRIMARY KEY CLUSTERED ([id] ASC),
@@ -48,7 +49,6 @@ CREATE TABLE [dbo].[TB_Supplier] (
     [catalogOrCasNumber]     VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_catalogOrCasNumber] DEFAULT ('') NOT NULL,
     [gradeOrReference]       VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_gradeOrReference] DEFAULT ('') NOT NULL,
     [documentInfo]           VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_documentInfo] DEFAULT ('') NOT NULL,
-    [document]               VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_document] DEFAULT ('') NOT NULL,
     [feedbackRndPriceReview] TEXT          CONSTRAINT [DEFAULT_TB_Supplier_feedbackRndPriceReview] DEFAULT ('') NOT NULL,
     [dateFinalFeedbackRnd]   DATE          NULL,
     [finalFeedbackRnd]       TEXT          CONSTRAINT [DEFAULT_TB_Supplier_finalFeedbackRnd] DEFAULT ('') NOT NULL,

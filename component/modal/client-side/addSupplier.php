@@ -3,7 +3,7 @@
 
     // me-redirect saat user masuk kehalaman ini
     if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-        header('Location: ../../dashboard/index.php');
+        header('Location: ../../../dashboard/index.php');
         exit();
     };
 ?>
@@ -95,7 +95,7 @@
 </div>
 
 <!-- Modal Set Vendor -->
-<?php include "setVendorServerSide.php"?>
+<?php include "setVendor.php"?>
 
 <script>
     // Listen Event Submit

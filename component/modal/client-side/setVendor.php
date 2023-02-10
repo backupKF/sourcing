@@ -5,25 +5,33 @@
 
     // me-redirect saat user masuk kehalaman ini
     if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-        header('Location: ../../dashboard/index.php');
+        header('Location: ../../../dashboard/index.php');
         exit();
     };
 ?>
 
 <!-- CSS Table -->
 <style>
+    table.vendor tbody td {
+        padding-top:0;
+        padding-bottom:0;
+    }
     .column-project-value{
         font-size:12px;
         font-family:'poppinsMedium';
     }
     .column-project-head{
+        font-size:13px;
+        font-family:'poppinsSemiBold';
+    }
+    .labelVendor{
         font-size:14px;
-        font-family:'poppinsMedium';
+        font-family:'poppinsSemiBold';
     }
 </style>
 
 <!-- Modal Select Vendor -->
-<div class="modal" id="<?php echo !empty($row['supplier']) && !empty($_GET['idMaterial'])?'modalSetVendorUpdateSupplier'.$row['id']:'modalSetVendorAddSupplier'.$_GET['idMaterial']?>">
+<div class="modal" id="modalSetVendorAddSupplier<?php echo $_GET['idMaterial']?>">
     <div class="modal-dialog modal-sm modal-dialog-scrollable">
         <div class="modal-content" style="width: 500px;">
             <!-- Modal Header -->
@@ -32,53 +40,32 @@
             </div>
                         
             <!-- Modal Body -->
-            <div class="modal-body">
+            <div class="modal-body position-relative">
+                
+                <label class="mb-1 labelVendor" >Tambah Supplier Baru : </label>
+                <div class="row mb-2">
+                    <div class="col">
+                        <form id="formSetNewVendorAddSupplier<?php echo $_GET['idMaterial']?>" autocomplete="off">
+                            <input class="form-control form-control-sm" type="text" placeholder="Masukan Vendor Baru" name="setNewVendor" style="height:5px">
+                        </form>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-success btn-sm p-0 px-1" style="height:22px" form="formSetNewVendorAddSupplier<?php echo $_GET['idMaterial']?>">
+                            <span style="font-size:11px;font-family:poppinsBold">Pilih</span>
+                        </button>
+                    </div>
+                </div>
+
+                <label class="labelVendor mb-1">Cari Supplier :</label>
+
                 <!-- Select Project -->
-                <table class="table" id="<?php echo !empty($row['supplier']) && !empty($_GET['idMaterial'])?'tabel-vendorUpdateSupplier'.$row['id']:'tabel-vendorAddSupplier'.$_GET['idMaterial']?>" style="width:100%">
+                <table class="table vendor" id="tabel-vendorAddSupplier<?php echo $_GET['idMaterial']?>" style="width:100%">
                     <thead style="background-color:#00b0aa">
                         <tr>
-                            <td class="column-project-head">Vendor Name</td>
-                            <td class="column-project-head"></td>
+                            <td class="column-project-head" style="width:100px">Vendor Name</td>
+                            <td class="column-project-head" style="width:20px"></td>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td class="py-0 column-project-value" style="width:250px">
-                                <div class="d-flex align-items-center"style="height:30px">
-                                    <form id="<?php echo !empty($row['id']) && !empty($_GET['idMaterial'])?'formSetNewVendorUpdateSupplier'.$row['id']:'formSetNewVendorAddSupplier'.$_GET['idMaterial']?>" autocomplete="off">
-                                        <input class="form-control form-control-sm" type="text" placeholder="Isi Vendor Baru" name="setNewVendor" style="height:5px">
-                                    </form>
-                                </div>
-                            </td>
-                            <td class="py-0 text-center" style="width:75px">
-                                <button type="submit" class="btn btn-success btn-sm p-0 px-1" style="height:22px" form="<?php echo !empty($row['id']) && !empty($_GET['idMaterial'])?'formSetNewVendorUpdateSupplier'.$row['id']:'formSetNewVendorAddSupplier'.$_GET['idMaterial']?>">
-                                    <span style="font-size:11px;font-family:poppinsBold">Pilih</span>
-                                </button>
-                            </td>
-                        </tr>
-                    <?php
-                        // Mengambil data project
-                        $dataVendor = $conn->query("SELECT * FROM TB_MasterVendor")->fetchAll();
-                        foreach($dataVendor as $vendor) { 
-                    ?>
-                        <tr>
-                            <!-- Column Project Name -->
-                            <td class="py-0 column-project-value" style="width:250px">
-                                <div class="d-flex align-items-center"style="height:30px">
-                                    <?php echo $vendor['vendorName']?>
-                                </div>
-                            </td>
-                            <!-- Action Button -->
-                            <td class="py-0 text-center" style="width:75px">
-                                <form id="<?php echo !empty($row['id']) && !empty($_GET['idMaterial'])? 'formSetVendorUpdateSupplier'.$vendor['id']:'formSetVendorAddSupplier'.$_GET['idMaterial']?>">
-                                    <button type="button" class="btn btn-success btn-sm p-0 px-1" style="height:22px" name="setValue" value="<?php echo $vendor['vendorName']?>" onclick="funcSetVendor(<?php echo !empty($row['id']) && !empty($_GET['idMaterial'])? $row['id']:$_GET['idMaterial']?>,'<?php echo $vendor['vendorName']?>','<?php echo !empty($row['supplier']) && !empty($_GET['idMaterial'])?'formSetVendorUpdateSupplier':'formSetVendorAddSupplier'?>')">
-                                        <span style="font-size:11px;font-family:poppinsBold">Pilih</span>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
                 </table>
             </div>
 
@@ -92,18 +79,95 @@
     </div>
 </div>
 <!-- Modal Select Project -->
+
 <script>
     $(document).ready(function(){
-        $('<?php echo !empty($row['id']) && !empty($_GET['idMaterial'])? '#tabel-vendorUpdateSupplier'.$row['id']:'#tabel-vendorAddSupplier'.$_GET['idMaterial']?>').DataTable({
+        $('#tabel-vendorAddSupplier<?php echo $_GET['idMaterial']?>').DataTable({
             lengthChange:false,
             pageLength:5,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '../controller/loadData/loadDataMasterVendor.php',
+            },
+            columns: [
+                {
+                    className: 'column-project-value',
+                    data: function(data){
+                        return (
+                            '<div class="py-0 column-project-value" style="width:250px">'+
+                                '<!-- Column Project Name -->'+
+                                '<div class="d-flex align-items-center"style="height:30px">'+
+                                    data.vendorName +
+                                '</div>'+
+                            '</div>'
+                        )
+                            
+                    }
+                },
+                {
+                    className: 'column-project-value',
+                    data: function(data){
+                        return (
+                            '<!-- Action Button -->'+
+                            '<div class="py-0" style="width:50px">'+
+                                '<form id="formSetVendorAddSupplier<?php echo $_GET['idMaterial']?>">'+
+                                    '<button type="button" class="btn btn-success btn-sm p-0 px-1 my-1" style="height:22px" name="setValue" value="'+data.vendorName+'" onclick="funcSetVendor(<?php echo $_GET['idMaterial']?>,`'+data.vendorName+'`,`formSetVendorAddSupplier`)">'+
+                                        '<span style="font-size:11px;font-family:poppinsBold">Pilih</span>'+
+                                    '</button>'+
+                                '</form>'+
+                            '</div>'
+                        )
+                    }
+                }
+            ]
         })
+        // CSS Tabel
+        $('.dataTables_filter input[type="search"]').css(
+            {
+                'height':'25px',
+                'font-family':'poppinsRegular',
+                'display':'inline-block'
+            }
+        );
+        $('.dataTables_filter label').css(
+            {
+                'font-size':'15px',
+                'font-family':'poppinsSemiBold',
+                'display':'inline-block'
+            }
+        );
+        $('.dataTables_length').css(
+            {
+                'font-size':'15px',
+                'font-family':'poppinsSemiBold',
+            }
+        );
+        $('.dataTables_length select').css(
+            {
+                'height':'25px',
+                'font-family':'poppinsRegular',
+                'padding':'0'
+            }
+        );
+        $('.dataTables_info').css(
+            {
+                'font-size':'13px',
+                'font-family': 'poppinsSemiBold'
+            }
+        );
+        $('.dataTables_paginate').css(
+            {
+                'font-size':'13px',
+                'font-family': 'poppinsSemiBold'
+            }
+        );
     })
 
     // Listen Event Submit
-    document.getElementById("<?php echo !empty($row['id']) && !empty($_GET['idMaterial'])?'formSetNewVendorUpdateSupplier'.$row['id']:'formSetNewVendorAddSupplier'.$_GET['idMaterial']?>").addEventListener('submit', event => {
+    document.getElementById("formSetNewVendorAddSupplier<?php echo $_GET['idMaterial']?>").addEventListener('submit', event => {
         event.preventDefault();
         // actual logic, e.g. validate the form
-        funcSetNewVendor(<?php echo !empty($row['id']) && !empty($_GET['idMaterial'])? $row['id']:$_GET['idMaterial']?>, '<?php echo !empty($row['id']) && !empty($_GET['idMaterial'])?'formSetNewVendorUpdateSupplier':'formSetNewVendorAddSupplier'?>')
+        funcSetNewVendor(<?php echo $_GET['idMaterial']?>, 'formSetNewVendorAddSupplier')
     });
 </script>

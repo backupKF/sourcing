@@ -3,7 +3,7 @@
     
     // me-redirect saat user masuk kehalaman ini
     if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-        header('Location: ../../dashboard/index.php');
+        header('Location: ../../../dashboard/index.php');
         exit();
     };
 ?>
@@ -15,7 +15,7 @@
         font-family:'poppinsMedium';
     }
     .column-project-head{
-        font-size:14px;
+        font-size:13px;
         font-family:'poppinsMedium';
     }
 </style>
@@ -40,36 +40,6 @@
                             <td class="column-project-head"></td>
                         </tr>
                     </thead>
-                    <tbody>
-                    <?php
-                        // Mengambil data project
-                        $dataProject = $conn->query("SELECT * FROM TB_Project")->fetchAll();
-                        foreach($dataProject as $project) { 
-                    ?>
-                        <tr>
-                            <!-- Column Project Code -->
-                            <td class="py-0 column-project-value" style="width:150px">
-                                <div class="d-flex align-items-center"style="height:30px">
-                                    <?php echo $project['projectCode']?>
-                                </div>
-                            </td>
-                            <!-- Column Project Name -->
-                            <td class="py-0 column-project-value" style="width:250px">
-                                <div class="d-flex align-items-center"style="height:30px">
-                                    <?php echo $project['projectName']?>
-                                </div>
-                            </td>
-                            <!-- Action Button -->
-                            <td class="py-0 text-center" style="width:75px">
-                                <form action="../controller/actionPengajuan.php" method="POST">
-                                    <button class="btn btn-success btn-sm p-0 px-1" style="height:22px" type="submit" name="setProject" value=<?php echo $project['projectCode']?>>
-                                        <span style="font-size:11px;font-family:poppinsBold">Pilih</span>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
                 </table>
             </div>
 
@@ -86,6 +56,33 @@
         $('#tabel-info').DataTable({
             lengthChange:false,
             pageLength:5,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '../controller/loadData/loadDataSetProject.php',
+            },
+            columns: [
+                {
+                    className: "column-project-value",
+                    data: "projectCode"
+                },
+                {
+                    className: "column-project-value",
+                    data: "projectName"
+                },
+                {
+                    className: "column-project-value",
+                    data: function(data){
+                        return (
+                            '<form action="../controller/actionPengajuan.php" method="POST">'+
+                                '<button class="btn btn-success btn-sm p-0 px-1" style="height:22px" type="submit" name="setProject" value="'+data.projectCode+'">'+
+                                    '<span style="font-size:11px;font-family:poppinsBold">Pilih</span>'+
+                                '</button>'+
+                            '</form>'
+                        )
+                    }
+                }
+            ]
         })
     })
 </script>

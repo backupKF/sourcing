@@ -6,131 +6,88 @@
         header('Location: ../index.php');
     }
 ?>
+<style>
+    /* CSS Table */
+    table.dataTable thead>tr>th.sorting, 
+    table.dataTable thead>tr>th.sorting_asc, 
+    table.dataTable thead>tr>th.sorting_desc, 
+    table.dataTable thead>tr>th.sorting_asc_disabled, 
+    table.dataTable thead>tr>th.sorting_desc_disabled, 
+    table.dataTable thead>tr>td.sorting, 
+    table.dataTable thead>tr>td.sorting_asc, 
+    table.dataTable thead>tr>td.sorting_desc, 
+    table.dataTable thead>tr>td.sorting_asc_disabled, 
+    table.dataTable thead>tr>td.sorting_desc_disabled {
+        cursor: pointer;
+        position: sticky;
+        padding-right: 26px;
+    }
+    table .sticky-column-material {
+        position: sticky;
+        left: 0;
+        background: white;
+        z-index: 1;
+    }
+    .headerColumn {
+        font-size:13px;
+        font-family:poppinsSemiBold;
+    }
+    .dataColumn {
+        font-size:12px;
+        font-family:poppinsRegular;
+    }
+</style>
 
 <!-- Tabel Material -->
     <table id="table-material<?php echo $_GET['projectCode']?>" class="table table-striped">
         <thead class="bg-primary" >
             <tr>
-                <th style="width:10px"></th>
-                <th class="d-none"></th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:10px" class="text-center">No</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:50px" class="text-center">Material Category</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:150px" class="text-center">Material Name</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:20px" class="text-center">Priority</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:20px" class="text-center">Target Launching</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:270px" class="text-center">Spesification</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:100px" class="text-center">Catalog Or CAS Number</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Company</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Website</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:100px" class="text-center">Finish Dossage Form</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Keterangan</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:100px" class="text-center">PIC</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:280px" class="text-center">Vendor Terdaftar AERO</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:250px" class="text-center">Document Requirement</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:100px" class="text-center">Status</th>
-                <th scope="col" style="font-size:13px;font-family:poppinsSemiBold;width:280px" class="text-center">Summary Report</th>
+                <th></th>
+                <th scope="col" style="width:100px" class="headerColumn">Project Name</th>
+                <th scope="col" style="width:50px" class="headerColumn">Material Category</th>
+                <th scope="col" style="width:100px" class="headerColumn sticky-column-material bg-primary">Material Name</th>
+                <th scope="col" style="width:20px" class="headerColumn">Priority</th>
+                <th scope="col" style="width:50px" class="headerColumn">Target Launching</th>
+                <th scope="col" style="width:150px" class="headerColumn">Spesification</th>
+                <th scope="col" style="width:150px" class="headerColumn">Catalog Or CAS Number</th>
+                <th scope="col" style="width:118px" class="headerColumn">Company</th>
+                <th scope="col" style="width:118px" class="headerColumn">Website</th>
+                <th scope="col" style="width:150px" class="headerColumn">Finish Dossage Form</th>
+                <th scope="col" style="width:150px" class="headerColumn">Keterangan</th>
+                <th scope="col" style="width:100px" class="headerColumn">PIC</th>
+                <th scope="col" style="width:150px" class="headerColumn">Vendor Terdaftar AERO</th>
+                <th scope="col" style="width:150px" class="headerColumn">Document Requirement</th>
+                <th scope="col" style="width:150px" class="headerColumn">Status</th>
+                <th scope="col" style="width:300px" class="headerColumn">Summary Report</th>
                 <?php if($_SESSION['user']['level'] == 1){?>
-                    <th scope="col" style="font-size: 13px;font-family:poppinsSemiBold;width:100px" class="text-center">Action</th>
+                    <th scope="col" style="width:200px" class="headerColumn text-center">Action</th>
                 <?php } ?>
             </tr>
         </thead>
-        <tbody>
-        <?php
-            include "../../dbConfig.php";
-            ${'no'. $_GET['projectCode']} = 1;
-            // Mengambil data material
-            $dataMaterial = $conn->query("SELECT * FROM TB_PengajuanSourcing WHERE projectCode='{$_GET['projectCode']}' AND feedbackRPIC=1 ORDER BY id DESC")->fetchAll();
-            foreach($dataMaterial as $row){
-        ?>
+        <tfoot class="bg-primary" >
             <tr>
-                <td class="dt-control"></td>
-                <td class="d-none"><?php echo $row['id']?></td>
-                <td style="font-size:12px;font-family:poppinsRegular;"><?php echo ${'no'. $_GET['projectCode']}++ ?></td>
-                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['materialCategory']?></div></td>
-                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['materialName']?></div></td>
-                <td><div class="text-center" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['priority']?></div></td>
-                <td><div class="text-center" style="font-size:12px;font-family:poppinsRegular;">-</div></td>
-                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['materialSpesification']?></div></td>
-                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['catalogOrCasNumber']?></div></td>
-                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['company']?></div></td>
-                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['website']?></div></td>
-                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['finishDossageForm']?></div></td>
-                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['keterangan']?></div></td>
-                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['teamLeader']?></div></td>
-                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['vendorAERO']?></div></td>
-                <td><div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['documentReq']?></div></td>
-                <!-- Column Status -->
-                <td>
-                    <?php 
-                        // Jika user level 1
-                        if($_SESSION['user']['level'] == 1){
-                    ?>
-                        <form id="formSetStatusSourcing_<?php echo $row['id']?>">
-                        <input type="hidden" value="<?php echo $row['id']?>" name="idMaterial">
-                            <select class="form-select form-select-sm" style="height:25px;font-size:12px;font-family:poppinsRegular;" aria-label=".form-select-sm example" onchange="funcUpdateStatusSourcing(<?php echo $row['id']?>,'<?php echo $row['materialName']?>')" id="statusSourcing">
-                                <option <?php echo ($row['statusSourcing']=="NO STATUS")?'selected':'';?> value="">NO STATUS</option>
-                                <option <?php echo ($row['statusSourcing']=="OPEN")?'selected':'';?> value="OPEN">OPEN</option>
-                                <option <?php echo ($row['statusSourcing']=="RE-OPEN")?'selected':'';?> value="RE-OPEN">RE-OPEN</option>
-                                <option <?php echo ($row['statusSourcing']=="DONE")?'selected':'';?> value="DONE">DONE</option>
-                                <option <?php echo ($row['statusSourcing']=="DROP")?'selected':'';?> value="DROP">DROP</option>
-                                <option <?php echo ($row['statusSourcing']=="NOT YET")?'selected':'';?> value="NOT YET">NOT YET</option>
-                                <option <?php echo ($row['statusSourcing']=="HOLD")?'selected':'';?> value="HOLD">HOLD</option>
-                            </select>
-                        </form>
-                    <?php
-                        // Jika user bukan level 1
-                        }else{
-                    ?>
-                        <div class="text-center bg-success bg-opacity-75 m-0" style="font-size:12px;font-family:poppinsBold;"><?php echo $row['statusSourcing']?></div>
-                    <?php 
-                        }
-                    ?>
-                </td>
-                <!-- Column Summary Report -->
-                <td>
-                    <!-- Tanggal Sumary Report-->
-                    <div class="ps-0" style="width:100px;font-size:11px;font-family:poppinsBold;">Date: <?php echo $row['dateSumaryReport']?></div>
-                    <!-- Isi Sumary Report -->
-                    <div class="overflow-auto" style="height:65px">
-                        <div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;"><?php echo !empty($row['sumaryReport'])? $row['sumaryReport']:'-'; ?></div>
-                    </div>
-
-                    <!-- Action Final Feedback Rnd -->
-                    <?php 
-                        // Jika user level 1
-                        if($_SESSION['user']['level'] == 1){
-                    ?>
-                        <div>
-                            <button type="button" class="btn btn-sm btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#sumaryReport<?php echo $row['id']?>">
-                                <div style="font-size:12px">Sumary Report</div>
-                            </button>
-                            <?php include "../../component/modal/sumaryReport.php"?>
-                        </div>
-                    <?php 
-                        }
-                    ?>
-
-                </td>
-                <?php
-                    // Jika User Level 1 
-                    if($_SESSION['user']['level'] == 1){
-                ?>
-                    <!-- Column Action Material -->
-                    <td>
-                        <!-- Edit Material -->
-                        <button type="button" class="btn btn-sm btn-warning p-0" data-bs-toggle="modal" style="width:100%;height:30px" data-bs-target="#editMaterial<?php echo $row['id']?>">
-                            <div style="font-size:13px">Edit Material</div>
-                        </button>
-                        <?php include "../../component/modal/client-side/updateMaterialList.php"?>
-                    </td>
-                <?php 
-                    } 
-                ?>
+                <th></th>
+                <th scope="col" style="width:100px" class="headerColumn">Project Name</th>
+                <th scope="col" style="width:50px" class="headerColumn">Material Category</th>
+                <th scope="col" style="width:100px" class="headerColumn sticky-column-material bg-primary">Material Name</th>
+                <th scope="col" style="width:20px" class="headerColumn">Priority</th>
+                <th scope="col" style="width:50px" class="headerColumn">Target Launching</th>
+                <th scope="col" style="width:150px" class="headerColumn">Spesification</th>
+                <th scope="col" style="width:150px" class="headerColumn">Catalog Or CAS Number</th>
+                <th scope="col" style="width:118px" class="headerColumn">Company</th>
+                <th scope="col" style="width:118px" class="headerColumn">Website</th>
+                <th scope="col" style="width:150px" class="headerColumn">Finish Dossage Form</th>
+                <th scope="col" style="width:150px" class="headerColumn">Keterangan</th>
+                <th scope="col" style="width:100px" class="headerColumn">PIC</th>
+                <th scope="col" style="width:150px" class="headerColumn">Vendor Terdaftar AERO</th>
+                <th scope="col" style="width:150px" class="headerColumn">Document Requirement</th>
+                <th scope="col" style="width:150px" class="headerColumn">Status</th>
+                <th scope="col" style="width:300px" class="headerColumn">Summary Report</th>
+                <?php if($_SESSION['user']['level'] == 1){?>
+                    <th scope="col" style="width:200px" class="headerColumn text-center">Action</th>
+                <?php } ?>
             </tr>
-        <?php
-            }
-        ?>
-        </tbody>
+        </tfoot>
     </table>
     <script>
         $(document).ready(function(){
@@ -138,6 +95,163 @@
                 scrollX: true,
                 lengthMenu: [3 , 5],
                 stateSave: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '../controller/loadData/loadDataMaterial.php',
+                    type: 'GET',
+                    data: {
+                        projectCode: '<?php echo $_GET['projectCode'] ?>',
+                    }
+                },
+                columns: [
+                    {
+                        className: 'dt-control dataColumn',
+                        data: function(){
+                            return ""
+                        }
+                    },
+                    {
+                        className: 'dataColumn',
+                        data: function(){
+                            return "<?php echo $_GET['projectName']?>"
+                        }
+                    },
+                    {
+                        className: 'dataColumn',
+                        data: 'materialCategory'
+                    },
+                    {
+                        className: 'dataColumn sticky-column-material',
+                        data: 'materialName'
+                    },
+
+                    {
+                        className: 'dataColumn',
+                        data: 'priority'
+                    },
+                    {
+                        className: 'dataColumn',
+                        data: function(){
+                            return "-"
+                        }
+                    },
+
+                    {
+                        className: 'dataColumn',
+                        data: 'materialSpesification'
+                    },
+                    {
+                        className: 'dataColumn',
+                        data: 'catalogOrCasNumber'
+                    },
+
+                    {
+                        className: 'dataColumn',
+                        data: 'company'
+                    },
+                    {
+                        className: 'dataColumn',
+                        data: 'website'
+                    },
+                    {
+                        className: 'dataColumn',
+                        data: 'finishDossageForm'
+                    },
+                    {
+                        className: 'dataColumn',
+                        data: 'keterangan'
+                    },
+                    {
+                        className: 'dataColumn',
+                        data: 'teamLeader'
+                    },
+                    {
+                        className: 'dataColumn',
+                        data: 'vendorAERO'
+                    },
+                    {
+                        className: 'dataColumn',
+                        data: 'documentReq'
+                    },
+                    {
+                        className: 'dataColumn',
+                        data: function(dataMaterial){
+                            // jika user level 1
+                            if(<?php echo $_SESSION['user']['level'] ?> == 1){
+                                return (
+                                    '<form id="formSetStatusSourcing_'+dataMaterial.id+'">'+
+                                    '<input type="hidden" value="'+dataMaterial.id+'" name="idMaterial">'+
+                                        '<select class="form-select form-select-sm" style="height:25px;font-size:12px;font-family:poppinsRegular;" aria-label=".form-select-sm example" onchange="funcUpdateStatusSourcing('+dataMaterial.id+',`'+dataMaterial.materialName+'`)" id="statusSourcing">'+
+                                            '<option '+ (dataMaterial.statusSourcing == "NO STATUS" ? "selected":"") +' value="">NO STATUS</option>'+
+                                            '<option '+ (dataMaterial.statusSourcing == "OPEN" ? "selected":"") +' value="OPEN">OPEN</option>'+
+                                            '<option '+ (dataMaterial.statusSourcing == "RE-OPEN" ? "selected":"") +' value="RE-OPEN">RE-OPEN</option>'+
+                                            '<option '+ (dataMaterial.statusSourcing == "DONE" ? "selected":"") +' value="DONE">DONE</option>'+
+                                            '<option '+ (dataMaterial.statusSourcing == "DROP" ? "selected":"") +' value="DROP">DROP</option>'+
+                                            '<option '+ (dataMaterial.statusSourcing == "NOT YET" ? "selected":"") +' value="NOT YET">NOT YET</option>'+
+                                            '<option '+ (dataMaterial.statusSourcing == "HOLD" ? "selected":"") +' value="HOLD">HOLD</option>'+
+                                        '</select>'+
+                                    '</form>'
+                                )
+                            }else{
+                                // Jika user bukan level 1
+                                return (
+                                    '<div class="text-center bg-success bg-opacity-75 m-0" style="font-size:12px;font-family:poppinsBold;">'+dataMaterial.statusSourcing+'</div>'
+                                )
+                            }
+                        }
+                    },
+                    {
+                        className: 'dataColumn',
+                        data: function(dataMaterial){
+                            if(<?php echo $_SESSION['user']['level']?> == 1){
+                                return (
+                                    '<!-- Tanggal Sumary Report-->'+
+                                    '<div class="ps-0" style="width:100px;font-size:11px;font-family:poppinsBold;">Date: '+ (dataMaterial.dateSumaryReport != null ? dataMaterial.dateSumaryReport:'')+'</div>'+
+                                    '<!-- Isi Sumary Report -->'+
+                                    '<div class="overflow-auto" style="height:65px">'+
+                                        '<div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;">'+ (dataMaterial.sumaryReport != null ? dataMaterial.sumaryReport:'-') +'</div>'+
+                                    '</div>'+
+
+                                    '<!-- Action Final Feedback Rnd -->'+
+                                    '<div>'+
+                                        '<button type="button" class="btn btn-sm btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#sumaryReport'+dataMaterial.id+'">'+
+                                            '<div style="font-size:12px">Sumary Report</div>'+
+                                        '</button>'+
+                                        // Modal Sumary Report
+                                        <?php include "../../component/modal/server-side/sumaryReport.php"?>
+                                    '</div>'
+                                )
+                            }else{
+                                return (
+                                    '<!-- Tanggal Sumary Report-->'+
+                                    '<div class="ps-0" style="width:100px;font-size:11px;font-family:poppinsBold;">Date: '+ (dataMaterial.dateSumaryReport != null ? dataMaterial.dateSumaryReport:'')+'</div>'+
+                                    '<!-- Isi Sumary Report -->'+
+                                    '<div class="overflow-auto" style="height:65px">'+
+                                        '<div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;">'+ (dataMaterial.sumaryReport != null ? dataMaterial.sumaryReport:'-') +'</div>'+
+                                    '</div>'
+                                )
+                            }
+                        }
+                    },
+                    <?php if($_SESSION['user']['level'] == 1){?>
+                        {
+                            className: 'dataColumn',
+                            data: function(data){
+                                return (
+                                    '<!-- Column Action Material -->'+
+                                    '<td>'+
+                                        '<!-- Edit Material -->'+
+                                        '<button type="button" class="btn btn-sm btn-warning p-0" data-bs-toggle="modal" style="width:100%;height:30px" data-bs-target="#editMaterial'+data.id+'">'+
+                                            '<div style="font-size:13px">Edit Material</div>'+
+                                        '</button>'+
+                                        <?php include "../../component/modal/server-side/updateMaterialList.php"?>
+                                    '</td>'
+                                )
+                            }
+                        },
+                    <?php } ?>
+                ]
             })
 
             // Menampilkan tabel material, apabila user melakukan event click ditabel project
@@ -147,7 +261,7 @@
                     var row = materialTable.row(tr);
                     if (row.child.isShown()) {
                         // Menghilangkan tabel material jika event click ditutup
-                        var table = $("#table-supplier"+row.data()[1], row.child());
+                        var table = $("#table-supplier"+row.data()[0], row.child());
                         table.DataTable().clear().destroy();
                         
                         // Fungsi untuk menyembunyikan baris
@@ -155,7 +269,7 @@
                         tr.removeClass('shown');
                     } else {
                         // Menampilkan tabel material jika event click dilakukan
-                        row.child( tableSupplier(row.data()[1], row.data()[4])).show();
+                        row.child( tableSupplier(row.data()[0], row.data()[3])).show();
                         tr.addClass('shown');
                     }
             });
@@ -208,25 +322,74 @@
             );
         })
 
-        // Membuat Tabel Supplier didalam sebuah fungsi
-        function tableSupplier(d, materialName){
-            loadDataSupplier(d, materialName)
-            return (
-                '<div class="container-fluid m-0 p-0" style="background-color:#fffedb" id="contentDataSupplier'+d+'"></div>'
-            )
-        }
+    // Membuat Tabel Supplier didalam sebuah fungsi
+    function tableSupplier(idMaterial, materialName){
+        loadDataSupplier(idMaterial, materialName)
+        return (
+            '<div class="container-fluid m-0 p-0" style="background-color:#f1ff87" id="contentDataSupplier'+idMaterial+'"></div>'
+        )
+    }
 
-        // Load Data Supplier
-        function loadDataSupplier(d, materialName){
-            $.ajax({
-                url: 'layout/tabelSupplier.php',
-                type: 'get',
-                data: { idMaterial: d, materialName: materialName},
-                success: function(data) {
-                    $('#contentDataSupplier'+d+'').html(data);
-                }
-            });
-        }
+    // Load Data Supplier
+    function loadDataSupplier(idMaterial, materialName){
+        $.ajax({
+            url: 'layout/tabelSupplier.php',
+            type: 'get',
+            data: { idMaterial: idMaterial, materialName: materialName},
+            success: function(data) {
+                $('#contentDataSupplier'+idMaterial+'').html(data);
+            }
+        });
+    }
+
+    // Set Format Form Update Material, if Material Category API
+    function formatFormAPI(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Ekstrak
+    function formatFormEkstrak(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Excipient
+    function formatFormExcipient(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Nasipre
+    function formatFormNasipre(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Packaging
+    function formatFormPackaging(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Intermediate
+    function formatFormIntermediate(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).removeAttr("disabled");
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Rapid Test
+    function formatFormRapidTest(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).removeAttr("disabled");
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).removeAttr("disabled");
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).removeAttr("disabled");
+    }
 
         // Send data to Action Update Material for update status sourcing
         function funcUpdateStatusSourcing(idMaterial, materialName){
@@ -257,7 +420,7 @@
                         icon: response.status == 0?'success':'warning',
                         title: response.message
                     })
-                    loadDataMaterial('<?php echo $_GET['projectCode']?>')
+                    loadDataMaterial('<?php echo $_GET['projectCode']?>', '<?php echo $_GET['projectName']?>')
                 }
             })
         }
@@ -286,7 +449,7 @@
                         icon: response.status == 0?'success':'warning',
                         title: response.message
                     })
-                    loadDataMaterial('<?php echo $_GET['projectCode']?>')
+                    loadDataMaterial('<?php echo $_GET['projectCode']?>', '<?php echo $_GET['projectName']?>')
                 }
             })
             $('#sumaryReport'+idMaterial).modal('hide');
@@ -317,7 +480,7 @@
                             title: response.message
                         })
 
-                        loadDataMaterial('<?php echo $_GET['projectCode']?>')
+                        loadDataMaterial('<?php echo $_GET['projectCode']?>', '<?php echo $_GET['projectName']?>')
                     }
                 })
 

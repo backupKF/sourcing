@@ -29,7 +29,7 @@
                     Select
                 </button>
                 <!-- Modal Set Project -->
-                <?php include "../component/modal/client-side/setProjectServerSide.php"?>
+                <?php include "../component/modal/client-side/setProject.php"?>
             </div>
         </div>
                     

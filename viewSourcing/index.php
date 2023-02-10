@@ -64,7 +64,7 @@
 
         <div class="container">
             <!-- Tabel View-->
-            <?php require "layout/tabelViewServerSide.php";?>
+            <?php require "layout/tabelView.php";?>
         </div>
     </body>
 </html>

@@ -59,6 +59,7 @@
         if($uploadStatus == 1){ 
             // Include the database config file 
             $idSupplier = $_POST['idSupplier'];
+            $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
 
             // Cek Apakah data Supplier tersedia
             if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
@@ -77,7 +78,7 @@
                     // Send Notifikasi
                     if($insert == true){
                         $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                        sendNotification(NULL, $dataSupplier[0]['supplier'], "menambahkan document requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                        sendNotification(NULL, $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", "menambahkan document requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
                     }
                 }catch(Exception $e){
                     $response = array(
@@ -105,6 +106,7 @@
         $idSupplier = $_GET['idSupplier'];
         $file = $conn->query("SELECT fileHash FROM TB_File WHERE id='{$idFile}'")->fetchAll();
         $filePath = $_SERVER['DOCUMENT_ROOT']."/sourcing/assets/uploads/".$file[0]['fileHash'];
+        $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
         //Delete data in folder php
         unlink($filePath);
 
@@ -126,7 +128,7 @@
             // Send Notifikasi
             if($delete == true){
                 $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                $response = sendNotification("Berhasil menghapus File!!", $dataSupplier[0]['supplier'], "menghapus document requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                $response = sendNotification("Berhasil menghapus File!!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", "menghapus document requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
             }
         
         }else{

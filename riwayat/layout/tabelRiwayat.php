@@ -6,195 +6,95 @@
         header('Location: ../index.php');
     }
 ?>
+
+<style>
+    /* CSS Tabel Riwayat */
+    th{
+        font-size:12px;
+        font-family:poppinsSemiBold;
+    }
+    td {
+        font-size:12px;
+        font-family:poppinsRegular;
+    }
+    table.dataTable thead>tr>th.sorting, 
+    table.dataTable thead>tr>th.sorting_asc, 
+    table.dataTable thead>tr>th.sorting_desc, 
+    table.dataTable thead>tr>th.sorting_asc_disabled, 
+    table.dataTable thead>tr>th.sorting_desc_disabled, 
+    table.dataTable thead>tr>td.sorting, 
+    table.dataTable thead>tr>td.sorting_asc, 
+    table.dataTable thead>tr>td.sorting_desc, 
+    table.dataTable thead>tr>td.sorting_asc_disabled, 
+    table.dataTable thead>tr>td.sorting_desc_disabled {
+        cursor: pointer;
+        position: sticky;
+        padding-right: 26px;
+    }
+    table .sticky-column-materialName {
+        position: sticky;
+        left: 0;
+        background: white;
+        z-index: 1;
+    }
+
+    /* CSS Modal View Material */
+    h5{
+        font-size:18px;
+        font-family:'poppinsSemiBold';
+    }
+    p{
+        font-size:14px;
+        font-family:'poppinsRegular';
+    }
+</style>
+
 <div class="card shadow bg-body rounded">
     <div class="card-body">
-        <table id="table-riwayat" class="table">
+        <table id="table-riwayat" class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:10px" class="text-center">No</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:150px" class="text-center">Sourcing Number</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:150px" class="text-center">Material Name</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Date Sourcing</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:100px" class="text-center">Project Code</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:120px" class="text-center">Project Name</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Team Leader</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Researcher</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:100px" class="text-center">Feedback TL</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:100px" class="text-center">Feedback RPIC</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:120px" class="text-center">Date Approved TL</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:125px" class="text-center">Date Accepted RPIC</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:90px" class="text-center">Status</th>
-                    <th scope="col" style="font-size:14px;font-family:poppinsSemiBold;width:180px" class="text-center">Action Material</th>
+                    <th scope="col" style="width:150px">Sourcing Number</th>
+                    <th scope="col" style="width:150px">Material Name</th>
+                    <th scope="col" style="width:90px">Date Sourcing</th>
+                    <th scope="col" style="width:100px">Project Code</th>
+                    <th scope="col" style="width:120px">Project Name</th>
+                    <th scope="col" style="width:90px">Team Leader</th>
+                    <th scope="col" style="width:90px">Researcher</th>
+                    <th scope="col" style="width:100px">Feedback TL</th>
+                    <th scope="col" style="width:100px">Feedback RPIC</th>
+                    <th scope="col" style="width:120px">Date Approved TL</th>
+                    <th scope="col" style="width:125px">Date Accepted RPIC</th>
+                    <th scope="col" style="width:90px">Status</th>
+                    <th scope="col" style="width:180px">Action Material</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php
-                    include "../../dbConfig.php";
-                    if(!empty($_GET["sn"]) && empty($_GET["idMaterial"])){
-                        // Jika terdapat data GET Sourcing Number
-                        $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode WHERE sourcingNumber=".$_GET['sn']." ORDER BY id DESC")->fetchAll();
-                    }else if(!empty($_GET["sn"]) && !empty($_GET["idMaterial"])){
-                        // Jika terdapat data GET Sourcing Number dan Id Material
-                        $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode WHERE sourcingNumber=".$_GET['sn']." AND id=".$_GET['idMaterial']." ORDER BY id DESC")->fetchAll();
-                    }else{
-                        // Jika selain dari kondisi di atas
-                        $dataRiwayat = $conn->query("SELECT * FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode ORDER BY id DESC")->fetchAll();
-                    }
-                    $no=1;
-                    foreach($dataRiwayat as $row){
-                ?>
-                     <tr>
-                        <!-- Column Number -->
-                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $no++?></td>
-
-                        <!-- Column Sourcing Number -->
-                        <td style="font-size:12px;font-family:poppinsRegular;" class="text-center"><?php echo $row['sourcingNumber']?></td>
-
-                        <!-- Column Material Name -->
-                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['materialName']?></td>
-
-                        <!-- Column Date Sourcing -->
-                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['dateSourcing']?></td>
-
-                        <!-- Column Project Code -->
-                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['projectCode']?></td>
-
-                        <!-- Column Project Name -->
-                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['projectName']?></td>
-
-                        <!-- Column Team Leader -->
-                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['teamLeader']?></td>
-
-                        <!-- Column Researcher -->
-                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['researcher']?></td> 
-
-                        <!-- Column feedback tl -->
-                        <td style="font-size:12px;font-family:poppinsRegular;">
-                        <?php
-                            // Jika user level == 2 dan feedback tl == false/0
-                            if($_GET['userLevel'] == 2 && $row['feedbackTL'] == 0){
-                        ?>
-                            <!-- Menampilkan action feedback tl -->
-                            <form onclick="funcFeedbackTL(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackTL_<?php echo $row['id']?>">
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackTL">
-                                    <option selected>NO STATUS</option>
-                                    <option value=1>APPROVED</option>
-                                </select>
-                            </form>
-                        <?php
-                            // Jika user level selain == 2 dan feedback tl == false/0
-                            }else if($_GET['userLevel'] != 2 && $row['feedbackTL'] == 0){
-                        ?>
-                            <div class="text-center bg-danger bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">NO STATUS</div>
-                        <?php
-                            //Jika Selain kondisi diatas 
-                            }else{
-                        ?>
-                            <div class="text-center bg-success bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">APPROVED</div>
-                        <?php
-                            }
-                        ?>
-                        </td>
-
-                        <!-- Column feedback RPIC -->
-                        <td style="font-size:12px;">
-                        <?php
-                            // Jika user level == 1 dan feedback rpic == false/0 dan feedbackTL == 1
-                            if($_GET['userLevel'] == 1 && $row['feedbackRPIC'] == 0 && $row['feedbackTL'] == 1){
-                        ?>
-                            <!-- Menampilkan action feedback rpic -->
-                            <form onclick="funcFeedbackRPIC(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formFeedbackRPIC_<?php echo $row['id']?>">
-                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackRPIC">
-                                        <option selected>NO STATUS</option>
-                                        <option value=1>ACCEPTED</option>
-                                    </select>
-                            </form>
-                        <?php
-                            // Jika user level == 1 dan feedback rpic == false/0 dan feedbackTL == 0
-                            }else if($_GET['userLevel'] == 1 && $row['feedbackRPIC'] == 0 && $row['feedbackTL'] == 0){
-                        ?>
-                            <div class="text-center bg-danger bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">NO STATUS</div>
-                        <?php
-                            // Jika user level selain == 2 dan feedback rpic == false/0
-                            }else if($_GET['userLevel'] != 1 && $row['feedbackRPIC'] == 0){
-                        ?>
-                            <div class="text-center bg-danger bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">NO STATUS</div>
-                        <?php
-                            //Jika Selain kondisi diatas
-                            }else{
-                        ?>
-                            <div class="text-center bg-success bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">ACCEPTED</div>
-                        <?php
-                            }
-                        ?>
-                        </td>
-
-                        <!-- Column Date Approved TL -->
-                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['dateApprovedTL']?></td>
-
-                        <!-- Column Date Aceppted RPIC -->
-                        <td style="font-size:12px;font-family:poppinsRegular;"><?php echo $row['dateAcceptedRPIC']?></td>
-                        
-                        <!-- Column Status -->
-                        <td style="font-size:12px;font-family:poppinsRegular;">
-                            <?php
-                                // Jika user level == 1
-                                if($_GET['userLevel'] == 1){
-                            ?>
-                                <!-- Action Status -->
-                                <form onclick="funcStatusRiwayat(<?php echo $row['id']?>, '<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)" id="formStatusRiwayat_<?php echo $row['id']?>">
-                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="statusRiwayat">
-                                        <option <?php echo ($row['statusRiwayat']=="NO STATUS")?'selected':'';?>>NO STATUS</option>
-                                        <option <?php echo ($row['statusRiwayat']=="ON PROCESS")?'selected':'';?> value="ON PROCESS">ON PROCESS</option>
-                                        <option <?php echo ($row['statusRiwayat']=="HOLD")?'selected':'';?> value="HOLD">HOLD</option>
-                                        <option <?php echo ($row['statusRiwayat']=="CANCEL")?'selected':'';?> value="CANCEL">CANCEL</option>
-                                    </select>
-                                </form>
-                            <?php
-                                // Jika selain dari kondisi diatas
-                                }else{
-                            ?>
-                                <div class="text-center text-success bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px"><?php echo $row['statusRiwayat']?></div>
-                            <?php
-                                }
-                            ?>
-                        </td>
-
-                        <!--Column Action Material -->
-                        <td>
-                            <!-- Button -->
-                            <div class="text-center">
-                                <!-- Jika Feedback Tl == 1/true -->
-                                <?php if($row['feedbackTL'] != 1){ ?>
-                                    <!-- Button Edit Material -->
-                                    <button class="btn btn-warning btn-sm d-inline ms-1" type="button" data-bs-target="#editMaterial<?php echo $row['id']?>" data-bs-toggle="modal">Edit</button>
-                                <?php } ?>
-                                <!-- Button View Material -->
-                                <button class="btn btn-success btn-sm d-inline ms-1" type="button" data-bs-target="#viewMaterial<?php echo $row['id']?>" data-bs-toggle="modal">View</button>
-                                <!-- Jika user level == 1 -->
-                                <?php 
-                                    if($_GET['userLevel'] == 1){ ?>  
-                                    <!-- Button Delete -->
-                                    <button class="btn btn-danger btn-sm d-inline ms-1" type="button" onclick="funcDeleteMaterial(<?php echo $row['id']?>,'<?php echo $row['materialName']?>', <?php echo $row['sourcingNumber']?>)">Delete</a>
-                                <?php } ?>
-                            </div>
-
-                            <!-- Modal Update Material -->
-                            <?php 
-                                if($row['feedbackTL'] != 1){ 
-                                    include "../../component/modal/updateMaterialRiwayat.php";
-                                }
-                            ?>
-                            <!-- Modal View Material -->
-                            <?php include "../../component/modal/viewMaterial.php";?>
-
-                        </td>
-                    </tr>
-                <?php 
-                    } 
-                ?>
-            </tbody>
+            <tfoot>
+                <tr>
+                    <th scope="col" style="width:150px">Sourcing Number</th>
+                    <th scope="col" style="width:150px" class="sticky-column-materialName">Material Name</th>
+                    <th scope="col" style="width:90px">Date Sourcing</th>
+                    <th scope="col" style="width:100px">Project Code</th>
+                    <th scope="col" style="width:120px">Project Name</th>
+                    <th scope="col" style="width:90px">Team Leader</th>
+                    <th scope="col" style="width:90px">Researcher</th>
+                    <th scope="col" style="width:100px">Feedback TL</th>
+                    <th scope="col" style="width:100px">Feedback RPIC</th>
+                    <th scope="col" style="width:120px">Date Approved TL</th>
+                    <th scope="col" style="width:125px">Date Accepted RPIC</th>
+                    <th scope="col" style="width:90px">Status</th>
+                    <th scope="col" style="width:180px">Action Material</th>
+                </tr>
+            </tfoot>
         </table>
+        <?php
+            if(isset($_GET['rs'])){
+        ?>
+                <a class="btn btn-danger" href="index.php">Back</a>
+        <?php
+            }
+        ?>
+    
     </div>
 </div>
 
@@ -203,11 +103,168 @@
         // Datatable tabel riwayat
         var tableRiwayat = $('#table-riwayat').DataTable({
             scrollX: true,
+            scrollY: '410px',
+            scrollCollapse: true,
             stateSave: true,
             lengthMenu: [5 , 10, 15],
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '../controller/loadData/loadDataSourcingRiwayat.php',
+                type: 'GET',
+        <?php
+            if(!empty($_GET['sn']) && empty($_GET['idMaterial'])){
+        ?>
+                data: {sn: <?php echo $_GET['sn']?>},
+        <?php
+            }
+
+            if(!empty($_GET['sn']) && !empty($_GET['idMaterial'])){
+        ?>
+                data: {sn: <?php echo $_GET['sn']?>, idMaterial: <?php echo $_GET['idMaterial']?>},
+        <?php 
+            }
+        ?>
+            },
+            columns: [
+                {
+                    data: 'sourcingNumber'
+                },
+                {
+                    class: 'sticky-column-materialName',
+                    data: 'materialName'
+                },
+                {
+                    data: 'dateSourcing'
+                },
+                {
+                    data: 'projectCode'
+                },
+                {
+                    data: 'projectName'
+                },
+                {
+                    data: 'teamLeader'
+                },
+                {
+                    data: 'researcher'
+                },
+                {
+                    data: function(data){
+                        if(<?php echo $_SESSION['user']['level']?> == 2 && data.feedbackTL == 0){
+                            return (
+                                '<form onclick="funcFeedbackTL('+data.id+', `'+data.materialName+'`, '+data.sourcingNumber+')" id="formFeedbackTL_'+data.id+'">'+
+                                    '<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackTL">'+
+                                        '<option selected>NO STATUS</option>'+
+                                        '<option value=1>APPROVED</option>'+
+                                    '</select>'+
+                                '</form>'
+                            )
+                        }else if(<?php echo $_SESSION['user']['level']?> != 2  && data.feedbackTL == 0){
+                            return '<div class="text-center bg-danger bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">NO STATUS</div>'
+                        }else{
+                            return '<div class="text-center bg-success bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">APPROVED</div>'
+                        }
+                    }
+                },
+                {
+                    data: function(data){
+                        if(<?php echo $_SESSION['user']['level']?> == 1 && data.feedbackRPIC == 0 && data.feedbackTL == 1){
+                            return (
+                               ' <form onclick="funcFeedbackRPIC('+data.id+', `'+data.materialName+'`, '+data.sourcingNumber+')" id="formFeedbackRPIC_'+data.id+'">'+
+                                 '   <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="feedbackRPIC">'+
+                                        '<option selected>NO STATUS</option>'+
+                                        '<option value=1>ACCEPTED</option>'+
+                                    '</select>'+
+                                '</form>'
+                            )
+                        }else if(<?php echo $_SESSION['user']['level']?> == 1  && data.feedbackRPIC == 0 && data.feedbackTL == 0){
+                            return '<div class="text-center bg-danger bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">NO STATUS</div>'
+                        }else if(<?php echo $_SESSION['user']['level']?> != 1  && data.feedbackRPIC == 0){
+                            return '<div class="text-center bg-danger bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">NO STATUS</div>'
+                        }else{
+                            return '<div class="text-center bg-success bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">APPROVED</div>'
+                        }
+                    }
+                },
+                {
+                    data: 'dateApprovedTL'
+                },
+                {
+                    data: 'dateAcceptedRPIC'
+                },
+                {
+                    data: function(data){
+                        if(<?php echo $_SESSION['user']['level']?> == 1){
+                            return (
+                                '<form onclick="funcStatusRiwayat('+data.id+', `'+data.materialName+'`, '+data.sourcingNumber+')" id="formStatusRiwayat_'+data.id+'">'+
+                                    '<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="statusRiwayat">'+
+                                        '<option '+ (data.statusRiwayat == "NO STATUS" ? "selected":"") +' >NO STATUS</option>'+
+                                        '<option '+ (data.statusRiwayat == "ON PROCESS" ? "selected":"") +' value="ON PROCESS">ON PROCESS</option>'+
+                                        '<option '+ (data.statusRiwayat == "HOLD" ? "selected":"") +' value="HOLD">HOLD</option>'+
+                                        '<option '+ (data.statusRiwayat == "CANCEL" ? "selected":"") +' value="CANCEL">CANCEL</option>'+
+                                   ' </select>'+
+                               ' </form>'
+                            )
+                        }else{
+                            return '<div class="text-center text-success bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">'+data.statusRiwayat+'</div>'
+                        }
+                    }
+                },
+                {
+                    data: function(data){
+
+                        if(data.feedbackTL != 1){
+                            return (
+                                // Button
+                                '<div>'+
+                                    '<div class="text-center">'+
+                                        // Button Edit Material 
+                                        '<button class="btn btn-warning btn-sm d-inline ms-1" type="button" data-bs-target="#editMaterial'+data.id+'" data-bs-toggle="modal">Edit</button>'+
+                                        // Button View Material
+                                        '<button class="btn btn-success btn-sm d-inline ms-1" type="button" data-bs-target="#viewMaterial'+data.id+'" data-bs-toggle="modal">View</button>'+
+                                        // Jika user level == 1 
+                                        <?php 
+                                            if($_SESSION['user']['level'] == 1){ ?>  
+                                            // Button Delete
+                                            '<button class="btn btn-danger btn-sm d-inline ms-1" type="button" onclick="funcDeleteMaterial('+data.id+', `'+data.materialName+'`, '+data.sourcingNumber+')">Delete</a>'+
+                                        <?php } ?>
+                                    '</div>'+
+
+                                    '<!-- Modal Update Material -->'+
+                                    <?php include "../../component/modal/server-side/updateMaterialRiwayat.php"; ?>
+
+                                    '<!-- Modal View Material -->'+
+                                    <?php include "../../component/modal/server-side/viewMaterial.php"; ?>
+                                '</div>'
+                            ) 
+                        }else{
+                            return (
+                                // Button
+                                '<div>'+
+                                    '<div class="text-center">'+
+                                        // Button Edit Material 
+                                        '<button class="btn btn-warning btn-sm d-inline ms-1" type="button" disabled>Edit</button>'+
+                                        // Button View Material
+                                        '<button class="btn btn-success btn-sm d-inline ms-1" type="button" data-bs-target="#viewMaterial'+data.id+'" data-bs-toggle="modal">View</button>'+
+                                        // Jika user level == 1 
+                                        <?php 
+                                            if($_SESSION['user']['level'] == 1){ ?>  
+                                            // Button Delete
+                                            '<button class="btn btn-danger btn-sm d-inline ms-1" type="button" onclick="funcDeleteMaterial('+data.id+', `'+data.materialName+'`, '+data.sourcingNumber+')">Delete</a>'+
+                                        <?php } ?>
+                                    '</div>'+
+
+                                    '<!-- Modal View Material -->'+
+                                    <?php include "../../component/modal/server-side/viewMaterial.php"; ?>
+                                '</div>'
+                            )
+                        }
+                    }
+                },
+            ]
         })
 
-        // CSS Table
         $('.dataTables_filter input[type="search"]').css(
             {
                 'height':'25px',
@@ -247,38 +304,88 @@
                 'font-family': 'poppinsSemiBold'
             }
         );
+
     });
+
+    // Set Format Form Update Material, if Material Category API
+    function formatFormAPI(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Ekstrak
+    function formatFormEkstrak(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Excipient
+    function formatFormExcipient(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Nasipre
+    function formatFormNasipre(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Packaging
+    function formatFormPackaging(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Intermediate
+    function formatFormIntermediate(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).removeAttr("disabled");
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
+    }
+
+    // Set Format Form Update Material, if Material Category Rapid Test
+    function formatFormRapidTest(idMaterial){
+        $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).removeAttr("disabled");
+        $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).removeAttr("disabled");
+        $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).removeAttr("disabled");
+    }
 
     // Send data to Action Update Material for feedback tl
     function funcFeedbackTL(idMaterial, materialName, sourcingNumber){
-        let feedbackTL = $('form#formFeedbackTL_'+idMaterial+' select#feedbackTL').val();
-        $.ajax({
-            type: 'POST',
-            url: '../controller/actionUpdateMaterial.php',
-            data:{idMaterial: idMaterial, feedbackTL: feedbackTL, materialName: materialName, sourcingNumber: sourcingNumber},
-            dataType: 'json',
-            success: function(response){
-                const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'bottom-end',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
+            let feedbackTL = $('form#formFeedbackTL_'+idMaterial+' select#feedbackTL').val();
+            $.ajax({
+                type: 'POST',
+                url: '../controller/actionUpdateMaterial.php',
+                data:{idMaterial: idMaterial, feedbackTL: feedbackTL, materialName: materialName, sourcingNumber: sourcingNumber},
+                dataType: 'json',
+                success: function(response){
+                    const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'bottom-end',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
 
-                    Toast.fire({
-                        icon: response.status == 0?'success':'warning',
-                        title: response.message
-                    })
+                        Toast.fire({
+                            icon: response.status == 0?'success':'warning',
+                            title: response.message
+                        })
 
-                loadDataRiwayat(<?php echo $_SESSION['user']['level']?>);
-            }
-        })
-    }
+                    loadDataRiwayat(<?php echo $_SESSION['user']['level']?>);
+                }
+            })
+        }
 
     // Send data to Action Update Material for feedback rpic
     function funcFeedbackRPIC(idMaterial, materialName, sourcingNumber){
@@ -383,32 +490,38 @@
 
     // Send data to Action Update Material for update material
     function funcUpdateMaterial(idMaterial, sourcingNumber){
-        $.ajax({
-            type: "POST",
-            url: "../controller/actionUpdateMaterial.php",
-            data: $('form#formEditMaterial'+idMaterial).serialize()+'&editMaterial=true&idMaterial='+idMaterial+'&sourcingNumber='+sourcingNumber,
-            dataType: 'json',
-            success: function(response){
-                const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'bottom-end',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
+        // Check Submit
+        $("form#formEditMaterial"+idMaterial).submit(function(e){
+            e.preventDefault();
+            
+            // actual logic, e.g. validate the form
+            $.ajax({
+                type: "POST",
+                url: "../controller/actionUpdateMaterial.php",
+                data: $('form#formEditMaterial'+idMaterial).serialize()+'&editMaterial=true&idMaterial='+idMaterial+'&sourcingNumber='+sourcingNumber,
+                dataType: 'json',
+                success: function(response){
+                    const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'bottom-end',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
 
-                    Toast.fire({
-                        icon: response.status == 0?'success':'warning',
-                        title: response.message
-                    })
-                    
-                loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
-            }
-        })
-        $('#editMaterial'+idMaterial).modal('hide');
+                        Toast.fire({
+                            icon: response.status == 0?'success':'warning',
+                            title: response.message
+                        })
+                        
+                    loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
+                }
+            })
+            $('#editMaterial'+idMaterial).modal('hide');
+        });
     }
 </script>

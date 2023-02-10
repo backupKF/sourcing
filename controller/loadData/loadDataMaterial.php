@@ -11,18 +11,22 @@
     $where = $sqlTot = $sqlRec = "";
 
     $where .= "  WHERE projectCode='".$_GET['projectCode']."' AND feedbackRPIC=1 ";
-	// // Jika selain dari kondisi di atas, check pencarian user
-	// if( !empty($params['search']['value']) ) {
-	// 	$where .=" AND (materialName LIKE '".$params['search']['value']."%' ";
-	// 	$where .=" OR materialName LIKE '".$params['search']['value']."%' ";
-	// 	$where .=" OR TB_Project.projectCode LIKE '".$params['search']['value']."%' ";
-	// 	$where .=" OR TB_Project.projectName LIKE '".$params['search']['value']."%' ";
-	// 	$where .=" OR teamLeader LIKE '".$params['search']['value']."%' ";
-	// 	$where .=" OR researcher LIKE '".$params['search']['value']."%' ";
-	// 	$where .=" OR dateApprovedTL LIKE '".$params['search']['value']."%' ";
-	// 	$where .=" OR dateAcceptedRPIC LIKE '".$params['search']['value']."%' ";
-	// 	$where .=" OR statusRiwayat LIKE '".$params['search']['value']."%') ";
-	// }
+	// Jika selain dari kondisi di atas, check pencarian user
+	if( !empty($params['search']['value']) ) {
+		$where .=" AND (materialCategory LIKE '".$params['search']['value']."%' ";
+		$where .=" OR materialName LIKE '".$params['search']['value']."%' ";
+		$where .=" OR priority LIKE '".$params['search']['value']."%' ";
+		$where .=" OR materialSpesification LIKE '".$params['search']['value']."%' ";
+		$where .=" OR catalogOrCasNumber LIKE '".$params['search']['value']."%' ";
+		$where .=" OR company LIKE '".$params['search']['value']."%' ";
+		$where .=" OR website LIKE '".$params['search']['value']."%' ";
+		$where .=" OR finishDossageForm LIKE '".$params['search']['value']."%' ";
+		$where .=" OR keterangan LIKE '".$params['search']['value']."%' ";
+		$where .=" OR teamLeader LIKE '".$params['search']['value']."%' ";
+		$where .=" OR vendorAERO LIKE '".$params['search']['value']."%' ";
+		$where .=" OR documentReq LIKE '".$params['search']['value']."%' ";
+		$where .=" OR statusSourcing LIKE '".$params['search']['value']."%') ";
+	}
 
     // Mengambil data dan total data yang dicari user
 	$sql = "SELECT * FROM TB_PengajuanSourcing";
@@ -37,9 +41,6 @@
 
 	// Mengambil data sesuai dengan page yang dipilih user
     $sqlRec .=  " ORDER BY id DESC  OFFSET ".$params['start']." ROWS FETCH FIRST ".$params['length']." ROWS ONLY";
-
-    	// // Mengambil data sesuai dengan page yang dipilih user
-        // $sqlRec .=  " ORDER BY id DESC  OFFSET 0 ROWS FETCH FIRST 5 ROWS ONLY";
 
 	// Pengambilan Total data dari database
 	$totalRecords = $conn->query($sqlTot)->fetchAll();

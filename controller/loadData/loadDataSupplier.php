@@ -222,7 +222,7 @@
 									`<!-- Action Button -->`+
 									`<div class="py-0" style="width:50px">`+
 										`<form id="formSetVendorUpdateSupplier`+dataVendor.id+`">`+
-											`<button type="button" class="btn btn-success btn-sm p-0 px-1" style="height:22px" name="setValue" value="`+dataVendor.vendorName+`" onclick="funcSetVendor('.$row['id'].',\``+dataVendor.vendorName+`\`, \`formSetVendorUpdateSupplier\`)">`+
+											`<button type="button" class="btn btn-success btn-sm p-0 px-1 my-1" style="height:22px" name="setValue" value="`+dataVendor.vendorName+`" onclick="funcSetVendor('.$row['id'].',\``+dataVendor.vendorName+`\`, \`formSetVendorUpdateSupplier\`)">`+
 												`<span style="font-size:11px;font-family:poppinsBold">Pilih</span>`+
 											`</button>`+
 										`</form>`+
@@ -233,7 +233,7 @@
 					]
 				})
 			</script>
-		';		
+		';
 		
 		$scripts[] = $script;
 

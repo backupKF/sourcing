@@ -3,46 +3,25 @@
 ?>
 <!-- CSS -->
 <style>
+    .projectColumn {
+        font-size:15px;
+        font-family:poppinsBold;
+    }
+
     div.dataTables_filter, div.dataTables_length {
         padding-bottom: 10px;
     }
 </style>
 
-<!-- Card Table -->
-<div class="card shadow bg-body rounded">
-    <div class="card-body">
-        <!-- Tabel Project -->
-        <table id="table-project" class="table table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <td class="d-none"></td>
-                    <td style="width:5%"></td>
-                    <td style="font-size:14px;font-family:poppinsSemiBold;width:5%">No</td>
-                    <td style="font-size:14px;font-family:poppinsSemiBold;width:80%">Name</td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    include "../dbConfig.php";
-                    $no = 1;
-                    $dataProject = $conn->query("SELECT DISTINCT TB_Project.projectCode, TB_Project.projectName FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode WHERE feedbackRPIC=1")->fetchAll();
-                    foreach($dataProject as $row){
-                ?>
-                    <tr>
-                        <td class="d-none"><?php echo $row['projectCode']?></td>
-                        <td class="dt-control"></td>
-                        <td style="font-size:14px;font-family:poppinsMedium;"><?php echo $no++?></td>
-                        <td style="font-size:14px;font-family:poppinsMedium;"><?php echo $row['projectCode'], ' | ', $row['projectName']?></td>
-                    </tr>
-                <?php
-                    }
-                ?>
-            </tbody>
-        </table>
-        <!-- -- -->
-    </div>            
-</div>
-<!-- -- -->
+<!-- Tabel Project -->
+<table id="table-project" class="table" style="width:100%">
+    <thead>
+        <tr>
+            <td style="width:5%"></td>
+            <td></td>
+        </tr>
+    </thead>
+</table>
 
 <script>
 $(document).ready(function(){
@@ -50,6 +29,27 @@ $(document).ready(function(){
         stateSave: true,
         scrollY: '430px',
         scrollCollapse: true,
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: '../controller/loadData/loadDataProject.php',
+        },
+        columns: [
+            {
+                className: 'dt-control projectColumn',
+                data: function(data){
+                    return ""
+                }
+            },
+            {
+                className: 'projectColumn',
+                data: function(data){
+                    return (
+                        '<td style="font-size:14px;font-family:poppinsMedium;">'+ data.projectCode +' | '+ data.projectName +'</td>'
+                    )
+                }
+            },
+        ]
     })
 
     // Menampilkan tabel material, apabila user melakukan event click ditabel project
@@ -59,7 +59,7 @@ $(document).ready(function(){
             var row = projectTable.row(tr);
             if (row.child.isShown()) {
                 // Menghilangkan tabel material jika event click ditutup
-                var table = $("#table-material"+row.data()[0], row.child());
+                var table = $("#table-material"+row.data()[1], row.child());
                 table.DataTable().clear().destroy();
                     
                 // Fungsi untuk menyembunyikan baris
@@ -67,7 +67,7 @@ $(document).ready(function(){
                 tr.removeClass('shown');
             } else {
                 // Menampilkan tabel material jika event click dilakukan
-                row.child( tableMaterial(row.data()[0])).show();
+                row.child( tableMaterial(row.data()[1], row.data()[2])).show();
                 tr.addClass('shown');
             }
     });
@@ -115,21 +115,24 @@ $(document).ready(function(){
 })
 
 // Membuat Tabel Material didalam sebuah fungsi
-function tableMaterial(d){
-    loadDataMaterial(d)
+function tableMaterial(projectCode, projectName){
+    loadDataMaterial(projectCode, projectName)
     return (
-        '<div class="container-fluid m-0 p-0 contentMaterial" id="contentTableMaterial'+d+'"></div>'
+        '<div class="container-fluid m-0 p-0 contentMaterial" id="contentTableMaterial'+projectCode+'"></div>'
     )
 }
 
 // Load Data Material
-function loadDataMaterial(d){
+function loadDataMaterial(projectCode, projectName){
     $.ajax({
         url: 'layout/tabelMaterial.php',
         type: 'get',
-        data: { projectCode: d},
+        data: { 
+            projectCode: projectCode,
+            projectName: projectName
+        },
         success: function(data) {
-            $('#contentTableMaterial'+d+'').html(data);
+            $('#contentTableMaterial'+projectCode+'').html(data);
         }
     });
 }

@@ -1,7 +1,7 @@
 <?php
     // me-redirect saat user masuk kehalaman ini
     if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-        header('Location: ../../dashboard/index.php');
+        header('Location: ../../../dashboard/index.php');
         exit();
     };
 ?>

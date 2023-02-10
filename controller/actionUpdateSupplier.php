@@ -19,6 +19,7 @@
         $gradeOrReference = trim(strip_tags($_POST['gradeOrReference']));
         $documentInfo = trim(strip_tags($_POST['documentInfo']));
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
+        $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
 
         // Variabel untuk pengecekan data supplier
         $checkValue = $conn->query("SELECT supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
@@ -118,7 +119,7 @@
                         if($update == true){
                             $message = "mengedit data".$changeSupplier.$changeManufacture.$changeOriginCountry.$changeLeadTime.$changeCatalogOrCasNumber.$changeGradeOrReference.$changeDocumentInfo." pada supplier : ";
                             $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                            $response = sendNotification("Supplier berhasil diedit!!", $dataSupplier[0]['supplier'], $message, NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                            $response = sendNotification("Supplier berhasil diedit!!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", $message, NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
                         }
                     }catch(Exception $e){
                         $response = array(
@@ -156,7 +157,7 @@
                             if($update == true){
                                 $message = "mengedit data".$changeSupplier.$changeManufacture.$changeOriginCountry.$changeLeadTime.$changeCatalogOrCasNumber.$changeGradeOrReference.$changeDocumentInfo." pada supplier : ";
                                 $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                                $response = sendNotification("Supplier berhasil diedit!!", $dataSupplier[0]['supplier'], $message, NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                                $response = sendNotification("Supplier berhasil diedit!!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", $message, NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
                             }
                         }catch(Exception $e){
                             $response = array(
@@ -193,6 +194,7 @@
         $hardCash = trim(strip_tags($_POST['hardCash']));
         $quantity = trim(strip_tags($_POST['quantity']));
         $idSupplier = trim(strip_tags($_POST['id']));
+        $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
 
         // Membuat detail info price
         $priceDetail = $hardCash.$price.$quantity;
@@ -215,7 +217,7 @@
                 // Send Notifikasi
                 if($insert == true){
                     $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                    $response = sendNotification("Berhasil memasukan detail supplier!!", $dataSupplier[0]['supplier'] , "menambahkan detail supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                    $response = sendNotification("Berhasil memasukan detail supplier!!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", "menambahkan detail supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
                 }
             }catch(Exception $e){
                 $response = array(
@@ -241,6 +243,7 @@
         //Mengambil data dan memformat data
         $idDetailSupplier = $_GET['idDetailSupplier'];
         $idSupplier = $_GET['idSupplier'];
+        $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
 
         // Cek Apakah data Supplier tersedia
         if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
@@ -254,7 +257,7 @@
                 // Send Notifikasi
                 if($delete == true){
                     $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
-                    $response = sendNotification("Berhasil menghapus detail supplier!!", $dataSupplier[0]['supplier'], "menghapus detail supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
+                    $response = sendNotification("Berhasil menghapus detail supplier!!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", "menghapus detail supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
                 }
             }catch(Exception $e){
                 $response = array(

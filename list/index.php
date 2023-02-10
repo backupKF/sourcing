@@ -89,10 +89,16 @@
         <?php require "../navbar.php"?>
         
         <br>
-
-        <div class="container">
-            <!-- Tabel Pengajuan -->
-            <?php require "layout/tabelProjectServerSide.php"?>
+            <div class="container">
+                <!-- Card Table -->
+                <div class="card shadow bg-body rounded">
+                    <div class="card-body">
+                        <!-- Tabel List -->
+                        <?php require "layout/tabelProject.php"?>
+                    <!-- -- -->
+                </div>            
+            </div>
+            <!-- -- -->
         </div>
     </body>
 </html>

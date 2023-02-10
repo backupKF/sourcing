@@ -117,7 +117,7 @@
     function loadDataRiwayat(userLevel){
         $.ajax({
             type: 'GET',
-            url: 'layout/tabelRiwayatServerSide.php',
+            url: 'layout/tabelRiwayat.php',
             <?php
                 if(empty($_GET['sn']) && empty($_GET['idMaterial'])){
             ?>
@@ -126,12 +126,12 @@
                 }
                 if(!empty($_GET['sn']) && empty($_GET['idMaterial'])){
             ?>
-                data: {sn: <?php echo $_GET['sn']?>},
+                data: {rs:"<?php echo $_GET['rs']?>", sn: <?php echo $_GET['sn']?>},
             <?php
                 }
                 if(!empty($_GET['sn']) && !empty($_GET['idMaterial'])){
             ?>
-                data: {sn: <?php echo $_GET['sn']?>, idMaterial: <?php echo $_GET['idMaterial']?>},
+                data: {rs:"<?php echo $_GET['rs']?>", sn: <?php echo $_GET['sn']?>, idMaterial: <?php echo $_GET['idMaterial']?>},
             <?php
                 }
             ?>
