@@ -1,5 +1,8 @@
 <?php
+
+    // Halaman Saat Ini
     $currentPage = 'dashboard';
+    
     include "../dbConfig.php"; 
 
     session_start();
@@ -28,7 +31,6 @@
             body{
                 overflow-x: hidden;
             }
-
             /* CSS Sidebar Responsive */
             .container{
                 margin-left:260px;

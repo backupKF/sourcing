@@ -14,7 +14,7 @@
 <!-- Form Data Pengajuan -->
 <div class="card shadow bg-body rounded">
     <div class="card-body">
-        <h5 class="card-title">Kelola Data Pengajuan</h5>
+        <div class="card-title" style="font-size:24px;font-family:poppinsBold">Kelola Data Pengajuan</div>
         <hr>
         <!-- Select Project -->
         <div class="row">

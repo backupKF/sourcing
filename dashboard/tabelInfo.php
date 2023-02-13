@@ -1,6 +1,9 @@
-<?php
-    include "../dbConfig.php"; 
+<?php 
+
+    // Halaman Saat Ini
     $currentPage = 'dashboard';
+    
+    include "../dbConfig.php";
 
     session_start();
     
@@ -22,14 +25,14 @@
         <link href='../plugin/datatable/css/jquery.dataTables.min.css'  rel='stylesheet'>
         <script src="../plugin/datatable/js/jquery.dataTables.min.js"></script>
 
-        <title>Dashboard</title>
+        <title>Dashboard | Tabel Info</title>
 
         <style>
             body{
                 overflow-x: hidden;
             }
 
-            /* CSS Sidebar Responsive */
+            /* CSS For Sidebar Responsive */
             .container{
                 margin-top:65px;
                 margin-left:255px;
@@ -54,6 +57,10 @@
                 font-size:12px;
                 font-family:poppinsRegular;
             }
+            .title-table {
+                font-size:20px;
+                font-family:poppinsBold
+            }
         </style>
     </head>
     <body>
@@ -76,7 +83,7 @@
                         </div>
                         <div class="col-8">
                             <!-- title -->
-                            <h3 class="m-0" style="font-size:20px;font-family:poppinsBold">Material Sourcing {Status <?php echo $_GET['status']?>}</h3>
+                            <div class="m-0 title-table">Material Sourcing {Status <?php echo $_GET['status']?>}</div>
                         </div>
                     </div>
 

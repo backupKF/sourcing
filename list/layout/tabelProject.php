@@ -5,7 +5,11 @@
 <style>
     .projectColumn {
         font-size:15px;
-        font-family:poppinsBold;
+        font-family:poppinsSemiBold;
+    }
+
+    td {
+        border-color:#999999;
     }
 
     div.dataTables_filter, div.dataTables_length {

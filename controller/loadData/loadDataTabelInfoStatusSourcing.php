@@ -18,7 +18,7 @@
 		$whereMaterialSourcing .=" OR materialSpesification LIKE '".$params['search']['value']."%') ";
 	}
 
-    // Mengambil data dan total data yang dicari user
+    // Mengambil data dan total data
 	$sqlRecMaterialSourcing = "SELECT id, materialName, materialCategory, materialSpesification FROM TB_PengajuanSourcing";
 	$sqlTotMaterialSourcing = "SELECT count(*) FROM TB_PengajuanSourcing";
 
@@ -66,8 +66,17 @@
 
 	}else{
 		// Jika variabel $queryRecords tidak ditemukan maka;
-		$sqlRecSupplier = $conn->query("SELECT materialName, materialCategory, materialSpesification, supplier FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE feedbackRPIC=1 AND statusSourcing = '".$_GET['status']."' AND (supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%') ORDER BY idMaterial DESC  OFFSET ".$params['start']." ROWS FETCH FIRST ".$params['length']." ROWS ONLY")->fetchAll();
-		$sqlTolSupplier = $conn->query("SELECT count(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE feedbackRPIC=1 AND statusSourcing = '".$_GET['status']."' AND (supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%')")->fetchAll();
+		// Ini dipanggil ketika user mencari data supplier
+		$sqlRecSupplier = $conn->query("SELECT materialName, materialCategory, materialSpesification, supplier 
+										FROM TB_Supplier 
+										INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id 
+										WHERE feedbackRPIC=1 AND statusSourcing = '".$_GET['status']."' AND (supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%') 
+										ORDER BY idMaterial DESC  OFFSET ".$params['start']." ROWS FETCH FIRST ".$params['length']." ROWS ONLY")->fetchAll();
+
+		$sqlTolSupplier = $conn->query("SELECT count(*) 
+										FROM TB_Supplier 
+										INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id 
+										WHERE feedbackRPIC=1 AND statusSourcing = '".$_GET['status']."' AND (supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%')")->fetchAll();
 	
 		foreach($sqlRecSupplier as $supplier){
             $supplier['targetLaunching'] = "-";

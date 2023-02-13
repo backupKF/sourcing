@@ -102,7 +102,7 @@
         </tr>
     </tfoot>
 </table>
-<div class="test-hu"></div>
+<div class="script-vendorTable"></div>
 
 <script>
     $(document).ready(function() {
@@ -388,7 +388,7 @@
                 },
             ],
             drawCallback:function( settings){
-                $('.test-hu').html(settings.json.script)
+                $('.script-vendorTable').html(settings.json.script)
             }
         });
 

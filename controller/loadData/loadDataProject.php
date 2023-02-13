@@ -13,7 +13,7 @@
     $where .=" WHERE feedbackRPIC=1";
 	// Jika selain dari kondisi di atas, check pencarian user
 	if( !empty($params['search']['value']) ) {   
-		$where .=" AND (projectCode LIKE '".$params['search']['value']."%' ";
+		$where .=" AND (TB_Project.projectCode LIKE '".$params['search']['value']."%' ";
 		$where .=" OR projectName LIKE '".$params['search']['value']."%') ";
 	}
 

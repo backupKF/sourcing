@@ -59,9 +59,7 @@
                 <th scope="col" style="width:150px" class="headerColumn">Document Requirement</th>
                 <th scope="col" style="width:150px" class="headerColumn">Status</th>
                 <th scope="col" style="width:300px" class="headerColumn">Summary Report</th>
-                <?php if($_SESSION['user']['level'] == 1){?>
-                    <th scope="col" style="width:200px" class="headerColumn text-center">Action</th>
-                <?php } ?>
+                <th scope="col" style="width:200px" class="headerColumn text-center">Action</th>
             </tr>
         </thead>
         <tfoot class="bg-primary" >
@@ -83,9 +81,7 @@
                 <th scope="col" style="width:150px" class="headerColumn">Document Requirement</th>
                 <th scope="col" style="width:150px" class="headerColumn">Status</th>
                 <th scope="col" style="width:300px" class="headerColumn">Summary Report</th>
-                <?php if($_SESSION['user']['level'] == 1){?>
-                    <th scope="col" style="width:200px" class="headerColumn text-center">Action</th>
-                <?php } ?>
+                <th scope="col" style="width:200px" class="headerColumn">Action</th>
             </tr>
         </tfoot>
     </table>
@@ -93,7 +89,7 @@
         $(document).ready(function(){
             var materialTable = $('#table-material<?php echo $_GET['projectCode']?>').DataTable({
                 scrollX: true,
-                lengthMenu: [3 , 5],
+                lengthMenu: [2, 3 , 5],
                 stateSave: true,
                 processing: true,
                 serverSide: true,
@@ -128,7 +124,9 @@
 
                     {
                         className: 'dataColumn',
-                        data: 'priority'
+                        data: function (data){
+                            return (data.priority == null? "-" : data.priority)
+                        }
                     },
                     {
                         className: 'dataColumn',
@@ -168,7 +166,9 @@
                     },
                     {
                         className: 'dataColumn',
-                        data: 'vendorAERO'
+                        data: function(data){
+                            return (data.vendorAERO == ""? '-' : data.vendorAERO)
+                        }
                     },
                     {
                         className: 'dataColumn',
@@ -234,23 +234,39 @@
                             }
                         }
                     },
-                    <?php if($_SESSION['user']['level'] == 1){?>
-                        {
-                            className: 'dataColumn',
-                            data: function(data){
+                    
+                    {
+                        className: 'dataColumn',
+                        data: function(data){
+                            <?php if($_SESSION['user']['level'] == 1){?>
                                 return (
                                     '<!-- Column Action Material -->'+
                                     '<td>'+
-                                        '<!-- Edit Material -->'+
-                                        '<button type="button" class="btn btn-sm btn-warning p-0" data-bs-toggle="modal" style="width:100%;height:30px" data-bs-target="#editMaterial'+data.id+'">'+
-                                            '<div style="font-size:13px">Edit Material</div>'+
-                                        '</button>'+
-                                        <?php include "../../component/modal/server-side/updateMaterialList.php"?>
+                                            '<!-- Edit Material -->'+
+                                            '<button type="button" class="btn btn-sm btn-warning m-1" data-bs-toggle="modal" data-bs-target="#editMaterial'+data.id+'">'+
+                                                '<div style="font-size:12px">Edit Material</div>'+
+                                            '</button>'+
+                                            <?php include "../../component/modal/server-side/updateMaterialList.php"?>
+
+                                            '<!-- View Material -->'+
+                                            '<a href="../viewSourcing/detailSourcing.php?idMaterial='+data.id+'" class="btn btn-sm btn-success m-1">'+
+                                                '<div style="font-size:12px">View Material</div>'+
+                                            '</a>'+
                                     '</td>'
                                 )
-                            }
-                        },
-                    <?php } ?>
+                            <?php }else{ ?>
+                                return (
+                                    '<!-- Column Action Material -->'+
+                                    '<td>'+
+                                            '<!-- View Material -->'+
+                                            '<a href="../viewSourcing/detailSourcing.php?idMaterial='+data.id+'" class="btn btn-sm btn-success p-0" style="width:100%;height:20px">'+
+                                                '<div style="font-size:13px">Edit Material</div>'+
+                                            '</a>'+
+                                    '</td>'
+                                )
+                            <?php } ?>
+                        }
+                    },
                 ]
             })
 
