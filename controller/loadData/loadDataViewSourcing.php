@@ -47,13 +47,28 @@
 					$feedbackRnd = $conn->query("SELECT TOP 1 * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$supplier['id']}' ORDER BY ID DESC")->fetchAll();
 					$feedbackProc = $conn->query("SELECT TOP 1 * FROM TB_FeedbackProc WHERE idSupplier='{$supplier['id']}' ORDER BY ID DESC")->fetchAll();
 
-					$supplier['dateFeedbackRnd'] = $feedbackRnd[0]['dateFeedback'];
+					if($feedbackRnd[0]['dateFeedback'] != NULL){
+						$supplier['dateFeedbackRnd'] = date('d F Y',strtotime($feedbackRnd[0]['dateFeedback']));
+					}else{
+						$supplier['dateFeedbackRnd'] = "-";
+					}
 					$supplier['sampelFeedbackRnd'] = $feedbackRnd[0]['sampel'];
 					$supplier['writerFeedbackRnd'] = $feedbackRnd[0]['writer'];
 
-					$supplier['dateFeedbackProc'] = $feedbackProc[0]['dateFeedbackProc'];
+					if($feedbackProc[0]['dateFeedbackProc'] != NULL){
+						$supplier['dateFeedbackProc'] = date('d F Y',strtotime($feedbackProc[0]['dateFeedbackProc']));
+					}else{
+						$supplier['dateFeedbackProc'] = "-";
+					}
 					$supplier['feedbackProc'] = $feedbackProc[0]['feedback'];
 					$supplier['writerFeedbackProc'] = $feedbackProc[0]['writer'];
+
+					// Convert tanggal final feedback
+					if($supplier['dateFinalFeedbackRnd'] != NULL){
+						$supplier['convertDateFinalFeedbackRnd'] = date('d F Y', strtotime($supplier['dateFinalFeedbackRnd']));
+					}else{
+						$supplier['convertDateFinalFeedbackRnd'] = '-';
+					}
 
 					$supplier['projectName'] = $row['projectName'];
 
@@ -96,13 +111,28 @@
 			$feedbackRnd = $conn->query("SELECT TOP 1 * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$supplier['id']}' ORDER BY ID DESC")->fetchAll();
 			$feedbackProc = $conn->query("SELECT TOP 1 * FROM TB_FeedbackProc WHERE idSupplier='{$supplier['id']}' ORDER BY ID DESC")->fetchAll();
 
-			$supplier['dateFeedbackRnd'] = $feedbackRnd[0]['dateFeedback'];
+			if($feedbackRnd[0]['dateFeedback'] != NULL){
+				$supplier['dateFeedbackRnd'] = date('d F Y',strtotime($feedbackRnd[0]['dateFeedback']));
+			}else{
+				$supplier['dateFeedbackRnd'] = "-";
+			}
 			$supplier['sampelFeedbackRnd'] = $feedbackRnd[0]['sampel'];
 			$supplier['writerFeedbackRnd'] = $feedbackRnd[0]['writer'];
 
-			$supplier['dateFeedbackProc'] = $feedbackProc[0]['dateFeedbackProc'];
+			if($feedbackProc[0]['dateFeedbackProc'] != NULL){
+				$supplier['dateFeedbackProc'] = date('d F Y',strtotime($feedbackProc[0]['dateFeedbackProc']));
+			}else{
+				$supplier['dateFeedbackProc'] = "-";
+			}
 			$supplier['feedbackProc'] = $feedbackProc[0]['feedback'];
 			$supplier['writerFeedbackProc'] = $feedbackProc[0]['writer'];
+
+			// Convert tanggal final feedback
+			if($supplier['dateFinalFeedbackRnd'] != NULL){
+				$supplier['convertDateFinalFeedbackRnd'] = date('d F Y', strtotime($supplier['dateFinalFeedbackRnd']));
+			}else{
+				$supplier['convertDateFinalFeedbackRnd'] = '-';
+			}
 
 			$supplier['projectName'] = $projectName[0]['projectName'];
 

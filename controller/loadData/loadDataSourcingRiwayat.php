@@ -56,7 +56,29 @@
     $queryRecords = $conn->query($sqlRec)->fetchAll();
 
 	// Menampung hasil data material kedalam array
-	foreach($queryRecords as $row ) { 
+	foreach($queryRecords as $row ) {
+		// Convert Tanggal Sourcing
+		if($row['dateSourcing'] != NULL){
+			$row['convertDateSourcing'] = date('d F Y', strtotime($row['dateSourcing']));
+		}else{
+			$row['convertDateSourcing'] = '-';
+		}
+
+
+		// Convert Tanggal Approved Team Leader
+		if($row['dateApprovedTL'] != NULL){
+			$row['convertDateApprovedTL'] = date('d F Y', strtotime($row['dateApprovedTL']));
+		}else{
+			$row['convertDateApprovedTL'] = '-';
+		}
+
+		// Convert Tanggal Accepted RPIC
+		if($row['dateAcceptedRPIC'] != NULL){
+			$row['convertDateAcceptedRPIC'] = date('d F Y', strtotime($row['dateAcceptedRPIC']));
+		}else{
+			$row['convertDateAcceptedRPIC'] = '-';
+		}
+
 		$data[] = $row;
 	}	
 

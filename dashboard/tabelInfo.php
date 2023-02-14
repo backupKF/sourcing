@@ -51,11 +51,11 @@
             /* CSS Tabel Info Status */
             th{
                 font-size:12px;
-                font-family:poppinsSemiBold;
+                font-family:poppinsBold;
             }
             td {
                 font-size:12px;
-                font-family:poppinsRegular;
+                font-family:poppinsMedium;
             }
             .title-table {
                 font-size:20px;

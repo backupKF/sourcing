@@ -16,7 +16,7 @@
 ?>
 <!-- Status Sourcing -->
 <div class="d-flex justify-content-end">
-    <span class="badge text-bg-info" style="font-size:15px;font-family:poppinsSemiBold"><?php echo $dataMaterial[0]['statusSourcing']?></span>
+    <span class="badge text-dark" style="font-size:15px;font-family:poppinsBlack;width:120px;<?php echo ($dataMaterial[0]['statusSourcing'] == "DONE" ? "background-color:#9cff9d":($dataMaterial[0]['statusSourcing'] == "OPEN" ? "background-color:#7380fa":($dataMaterial[0]['statusSourcing'] == "RE-OPEN" ? "background-color:#a1ecff":($dataMaterial[0]['statusSourcing'] == "DROP" ? "background-color:#bd7aff":($dataMaterial[0]['statusSourcing'] == "NOT YET" ? "background-color:#ff6040":($dataMaterial[0]['statusSourcing'] == "HOLD" ? "background-color:#f72a34":($dataMaterial[0]['statusSourcing'] == "NO STATUS" ? "background-color:#a1a1a1":""))))))) ?>"><?php echo $dataMaterial[0]['statusSourcing']?></span>
 </div>
  
 <form class="was-validated" id="formEditMaterial<?php echo $dataMaterial[0]['id']?>" autocomplete="off">
@@ -192,7 +192,7 @@
 ?>
     <!-- Status Sourcing -->
     <div class="d-flex justify-content-end">
-        <span class="badge text-bg-info" style="font-size:15px;font-family:poppinsSemiBold"><?php echo $dataMaterial[0]['statusSourcing']?></span>
+        <span class="badge text-dark" style="font-size:15px;font-family:poppinsBlack;width:120px;<?php echo ($dataMaterial[0]['statusSourcing'] == "DONE" ? "background-color:#9cff9d":($dataMaterial[0]['statusSourcing'] == "OPEN" ? "background-color:#7380fa":($dataMaterial[0]['statusSourcing'] == "RE-OPEN" ? "background-color:#a1ecff":($dataMaterial[0]['statusSourcing'] == "DROP" ? "background-color:#bd7aff":($dataMaterial[0]['statusSourcing'] == "NOT YET" ? "background-color:#ff6040":($dataMaterial[0]['statusSourcing'] == "HOLD" ? "background-color:#f72a34":($dataMaterial[0]['statusSourcing'] == "NO STATUS" ? "background-color:#a1a1a1":""))))))) ?>"><?php echo $dataMaterial[0]['statusSourcing']?></span>
     </div>
     <!-- Material Category -->
     <div class="row" style="font-size:15px;font-family:poppinsRegular">

@@ -175,7 +175,7 @@
                         data: 'documentReq'
                     },
                     {
-                        className: 'dataColumn',
+                        className: 'dataColumn text-center',
                         data: function(dataMaterial){
                             // jika user level 1
                             if(<?php echo $_SESSION['user']['level'] ?> == 1){
@@ -195,9 +195,7 @@
                                 )
                             }else{
                                 // Jika user bukan level 1
-                                return (
-                                    '<div class="text-center bg-success bg-opacity-75 m-0" style="font-size:12px;font-family:poppinsBold;">'+dataMaterial.statusSourcing+'</div>'
-                                )
+                                return '<span class="badge text-dark" style="font-size:12px;font-family:poppinsBlack;width:100px;'+ (dataMaterial.statusSourcing == "DONE" ? "background-color:#9cff9d":(dataMaterial.statusSourcing == "OPEN" ? "background-color:#7380fa":(dataMaterial.statusSourcing == "RE-OPEN" ? "background-color:#a1ecff":(dataMaterial.statusSourcing == "DROP" ? "background-color:#bd7aff":(dataMaterial.statusSourcing == "NOT YET" ? "background-color:#ff6040":(dataMaterial.statusSourcing == "HOLD" ? "background-color:#f72a34":(dataMaterial.statusSourcing == "NO STATUS" ? "background-color:#a1a1a1":""))))))) +'">'+dataMaterial.statusSourcing+'</span>'
                             }
                         }
                     },
@@ -207,7 +205,7 @@
                             if(<?php echo $_SESSION['user']['level']?> == 1){
                                 return (
                                     '<!-- Tanggal Sumary Report-->'+
-                                    '<div class="ps-0" style="width:100px;font-size:11px;font-family:poppinsBold;">Date: '+ (dataMaterial.dateSumaryReport != null ? dataMaterial.dateSumaryReport:'')+'</div>'+
+                                    '<span class="text-start bg-info badge text-dark mb-2" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataMaterial.convertDateSumaryReport+'</span>'+
                                     '<!-- Isi Sumary Report -->'+
                                     '<div class="overflow-auto" style="height:65px">'+
                                         '<div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;">'+ (dataMaterial.sumaryReport != null ? dataMaterial.sumaryReport:'-') +'</div>'+
@@ -225,7 +223,7 @@
                             }else{
                                 return (
                                     '<!-- Tanggal Sumary Report-->'+
-                                    '<div class="ps-0" style="width:100px;font-size:11px;font-family:poppinsBold;">Date: '+ (dataMaterial.dateSumaryReport != null ? dataMaterial.dateSumaryReport:'')+'</div>'+
+                                    '<span class="text-start bg-info badge text-dark mb-2" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataMaterial.convertDateSumaryReport+'</span>'+
                                     '<!-- Isi Sumary Report -->'+
                                     '<div class="overflow-auto" style="height:65px">'+
                                         '<div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;">'+ (dataMaterial.sumaryReport != null ? dataMaterial.sumaryReport:'-') +'</div>'+

@@ -16,15 +16,15 @@
         <div class="card shadow mb-3 bg-body rounded" style="height:105px">
           <div class="card-body p-0">
             <!-- Title -->
-            <h6 class="text-center p-1" style="background-color:#9cff9d;font-family:'poppinsRegular'">Done</h6>
+            <h6 class="text-center p-1" style="background-color:#9cff9d;font-family:'poppinsBlack'">Done</h6>
             <!-- Count Result -->
               <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                <span class="position-absolute top-50 start-50 translate-middle">
                 <?php
                   $countStatusDoneMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE feedbackRPIC=1 AND statusSourcing='DONE'")->fetchAll();
-                  echo "<span style='font-size:15px;font-family:poppinsLight'>".$countStatusDoneMaterial[0][0]." Material</span><br>";
+                  echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countStatusDoneMaterial[0][0]." Material</span><br>";
                   $countStatusDoneSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE feedbackRPIC=1 AND statusSourcing='DONE'")->fetchAll();
-                  echo "<span style='font-size:15px;font-family:poppinsLight'>".$countStatusDoneSupplier[0][0]." Supplier</span><br>";
+                  echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countStatusDoneSupplier[0][0]." Supplier</span><br>";
                 ?>
               </span>
             </div>
@@ -39,15 +39,15 @@
         <div class="card shadow mb-3 bg-body rounded" style="height:105px">
           <div class="card-body p-0">
             <!-- Title -->
-            <h6 class="text-center p-1" style="background-color:#7380fa;font-family:'poppinsRegular'">Open</h6>
+            <h6 class="text-center p-1" style="background-color:#7380fa;font-family:'poppinsBlack'">Open</h6>
             <!-- Count Result -->
             <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
               <span class="position-absolute top-50 start-50 translate-middle">
                 <?php
                   $countStatusOpenMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE feedbackRPIC=1 AND statusSourcing='OPEN'")->fetchAll();
-                  echo "<span style='font-size:15px;font-family:poppinsLight'>".$countStatusOpenMaterial[0][0]." Material</span><br>";
+                  echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countStatusOpenMaterial[0][0]." Material</span><br>";
                   $countStatusOpenSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE feedbackRPIC=1 AND statusSourcing='OPEN'")->fetchAll();
-                  echo "<span style='font-size:15px;font-family:poppinsLight'>".$countStatusOpenSupplier[0][0]." Supplier</span><br>";
+                  echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countStatusOpenSupplier[0][0]." Supplier</span><br>";
                 ?>
               </span>
             </div>
@@ -62,15 +62,15 @@
         <div class="card shadow mb-3 bg-body rounded" style="height:105px">
           <div class="card-body p-0">
             <!-- Title -->
-            <h6 class="text-center p-1" style="background-color:#a1ecff;font-family:'poppinsRegular'">Re-Open</h6>
+            <h6 class="text-center p-1" style="background-color:#a1ecff;font-family:'poppinsBlack'">Re-Open</h6>
             <!-- Count Result -->
             <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
               <span class="position-absolute top-50 start-50 translate-middle">
                 <?php
                   $countStatusReopenMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE feedbackRPIC=1 AND statusSourcing='RE-OPEN'")->fetchAll();
-                  echo "<span style='font-size:15px;font-family:poppinsLight'>".$countStatusReopenMaterial[0][0]." Material</span><br>";
+                  echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countStatusReopenMaterial[0][0]." Material</span><br>";
                   $countStatusReopenSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE feedbackRPIC=1 AND statusSourcing='RE-OPEN'")->fetchAll();
-                  echo "<span style='font-size:15px;font-family:poppinsLight'>".$countStatusReopenSupplier[0][0]." Supplier</span><br>"; 
+                  echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countStatusReopenSupplier[0][0]." Supplier</span><br>"; 
                ?>
               </span>
             </div>
@@ -88,15 +88,15 @@
         <div class="card shadow mb-3 bg-body rounded" style="height:105px">
           <div class="card-body p-0">
             <!-- Title -->
-            <h6 class="text-center p-1" style="background-color:#bd7aff;font-family:'poppinsRegular'">Drop</h6>
+            <h6 class="text-center p-1" style="background-color:#bd7aff;font-family:'poppinsBlack'">Drop</h6>
             <!-- Count Result -->
              <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
               <span class="position-absolute top-50 start-50 translate-middle">
                 <?php
                   $countStatusDropMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE feedbackRPIC=1 AND statusSourcing='DROP'")->fetchAll();
-                  echo "<span style='font-size:15px;font-family:poppinsLight'>".$countStatusDropMaterial[0][0]." Material</span><br>";
+                  echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countStatusDropMaterial[0][0]." Material</span><br>";
                   $countStatusDropSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE feedbackRPIC=1 AND statusSourcing='DROP'")->fetchAll();
-                  echo "<span style='font-size:15px;font-family:poppinsLight'>".$countStatusDropSupplier[0][0]." Supplier</span><br>"; 
+                  echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countStatusDropSupplier[0][0]." Supplier</span><br>"; 
                 ?>
               </span>
             </div>
@@ -111,15 +111,15 @@
         <div class="card shadow mb-3 bg-body rounded" style="height:105px">
           <div class="card-body p-0">
             <!-- Title -->
-            <h6 class="text-center p-1" style="background-color:#ff6040;font-family:'poppinsRegular'">Not Yet</h6>
+            <h6 class="text-center p-1" style="background-color:#ff6040;font-family:'poppinsBlack'">Not Yet</h6>
             <!-- Count Result -->
             <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
               <span class="position-absolute top-50 start-50 translate-middle">
                 <?php
                   $countStatusNotYetMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE feedbackRPIC=1 AND statusSourcing='NOT YET'")->fetchAll();
-                  echo "<span style='font-size:15px;font-family:poppinsLight'>".$countStatusNotYetMaterial[0][0]." Material</span><br>";
+                  echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countStatusNotYetMaterial[0][0]." Material</span><br>";
                   $countStatusNotYetSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE feedbackRPIC=1 AND statusSourcing='NOT YET'")->fetchAll();
-                  echo "<span style='font-size:15px;font-family:poppinsLight'>".$countStatusNotYetSupplier[0][0]." Supplier</span><br>";  
+                  echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countStatusNotYetSupplier[0][0]." Supplier</span><br>";  
                  ?>
               </span>
             </div>
@@ -134,15 +134,15 @@
       <div class="card shadow mb-3 bg-body rounded" style="height:105px">
         <div class="card-body p-0">
           <!-- Title -->
-           <h6 class="text-center p-1" style="background-color:#f72a34;font-family:'poppinsRegular'">Hold</h6>
+           <h6 class="text-center p-1" style="background-color:#f72a34;font-family:'poppinsBlack'">Hold</h6>
             <!-- Count Result -->
             <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
               <span class="position-absolute top-50 start-50 translate-middle">
                 <?php
                   $countStatusHoldMaterial = $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE feedbackRPIC=1 AND statusSourcing='HOLD'")->fetchAll();
-                  echo "<span style='font-size:15px;font-family:poppinsLight'>".$countStatusHoldMaterial[0][0]." Material</span><br>";
+                  echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countStatusHoldMaterial[0][0]." Material</span><br>";
                   $countStatusHoldSupplier = $conn->query("SELECT COUNT(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE feedbackRPIC=1 AND statusSourcing='HOLD'")->fetchAll();
-                  echo "<span style='font-size:15px;font-family:poppinsLight'>".$countStatusHoldSupplier[0][0]." Material</span><br>"; 
+                  echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countStatusHoldSupplier[0][0]." Material</span><br>"; 
                 ?>
               </span>
             </div>
@@ -171,13 +171,13 @@
               <div class="card shadow mb-3 ms-3 bg-body rounded card-sourcing-sumary">
                 <div class="card-body p-0">
                   <!-- Title -->
-                  <h6 class="text-center p-1" style="background-color:#e6ffed;font-family:'poppinsRegular'">Total Sourcing</h6>
+                  <h6 class="text-center p-1" style="background-color:#e6ffed;font-family:'poppinsBlack'">Total Sourcing</h6>
                   <!-- Count Result -->
                   <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                     <span class="position-absolute top-50 start-50 translate-middle">
                       <?php
                         $countTotalSourcing= $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE feedbackRPIC=1")->fetchAll();
-                        echo "<span style='font-size:15px;font-family:poppinsLight'>".$countTotalSourcing[0][0]." Sourcing</span><br>"; 
+                        echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countTotalSourcing[0][0]." Sourcing</span><br>"; 
                       ?>
                     </span>
                   </div>
@@ -195,13 +195,13 @@
             <div class="card shadow mb-3 ms-3 bg-body rounded card-sourcing-sumary">
               <div class="card-body p-0">
                 <!-- Title -->
-                <h6 class="text-center p-1" style="background-color:#ffa1a1;font-family:'poppinsRegular'">Pending Sumary Report</h6>
+                <h6 class="text-center p-1" style="background-color:#ffa1a1;font-family:'poppinsBlack'">Pending Sumary Report</h6>
                 <!-- Count Result -->
                 <div class="d-flex align-items-center position-relative" style="height:75px;background-color:#fdfff5">
                   <span class="position-absolute top-50 start-50 translate-middle">
                     <?php
                       $countSumaryReport= $conn->query("SELECT COUNT(*) FROM TB_PengajuanSourcing WHERE sumaryReport LIKE '' AND feedbackRPIC=1")->fetchAll();
-                      echo "<span style='font-size:15px;font-family:poppinsLight'>".$countSumaryReport[0][0]." Sourcing</span><br>"; 
+                      echo "<span style='font-size:15px;font-family:poppinsMedium'>".$countSumaryReport[0][0]." Sourcing</span><br>"; 
                     ?>
                   </span>
                 </div>

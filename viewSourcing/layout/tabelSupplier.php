@@ -297,7 +297,7 @@
                     data: function(dataSupplier){
                         return (
                             '<!-- Tanggal Feedback -->'+
-                            '<div class="bg-success bg-opacity-75 y p-0" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: '+dataSupplier.dateFeedbackRnd+'</div>'+
+                            '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataSupplier.dateFeedbackRnd+'</span>'+
                             '<!-- Layout Content -->'+
                             '<div class="overflow-auto" style="height:82px;font-size:12px;font-family:poppinsSemiBold;">'+
                                 '<!-- Title Review Harga-->'+
@@ -316,7 +316,7 @@
                                 '<div class="text-wrap pt-1" style="font-size:11px;font-family:poppinsMedium;">'+(dataSupplier.sampelFeedbackRnd != "" ? dataSupplier.sampelFeedbackRnd : "-")+'</div>'+
                             '</div>'+
                             '<!-- Penulis -->'+
-                            '<div style="font-size:10px;font-family:poppinsBold;">'+(dataSupplier.writerFeedbackRnd != "" ? "By: "+dataSupplier.writerFeedbackRnd : "-")+'</div>'+
+                            '<div style="font-size:10px;font-family:poppinsBold;">'+(dataSupplier.writerFeedbackRnd != "" ? "By: "+dataSupplier.writerFeedbackRnd : "By: -")+'</div>'+
 
                             '<!-- Action Feedback Rnd -->'+
                             '<div>'+
@@ -332,13 +332,13 @@
                     data: function(dataSupplier){
                         return (
                             '<!-- Tanggal Feedback Proc -->'+
-                            '<div class="bg-success bg-opacity-75" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: '+dataSupplier.dateFeedbackProc+'</div>'+
+                            '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataSupplier.dateFeedbackProc+'</span>'+
                             '<!-- Isi Feedback Proc -->'+
                             '<div class="overflow-auto" style="height:80px">'+
                                 '<div class="text-wrap p-1" style="font-size:11px;font-family:poppinsMedium;">'+dataSupplier.feedbackProc+'</div>'+
                             '</div>'+
                             '<!-- Penulis -->'+
-                            '<div style="font-size:10px;font-family:poppinsBold;">'+(dataSupplier.writerFeedbackProc != "" ? "By: "+dataSupplier.writerFeedbackProc : "-")+'</div>'+
+                            '<div style="font-size:10px;font-family:poppinsBold;">'+(dataSupplier.writerFeedbackProc != "" ? "By: "+dataSupplier.writerFeedbackProc : "By: -")+'</div>'+
                             '<!-- Action Feedback Proc -->'+
 
                             '<!-- Action Feedback Proc -->'+
@@ -355,14 +355,14 @@
                     data: function(dataSupplier){
                         return (
                             '<!-- Tanggal Final Feedback Rnd -->'+
-                            '<div class="bg-success bg-opacity-75" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: '+(dataSupplier.dateFinalFeedbackRnd != null ? dataSupplier.dateFinalFeedbackRnd : "")+'</div>'+
+                            '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataSupplier.convertDateFinalFeedbackRnd+'</span>'+
                             '<!-- Isi Final Feedback Rnd -->'+
                             '<div class="overflow-auto" style="height:80px">'+
                             '<!-- Isi Feedback -->'+
                                 '<div class="text-wrap pt-1" style="font-size:11px;font-family:poppinsMedium;">'+(dataSupplier.finalFeedbackRnd != "" ? dataSupplier.finalFeedbackRnd : "-")+'</div>'+
                             '</div>'+
                             '<!-- Penulis -->'+
-                            '<div style="font-size:10px;font-family:poppinsBold;">'+(dataSupplier.writerFinalFeedbackRnd != "" ? "By: "+dataSupplier.writerFinalFeedbackRnd : "-")+'</div>'+
+                            '<div style="font-size:10px;font-family:poppinsBold;">'+(dataSupplier.writerFinalFeedbackRnd != "" ? "By: "+dataSupplier.writerFinalFeedbackRnd : "By: -")+'</div>'+
                             '<!-- Action Final Feedback Rnd -->'+
                             '<div>'+
                                 '<button type="button" class="btn btn-primary p-0" data-bs-toggle="modal" style="width:100%;height:20px" data-bs-target="#finalFeedbackRnd'+dataSupplier.id+'">'+

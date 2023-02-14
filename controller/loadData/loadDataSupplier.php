@@ -88,7 +88,7 @@
 				$outputFeedbackRnd .= '
 					<div class="ms-1 my-2">
 						<!-- Tanggal Feedback Rnd -->
-						<div class="bg-success bg-opacity-75" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: '.$dataFeedbackRnd['dateFeedback'].'</div>
+						<span class="text-start bg-info badge text-dark mb-2" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '.date('d F Y', strtotime($dataFeedbackRnd['dateFeedback'])).'</span>
 						<!-- Isi Feedback Rnd -->
 						<div class="text-wrap" style="font-size:14px;font-family:poppinsMedium;">'.$dataFeedbackRnd['sampel'].'</div>
 						<!-- Penulis -->
@@ -109,7 +109,7 @@
 				$outputFeedbackProc .= '
 				<div class="ms-1 my-2">
 					<!-- Tanggal Feedback Proc -->
-					<div class="bg-success bg-opacity-75" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: '.$dataFeedbackProc['dateFeedbackProc'].'</div>
+					<span class="text-start bg-info badge text-dark mb-2" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '.date('d F Y', strtotime($dataFeedbackProc['dateFeedbackProc'])).'</span>
 					<!-- Isi Feedback Proc -->
 					<div class="text-wrap" style="font-size:14px;font-family:poppinsMedium;">'.$dataFeedbackProc['feedback'].'</div>
 					<!-- Penulis -->
@@ -170,7 +170,7 @@
         // Get Feedback Rnd
         if($feedbackRnd = $conn->query("SELECT TOP 1 * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$row['id']}' ORDER BY id DESC")->fetchAll()){
 			$row['idfeedbackRnd'] = $feedbackRnd[0]['id'];
-			$row['dateFeedbackRnd'] = $feedbackRnd[0]['dateFeedback'];
+			$row['dateFeedbackRnd'] = date('d F Y', strtotime($feedbackRnd[0]['dateFeedback']));
 			$row['sampelFeedbackRnd'] = $feedbackRnd[0]['sampel'];
 			$row['writerFeedbackRnd'] = $feedbackRnd[0]['writer'];
 		}else{
@@ -183,7 +183,7 @@
         // Get Feedback Proc
         if($feedbackProc = $conn->query("SELECT TOP 1 * FROM TB_FeedbackProc WHERE idSupplier='{$row['id']}' ORDER BY id DESC")->fetchAll()){
 			$row['idfeedbackProc'] = $feedbackProc[0]['id'];
-			$row['dateFeedbackProc'] = $feedbackProc[0]['dateFeedbackProc'];
+			$row['dateFeedbackProc'] = date('d F Y', strtotime($feedbackProc[0]['dateFeedbackProc']));
 			$row['feedbackProc'] = $feedbackProc[0]['feedback'];
 			$row['writerFeedbackProc'] = $feedbackProc[0]['writer'];
 		}else{
@@ -191,6 +191,13 @@
 			$row['dateFeedbackProc'] = "";
 			$row['feedbackProc'] = "";
 			$row['writerFeedbackProc'] = "";
+		}
+
+		// Convert data final feedback RND
+		if($row['dateFinalFeedbackRnd'] != NULL){
+			$row['convertDateFinalFeedbackRnd'] = date('d F Y', strtotime($row['dateFinalFeedbackRnd']));
+		}else{
+			$row['convertDateFinalFeedbackRnd'] = '';
 		}
 
 		$script .= '

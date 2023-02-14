@@ -10,7 +10,7 @@
     }
     td {
         font-size:12px;
-        font-family:poppinsRegular;
+        font-family:poppinsMedium;
     }
     .test{
         color:blue;
@@ -120,14 +120,17 @@
                     data: "projectName"
                 },
                 {
-                    data: "statusSourcing"
+                    className: "text-center",
+                    data: function(data){
+                        return '<span class="badge text-dark" style="font-size:12px;font-family:poppinsBlack;width:100px;'+ (data.statusSourcing == "DONE" ? "background-color:#9cff9d":(data.statusSourcing == "OPEN" ? "background-color:#7380fa":(data.statusSourcing == "RE-OPEN" ? "background-color:#a1ecff":(data.statusSourcing == "DROP" ? "background-color:#bd7aff":(data.statusSourcing == "NOT YET" ? "background-color:#ff6040":(data.statusSourcing == "HOLD" ? "background-color:#f72a34":(data.statusSourcing == "NO STATUS" ? "background-color:#a1a1a1":""))))))) +'">'+data.statusSourcing+'</span>'
+                    }
                 },
                 {
                     data: function(data){
                         if(data.dateFeedbackRnd != '-' && data.dateFeedbackRnd != null){
                             return (
                                 '<!-- Tanggal Feedback Rnd -->'+
-                                '<div class="bg-success bg-opacity-75" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: '+data.dateFeedbackRnd+'</div>'+
+                                '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+data.dateFeedbackRnd+'</span>'+
                                 '<!-- Isi Detail Feedback Rnd-->'+
                                 '<div class="overflow-auto" style="height:60px">'+
                                     '<div class="text-wrap pt-1" style="font-size:11px;font-family:poppinsMedium;">'+data.sampelFeedbackRnd+'</div>'+
@@ -145,7 +148,7 @@
                         if(data.dateFeedbackRnd != '-' && data.dateFeedbackRnd != null){
                             return (
                                 '<!-- Tanggal Feedback Proc -->'+
-                                '<div class="bg-success bg-opacity-75" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: '+data.dateFeedbackProc+'</div>'+
+                                '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+data.dateFeedbackProc+'</span>'+
                                 '<!-- Isi Feedback Proc -->'+
                                 '<div class="overflow-auto" style="height:60px">'+
                                     '<div class="text-wrap p-1" style="font-size:11px;font-family:poppinsMedium;">'+data.feedbackProc+'</div>'+
@@ -163,7 +166,7 @@
                         if(data.dateFinalFeedbackRnd != null){
                             return(
                                 '<!-- Tanggal Final Feedback Rnd -->'+
-                                '<div class="bg-success bg-opacity-75" style="width:110px;font-size:11px;font-family:poppinsBold;">Date: '+data.dateFinalFeedbackRnd+'</div>'+
+                                '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+data.convertDateFinalFeedbackRnd+'</span>'+
                                 '<!-- Isi Final Feedback Rnd -->'+
                                 '<div class="overflow-auto" style="height:60px">'+
                                     '<div class="text-wrap pt-1" style="font-size:11px;font-family:poppinsMedium;">'+data.finalFeedbackRnd+'</div>'+

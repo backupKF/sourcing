@@ -11,11 +11,11 @@
     /* CSS Tabel Riwayat */
     th{
         font-size:12px;
-        font-family:poppinsSemiBold;
+        font-family:poppinsBold;
     }
     td {
         font-size:12px;
-        font-family:poppinsRegular;
+        font-family:poppinsMedium;
     }
     table.dataTable thead>tr>th.sorting, 
     table.dataTable thead>tr>th.sorting_asc, 
@@ -135,7 +135,7 @@
                     data: 'materialName'
                 },
                 {
-                    data: 'dateSourcing'
+                    data: 'convertDateSourcing'
                 },
                 {
                     data: 'projectCode'
@@ -161,9 +161,9 @@
                                 '</form>'
                             )
                         }else if(<?php echo $_SESSION['user']['level']?> != 2  && data.feedbackTL == 0){
-                            return '<div class="text-center bg-danger bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">NO STATUS</div>'
+                            return '<span class="badge text-dark text-center bg-danger bg-opacity-75" style="font-size:12px;font-family:poppinsBlack;width:90px">NO STATUS</span>'
                         }else{
-                            return '<div class="text-center bg-success bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">APPROVED</div>'
+                            return '<span class="badge text-dark text-center bg-success bg-opacity-75" style="font-size:12px;font-family:poppinsBlack;width:90px">APPROVED</span>'
                         }
                     }
                 },
@@ -179,19 +179,19 @@
                                 '</form>'
                             )
                         }else if(<?php echo $_SESSION['user']['level']?> == 1  && data.feedbackRPIC == 0 && data.feedbackTL == 0){
-                            return '<div class="text-center bg-danger bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">NO STATUS</div>'
+                            return '<span class="badge text-dark text-center bg-danger bg-opacity-75" style="font-size:12px;font-family:poppinsBlack;width:90px">NO STATUS</span>'
                         }else if(<?php echo $_SESSION['user']['level']?> != 1  && data.feedbackRPIC == 0){
-                            return '<div class="text-center bg-danger bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">NO STATUS</div>'
+                            return '<span class="badge text-dark text-center bg-danger bg-opacity-75" style="font-size:12px;font-family:poppinsBlack;width:90px">NO STATUS</span>'
                         }else{
-                            return '<div class="text-center bg-success bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">APPROVED</div>'
+                            return '<span class="badge text-dark text-center bg-success bg-opacity-75" style="font-size:12px;font-family:poppinsBlack;width:90px">ACCEPTED</span>'
                         }
                     }
                 },
                 {
-                    data: 'dateApprovedTL'
+                    data: 'convertDateApprovedTL'
                 },
                 {
-                    data: 'dateAcceptedRPIC'
+                    data: 'convertDateAcceptedRPIC'
                 },
                 {
                     data: function(data){
@@ -207,7 +207,7 @@
                                ' </form>'
                             )
                         }else{
-                            return '<div class="text-center text-success bg-opacity-75 m-0" style="font-family:poppinsSemiBold;width:70px">'+data.statusRiwayat+'</div>'
+                            return '<span class="badge text-dark '+ (data.statusRiwayat == "ON PROCESS" ? "bg-success": (data.statusRiwayat == "HOLD" ? "bg-warning":(data.statusRiwayat == "CANCEL" ? "bg-danger":""))) +'" style="font-size:12px;font-family:poppinsBlack;width:120px;'+ ( data.statusRiwayat == "NO STATUS" ? "background-color:#a1a1a1":"") +'">'+data.statusRiwayat+'</span>'
                         }
                     }
                 },

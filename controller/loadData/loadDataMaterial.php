@@ -50,6 +50,13 @@
 
 	// Menampung hasil data material kedalam array
 	foreach($queryRecords as $row ) { 
+		// Convert tanggal final feedback
+		if($row['dateSumaryReport'] != NULL){
+			$row['convertDateSumaryReport'] = date('d F Y', strtotime($row['dateSumaryReport']));
+		}else{
+			$row['convertDateSumaryReport'] = '';
+		}
+
 		$data[] = $row;
 	}	
 
