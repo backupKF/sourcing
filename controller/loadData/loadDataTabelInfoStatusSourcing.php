@@ -41,7 +41,11 @@
 	if(!empty($queryRecords)){
 		foreach($queryRecords as $row ) {
 			// Jika material memiliki supplier
-			if($sqlPutSupplier = $conn->query("SELECT materialName, materialCategory, materialSpesification, supplier FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE idMaterial='".$row['id']."' ORDER BY TB_Supplier.id DESC")->fetchAll()){
+			if($sqlPutSupplier = $conn->query("SELECT materialName, materialCategory, materialSpesification, supplier 
+											   FROM TB_Supplier 
+											   INNER JOIN TB_PengajuanSourcing 
+											   ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id 
+											   WHERE idMaterial='".$row['id']."' ORDER BY TB_Supplier.id DESC")->fetchAll()){
 				foreach($sqlPutSupplier as $supplier){
 					$supplier['targetLaunching'] = "-";
 

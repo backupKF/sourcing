@@ -42,7 +42,7 @@
             <!-- Modal Body -->
             <div class="modal-body position-relative">
                 
-                <label class="mb-1 labelVendor" >Tambah Supplier Baru : </label>
+                <label class="mb-1 labelVendor" >Tambah Vendor Baru : </label>
                 <div class="row mb-2">
                     <div class="col">
                         <form id="formSetNewVendorAddSupplier<?php echo $_GET['idMaterial']?>" autocomplete="off">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
 
-                <label class="labelVendor mb-1">Cari Supplier :</label>
+                <label class="labelVendor mb-1">Cari Vendor :</label>
 
                 <!-- Select Project -->
                 <table class="table vendor" id="tabel-vendorAddSupplier<?php echo $_GET['idMaterial']?>" style="width:100%">

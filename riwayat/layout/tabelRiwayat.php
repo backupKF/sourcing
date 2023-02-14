@@ -135,7 +135,7 @@
                     data: 'materialName'
                 },
                 {
-                    data: 'convertDateSourcing'
+                    data: 'dateSourcing'
                 },
                 {
                     data: 'projectCode'

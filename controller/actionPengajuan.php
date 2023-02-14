@@ -110,7 +110,7 @@
                 $_SESSION['user']['teamLeader'],
                 $_SESSION['user']['name'],
                 date("Y-m-d H:i:s"),
-                date("Y-m-d"),
+                date("d F Y"),
             );
             $query = $conn->prepare($sql);
             $insert = $query->execute($params);

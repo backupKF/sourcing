@@ -36,6 +36,27 @@
         font-size:12px;
         font-family:poppinsRegular;
     }
+    tbody {
+        background-color: white !important;
+    }
+    .dataTables_info {
+        font-size:12px;
+        font-family:poppinsBold;
+    }
+    .dataTables_paginate {
+        font-size:12px;
+        font-family:poppinsBold;
+    }
+    .dataTables_filter label{
+        font-size:12px;
+        font-family:poppinsBold;
+    }
+    .dataTables_filter label input{
+        font-size:12px;
+        font-family:poppinsRegular;
+        height:25px;
+        display:inline-block;
+    }
 </style>
 
 <!-- Button tambah supplier -->

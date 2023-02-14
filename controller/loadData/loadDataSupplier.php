@@ -9,7 +9,6 @@
 
 	//Mendeklarasikan Variabel untuk pencarian
     $where = $sqlTot = $sqlRec = "";
-
 	
 	if(!empty($_GET["idMaterial"]) && !empty($_GET["idSupplier"])){
 		// Jika terdapat data GET Sourcing Number dan Id Material
@@ -35,12 +34,6 @@
 	$sqlTot = "SELECT count(*) FROM TB_Supplier";
 	$sqlRec .= $sql;
 
-	// // Mengambil data dan total data yang dicari user
-	// $sql = "SELECT id, supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, feedbackRndPriceReview, dateFinalFeedbackRnd
-    //         finalFeedbackRnd, writerFinalFeedbackRnd FROM TB_Supplier WHERE idMaterial = 214402";
-	// $sqlTot = "SELECT count(*) FROM TB_Supplier WHERE idMaterial = 214402";
-	// $sqlRec .= $sql;
-
     // Jika user melakukan pencarian data maka data diambil sesuai dengan pencarian
 	if(isset($where) && $where != '') {
 		$sqlRec .= $where;
@@ -49,8 +42,6 @@
 
 	//Mengambil data sesuai dengan page yang dipilih user
     $sqlRec .=  " ORDER BY id DESC  OFFSET ".$params['start']." ROWS FETCH FIRST ".$params['length']." ROWS ONLY";
-
-	// $sqlRec .=  " ORDER BY id DESC  OFFSET 0 ROWS FETCH FIRST 5 ROWS ONLY";
 
 	// Pengambilan Total data dari database
 	$totalRecords = $conn->query($sqlTot)->fetchAll();
@@ -61,9 +52,9 @@
 	// Menampung hasil data material kedalam array
 	foreach($queryRecords as $row ) {
 
-		$outputDetailSupplier = $outputFeedbackRnd = $outputFeedbackProc = $outputViewDoc = $script = '';
+		$outputDetailSupplier = $outputFeedbackRnd = $outputFeedbackProc = $outputViewDoc = $scriptTableVendor = '';
 
-		// Get Detail Supplier
+		// Get All Data Detail Supplier
 		if($detailSupplier = $conn->query("SELECT * FROM TB_DetailSupplier WHERE idSupplier=".$row['id'])->fetchAll()){
 			foreach($detailSupplier as $dataDetailSupplier){
 				$outputDetailSupplier .= '
@@ -82,7 +73,7 @@
 			$row['outputDetailSupplier'] = '-';
 		}
 
-		// Get Data Feedback Rnd 
+		// Get All Data Feedback Rnd 
 		if($dataDetailFeedbackRnd = $conn->query("SELECT * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$row['id']}' ORDER BY id DESC")->fetchAll()){
 			foreach($dataDetailFeedbackRnd as $dataFeedbackRnd){
 				$outputFeedbackRnd .= '
@@ -103,7 +94,7 @@
 			$row['outputFeedbackRnd'] = '-';
 		}
 
-        // Mengambil data feedback proc
+        // Get All Data Feedback Proc
         if($dataDetailFeedbackProc = $conn->query("SELECT * FROM TB_FeedbackProc WHERE idSupplier='{$row['id']}' ORDER BY id DESC")->fetchAll()){
 			foreach($dataDetailFeedbackProc as $dataFeedbackProc){
 				$outputFeedbackProc .= '
@@ -124,7 +115,7 @@
 			$row['outputFeedbackProc'] = '-';
 		}
 
-		// Mengambil Daftar Document
+		// Get All Data Document
         if($file = $conn->query("SELECT * FROM TB_File WHERE idSupplier='{$row['id']}'")->fetchAll()){
             foreach($file as $dataFile){
 				$outputViewDoc .= '
@@ -167,7 +158,7 @@
 			$row['docGMP'] = "";
 		}
 
-        // Get Feedback Rnd
+        // Get First Data Feedback Rnd
         if($feedbackRnd = $conn->query("SELECT TOP 1 * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$row['id']}' ORDER BY id DESC")->fetchAll()){
 			$row['idfeedbackRnd'] = $feedbackRnd[0]['id'];
 			$row['dateFeedbackRnd'] = date('d F Y', strtotime($feedbackRnd[0]['dateFeedback']));
@@ -180,7 +171,7 @@
 			$row['writerFeedbackRnd'] = "";
 		}
         
-        // Get Feedback Proc
+        // Get First Data Feedback Proc
         if($feedbackProc = $conn->query("SELECT TOP 1 * FROM TB_FeedbackProc WHERE idSupplier='{$row['id']}' ORDER BY id DESC")->fetchAll()){
 			$row['idfeedbackProc'] = $feedbackProc[0]['id'];
 			$row['dateFeedbackProc'] = date('d F Y', strtotime($feedbackProc[0]['dateFeedbackProc']));
@@ -193,14 +184,15 @@
 			$row['writerFeedbackProc'] = "";
 		}
 
-		// Convert data final feedback RND
+		// Convert data date final feedback RND
 		if($row['dateFinalFeedbackRnd'] != NULL){
 			$row['convertDateFinalFeedbackRnd'] = date('d F Y', strtotime($row['dateFinalFeedbackRnd']));
 		}else{
 			$row['convertDateFinalFeedbackRnd'] = '';
 		}
 
-		$script .= '
+		// Create Script for set datatable table set vendor
+		$scriptTableVendor .= '
 			<script>
 				$("#tabel-vendorUpdateSupplier'.$row['id'].'").DataTable({
 					lengthChange:false,
@@ -242,8 +234,10 @@
 			</script>
 		';
 		
-		$scripts[] = $script;
+		// Collect data script
+		$scripts[] = $scriptTableVendor;
 
+		// Collect All data supplier
 		$data[] = $row;
 	}
 

@@ -22,6 +22,7 @@
 			$where .=" WHERE ";
 			$where .=" TB_PengajuanSourcing.sourcingNumber LIKE '".$params['search']['value']."%' ";
 			$where .=" OR materialName LIKE '".$params['search']['value']."%' ";
+			$where .=" OR dateSourcing LIKE '".$params['search']['value']."%' ";
 			$where .=" OR TB_Project.projectCode LIKE '".$params['search']['value']."%' ";
 			$where .=" OR TB_Project.projectName LIKE '".$params['search']['value']."%' ";
 			$where .=" OR teamLeader LIKE '".$params['search']['value']."%' ";
@@ -57,13 +58,6 @@
 
 	// Menampung hasil data material kedalam array
 	foreach($queryRecords as $row ) {
-		// Convert Tanggal Sourcing
-		if($row['dateSourcing'] != NULL){
-			$row['convertDateSourcing'] = date('d F Y', strtotime($row['dateSourcing']));
-		}else{
-			$row['convertDateSourcing'] = '-';
-		}
-
 
 		// Convert Tanggal Approved Team Leader
 		if($row['dateApprovedTL'] != NULL){
