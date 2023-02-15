@@ -81,7 +81,7 @@
     if(isset($_POST['feedbackRnd'])){
         //Mengambil data dan memformat data
         $priceReview = trim(strip_tags($_POST['priceReview']));
-        $dateFeedback = date("Y-m-d");
+        $dateFeedback = date("d M Y");
         $sampel = trim(strip_tags($_POST['sampel']));
         $writer = $_SESSION['user']['name'];
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
@@ -145,7 +145,7 @@
     // Kondisi untuk meng-handle feedback proc
     if(isset($_POST['feedbackProc'])){
         //Mengambil data dan memformat data
-        $dateFeedback = date("Y-m-d");
+        $dateFeedback = date("d M Y");
         $feedback = trim(strip_tags($_POST['feedback']));
         $writer = $_SESSION['user']['name'];
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
@@ -192,7 +192,7 @@
     if(isset($_POST['formFinalFeedbackRnd'])){
         //Mengambil data dan memformat data
         $finalFeedbackRnd = trim(strip_tags($_POST['finalFeedbackRnd']));
-        $dateFinalFeedbackRnd = date("Y-m-d");
+        $dateFinalFeedbackRnd = date("d M Y");
         $idSupplier = trim(strip_tags($_POST['idSupplier']));
         $writerFinalFeedbackRnd = $_SESSION['user']['name'];
         $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();

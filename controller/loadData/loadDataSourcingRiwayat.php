@@ -10,6 +10,20 @@
 	//Mendeklarasikan Variabel untuk pencarian
     $where = $sqlTot = $sqlRec = "";
 
+	// Mendefinisikan pencarian feedbackTL
+	if(strtolower($params['search']['value']) == 'approved'){
+		$searchFeedbackTL = 1;
+	}else{
+		$searchFeedbackTL = $params['search']['value'];
+	}
+
+	// Mendefinisikan pencarian feedbackRPIC
+	if(strtolower($params['search']['value']) == 'accepted'){
+		$searchFeedbackRPIC = 1;
+	}else{
+		$searchFeedbackRPIC = $params['search']['value'];
+	}
+
 	if(!empty($_GET["sn"]) && empty($_GET["idMaterial"])){
 		// Jika terdapat data GET Sourcing Number
 		$where .= " WHERE sourcingNumber=".$_GET['sn'];
@@ -27,6 +41,8 @@
 			$where .=" OR TB_Project.projectName LIKE '".$params['search']['value']."%' ";
 			$where .=" OR teamLeader LIKE '".$params['search']['value']."%' ";
 			$where .=" OR researcher LIKE '".$params['search']['value']."%' ";
+			$where .=" OR feedbackTL LIKE '".$searchFeedbackTL."%' ";
+			$where .=" OR feedbackRPIC LIKE '".$searchFeedbackRPIC."%' ";
 			$where .=" OR dateApprovedTL LIKE '".$params['search']['value']."%' ";
 			$where .=" OR dateAcceptedRPIC LIKE '".$params['search']['value']."%' ";
 			$where .=" OR statusRiwayat LIKE '".$params['search']['value']."%' ";
@@ -58,21 +74,6 @@
 
 	// Menampung hasil data material kedalam array
 	foreach($queryRecords as $row ) {
-
-		// Convert Tanggal Approved Team Leader
-		if($row['dateApprovedTL'] != NULL){
-			$row['convertDateApprovedTL'] = date('d F Y', strtotime($row['dateApprovedTL']));
-		}else{
-			$row['convertDateApprovedTL'] = '-';
-		}
-
-		// Convert Tanggal Accepted RPIC
-		if($row['dateAcceptedRPIC'] != NULL){
-			$row['convertDateAcceptedRPIC'] = date('d F Y', strtotime($row['dateAcceptedRPIC']));
-		}else{
-			$row['convertDateAcceptedRPIC'] = '-';
-		}
-
 		$data[] = $row;
 	}	
 

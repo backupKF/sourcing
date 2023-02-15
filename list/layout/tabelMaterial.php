@@ -205,7 +205,7 @@
                             if(<?php echo $_SESSION['user']['level']?> == 1){
                                 return (
                                     '<!-- Tanggal Sumary Report-->'+
-                                    '<span class="text-start bg-info badge text-dark mb-2" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataMaterial.convertDateSumaryReport+'</span>'+
+                                    '<span class="text-start bg-info badge text-dark mb-2" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataMaterial.dateSumaryReport+'</span>'+
                                     '<!-- Isi Sumary Report -->'+
                                     '<div class="overflow-auto" style="height:65px">'+
                                         '<div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;">'+ (dataMaterial.sumaryReport != null ? dataMaterial.sumaryReport:'-') +'</div>'+
@@ -223,7 +223,7 @@
                             }else{
                                 return (
                                     '<!-- Tanggal Sumary Report-->'+
-                                    '<span class="text-start bg-info badge text-dark mb-2" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataMaterial.convertDateSumaryReport+'</span>'+
+                                    '<span class="text-start bg-info badge text-dark mb-2" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataMaterial.dateSumaryReport+'</span>'+
                                     '<!-- Isi Sumary Report -->'+
                                     '<div class="overflow-auto" style="height:65px">'+
                                         '<div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;">'+ (dataMaterial.sumaryReport != null ? dataMaterial.sumaryReport:'-') +'</div>'+

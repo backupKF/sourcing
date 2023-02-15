@@ -131,10 +131,11 @@
                     // Jika nama vendor belum terdaftar
                     // Handle Add Data Vendor Name To Database Tabel TB_MasterVendor
                     try{
-                        $sqlAddVendor = "INSERT INTO TB_MasterVendor (vendorName) 
-                        VALUES (?)";
+                        $sqlAddVendor = "INSERT INTO TB_MasterVendor (vendorName, created) 
+                        VALUES (?, ?)";
                         $paramsAddVendor = array(
-                            $supplier
+                            $supplier,
+                            date("Y-m-d H:i:s"),
                         );
                         $queryAddVendor = $conn->prepare($sqlAddVendor);
                         $insertAddVendor =  $queryAddVendor->execute($paramsAddVendor);

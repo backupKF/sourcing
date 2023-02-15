@@ -58,8 +58,8 @@
             if($conn->query("SELECT * FROM TB_MasterVendor WHERE vendorName = '".$supplier."'")->fetchAll()){
                 // Handle Add Data Supplier To Database Tabel TB_Supplier
                 try{
-                    $sql = "INSERT INTO TB_Supplier (supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, idMaterial) 
-                    VALUES (?,?,?,?,?,?,?,?)";
+                    $sql = "INSERT INTO TB_Supplier (supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, idMaterial, created) 
+                    VALUES (?,?,?,?,?,?,?,?,?)";
                     $params = array(
                         $supplier,
                         $manufacture,
@@ -69,6 +69,7 @@
                         $gradeOrReference,
                         $documentInfo,
                         $idMaterial,
+                        date("Y-m-d H:i:s")
                     );
                     $query = $conn->prepare($sql);
                     $insert = $query->execute($params);
@@ -90,10 +91,11 @@
                 // Jika nama vendor belum terdaftar
                 // Handle Add Data Vendor Name To Database Tabel TB_MasterVendor
                 try{
-                    $sqlAddVendor = "INSERT INTO TB_MasterVendor (vendorName) 
-                    VALUES (?)";
+                    $sqlAddVendor = "INSERT INTO TB_MasterVendor (vendorName, created) 
+                    VALUES (?, ?)";
                     $paramsAddVendor = array(
-                        $supplier
+                        $supplier,
+                        date("Y-m-d H:i:s"),
                     );
                     $queryAddVendor = $conn->prepare($sqlAddVendor);
                     $insertAddVendor =  $queryAddVendor->execute($paramsAddVendor);
@@ -108,8 +110,8 @@
                 if($insertAddVendor == true){
                     // Handle Update Data Supplier To Database Tabel TB_Supplier
                     try{
-                        $sqlAddSupplier = "INSERT INTO TB_Supplier (supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, idMaterial) 
-                        VALUES (?,?,?,?,?,?,?,?)";
+                        $sqlAddSupplier = "INSERT INTO TB_Supplier (supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, idMaterial, created) 
+                        VALUES (?,?,?,?,?,?,?,?,?)";
                         $paramsAddSupplier = array(
                             $supplier,
                             $manufacture,
@@ -119,6 +121,7 @@
                             $gradeOrReference,
                             $documentInfo,
                             $idMaterial,
+                            date("Y-m-d H:i:s")
                         );
                         $queryAddSupplier = $conn->prepare($sqlAddSupplier);
                         $insertAddSupplier = $queryAddSupplier->execute($paramsAddSupplier);

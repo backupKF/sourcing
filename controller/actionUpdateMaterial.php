@@ -157,7 +157,7 @@
                 // Check and Validation Vendor
                 if(!empty($vendorAERO)){
                     if($vendorAERO != $checkValue[0]['vendorAERO']){
-                        $changeVendor = " Vendor,";
+                        $changeVendor = " Vendor AERO,";
                     }else{
                         $changeVendor = "";
                     }
@@ -193,7 +193,7 @@
                     $query = $conn->prepare($sql);
                     $update = $query->execute(array($materialCategory, $materialName, $materialSpesification, $catalogOrCasNumber, $company, $website, $finishDossageForm, $keterangan, $documentReq, $idMaterial));
                 
-                    $message = "memperbaharui data riwayat : ".$changeMaterialCategory.$changeMaterialName.$changeMaterialSpesification.$changeCatalogOrCasNumber.$changeCompany.$changeWebsite.$changeFinishDossageForm.$changeKeterangan.$changeDocumentReq.". Pada material sourcing : ";
+                    $message = "memperbaharui data riwayat : ".$changeMaterialCategory.$changeMaterialName.$changeMaterialSpesification.$changeCatalogOrCasNumber.$changeCompany.$changeWebsite.$changeFinishDossageForm.$changeKeterangan.$changeDocumentReq." pada material sourcing : ";
         
                     //Create Notification
                     if($update == true){
@@ -260,7 +260,7 @@
     // Kondisi untuk meng-handle mengedit sumary report
     if(isset($_POST['sumaryReport'])){
         // Mengambil data dan memformat data
-        $dateSumaryReport = date("Y-m-d");
+        $dateSumaryReport = date("d M Y");
         $sumaryReport = trim(strip_tags($_POST['sumaryReport']));
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
 
@@ -338,7 +338,7 @@
         // Mengambil data dan memformat data
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
         $feedbackTL = trim(strip_tags($_POST['feedbackTL']));
-        $dateApprovedTL = date("Y-m-d");
+        $dateApprovedTL = date("d F Y");
         $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
 
         // Check apakah data material tersedia atau tidak
@@ -378,7 +378,7 @@
         // Mengambil data dan memformat data
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
         $feedbackRPIC = trim(strip_tags($_POST['feedbackRPIC']));
-        $dateAcceptedRPIC = date("Y-m-d");
+        $dateAcceptedRPIC = date("d F Y");
         $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
 
         // Check apakah data material tersedia atau tidak

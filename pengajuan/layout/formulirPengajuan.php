@@ -20,7 +20,7 @@
         <div class="row">
             <!-- Value Project -->
             <div class="mb-3 col">
-                <label class="form-labe fw-bold ms-1 mb-2">Project</label>
+                <label class="form-label fw-bold ms-1 mb-2">Project</label>
                 <input class="form-control form-control-sm" type="text" placeholder="<?php echo isset($_SESSION['project'])?"{$_SESSION['project']}  |  {$projectName[0]["projectName"]}":""; ?>" disabled readonly>
             </div>
             <!-- Button set project -->

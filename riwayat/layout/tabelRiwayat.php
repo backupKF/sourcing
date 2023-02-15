@@ -72,7 +72,7 @@
             <tfoot>
                 <tr>
                     <th scope="col" style="width:150px">Sourcing Number</th>
-                    <th scope="col" style="width:150px" class="sticky-column-materialName">Material Name</th>
+                    <th scope="col" style="width:150px">Material Name</th>
                     <th scope="col" style="width:90px">Date Sourcing</th>
                     <th scope="col" style="width:100px">Project Code</th>
                     <th scope="col" style="width:120px">Project Name</th>
@@ -188,10 +188,10 @@
                     }
                 },
                 {
-                    data: 'convertDateApprovedTL'
+                    data: 'dateApprovedTL'
                 },
                 {
-                    data: 'convertDateAcceptedRPIC'
+                    data: 'dateAcceptedRPIC'
                 },
                 {
                     data: function(data){
@@ -264,7 +264,7 @@
                 },
             ]
         })
-
+        
         $('.dataTables_filter input[type="search"]').css(
             {
                 'height':'25px',
