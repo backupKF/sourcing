@@ -62,7 +62,7 @@
             $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
 
             // Cek Apakah data Supplier tersedia
-            if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
+            if($dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
                 // Handle Add Data File Upload To Database Tabel TB_File
                 try{
                     $sql = "INSERT INTO TB_File (fileName, fileHash, idSupplier) 
@@ -77,7 +77,6 @@
 
                     // Send Notifikasi
                     if($insert == true){
-                        $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
                         sendNotification(NULL, $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", "menambahkan document requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
                     }
                 }catch(Exception $e){
@@ -111,7 +110,7 @@
         unlink($filePath);
 
         // Cek Apakah data Supplier tersedia
-        if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
+        if($dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
 
             // Handle Delete Data File Upload To Database Tabel TB_File
             try{
@@ -127,7 +126,6 @@
 
             // Send Notifikasi
             if($delete == true){
-                $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
                 $response = sendNotification("Berhasil menghapus File!!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", "menghapus document requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
             }
         

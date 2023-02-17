@@ -102,10 +102,28 @@
     $(document).ready(function() {
         // Datatable tabel riwayat
         var tableRiwayat = $('#table-riwayat').DataTable({
+            paging: true,
             scrollX: true,
             scrollY: '410px',
             scrollCollapse: true,
             stateSave: true,
+        <?php
+            if(empty($_GET['sn']) && empty($_GET['idMaterial'])){
+        ?>
+            stateSave: true,
+        <?php
+            }
+            if(!empty($_GET['sn']) && empty($_GET['idMaterial'])){
+        ?>
+            stateSave: false,
+        <?php
+            }
+            if(!empty($_GET['sn']) && !empty($_GET['idMaterial'])){
+        ?>
+            stateSave: false,
+        <?php
+            }
+        ?>
             lengthMenu: [5 , 10, 15],
             processing: true,
             serverSide: true,
@@ -199,7 +217,7 @@
                             return (
                                 '<form onclick="funcStatusRiwayat('+data.id+', `'+data.materialName+'`, '+data.sourcingNumber+')" id="formStatusRiwayat_'+data.id+'">'+
                                     '<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="statusRiwayat">'+
-                                        '<option '+ (data.statusRiwayat == "NO STATUS" ? "selected":"") +' >NO STATUS</option>'+
+                                        '<option '+ (data.statusRiwayat == "NO STATUS" ? "selected":"") +' value="">NO STATUS</option>'+
                                         '<option '+ (data.statusRiwayat == "ON PROCESS" ? "selected":"") +' value="ON PROCESS">ON PROCESS</option>'+
                                         '<option '+ (data.statusRiwayat == "HOLD" ? "selected":"") +' value="HOLD">HOLD</option>'+
                                         '<option '+ (data.statusRiwayat == "CANCEL" ? "selected":"") +' value="CANCEL">CANCEL</option>'+
@@ -490,38 +508,33 @@
 
     // Send data to Action Update Material for update material
     function funcUpdateMaterial(idMaterial, sourcingNumber){
-        // Check Submit
-        $("form#formEditMaterial"+idMaterial).submit(function(e){
-            e.preventDefault();
-            
-            // actual logic, e.g. validate the form
-            $.ajax({
-                type: "POST",
-                url: "../controller/actionUpdateMaterial.php",
-                data: $('form#formEditMaterial'+idMaterial).serialize()+'&editMaterial=true&idMaterial='+idMaterial+'&sourcingNumber='+sourcingNumber,
-                dataType: 'json',
-                success: function(response){
-                    const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'bottom-end',
-                            showConfirmButton: false,
-                            timer: 2000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                        })
+        // actual logic, e.g. validate the form
+        $.ajax({
+            type: "POST",
+            url: "../controller/actionUpdateMaterial.php",
+            data: $('form#formEditMaterialRiwayat'+idMaterial).serialize()+'&editMaterial=true&idMaterial='+idMaterial+'&sourcingNumber='+sourcingNumber,
+            dataType: 'json',
+            success: function(response){
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
 
-                        Toast.fire({
-                            icon: response.status == 0?'success':'warning',
-                            title: response.message
-                        })
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
                         
-                    loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
-                }
-            })
-            $('#editMaterial'+idMaterial).modal('hide');
-        });
+                loadDataRiwayat(<?php echo $_SESSION['user']['level']?>)
+            }
+        })
+        $('#editMaterial'+idMaterial).modal('hide');
     }
 </script>

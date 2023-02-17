@@ -27,6 +27,9 @@
 
         // Variabel untuk pengecekan data material
         $checkValue = $conn->query("SELECT materialCategory, materialName, materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, priority, vendorAERO, documentReq FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll();
+
+        $getMaterialName = $checkValue[0]['materialName'];
+
         $changeMaterialCategory = "";
         $changeMaterialName = "";
         $changePriority = "";
@@ -175,7 +178,7 @@
         
                     //Create Notification
                     if($update == true){
-                        $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), $message, NULL, $idMaterial, NULL, NULL);
+                        $response = sendNotification("Data material berhasil diperbaharui!!", $getMaterialName, $message, NULL, $idMaterial, NULL, NULL);
                     }
                 }catch(Exception $e){
                     $response = array(
@@ -197,7 +200,7 @@
         
                     //Create Notification
                     if($update == true){
-                        $response = sendNotification("Data material berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), $message, $sourcingNumber, $idMaterial, NULL, true);
+                        $response = sendNotification("Data material berhasil diperbaharui!!", $getMaterialName, $message, $sourcingNumber, $idMaterial, NULL, true);
                     }
                 }catch(Exception $e){
                     $response = array(
@@ -227,7 +230,7 @@
         $statusSourcing = trim(strip_tags($_POST['statusSourcing']));
 
         // Check apakah data material tersedia atau tidak
-        if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
+        if($materialName = $conn->query("SELECT materialName FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
             // Handle Update Data Status Sourcing To Database Tabel TB_PengajuanSourcing
             try{
@@ -237,7 +240,7 @@
 
                 //Send Notification
                 if($update == true){
-                    $response = sendNotification("Status Sourcing berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui status sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
+                    $response = sendNotification("Status Sourcing berhasil diperbaharui!!", $materialName[0]['materialName'], "memperbaharui status sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
                 }
             }catch(Exception $e){
                 $response = array(
@@ -265,7 +268,7 @@
         $idMaterial = trim(strip_tags($_POST['idMaterial']));
 
         // Check apakah data material tersedia atau tidak
-        if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
+        if($materialName = $conn->query("SELECT materialName FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
             // Handle Update Data Sumary Report To Database Tabel TB_PengajuanSourcing
             try{
@@ -275,7 +278,7 @@
 
                 //Send Notification
                 if($update == true){
-                    $response = sendNotification("Summary Report berhasil diperbaharui!!", trim(strip_tags($_POST['materialName'])), "memperbaharui sumary repory sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
+                    $response = sendNotification("Summary Report berhasil diperbaharui!!", $materialName[0]['materialName'], "memperbaharui sumary repory sourcing, Material : ", NULL, $idMaterial, NULL, NULL);
                 }
             }catch(Exception $e){
                 $response = array(
@@ -299,10 +302,9 @@
     if(isset($_GET['actionType'])){
         // Mengambil data dan memformat data
         $idMaterial = trim(strip_tags($_GET['idMaterial']));
-        $materialName = trim(strip_tags($_GET['materialName']));
 
         // Check apakah data material tersedia atau tidak
-        if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
+        if($materialName = $conn->query("SELECT materialName FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
             // Handle Delete Data Naterial Riwayat To Database Tabel TB_PengajuanSourcing
             try{
@@ -312,7 +314,7 @@
 
                 //Send Notification
                 if($delete == true){
-                    $response = sendNotification("Material Berhasil Di Hapus!!", $materialName, "menghapus riwayat sourcing, Material : ", NULL, NULL, NULL, true);
+                    $response = sendNotification("Material Berhasil Di Hapus!!", $materialName[0]['materialName'], "menghapus riwayat sourcing, Material : ", NULL, NULL, NULL, true);
                 }
             }catch(Exception $e){
                 $response = array(
@@ -342,7 +344,7 @@
         $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
 
         // Check apakah data material tersedia atau tidak
-        if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
+        if($materialName = $conn->query("SELECT materialName FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
             // Handle Update Data Feedback Team Leader To Database Tabel TB_PengajuanSourcing
             try{
@@ -352,7 +354,7 @@
 
                 //Send Notification
                 if($update == true){
-                    $response = sendNotification("Feedback Team Leader Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback Team Leader, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+                    $response = sendNotification("Feedback Team Leader Berhasil diperbaharui!", $materialName[0]['materialName'], "memperbaharui Feedback Team Leader, Material : ", $sourcingNumber, $idMaterial, NULL, true);
                 }
             }catch(Exception $e){
                 $response = array(
@@ -382,7 +384,7 @@
         $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
 
         // Check apakah data material tersedia atau tidak
-        if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
+        if($materialName = $conn->query("SELECT materialName FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
             // Handle Update Data Feedback RPIC To Database Tabel TB_PengajuanSourcing
             try{
@@ -392,7 +394,7 @@
 
                 //Send Notification
                 if($update == true){
-                    $response = sendNotification("Feedback RPIC Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui Feedback RPIC, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+                    $response = sendNotification("Feedback RPIC Berhasil diperbaharui!", $materialName[0]['materialName'], "memperbaharui Feedback RPIC, Material : ", $sourcingNumber, $idMaterial, NULL, true);
                 }
             }catch(Exception $e){
                 $response = array(
@@ -421,7 +423,7 @@
         $sourcingNumber = trim(strip_tags($_POST['sourcingNumber']));
 
         // Check apakah data material tersedia atau tidak
-        if($conn->query("SELECT * FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
+        if($materialName = $conn->query("SELECT materialName FROM TB_PengajuanSourcing WHERE id = ".$idMaterial)->fetchAll()){
 
             // Handle Update Data Status Riwayat To Database Tabel TB_PengajuanSourcing
             try{
@@ -431,7 +433,7 @@
 
                 //Send Notification
                 if($update == true){
-                    $response = sendNotification("Status Riwayat Berhasil diperbaharui!", trim(strip_tags($_POST['materialName'])), "memperbaharui status riwayat, Material : ", $sourcingNumber, $idMaterial, NULL, true);
+                    $response = sendNotification("Status Riwayat Berhasil diperbaharui!", $materialName[0]['materialName'], "memperbaharui status riwayat, Material : ", $sourcingNumber, $idMaterial, NULL, true);
                 }
             }catch(Exception $e){
                 $response = array(

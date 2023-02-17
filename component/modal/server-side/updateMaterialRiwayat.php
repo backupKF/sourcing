@@ -18,7 +18,7 @@
 
             '<!-- Modal Body -->'+
             '<div class="modal-body">'+
-                '<form class="was-validated" id="formEditMaterial'+data.id+'" autocomplete="off">'+
+                '<form class="was-validated" id="formEditMaterialRiwayat'+data.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcUpdateMaterial('+data.id+', '+data.sourcingNumber+')">'+
 
                     '<!-- Material Category -->'+
                         '<label class="form-label">Material Category</label>'+
@@ -133,7 +133,7 @@
             '<!-- Modal Footer -->'+
             '<div class="modal-footer">'+
                 '<button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close">Back</button>'+
-                '<input type="submit" value="submit" class="btn btn-primary" onclick="funcUpdateMaterial('+data.id+', '+data.sourcingNumber+')" form="formEditMaterial'+data.id+'">'+
+                '<input type="submit" value="submit" class="btn btn-primary" form="formEditMaterialRiwayat'+data.id+'">'+
             '</div>'+
 
         '</div>'+

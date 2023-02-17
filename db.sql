@@ -4,17 +4,17 @@ USE rcproject;
 
 CREATE TABLE [dbo].[TB_Project] (
     [id]          INT           IDENTITY (1, 1) NOT NULL,
-    [projectCode] VARCHAR (100) NOT NULL,
+    [projectCode] VARCHAR (100) CONSTRAINT [DEFAULT_TB_Project_projectCode] DEFAULT ('') NOT NULL,
     [projectName] VARCHAR (100) CONSTRAINT [DEFAULT_TB_Project_projectName] DEFAULT ('') NOT NULL,
-    CONSTRAINT [TB_Project_PK] PRIMARY KEY CLUSTERED ([projectCode] ASC)
+    CONSTRAINT [PK_TB_Project] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 
 CREATE TABLE [dbo].[TB_PengajuanSourcing] (
     [id]                    INT           IDENTITY (1, 1) NOT NULL,
-    [sourcingNumber]        INT           NULL,
+    [sourcingNumber]        INT           CONSTRAINT [DEFAULT_TB_PengajuanSourcing_sourcingNumber] DEFAULT ((0)) NOT NULL,
     [materialCategory]      VARCHAR (40)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_materialCategory] DEFAULT ('') NOT NULL,
-    [materialName]          VARCHAR (200) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_materialName] DEFAULT ('') NOT NULL,
-    [priority]              INT           NULL,
+    [materialName]          VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_materialName] DEFAULT ('') NOT NULL,
+    [priority]              INT           CONSTRAINT [DEFAULT_TB_PengajuanSourcing_priority] DEFAULT ((0)) NOT NULL,
     [materialSpesification] TEXT          CONSTRAINT [DEFAULT_TB_PengajuanSourcing_materialSpesification] DEFAULT ('') NOT NULL,
     [catalogOrCasNumber]    VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_catalogOrCasNumber] DEFAULT ('') NOT NULL,
     [company]               VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_company] DEFAULT ('') NOT NULL,
@@ -23,21 +23,21 @@ CREATE TABLE [dbo].[TB_PengajuanSourcing] (
     [keterangan]            TEXT          CONSTRAINT [DEFAULT_TB_PengajuanSourcing_keterangan] DEFAULT ('') NOT NULL,
     [vendorAERO]            VARCHAR (200) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_vendorAERO] DEFAULT ('') NOT NULL,
     [documentReq]           VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_documentReq] DEFAULT ('') NOT NULL,
-    [projectCode]           VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_projectCode] DEFAULT ('') NOT NULL,
-    [dateSourcing]          DATE          NULL,
+    [dateSourcing]          VARCHAR (20)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_dateSourcing] DEFAULT ('-') NOT NULL,
     [teamLeader]            VARCHAR (10)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_teamLeader] DEFAULT ('') NOT NULL,
     [researcher]            VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_researcher] DEFAULT ('') NOT NULL,
     [feedbackTL]            BIT           CONSTRAINT [DEFAULT_TB_PengajuanSourcing_feedbackTL] DEFAULT ((0)) NOT NULL,
     [feedbackRPIC]          BIT           CONSTRAINT [DEFAULT_TB_PengajuanSourcing_feedbackRPIC] DEFAULT ((0)) NOT NULL,
-    [dateApprovedTL]        DATE          NULL,
-    [dateAcceptedRPIC]      DATE          NULL,
+    [dateApprovedTL]        VARCHAR (20)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_dateApprovedTL] DEFAULT ('-') NOT NULL,
+    [dateAcceptedRPIC]      VARCHAR (20)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_dateAcceptedRPIC] DEFAULT ('-') NOT NULL,
     [statusRiwayat]         VARCHAR (15)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_statusRiwayat] DEFAULT ('NO STATUS') NOT NULL,
     [statusSourcing]        VARCHAR (15)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_statusPengajuan] DEFAULT ('NO STATUS') NOT NULL,
     [sumaryReport]          TEXT          CONSTRAINT [DEFAULT_TB_PengajuanSourcing_sumaryReport] DEFAULT ('') NOT NULL,
-    [dateSumaryReport]      DATE          NULL,
+    [dateSumaryReport]      VARCHAR (20)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_dateSumaryReport] DEFAULT ('-') NOT NULL,
+    [idProject]             INT           CONSTRAINT [DEFAULT_TB_PengajuanSourcing_idProject] DEFAULT ((0)) NOT NULL,
     [created]               DATETIME      NULL,
     CONSTRAINT [TB_PengajuanSourcing_PK] PRIMARY KEY CLUSTERED ([id] ASC),
-    CONSTRAINT [TB_PengajuanSourcing_FK] FOREIGN KEY ([projectCode]) REFERENCES [dbo].[TB_Project] ([projectCode]) ON UPDATE CASCADE
+    CONSTRAINT [FK_TB_PengajuanSourcing_TB_Project] FOREIGN KEY ([idProject]) REFERENCES [dbo].[TB_Project] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE [dbo].[TB_Supplier] (
@@ -50,10 +50,11 @@ CREATE TABLE [dbo].[TB_Supplier] (
     [gradeOrReference]       VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_gradeOrReference] DEFAULT ('') NOT NULL,
     [documentInfo]           VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_documentInfo] DEFAULT ('') NOT NULL,
     [feedbackRndPriceReview] TEXT          CONSTRAINT [DEFAULT_TB_Supplier_feedbackRndPriceReview] DEFAULT ('') NOT NULL,
-    [dateFinalFeedbackRnd]   DATE          NULL,
+    [dateFinalFeedbackRnd]   VARCHAR (20)  CONSTRAINT [DEFAULT_TB_Supplier_dateFinalFeedbackRnd] DEFAULT ('-') NOT NULL,
     [finalFeedbackRnd]       TEXT          CONSTRAINT [DEFAULT_TB_Supplier_finalFeedbackRnd] DEFAULT ('') NOT NULL,
     [writerFinalFeedbackRnd] VARCHAR (50)  CONSTRAINT [DEFAULT_TB_Supplier_writerFinalFeedbackRnd] DEFAULT ('') NOT NULL,
     [idMaterial]             INT           CONSTRAINT [DEFAULT_TB_Supplier_idMaterial] DEFAULT ((0)) NOT NULL,
+    [created]                DATETIME      NULL,
     CONSTRAINT [TB_Supplier_PK] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [TB_Supplier_FK] FOREIGN KEY ([idMaterial]) REFERENCES [dbo].[TB_PengajuanSourcing] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -70,7 +71,7 @@ CREATE TABLE [dbo].[TB_DetailSupplier] (
 
 CREATE TABLE [dbo].[TB_DetailFeedbackRnd] (
     [id]           INT          IDENTITY (1, 1) NOT NULL,
-    [dateFeedback] DATE         NULL,
+    [dateFeedback] VARCHAR (15) CONSTRAINT [DEFAULT_TB_DetailFeedbackRnd_dateFeedback] DEFAULT ('-') NOT NULL,
     [sampel]       TEXT         CONSTRAINT [DEFAULT_TB_DetailFeedbackRnd_sampel] DEFAULT ('') NOT NULL,
     [writer]       VARCHAR (50) CONSTRAINT [DEFAULT_TB_DetailFeedbackRnd_writer] DEFAULT ('') NOT NULL,
     [idSupplier]   INT          CONSTRAINT [DEFAULT_TB_DetailFeedbackRnd_idSupplier] DEFAULT ((0)) NOT NULL,
@@ -93,7 +94,7 @@ CREATE TABLE [dbo].[TB_FeedbackDocReq] (
 
 CREATE TABLE [dbo].[TB_FeedbackProc] (
     [id]               INT          IDENTITY (1, 1) NOT NULL,
-    [dateFeedbackProc] DATE         NULL,
+    [dateFeedbackProc] VARCHAR (15) CONSTRAINT [DEFAULT_TB_FeedbackProc_dateFeedbackProc] DEFAULT ('-') NOT NULL,
     [feedback]         TEXT         CONSTRAINT [DEFAULT_TB_FeedbackProc_feedback] DEFAULT ('') NOT NULL,
     [writer]           VARCHAR (50) CONSTRAINT [DEFAULT_TB_FeedbackProc_writer] DEFAULT ('') NOT NULL,
     [idSupplier]       INT          CONSTRAINT [DEFAULT_TB_FeedbackProc_idSupplier] DEFAULT ((0)) NOT NULL,
@@ -116,9 +117,9 @@ CREATE TABLE [dbo].[TB_Notifications] (
     [subject]        VARCHAR (200) CONSTRAINT [DEFAULT_TB_Notifications_subject] DEFAULT ('') NOT NULL,
     [message]        TEXT          CONSTRAINT [DEFAULT_TB_Notifications_message] DEFAULT ('') NOT NULL,
     [person]         VARCHAR (50)  CONSTRAINT [DEFAULT_TB_Notifications_person] DEFAULT ('') NOT NULL,
-    [sourcingNumber] INT           NULL,
-    [idMaterial]     INT           NULL,
-    [idSupplier]     INT           NULL,
+    [sourcingNumber] INT           CONSTRAINT [DEFAULT_TB_Notifications_sourcingNumber] DEFAULT ((0)) NULL,
+    [idMaterial]     INT           CONSTRAINT [DEFAULT_TB_Notifications_idMaterial] DEFAULT ((0)) NULL,
+    [idSupplier]     INT           CONSTRAINT [DEFAULT_TB_Notifications_idSupplier] DEFAULT ((0)) NULL,
     [created]        DATETIME      NULL,
     CONSTRAINT [PK_TB_Notifications] PRIMARY KEY CLUSTERED ([id] ASC)
 );
@@ -126,8 +127,8 @@ CREATE TABLE [dbo].[TB_Notifications] (
 CREATE TABLE [dbo].[TB_StatusNotifications] (
     [readingStatus]        BIT          CONSTRAINT [DEFAULT_TB_StatusNotifications_readingStatus] DEFAULT ((0)) NOT NULL,
     [notifStatus]          BIT          CONSTRAINT [DEFAULT_TB_StatusNotifications_notifStatus] DEFAULT ((0)) NOT NULL,
-    [levelUser]            INT          NULL,
-    [idUser]               INT          NULL,
+    [levelUser]            INT          CONSTRAINT [DEFAULT_TB_StatusNotifications_levelUser] DEFAULT ((0)) NOT NULL,
+    [idUser]               INT          CONSTRAINT [DEFAULT_TB_StatusNotifications_idUser] DEFAULT ((0)) NOT NULL,
     [randomIdNotification] VARCHAR (50) CONSTRAINT [DEFAULT_TB_StatusNotifications_randomIdNotification] DEFAULT ('') NOT NULL,
     [idNotification]       INT          CONSTRAINT [DEFAULT_TB_StatusNotifications_idNotification] DEFAULT ((0)) NOT NULL,
     [created]              DATETIME     NULL,
@@ -137,7 +138,7 @@ CREATE TABLE [dbo].[TB_StatusNotifications] (
 CREATE TABLE [dbo].[TB_Admin] (
     [id]         INT           IDENTITY (1, 1) NOT NULL,
     [username]   VARCHAR (50)  CONSTRAINT [DEFAULT_TB_Admin_username] DEFAULT ('') NOT NULL,
-    [password]   VARCHAR (150) CONSTRAINT [DEFAULT_TB_Admin_password] DEFAULT ('') NOT NULL,
+    [password]   VARCHAR (100) CONSTRAINT [DEFAULT_TB_Admin_password] DEFAULT ('') NOT NULL,
     [level]      INT           CONSTRAINT [DEFAULT_TB_Admin_level] DEFAULT ((0)) NOT NULL,
     [teamLeader] VARCHAR (10)  CONSTRAINT [DEFAULT_TB_Admin_teamLeader] DEFAULT ('') NOT NULL,
     CONSTRAINT [PK_TB_Admin] PRIMARY KEY CLUSTERED ([id] ASC)
@@ -147,6 +148,7 @@ CREATE TABLE [dbo].[TB_MasterVendor] (
     [id]         INT           IDENTITY (1, 1) NOT NULL,
     [vendorName] VARCHAR (100) CONSTRAINT [DEFAULT_NewTable_vendorName] DEFAULT ('') NOT NULL,
     [location]   TEXT          CONSTRAINT [DEFAULT_NewTable_location] DEFAULT ('') NOT NULL,
+    [created]    DATETIME      NULL,
     CONSTRAINT [PK_NewTable] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 

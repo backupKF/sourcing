@@ -22,7 +22,7 @@
         $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
 
         // Cek Apakah data Supplier tersedia
-        if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
+        if($dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
             // Jika id feedback doc req ditemukan
             if(!empty($idFeedbackDocReq)){
                 // Handle Update Data Feedback Doc Req To Database Tabel TB_FeedbackDocReq
@@ -63,7 +63,6 @@
     
             // Send Notifikasi
             if($update == true || $insert == true){
-                $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
                 $response = sendNotification("Feedback document requirement berhasil diperbaharui!!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", "memperbaharui Feedback Document Requirement, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
             }
 
@@ -88,7 +87,7 @@
         $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
 
         // Cek Apakah data Supplier tersedia
-        if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
+        if($dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
             // Kondisi untuk meng-handle price review
             if($priceReview){
                 // Handle Update Data Feedback Rnd Price Review To Database Tabel TB_Supplier
@@ -128,7 +127,6 @@
 
             // Send Notifikasi
             if($update == true || $insert == true){
-                $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
                 $response = sendNotification("Feedback R&D berhasil diperbaharui!!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", "memperbaharui Feedback R&D, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
             }
 
@@ -152,7 +150,7 @@
         $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
         
         // Cek Apakah data Supplier tersedia
-        if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
+        if($dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
             // Handle Update Data Feedback Proc To Database Tabel TB_FeedbackProc
             try{
                 $sql = "INSERT INTO TB_FeedbackProc (dateFeedbackProc, feedback, writer, idSupplier) 
@@ -174,7 +172,6 @@
 
             // Send Notifikasi
             if($insert == true){
-                $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
                 $response = sendNotification("Feedback Proc berhasil diperbaharui!!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")",  "memperbaharui Feedback Proc, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
             }
 
@@ -198,7 +195,7 @@
         $materialName = $conn->query("SELECT materialName FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE TB_Supplier.id=".$idSupplier)->fetchAll();
 
         // Cek Apakah data Supplier tersedia
-        if($conn->query("SELECT * FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
+        if($dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll()){
             // Handle Update Data Final Feedback Rnd To Database Tabel TB_Supplier
             try{
                 $sql = "UPDATE TB_Supplier SET dateFinalFeedbackRnd = ?, finalFeedbackRnd = ?, writerFinalFeedbackRnd = ? WHERE id = ?";
@@ -206,7 +203,6 @@
                 $update = $query->execute(array($dateFinalFeedbackRnd, $finalFeedbackRnd, $writerFinalFeedbackRnd, $idSupplier));
 
                 if($update == true){
-                    $dataSupplier = $conn->query("SELECT supplier, idMaterial FROM TB_Supplier WHERE id = ".$idSupplier)->fetchAll();
                     $response = sendNotification("Final Feeedback Rnd berhasil diperbaharui!", $dataSupplier[0]['supplier']." (Material: ".$materialName[0]['materialName'].")", "memperbaharui Final Feedback R&D, Supplier : ", NULL, $dataSupplier[0]['idMaterial'], $idSupplier);
                 }else{
                     $response = array(
