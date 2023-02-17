@@ -13,7 +13,7 @@
 
     // Kondisi untuk meng-handle set project
     if(isset($_POST['setProject'])){
-        $_SESSION['project'] = $_POST['setProject'];
+        $_SESSION['idProject'] = $_POST['setProject'];
         header('Location: ../pengajuan/index.php');
         exit(); 
     };
@@ -31,7 +31,7 @@
         $finishDossageForm = trim(strip_tags($_POST['finishDossageForm']));
         $keterangan = trim(strip_tags($_POST['keterangan']));
         $documentReq = trim(strip_tags($_POST['documentReq']));
-        $projectCode = trim(strip_tags($_POST['projectCode']));
+        $idProject = trim(strip_tags($_POST['idProject']));
 
         // Melakukan pengecekan data
         if(empty($materialCategory)) {
@@ -73,11 +73,11 @@
                     "finishDossageForm" => $finishDossageForm,
                     "keterangan" => $keterangan,
                     "documentReq" => $documentReq,
-                    "projectCode" => $projectCode,
+                    "idProject" => $idProject,
                 ];
                 
         $materials[] = $newDataMaterial;
-        $_SESSION['project'] = $projectCode;
+        $_SESSION['idProject'] = $idProject;
         $_SESSION['materials'] = $materials;
 
         header('Location: ../pengajuan/index.php');
@@ -93,7 +93,7 @@
         $sourcingNumber = autoNumber(date("Y"), $_SESSION['user']['teamLeader'], $number[0]['sourcingNumber']);
 
         foreach($materials as $material){
-            $sql = "INSERT INTO TB_PengajuanSourcing (sourcingNumber, materialCategory, materialName,  materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, documentReq, projectCode, teamLeader, researcher, created, dateSourcing) 
+            $sql = "INSERT INTO TB_PengajuanSourcing (sourcingNumber, materialCategory, materialName,  materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, documentReq, idProject, teamLeader, researcher, created, dateSourcing) 
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $params = array(
                 $sourcingNumber,
@@ -106,7 +106,7 @@
                 $material['finishDossageForm'],
                 $material['keterangan'],
                 $material['documentReq'],
-                $material['projectCode'],
+                $material['idProject'],
                 $_SESSION['user']['teamLeader'],
                 $_SESSION['user']['name'],
                 date("Y-m-d H:i:s"),
@@ -116,7 +116,7 @@
             $insert = $query->execute($params);
         }
         unset($_SESSION['materials']);
-        unset($_SESSION['project']);
+        unset($_SESSION['idProject']);
 
         //Create Notification
         if($insert == true){

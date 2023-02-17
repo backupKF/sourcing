@@ -75,7 +75,7 @@
                     data: function(data){
                         return (
                             '<form action="../controller/actionPengajuan.php" method="POST">'+
-                                '<button class="btn btn-success btn-sm p-0 px-1" style="height:22px" type="submit" name="setProject" value="'+data.projectCode+'">'+
+                                '<button class="btn btn-success btn-sm p-0 px-1" style="height:22px" type="submit" name="setProject" value="'+data.id+'">'+
                                     '<span style="font-size:11px;font-family:poppinsBold">Pilih</span>'+
                                 '</button>'+
                             '</form>'

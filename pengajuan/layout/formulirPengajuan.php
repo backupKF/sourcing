@@ -8,7 +8,7 @@
     };
 
     // Mengambil data project
-    $projectName = $conn->query("SELECT projectName FROM TB_Project WHERE projectCode='{$_SESSION['project']}' ")->fetchAll();
+    $projectName = $conn->query("SELECT projectCode, projectName FROM TB_Project WHERE id='{$_SESSION['idProject']}' ")->fetchAll();
 ?>
 
 <!-- Form Data Pengajuan -->
@@ -21,7 +21,7 @@
             <!-- Value Project -->
             <div class="mb-3 col">
                 <label class="form-label fw-bold ms-1 mb-2">Project</label>
-                <input class="form-control form-control-sm" type="text" placeholder="<?php echo isset($_SESSION['project'])?"{$_SESSION['project']}  |  {$projectName[0]["projectName"]}":""; ?>" disabled readonly>
+                <input class="form-control form-control-sm" type="text" placeholder="<?php echo isset($_SESSION['idProject'])?"{$projectName[0]['projectCode']}  |  {$projectName[0]["projectName"]}":""; ?>" disabled readonly>
             </div>
             <!-- Button set project -->
             <div class="mb-3 col">
@@ -36,7 +36,7 @@
         <hr class="m-0 mb-1">
 
         <!-- Cek apakah user sudah memilih project -->
-        <?php if(isset($_SESSION['project'])){?>
+        <?php if(isset($_SESSION['idProject'])){?>
         <!-- Form Tambah Pengajuan Sourcing-->
             <button class="btn btn-outline-primary btn-sm mt-1 mb-3 ms-1" type="button" data-bs-target="#modalTambahMaterial" data-bs-toggle="modal">
                 Tambah Data Material
@@ -72,7 +72,7 @@
                 <?php
                     $materials = $_SESSION['materials'];
                     foreach($materials as $row){
-                    if($row['projectCode'] == $_SESSION['project']){
+                    if($row['idProject'] == $_SESSION['idProject']){
                     $count++
                 ?>
                 <tr>

@@ -69,7 +69,7 @@
                         '<!-- Priority -->'+
                         '<div class="mb-3">'+
                             '<label for="priority" class="form-label">Priority</label>'+
-                            '<input type="number" class="form-control" id="priority" name="priority" required value="'+(data.priority != "" ? data.priority:"")+'">'+
+                            '<input type="number" class="form-control" id="priority" name="priority" required value="'+(data.priority != 0 ? data.priority:"")+'">'+
                             '<div class="invalid-feedback">'+
                                 'Masukan Priority (*Tandai (-) jika tidak Diisi).'+
                             '</div>'+

@@ -39,7 +39,7 @@
 </style>
 
 <!-- Tabel Material -->
-    <table id="table-material<?php echo $_GET['projectCode']?>" class="table table-striped">
+    <table id="table-material<?php echo $_GET['idProject']?>" class="table table-striped">
         <thead class="bg-primary" >
             <tr>
                 <th></th>
@@ -87,7 +87,7 @@
     </table>
     <script>
         $(document).ready(function(){
-            var materialTable = $('#table-material<?php echo $_GET['projectCode']?>').DataTable({
+            var materialTable = $('#table-material<?php echo $_GET['idProject']?>').DataTable({
                 scrollX: true,
                 lengthMenu: [2, 3 , 5],
                 stateSave: true,
@@ -97,7 +97,7 @@
                     url: '../controller/loadData/loadDataMaterial.php',
                     type: 'GET',
                     data: {
-                        projectCode: '<?php echo $_GET['projectCode'] ?>',
+                        idProject: '<?php echo $_GET['idProject'] ?>',
                     }
                 },
                 columns: [
@@ -125,7 +125,7 @@
                     {
                         className: 'dataColumn',
                         data: function (data){
-                            return (data.priority == null? "-" : data.priority)
+                            return (data.priority != 0? data.priority : "-")
                         }
                     },
                     {
@@ -269,7 +269,7 @@
             })
 
             // Menampilkan tabel material, apabila user melakukan event click ditabel project
-            $('#table-material<?php echo $_GET['projectCode']?> tbody').on('click', 'td.dt-control', function () {
+            $('#table-material<?php echo $_GET['idProject']?> tbody').on('click', 'td.dt-control', function () {
                     var tr = $(this).closest('tr');
                     // Membuat variabel untuk mengambil data project dibaris yang mengalami event click
                     var row = materialTable.row(tr);
@@ -434,7 +434,7 @@
                         icon: response.status == 0?'success':'warning',
                         title: response.message
                     })
-                    loadDataMaterial('<?php echo $_GET['projectCode']?>', '<?php echo $_GET['projectName']?>')
+                    loadDataMaterial('<?php echo $_GET['idProject']?>', '<?php echo $_GET['projectName']?>')
                 }
             })
         }
@@ -463,7 +463,7 @@
                         icon: response.status == 0?'success':'warning',
                         title: response.message
                     })
-                    loadDataMaterial('<?php echo $_GET['projectCode']?>', '<?php echo $_GET['projectName']?>')
+                    loadDataMaterial('<?php echo $_GET['idProject']?>', '<?php echo $_GET['projectName']?>')
                 }
             })
             $('#sumaryReport'+idMaterial).modal('hide');
@@ -494,7 +494,7 @@
                             title: response.message
                         })
 
-                        loadDataMaterial('<?php echo $_GET['projectCode']?>', '<?php echo $_GET['projectName']?>')
+                        loadDataMaterial('<?php echo $_GET['idProject']?>', '<?php echo $_GET['projectName']?>')
                     }
                 })
 

@@ -376,7 +376,7 @@
                     data: function(dataSupplier){
                         return (
                             '<!-- Tanggal Final Feedback Rnd -->'+
-                            '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataSupplier.dateFinalFeedbackRnd+'</span>'+
+                            '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+(dataSupplier.dateFinalFeedbackRnd == '-' ? '':dataSupplier.dateFinalFeedbackRnd)+'</span>'+
                             '<!-- Isi Final Feedback Rnd -->'+
                             '<div class="overflow-auto" style="height:80px">'+
                             '<!-- Isi Feedback -->'+

@@ -127,7 +127,7 @@
                 },
                 {
                     data: function(data){
-                        if(data.dateFeedbackRnd != '-' && data.dateFeedbackRnd != null){
+                        if(data.dateFeedbackRnd != '-'){
                             return (
                                 '<!-- Tanggal Feedback Rnd -->'+
                                 '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+data.dateFeedbackRnd+'</span>'+
@@ -145,7 +145,7 @@
                 },
                 {
                     data: function(data){
-                        if(data.dateFeedbackRnd != '-' && data.dateFeedbackRnd != null){
+                        if(data.dateFeedbackProc != '-'){
                             return (
                                 '<!-- Tanggal Feedback Proc -->'+
                                 '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+data.dateFeedbackProc+'</span>'+
@@ -163,10 +163,10 @@
                 },
                 {
                     data: function(data){
-                        if(data.dateFinalFeedbackRnd != null){
+                        if(data.dateFinalFeedbackRnd != '-'){
                             return(
                                 '<!-- Tanggal Final Feedback Rnd -->'+
-                                '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+data.convertDateFinalFeedbackRnd+'</span>'+
+                                '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+data.dateFinalFeedbackRnd+'</span>'+
                                 '<!-- Isi Final Feedback Rnd -->'+
                                 '<div class="overflow-auto" style="height:60px">'+
                                     '<div class="text-wrap pt-1" style="font-size:11px;font-family:poppinsMedium;">'+data.finalFeedbackRnd+'</div>'+

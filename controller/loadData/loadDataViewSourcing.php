@@ -15,13 +15,13 @@
 	if( !empty($params['search']['value']) ) { 
 		$whereMaterialSourcing .=" AND (materialName LIKE '".$params['search']['value']."%' ";    
 		$whereMaterialSourcing .=" OR materialCategory LIKE '".$params['search']['value']."%' ";
-		$whereMaterialSourcing .=" OR TB_Project.projectName LIKE '".$params['search']['value']."%' ";
+		$whereMaterialSourcing .=" OR projectName LIKE '".$params['search']['value']."%' ";
 		$whereMaterialSourcing .=" OR statusSourcing LIKE '".$params['search']['value']."%') ";
 	}
 
     // Mengambil data dan total data yang dicari user
-	$sqlRecMaterialSourcing = "SELECT TB_PengajuanSourcing.id, materialName, materialCategory, projectName, statusSourcing FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
-	$sqlTotMaterialSourcing = "SELECT count(*) FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
+	$sqlRecMaterialSourcing = "SELECT TB_PengajuanSourcing.id, materialName, materialCategory, projectName, statusSourcing FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.idProject = TB_Project.id";
+	$sqlTotMaterialSourcing = "SELECT count(*) FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.idProject = TB_Project.id";
 
     // Jika user melakukan pencarian data maka data diambil sesuai dengan pencarian
 	if(isset($whereMaterialSourcing) && $whereMaterialSourcing != '') {
@@ -48,7 +48,7 @@
 					$feedbackProc = $conn->query("SELECT TOP 1 * FROM TB_FeedbackProc WHERE idSupplier='{$supplier['id']}' ORDER BY ID DESC")->fetchAll();
 
 					if($feedbackRnd[0]['dateFeedback'] != NULL){
-						$supplier['dateFeedbackRnd'] = date('d F Y',strtotime($feedbackRnd[0]['dateFeedback']));
+						$supplier['dateFeedbackRnd'] = $feedbackRnd[0]['dateFeedback'];
 					}else{
 						$supplier['dateFeedbackRnd'] = "-";
 					}
@@ -56,19 +56,12 @@
 					$supplier['writerFeedbackRnd'] = $feedbackRnd[0]['writer'];
 
 					if($feedbackProc[0]['dateFeedbackProc'] != NULL){
-						$supplier['dateFeedbackProc'] = date('d F Y',strtotime($feedbackProc[0]['dateFeedbackProc']));
+						$supplier['dateFeedbackProc'] = $feedbackProc[0]['dateFeedbackProc'];
 					}else{
 						$supplier['dateFeedbackProc'] = "-";
 					}
 					$supplier['feedbackProc'] = $feedbackProc[0]['feedback'];
 					$supplier['writerFeedbackProc'] = $feedbackProc[0]['writer'];
-
-					// Convert tanggal final feedback
-					if($supplier['dateFinalFeedbackRnd'] != NULL){
-						$supplier['convertDateFinalFeedbackRnd'] = date('d F Y', strtotime($supplier['dateFinalFeedbackRnd']));
-					}else{
-						$supplier['convertDateFinalFeedbackRnd'] = '-';
-					}
 
 					$supplier['projectName'] = $row['projectName'];
 
@@ -87,6 +80,8 @@
 				$row['feedbackProc'] = '-';
 				$row['writerFeedbackProc'] = '-';
 
+				$row['dateFinalFeedbackRnd'] = '-';
+
 				$row['idMaterial'] = $row['id'];
 
 				$records[] = $row;
@@ -103,16 +98,16 @@
 
 	}else{
 		// Jika variabel $queryRecords tidak ditemukan maka;
-		$sqlRecSupplier = $conn->query("SELECT TB_Supplier.id, materialName, materialCategory, supplier, manufacture, statusSourcing, dateFinalFeedbackRnd, finalFeedbackRnd, writerFinalFeedbackRnd, projectCode, idMaterial FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE feedbackRPIC=1 AND (supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%') ORDER BY idMaterial DESC  OFFSET ".$params['start']." ROWS FETCH FIRST ".$params['length']." ROWS ONLY")->fetchAll();
+		$sqlRecSupplier = $conn->query("SELECT TB_Supplier.id, materialName, materialCategory, supplier, manufacture, statusSourcing, dateFinalFeedbackRnd, finalFeedbackRnd, writerFinalFeedbackRnd, idProject, idMaterial FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE feedbackRPIC=1 AND (supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%') ORDER BY idMaterial DESC  OFFSET ".$params['start']." ROWS FETCH FIRST ".$params['length']." ROWS ONLY")->fetchAll();
 		$sqlTolSupplier = $conn->query("SELECT count(*) FROM TB_Supplier INNER JOIN TB_PengajuanSourcing ON TB_Supplier.idMaterial = TB_PengajuanSourcing.id WHERE feedbackRPIC=1 AND (supplier LIKE '".$params['search']['value']."%' OR manufacture LIKE '".$params['search']['value']."%')")->fetchAll();
 	
 		foreach($sqlRecSupplier as $supplier){
-			$projectName = $conn->query("SELECT projectName FROM TB_Project WHERE projectCode='".$supplier['projectCode']."'")->fetchAll();
+			$projectName = $conn->query("SELECT projectName FROM TB_Project WHERE id='".$supplier['idProject']."'")->fetchAll();
 			$feedbackRnd = $conn->query("SELECT TOP 1 * FROM TB_DetailFeedbackRnd WHERE idSupplier='{$supplier['id']}' ORDER BY ID DESC")->fetchAll();
 			$feedbackProc = $conn->query("SELECT TOP 1 * FROM TB_FeedbackProc WHERE idSupplier='{$supplier['id']}' ORDER BY ID DESC")->fetchAll();
 
 			if($feedbackRnd[0]['dateFeedback'] != NULL){
-				$supplier['dateFeedbackRnd'] = date('d F Y',strtotime($feedbackRnd[0]['dateFeedback']));
+				$supplier['dateFeedbackRnd'] = $feedbackRnd[0]['dateFeedback'];
 			}else{
 				$supplier['dateFeedbackRnd'] = "-";
 			}
@@ -120,19 +115,12 @@
 			$supplier['writerFeedbackRnd'] = $feedbackRnd[0]['writer'];
 
 			if($feedbackProc[0]['dateFeedbackProc'] != NULL){
-				$supplier['dateFeedbackProc'] = date('d F Y',strtotime($feedbackProc[0]['dateFeedbackProc']));
+				$supplier['dateFeedbackProc'] = $feedbackProc[0]['dateFeedbackProc'];
 			}else{
 				$supplier['dateFeedbackProc'] = "-";
 			}
 			$supplier['feedbackProc'] = $feedbackProc[0]['feedback'];
 			$supplier['writerFeedbackProc'] = $feedbackProc[0]['writer'];
-
-			// Convert tanggal final feedback
-			if($supplier['dateFinalFeedbackRnd'] != NULL){
-				$supplier['convertDateFinalFeedbackRnd'] = date('d F Y', strtotime($supplier['dateFinalFeedbackRnd']));
-			}else{
-				$supplier['convertDateFinalFeedbackRnd'] = '-';
-			}
 
 			$supplier['projectName'] = $projectName[0]['projectName'];
 

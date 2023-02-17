@@ -63,15 +63,16 @@ $(document).ready(function(){
             var row = projectTable.row(tr);
             if (row.child.isShown()) {
                 // Menghilangkan tabel material jika event click ditutup
-                var table = $("#table-material"+row.data()[1], row.child());
+                var table = $("#table-material"+row.data()[0], row.child());
                 table.DataTable().clear().destroy();
                     
                 // Fungsi untuk menyembunyikan baris
                 row.child.hide();
                 tr.removeClass('shown');
             } else {
+                console.log(row.data())
                 // Menampilkan tabel material jika event click dilakukan
-                row.child( tableMaterial(row.data()[1], row.data()[2])).show();
+                row.child( tableMaterial(row.data()[0], row.data()[2])).show();
                 tr.addClass('shown');
             }
     });
@@ -119,24 +120,24 @@ $(document).ready(function(){
 })
 
 // Membuat Tabel Material didalam sebuah fungsi
-function tableMaterial(projectCode, projectName){
-    loadDataMaterial(projectCode, projectName)
+function tableMaterial(idProject, projectName){
+    loadDataMaterial(idProject, projectName)
     return (
-        '<div class="container-fluid m-0 p-0 contentMaterial" id="contentTableMaterial'+projectCode+'"></div>'
+        '<div class="container-fluid m-0 p-0 contentMaterial" id="contentTableMaterial'+idProject+'"></div>'
     )
 }
 
 // Load Data Material
-function loadDataMaterial(projectCode, projectName){
+function loadDataMaterial(idProject, projectName){
     $.ajax({
         url: 'layout/tabelMaterial.php',
         type: 'get',
         data: { 
-            projectCode: projectCode,
+            idProject: idProject,
             projectName: projectName
         },
         success: function(data) {
-            $('#contentTableMaterial'+projectCode+'').html(data);
+            $('#contentTableMaterial'+idProject).html(data);
         }
     });
 }

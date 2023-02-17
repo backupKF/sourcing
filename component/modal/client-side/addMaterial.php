@@ -120,7 +120,7 @@
                         </div>
                     </div>
                     <!-- Set Project -->
-                    <input type="hidden" name="projectCode" value="<?php echo $_SESSION['project']?>">
+                    <input type="hidden" name="idProject" value="<?php echo $_SESSION['idProject']?>">
                 </form>
             </div>
                         

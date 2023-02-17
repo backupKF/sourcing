@@ -10,7 +10,7 @@
 	//Mendeklarasikan Variabel untuk pencarian
     $where = $sqlTot = $sqlRec = "";
 
-    $where .= "  WHERE projectCode='".$_GET['projectCode']."' AND feedbackRPIC=1 ";
+    $where .= "  WHERE idProject='".$_GET['idProject']."' AND feedbackRPIC=1 ";
 	// Jika selain dari kondisi di atas, check pencarian user
 	if( !empty($params['search']['value']) ) {
 		$where .=" AND (materialCategory LIKE '".$params['search']['value']."%' ";

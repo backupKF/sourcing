@@ -37,8 +37,8 @@
 			$where .=" TB_PengajuanSourcing.sourcingNumber LIKE '".$params['search']['value']."%' ";
 			$where .=" OR materialName LIKE '".$params['search']['value']."%' ";
 			$where .=" OR dateSourcing LIKE '".$params['search']['value']."%' ";
-			$where .=" OR TB_Project.projectCode LIKE '".$params['search']['value']."%' ";
-			$where .=" OR TB_Project.projectName LIKE '".$params['search']['value']."%' ";
+			$where .=" OR projectCode LIKE '".$params['search']['value']."%' ";
+			$where .=" OR projectName LIKE '".$params['search']['value']."%' ";
 			$where .=" OR teamLeader LIKE '".$params['search']['value']."%' ";
 			$where .=" OR researcher LIKE '".$params['search']['value']."%' ";
 			$where .=" OR feedbackTL LIKE '".$searchFeedbackTL."%' ";
@@ -50,11 +50,11 @@
 	}
 
     // Mengambil data dan total data yang dicari user
-	$sql = "SELECT TB_PengajuanSourcing.id, sourcingNumber, materialName, dateSourcing, TB_Project.projectCode, TB_Project.projectName,
+	$sql = "SELECT TB_PengajuanSourcing.id, sourcingNumber, materialName, dateSourcing, projectCode, projectName,
 			materialCategory, materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, documentReq, 
 			teamLeader, researcher, feedbackTL, feedbackRPIC, dateApprovedTL, dateAcceptedRPIC, statusRiwayat FROM TB_PengajuanSourcing 
-			INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
-	$sqlTot = "SELECT count(*) FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
+			INNER JOIN TB_Project ON TB_PengajuanSourcing.idProject = TB_Project.id";
+	$sqlTot = "SELECT count(*) FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.idProject = TB_Project.id";
 	$sqlRec .= $sql;
 
     // Jika user melakukan pencarian data maka data diambil sesuai dengan pencarian

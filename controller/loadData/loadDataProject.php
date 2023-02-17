@@ -13,13 +13,13 @@
     $where .=" WHERE feedbackRPIC=1";
 	// Jika selain dari kondisi di atas, check pencarian user
 	if( !empty($params['search']['value']) ) {   
-		$where .=" AND (TB_Project.projectCode LIKE '".$params['search']['value']."%' ";
+		$where .=" AND (projectCode LIKE '".$params['search']['value']."%' ";
 		$where .=" OR projectName LIKE '".$params['search']['value']."%') ";
 	}
 
     // Mengambil data dan total data yang dicari user
-	$sql = "SELECT DISTINCT TB_Project.id, TB_Project.projectCode, TB_Project.projectName FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
-	$sqlTot = "SELECT DISTINCT TB_Project.id, TB_Project.projectCode FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.projectCode = TB_Project.projectCode";
+	$sql = "SELECT DISTINCT TB_Project.id, TB_Project.projectCode, TB_Project.projectName FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.idProject = TB_Project.id";
+	$sqlTot = "SELECT DISTINCT TB_Project.id, TB_Project.projectCode FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.idProject = TB_Project.id";
 	$sqlRec .= $sql;
 
     // Jika user melakukan pencarian data maka data diambil sesuai dengan pencarian
