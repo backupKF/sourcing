@@ -13,15 +13,15 @@ CREATE TABLE [dbo].[TB_PengajuanSourcing] (
     [id]                    INT           IDENTITY (1, 1) NOT NULL,
     [sourcingNumber]        INT           CONSTRAINT [DEFAULT_TB_PengajuanSourcing_sourcingNumber] DEFAULT ((0)) NOT NULL,
     [materialCategory]      VARCHAR (40)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_materialCategory] DEFAULT ('') NOT NULL,
-    [materialName]          VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_materialName] DEFAULT ('') NOT NULL,
+    [materialName]          VARCHAR (150) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_materialName] DEFAULT ('') NOT NULL,
     [priority]              INT           CONSTRAINT [DEFAULT_TB_PengajuanSourcing_priority] DEFAULT ((0)) NOT NULL,
     [materialSpesification] TEXT          CONSTRAINT [DEFAULT_TB_PengajuanSourcing_materialSpesification] DEFAULT ('') NOT NULL,
-    [catalogOrCasNumber]    VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_catalogOrCasNumber] DEFAULT ('') NOT NULL,
+    [catalogOrCasNumber]    VARCHAR (80)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_catalogOrCasNumber] DEFAULT ('') NOT NULL,
     [company]               VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_company] DEFAULT ('') NOT NULL,
     [website]               VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_website] DEFAULT ('') NOT NULL,
-    [finishDossageForm]     VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_finishDossageForm] DEFAULT ('') NOT NULL,
+    [finishDossageForm]     VARCHAR (80)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_finishDossageForm] DEFAULT ('') NOT NULL,
     [keterangan]            TEXT          CONSTRAINT [DEFAULT_TB_PengajuanSourcing_keterangan] DEFAULT ('') NOT NULL,
-    [vendorAERO]            VARCHAR (200) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_vendorAERO] DEFAULT ('') NOT NULL,
+    [vendorAERO]            TEXT          CONSTRAINT [DEFAULT_TB_PengajuanSourcing_vendorAERO] DEFAULT ('') NOT NULL,
     [documentReq]           VARCHAR (100) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_documentReq] DEFAULT ('') NOT NULL,
     [dateSourcing]          VARCHAR (20)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_dateSourcing] DEFAULT ('-') NOT NULL,
     [teamLeader]            VARCHAR (10)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_teamLeader] DEFAULT ('') NOT NULL,
@@ -42,12 +42,12 @@ CREATE TABLE [dbo].[TB_PengajuanSourcing] (
 
 CREATE TABLE [dbo].[TB_Supplier] (
     [id]                     INT           IDENTITY (1, 1) NOT NULL,
-    [supplier]               VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_supplier] DEFAULT ('') NOT NULL,
-    [manufacture]            VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_manufacture] DEFAULT ('') NOT NULL,
-    [originCountry]          VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_originCountry] DEFAULT ('') NOT NULL,
-    [leadTime]               VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_leadTime] DEFAULT ('') NOT NULL,
-    [catalogOrCasNumber]     VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_catalogOrCasNumber] DEFAULT ('') NOT NULL,
-    [gradeOrReference]       VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_gradeOrReference] DEFAULT ('') NOT NULL,
+    [supplier]               VARCHAR (80)  CONSTRAINT [DEFAULT_TB_Supplier_supplier] DEFAULT ('') NOT NULL,
+    [manufacture]            VARCHAR (80)  CONSTRAINT [DEFAULT_TB_Supplier_manufacture] DEFAULT ('') NOT NULL,
+    [originCountry]          VARCHAR (30)  CONSTRAINT [DEFAULT_TB_Supplier_originCountry] DEFAULT ('') NOT NULL,
+    [leadTime]               VARCHAR (20)  CONSTRAINT [DEFAULT_TB_Supplier_leadTime] DEFAULT ('') NOT NULL,
+    [catalogOrCasNumber]     VARCHAR (80)  CONSTRAINT [DEFAULT_TB_Supplier_catalogOrCasNumber] DEFAULT ('') NOT NULL,
+    [gradeOrReference]       VARCHAR (30)  CONSTRAINT [DEFAULT_TB_Supplier_gradeOrReference] DEFAULT ('') NOT NULL,
     [documentInfo]           VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_documentInfo] DEFAULT ('') NOT NULL,
     [feedbackRndPriceReview] TEXT          CONSTRAINT [DEFAULT_TB_Supplier_feedbackRndPriceReview] DEFAULT ('') NOT NULL,
     [dateFinalFeedbackRnd]   VARCHAR (20)  CONSTRAINT [DEFAULT_TB_Supplier_dateFinalFeedbackRnd] DEFAULT ('-') NOT NULL,
@@ -114,7 +114,7 @@ CREATE TABLE [dbo].[TB_File] (
 CREATE TABLE [dbo].[TB_Notifications] (
     [id]             INT           IDENTITY (1, 1) NOT NULL,
     [randomId]       VARCHAR (50)  CONSTRAINT [DEFAULT_TB_Notifications_randomId] DEFAULT ('') NOT NULL,
-    [subject]        VARCHAR (200) CONSTRAINT [DEFAULT_TB_Notifications_subject] DEFAULT ('') NOT NULL,
+    [subject]        VARCHAR (150) CONSTRAINT [DEFAULT_TB_Notifications_subject] DEFAULT ('') NOT NULL,
     [message]        TEXT          CONSTRAINT [DEFAULT_TB_Notifications_message] DEFAULT ('') NOT NULL,
     [person]         VARCHAR (50)  CONSTRAINT [DEFAULT_TB_Notifications_person] DEFAULT ('') NOT NULL,
     [sourcingNumber] INT           CONSTRAINT [DEFAULT_TB_Notifications_sourcingNumber] DEFAULT ((0)) NULL,
@@ -145,10 +145,10 @@ CREATE TABLE [dbo].[TB_Admin] (
 );
 
 CREATE TABLE [dbo].[TB_MasterVendor] (
-    [id]         INT           IDENTITY (1, 1) NOT NULL,
-    [vendorName] VARCHAR (100) CONSTRAINT [DEFAULT_NewTable_vendorName] DEFAULT ('') NOT NULL,
-    [location]   TEXT          CONSTRAINT [DEFAULT_NewTable_location] DEFAULT ('') NOT NULL,
-    [created]    DATETIME      NULL,
+    [id]         INT          IDENTITY (1, 1) NOT NULL,
+    [vendorName] VARCHAR (80) CONSTRAINT [DEFAULT_NewTable_vendorName] DEFAULT ('') NOT NULL,
+    [location]   TEXT         CONSTRAINT [DEFAULT_NewTable_location] DEFAULT ('') NOT NULL,
+    [created]    DATETIME     NULL,
     CONSTRAINT [PK_NewTable] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 

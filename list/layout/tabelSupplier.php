@@ -463,45 +463,29 @@
             data: $('form#formAddSupplier'+idMaterial).serialize()+'&idMaterial='+idMaterial+'&addSupplier=true',
             dataType: 'json',
             success: function(response){
-                if(response.status == 1){
+                if(response.status == 2){
                     $("#errorSupplier").text("");
                     $("#errorSupplier").append(response.message);
+                }
+                
+                const Toast = Swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
 
-                    const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'bottom-end',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
+                Toast.fire({
+                    icon: response.status == 0?'success':'warning',
+                    title: response.message
+                })
 
-                    Toast.fire({
-                        icon: response.status == 0?'success':'warning',
-                        title: response.message
-                    })
-
-                }else{
-                    const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'bottom-end',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
-
-                    Toast.fire({
-                        icon: response.status == 0?'success':'warning',
-                        title: response.message
-                    })
-
+                if(response.status != 2){
                     loadDataSupplier(<?php echo $_GET['idMaterial']?>, "<?php echo $_GET['materialName']?>")
                     $('#tambahSupplier<?php echo $_GET['idMaterial']?>').modal('hide');
                 }

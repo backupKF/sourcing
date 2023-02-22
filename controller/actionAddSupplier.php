@@ -142,7 +142,7 @@
             }
         }else{
             $response = array(
-                "status" => 1,
+                "status" => 2,
                 "message" => "Data supplier wajib di isi!!"
             );
         }

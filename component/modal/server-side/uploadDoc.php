@@ -6,7 +6,6 @@
     };
 ?>
 
-
 '<!-- Modal Upload Document -->'+
 '<div class="modal" id="uploadDoc'+dataSupplier.id+'" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">'+
     '<div class="modal-dialog modal-dialog-centered">'+

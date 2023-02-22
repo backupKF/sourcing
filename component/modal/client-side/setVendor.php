@@ -1,8 +1,6 @@
 <?php
     session_start();
 
-    include "../../dbConfig.php";
-
     // me-redirect saat user masuk kehalaman ini
     if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
         header('Location: ../../../dashboard/index.php');
