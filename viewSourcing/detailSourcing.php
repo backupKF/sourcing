@@ -6,8 +6,7 @@
 
     // Check Reading Notifications
     if(!empty($_GET['rs'])){
-        if($checkNotif = $conn->query("SELECT * FROM TB_Notifications WHERE randomId='".$_GET['rs']."'")->fetchAll()){
-            $checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id']." AND randomIdNotification='".$_GET['rs']."'")->fetchAll();
+        if($checkUserReadNotif = $conn->query("SELECT * FROM TB_StatusNotifications WHERE idUser=".$_SESSION['user']['id']." AND randomIdNotification='".$_GET['rs']."'")->fetchAll()){
             if($checkUserReadNotif[0]['readingStatus'] == 0){
                 $sql = "UPDATE TB_StatusNotifications SET readingStatus = ? WHERE idUser = ? AND idNotification = ?";
                 $query = $conn->prepare($sql);
@@ -50,7 +49,6 @@
             }
             .card{
                 width:1010px;
-                margin-top:10px;
             }
             #check:checked ~ .container{
                 margin-left:125px;

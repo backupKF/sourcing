@@ -1,6 +1,4 @@
 <?php
-    session_start();
-
     // me-redirect saat user masuk kehalaman ini
     if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
         header('Location: ../../../dashboard/index.php');
@@ -44,7 +42,7 @@
                 <div class="row mb-2">
                     <div class="col">
                         <form id="formSetNewVendorAddSupplier<?php echo $_GET['idMaterial']?>" autocomplete="off">
-                            <input class="form-control form-control-sm" type="text" placeholder="Masukan Vendor Baru" name="setNewVendor" style="height:5px">
+                            <input class="form-control form-control-sm" type="text" maxlength="80" placeholder="Masukan Vendor Baru" name="setNewVendor">
                         </form>
                     </div>
                     <div class="col">
@@ -93,11 +91,9 @@
                     className: 'column-project-value',
                     data: function(data){
                         return (
-                            '<div class="py-0 column-project-value" style="width:250px">'+
+                            '<div class="py-0 column-project-value" style="width:350px">'+
                                 '<!-- Column Project Name -->'+
-                                '<div class="d-flex align-items-center"style="height:30px">'+
                                     data.vendorName +
-                                '</div>'+
                             '</div>'
                         )
                             
@@ -120,46 +116,6 @@
                 }
             ]
         })
-        // CSS Tabel
-        $('.dataTables_filter input[type="search"]').css(
-            {
-                'height':'25px',
-                'font-family':'poppinsRegular',
-                'display':'inline-block'
-            }
-        );
-        $('.dataTables_filter label').css(
-            {
-                'font-size':'15px',
-                'font-family':'poppinsSemiBold',
-                'display':'inline-block'
-            }
-        );
-        $('.dataTables_length').css(
-            {
-                'font-size':'15px',
-                'font-family':'poppinsSemiBold',
-            }
-        );
-        $('.dataTables_length select').css(
-            {
-                'height':'25px',
-                'font-family':'poppinsRegular',
-                'padding':'0'
-            }
-        );
-        $('.dataTables_info').css(
-            {
-                'font-size':'13px',
-                'font-family': 'poppinsSemiBold'
-            }
-        );
-        $('.dataTables_paginate').css(
-            {
-                'font-size':'13px',
-                'font-family': 'poppinsSemiBold'
-            }
-        );
     })
 
     // Listen Event Submit

@@ -1,6 +1,4 @@
 <?php
-    session_start();
-
     // me-redirect saat user masuk kehalaman ini
     if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
         header('Location: ../../../dashboard/index.php');
@@ -38,7 +36,7 @@
                 <!-- Input Manufacture -->
                 <div class="mb-3">
                     <label for="manufacture" class="form-label">Manufacture</label>
-                    <input type="text" class="form-control" id="manufacture" name="manufacture" required>
+                    <input type="text" class="form-control" id="manufacture" maxlength="80" name="manufacture" required>
                     <div class="invalid-feedback">
                         Masukan Manufacture (*Tandai (-) jika tidak Diisi).
                     </div>
@@ -46,7 +44,7 @@
                 <!-- Input Origin Country -->
                 <div class="mb-3">
                     <label for="originCountry" class="form-label">Origin Country</label>
-                    <input type="text" class="form-control" id="originCountry" name="originCountry" required>
+                    <input type="text" class="form-control" id="originCountry" maxlength="30" name="originCountry" required>
                     <div class="invalid-feedback">
                         Masukan Origin Country (*Tandai (-) jika tidak Diisi).
                     </div>
@@ -54,7 +52,7 @@
                 <!-- Input Lead Time -->
                 <div class="mb-3">
                     <label for="leadTime" class="form-label">Lead Time</label>
-                    <input type="text" class="form-control" id="leadTime" name="leadTime" required>
+                    <input type="text" class="form-control" id="leadTime" maxlength="20" name="leadTime" required>
                     <div class="invalid-feedback">
                         Masukan Lead Time (*Tandai (-) jika tidak Diisi).
                     </div>
@@ -62,7 +60,7 @@
                 <!-- Input Catalog or CAS Number -->
                 <div class="mb-3">
                     <label for="catalogOrCasNumber" class="form-label">Catalog or CAS Number</label>
-                    <input type="text" class="form-control" id="catalogOrCasNumber" name="catalogOrCasNumber" required>
+                    <input type="text" class="form-control" id="catalogOrCasNumber" maxlength="50" name="catalogOrCasNumber" required>
                     <div class="invalid-feedback">
                         Masukan Catalog or CAS Number (*Tandai (-) jika tidak Diisi).
                     </div>
@@ -70,7 +68,7 @@
                 <!-- Grade/Reference -->
                 <div class="mb-3">
                     <label for="gradeOrReference" class="form-label">Grade/Reference</label>
-                    <input type="text" class="form-control" id="gradeOrReference" name="gradeOrReference" required>
+                    <input type="text" class="form-control" id="gradeOrReference" maxlength="30" name="gradeOrReference" required>
                     <div class="invalid-feedback">
                         Masukan Grade/Reference (*Tandai (-) jika tidak Diisi).
                     </div>
@@ -78,7 +76,7 @@
                  <!-- Document Info -->
                 <div class="mb-3">
                     <label for="documentInfo" class="form-label">Document Info</label>
-                    <input type="text" class="form-control" id="documentInfo" name="documentInfo" required>
+                    <input type="text" class="form-control" id="documentInfo" maxlength="100" name="documentInfo" required>
                     <div class="invalid-feedback">
                         Masukan Document Info (*Tandai (-) jika tidak Diisi).
                     </div>

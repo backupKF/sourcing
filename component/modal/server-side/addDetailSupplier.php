@@ -19,7 +19,7 @@
                     '<!-- Input MoQ-->'+
                     '<div class="mb-3">'+
                         '<label for="MoQ" class="form-label">MoQ</label>'+
-                        '<input type="text" class="form-control" id="MoQ" name="MoQ" required>'+
+                        '<input type="number" class="form-control" id="MoQ" name="MoQ" required>'+
                         '<div class="invalid-feedback">'+
                             'Masukan MoQ (*Tandai (-) jika tidak Diisi).'+
                         '</div>'+
@@ -27,7 +27,7 @@
                     '<!-- Input Manufacture -->'+
                     '<div class="mb-3">'+
                         '<label for="UoM" class="form-label">UoM</label>'+
-                        '<input type="text" class="form-control" id="UoM" name="UoM" required>'+
+                        '<input type="text" class="form-control" id="UoM" maxlength="10" name="UoM" required>'+
                         '<div class="invalid-feedback">'+
                             'Masukan UoM (*Tandai (-) jika tidak Diisi).'+
                         '</div>'+

@@ -3,7 +3,7 @@
     
     // me-redirect saat user masuk kehalaman ini
     if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-        header('Location: ../../dashboard/index.php');
+        header('Location: ../index.php');
         exit(); 
     };
 
@@ -56,16 +56,16 @@
         <table class="table-pagination row-border stripe hover" style="width:200%">
             <thead>
                 <tr>
-                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:1%" class="text-center">No</th>
-                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:10%" class="text-center">Material Category</th>
-                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%" class="text-center">Material Name</th>
-                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%" class="text-center">Spesification</th>
-                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%" class="text-center">Catalog Or CAS Number</th>
-                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%" class="text-center">Company</th>
-                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%" class="text-center">Website</th>
-                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%" class="text-center">Finish Dossage Form</th>
-                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%" class="text-center">Keterangan</th>
-                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%" class="text-center">Document Requirement</th>
+                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:1%">No</th>
+                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:10%">Material Category</th>
+                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%">Material Name</th>
+                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%">Spesification</th>
+                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%">Catalog Or CAS Number</th>
+                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%">Company</th>
+                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%">Website</th>
+                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%">Finish Dossage Form</th>
+                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%">Keterangan</th>
+                    <th scope="col" style="font-size: 11px;font-family: poppinsSemiBold;width:11%">Document Requirement</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,16 +76,16 @@
                     $count++
                 ?>
                 <tr>
-                    <td style="font-size: 11px;font-family: poppinsRegular" class="text-center"><?php echo $count?></td>
-                    <td style="font-size: 11px;font-family: poppinsRegular" class="text-center"><?php echo $row['materialCategory']?></td>
-                    <td style="font-size: 11px;font-family: poppinsRegular" class="text-center"><?php echo $row['materialName']?></td>
-                    <td style="font-size: 11px;font-family: poppinsRegular" class="text-center"><?php echo $row['materialSpesification']?></td>
-                    <td style="font-size: 11px;font-family: poppinsRegular" class="text-center"><?php echo $row['catalogOrCasNumber']?></td>
-                    <td style="font-size: 11px;font-family: poppinsRegular" class="text-center"><?php echo $row['company']?></td>
-                    <td style="font-size: 11px;font-family: poppinsRegular" class="text-center"><?php echo $row['website']?></td>
-                    <td style="font-size: 11px;font-family: poppinsRegular" class="text-center"><?php echo $row['finishDossageForm']?></td>
-                    <td style="font-size: 11px;font-family: poppinsRegular" class="text-center"><?php echo $row['keterangan']?></td>
-                    <td style="font-size: 11px;font-family: poppinsRegular" class="text-center"><?php echo $row['documentReq']?></td>
+                    <td style="font-size: 11px;font-family: poppinsRegular"><?php echo $count?></td>
+                    <td style="font-size: 11px;font-family: poppinsRegular"><?php echo $row['materialCategory']?></td>
+                    <td style="font-size: 11px;font-family: poppinsRegular"><?php echo $row['materialName']?></td>
+                    <td style="font-size: 11px;font-family: poppinsRegular"><?php echo $row['materialSpesification']?></td>
+                    <td style="font-size: 11px;font-family: poppinsRegular"><?php echo $row['catalogOrCasNumber']?></td>
+                    <td style="font-size: 11px;font-family: poppinsRegular"><?php echo $row['company']?></td>
+                    <td style="font-size: 11px;font-family: poppinsRegular"><?php echo $row['website']?></td>
+                    <td style="font-size: 11px;font-family: poppinsRegular"><?php echo $row['finishDossageForm']?></td>
+                    <td style="font-size: 11px;font-family: poppinsRegular"><?php echo $row['keterangan']?></td>
+                    <td style="font-size: 11px;font-family: poppinsRegular"><?php echo $row['documentReq']?></td>
                 </tr>
                 <?php 
                     } }

@@ -45,7 +45,6 @@
             .card{
                 width:1050px;
                 height:500px;
-                margin-top:10px;
             }
             #check:checked ~ .container{
                 margin-left:125px;

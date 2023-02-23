@@ -675,33 +675,43 @@
 
     // Send data to Action Update Supplier for Delete File
     function deleteFile(idFile, idSupplier){
-        $.ajax({
-            type: 'GET',
-            url: '../controller/actionHandlerFile.php',
-            data:{idFile: idFile, idSupplier: idSupplier, actionType: "delete"},
-            dataType: 'json',
-            success: function(response){
-                const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'bottom-end',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
+        Swal.fire({
+            title: 'Apakah anda yakin untuk menghapus dokumen ini?',
+            showDenyButton: true,
+            confirmButtonText: 'Ya',
+            denyButtonText: `Tidak`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'GET',
+                    url: '../controller/actionHandlerFile.php',
+                    data:{idFile: idFile, idSupplier: idSupplier, actionType: "delete"},
+                    dataType: 'json',
+                    success: function(response){
+                        const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
 
-                    Toast.fire({
-                        icon: response.status == 0?'success':'warning',
-                        title: response.message
-                    })
+                            Toast.fire({
+                                icon: response.status == 0?'success':'warning',
+                                title: response.message
+                            })
 
-                    loadDataSupplier(<?php echo $_GET['idMaterial']?>, "<?php echo $_GET['materialName']?>")
+                            loadDataSupplier(<?php echo $_GET['idMaterial']?>, "<?php echo $_GET['materialName']?>")
+                    }
+                })
+                $('#viewDoc'+idSupplier).modal('hide');
             }
         })
-        $('#viewDoc'+idSupplier).modal('hide');
     }
 
     // Send data to Action Update Supplier for feedback doc req
@@ -834,7 +844,7 @@
         $.ajax({
             url: '../controller/actionUpdateSupplier.php',
             method: 'POST',
-            data: $('form#formUpdateSupplier'+idSupplier).serialize(),
+            data: $('form#formUpdateSupplier'+idSupplier).serialize()+'&idSupplier='+idSupplier,
             dataType: 'json',
             success: function(response){
                 const Toast = Swal.mixin({

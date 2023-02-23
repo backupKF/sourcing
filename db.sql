@@ -16,9 +16,9 @@ CREATE TABLE [dbo].[TB_PengajuanSourcing] (
     [materialName]          VARCHAR (150) CONSTRAINT [DEFAULT_TB_PengajuanSourcing_materialName] DEFAULT ('') NOT NULL,
     [priority]              INT           CONSTRAINT [DEFAULT_TB_PengajuanSourcing_priority] DEFAULT ((0)) NOT NULL,
     [materialSpesification] TEXT          CONSTRAINT [DEFAULT_TB_PengajuanSourcing_materialSpesification] DEFAULT ('') NOT NULL,
-    [catalogOrCasNumber]    VARCHAR (80)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_catalogOrCasNumber] DEFAULT ('') NOT NULL,
-    [company]               VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_company] DEFAULT ('') NOT NULL,
-    [website]               VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_website] DEFAULT ('') NOT NULL,
+    [catalogOrCasNumber]    VARCHAR (50)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_catalogOrCasNumber] DEFAULT ('') NOT NULL,
+    [company]               VARCHAR (80)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_company] DEFAULT ('') NOT NULL,
+    [website]               VARCHAR (80)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_website] DEFAULT ('') NOT NULL,
     [finishDossageForm]     VARCHAR (80)  CONSTRAINT [DEFAULT_TB_PengajuanSourcing_finishDossageForm] DEFAULT ('') NOT NULL,
     [keterangan]            TEXT          CONSTRAINT [DEFAULT_TB_PengajuanSourcing_keterangan] DEFAULT ('') NOT NULL,
     [vendorAERO]            TEXT          CONSTRAINT [DEFAULT_TB_PengajuanSourcing_vendorAERO] DEFAULT ('') NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE [dbo].[TB_Supplier] (
     [manufacture]            VARCHAR (80)  CONSTRAINT [DEFAULT_TB_Supplier_manufacture] DEFAULT ('') NOT NULL,
     [originCountry]          VARCHAR (30)  CONSTRAINT [DEFAULT_TB_Supplier_originCountry] DEFAULT ('') NOT NULL,
     [leadTime]               VARCHAR (20)  CONSTRAINT [DEFAULT_TB_Supplier_leadTime] DEFAULT ('') NOT NULL,
-    [catalogOrCasNumber]     VARCHAR (80)  CONSTRAINT [DEFAULT_TB_Supplier_catalogOrCasNumber] DEFAULT ('') NOT NULL,
+    [catalogOrCasNumber]     VARCHAR (50)  CONSTRAINT [DEFAULT_TB_Supplier_catalogOrCasNumber] DEFAULT ('') NOT NULL,
     [gradeOrReference]       VARCHAR (30)  CONSTRAINT [DEFAULT_TB_Supplier_gradeOrReference] DEFAULT ('') NOT NULL,
     [documentInfo]           VARCHAR (100) CONSTRAINT [DEFAULT_TB_Supplier_documentInfo] DEFAULT ('') NOT NULL,
     [feedbackRndPriceReview] TEXT          CONSTRAINT [DEFAULT_TB_Supplier_feedbackRndPriceReview] DEFAULT ('') NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE [dbo].[TB_DetailSupplier] (
     [idDetailSupplier] INT             IDENTITY (1, 1) NOT NULL,
     [MoQ]              DECIMAL (18, 2) CONSTRAINT [DEFAULT_TB_DetailSupplier_MoQ] DEFAULT ((0)) NOT NULL,
     [UoM]              VARCHAR (10)    CONSTRAINT [DEFAULT_TB_DetailSupplier_UoM] DEFAULT ('') NOT NULL,
-    [price]            VARCHAR (30)    CONSTRAINT [DEFAULT_TB_DetailSupplier_price] DEFAULT ('') NOT NULL,
+    [price]            VARCHAR (50)    CONSTRAINT [DEFAULT_TB_DetailSupplier_price] DEFAULT ('') NOT NULL,
     [idSupplier]       INT             CONSTRAINT [DEFAULT_TB_DetailSupplier_idSupplier] DEFAULT ((0)) NOT NULL,
     CONSTRAINT [TB_DetailSupplier_PK] PRIMARY KEY CLUSTERED ([idDetailSupplier] ASC),
     CONSTRAINT [TB_DetailSupplier_FK] FOREIGN KEY ([idSupplier]) REFERENCES [dbo].[TB_Supplier] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
@@ -114,7 +114,7 @@ CREATE TABLE [dbo].[TB_File] (
 CREATE TABLE [dbo].[TB_Notifications] (
     [id]             INT           IDENTITY (1, 1) NOT NULL,
     [randomId]       VARCHAR (50)  CONSTRAINT [DEFAULT_TB_Notifications_randomId] DEFAULT ('') NOT NULL,
-    [subject]        VARCHAR (150) CONSTRAINT [DEFAULT_TB_Notifications_subject] DEFAULT ('') NOT NULL,
+    [subject]        VARCHAR (250) CONSTRAINT [DEFAULT_TB_Notifications_subject] DEFAULT ('') NOT NULL,
     [message]        TEXT          CONSTRAINT [DEFAULT_TB_Notifications_message] DEFAULT ('') NOT NULL,
     [person]         VARCHAR (50)  CONSTRAINT [DEFAULT_TB_Notifications_person] DEFAULT ('') NOT NULL,
     [sourcingNumber] INT           CONSTRAINT [DEFAULT_TB_Notifications_sourcingNumber] DEFAULT ((0)) NULL,
@@ -137,8 +137,8 @@ CREATE TABLE [dbo].[TB_StatusNotifications] (
 
 CREATE TABLE [dbo].[TB_Admin] (
     [id]         INT           IDENTITY (1, 1) NOT NULL,
-    [username]   VARCHAR (50)  CONSTRAINT [DEFAULT_TB_Admin_username] DEFAULT ('') NOT NULL,
-    [password]   VARCHAR (100) CONSTRAINT [DEFAULT_TB_Admin_password] DEFAULT ('') NOT NULL,
+    [username]   VARCHAR (50)  COLLATE SQL_Latin1_General_CP1_CS_AS CONSTRAINT [DEFAULT_TB_Admin_username] DEFAULT ('') NOT NULL,
+    [password]   VARCHAR (40) CONSTRAINT [DEFAULT_TB_Admin_password] DEFAULT ('') NOT NULL,
     [level]      INT           CONSTRAINT [DEFAULT_TB_Admin_level] DEFAULT ((0)) NOT NULL,
     [teamLeader] VARCHAR (10)  CONSTRAINT [DEFAULT_TB_Admin_teamLeader] DEFAULT ('') NOT NULL,
     CONSTRAINT [PK_TB_Admin] PRIMARY KEY CLUSTERED ([id] ASC)

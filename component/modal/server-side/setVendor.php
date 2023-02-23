@@ -24,7 +24,7 @@
                 '<div class="row mb-2">'+
                     '<div class="col">'+
                         '<form id="formSetNewVendorUpdateSupplier'+dataSupplier.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcSetNewVendor('+dataSupplier.id+',`formSetNewVendorUpdateSupplier`);">'+
-                            '<input class="form-control form-control-sm" type="text" placeholder="Masukan Vendor Baru" name="setNewVendor" style="height:5px">'+
+                            '<input class="form-control form-control-sm" type="text" maxlength="80" placeholder="Masukan Vendor Baru" name="setNewVendor" style="height:5px">'+
                         '</form>'+
                     '</div>'+
                     '<div class="col">'+

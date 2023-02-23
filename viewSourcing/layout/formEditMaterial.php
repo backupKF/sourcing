@@ -66,7 +66,7 @@
             <!-- Material Name -->
             <div class="mb-3">
                 <label for="materialName" class="form-label" style="font-size:17px;font-family:poppinsBold">Material Name</label>
-                <textarea class="form-control form-control-sm" id="materialName" rows="3" name="materialName" required><?php echo !empty($dataMaterial[0]['materialName'])? $dataMaterial[0]['materialName']:''; ?></textarea>
+                <textarea class="form-control form-control-sm" id="materialName" maxlength="150" rows="3" name="materialName" required><?php echo !empty($dataMaterial[0]['materialName'])? $dataMaterial[0]['materialName']:''; ?></textarea>
                 <div class="invalid-feedback">
                     Masukan Material Name (*Tandai (-) jika tidak Diisi).
                 </div>
@@ -100,19 +100,9 @@
             <!-- Finish Dossage Form -->
             <div class="mb-3">
                 <label for="finishDossageForm" class="form-label" style="font-size:17px;font-family:poppinsBold">Finish Dossage Form</label>
-                <input type="text" class="form-control form-control-sm" id="finishDossageForm" name="finishDossageForm" required value="<?php echo !empty($dataMaterial[0]['finishDossageForm'])? $dataMaterial[0]['finishDossageForm']:''; ?>">
+                <input type="text" class="form-control form-control-sm" id="finishDossageForm" maxlength="80" name="finishDossageForm" required value="<?php echo !empty($dataMaterial[0]['finishDossageForm'])? $dataMaterial[0]['finishDossageForm']:''; ?>">
                 <div class="invalid-feedback">
                     Masukan Finish Dossage Form (*Tandai (-) jika tidak Diisi).
-                </div>
-            </div>
-        </div>
-        <div class="col m-0 mt-1">
-            <!-- Vendor Terdaftar AERO -->
-            <div class="mb-3">
-                <label for="vendorAERO" class="form-label" style="font-size:17px;font-family:poppinsBold">Vendor Terdaftar AERO</label>
-                <input type="text" class="form-control form-control-sm" id="vendorAERO" name="vendorAERO" required value="<?php echo !empty($dataMaterial[0]['vendorAERO'])? $dataMaterial[0]['vendorAERO']:'';?>">
-                <div class="invalid-feedback">
-                    Masukan Vendor Terdaftar AERO (*Tandai (-) jika tidak Diisi).
                 </div>
             </div>
         </div>
@@ -120,7 +110,7 @@
             <!-- Document Requirement -->
             <div class="mb-3">
                 <label for="documentReq" class="form-label" style="font-size:17px;font-family:poppinsBold">Document Requirement</label>
-                <input type="text" class="form-control form-control-sm" id="documentReq" name="documentReq" required value="<?php echo !empty($dataMaterial[0]['documentReq'])? $dataMaterial[0]['documentReq']:'';?>">
+                <input type="text" class="form-control form-control-sm" id="documentReq" maxlength="100" name="documentReq" required value="<?php echo !empty($dataMaterial[0]['documentReq'])? $dataMaterial[0]['documentReq']:'';?>">
                 <div class="invalid-feedback">
                         Masukan Document Requirement (*Tandai (-) jika tidak Diisi).
                 </div>
@@ -135,7 +125,7 @@
             <!-- Catalog Or CAS Number -->
             <div class="mb-3">
                 <label for="catalogOrCasNumber" class="form-label" style="font-size:17px;font-family:poppinsBold">Catalog Or CAS Number</label>
-                <input type="text" class="form-control form-control-sm" id="catalogOrCasNumber" name="catalogOrCasNumber" required value="<?php echo !empty($dataMaterial[0]['catalogOrCasNumber'])? $dataMaterial[0]['catalogOrCasNumber']:'';?>" <?php echo $dataMaterial[0]['materialCategory']=="Rapid Test" || $dataMaterial[0]['materialCategory']=="Intermediate" ? '' :'disabled'; ?>>
+                <input type="text" class="form-control form-control-sm" id="catalogOrCasNumber" maxlength="50" name="catalogOrCasNumber" required value="<?php echo !empty($dataMaterial[0]['catalogOrCasNumber'])? $dataMaterial[0]['catalogOrCasNumber']:'';?>" <?php echo $dataMaterial[0]['materialCategory']=="Rapid Test" || $dataMaterial[0]['materialCategory']=="Intermediate" ? '' :'disabled'; ?>>
                 <div class="invalid-feedback">
                     Masukan Catalog Or CAS Number (*Tandai (-) jika tidak Diisi).
                 </div>
@@ -145,7 +135,7 @@
             <!-- Company< -->
             <div class="mb-3">
                 <label for="company" class="form-label" style="font-size:17px;font-family:poppinsBold">Company</label>
-                <input type="text" class="form-control form-control-sm" id="company" name="company" required value="<?php echo !empty($dataMaterial[0]['company'])? $dataMaterial[0]['company']:''; ?>" <?php echo $dataMaterial[0]['materialCategory']=="Rapid Test"? '' :'disabled'; ?>>
+                <input type="text" class="form-control form-control-sm" id="company" maxlength="80" name="company" required value="<?php echo !empty($dataMaterial[0]['company'])? $dataMaterial[0]['company']:''; ?>" <?php echo $dataMaterial[0]['materialCategory']=="Rapid Test"? '' :'disabled'; ?>>
                 <div class="invalid-feedback">
                     Masukan Company Produk (*Tandai (-) jika tidak Diisi).
                 </div>
@@ -155,7 +145,7 @@
             <!-- Website -->
             <div class="mb-3">
                 <label for="website" class="form-label" style="font-size:17px;font-family:poppinsBold">Website</label>
-                <input type="text" class="form-control form-control-sm" id="website" name="website" required value="<?php echo !empty($dataMaterial[0]['website'])? $dataMaterial[0]['website']:''; ?>" <?php echo $dataMaterial[0]['materialCategory']=="Rapid Test"? '' :'disabled'; ?>>
+                <input type="text" class="form-control form-control-sm" id="website" maxlength="80" name="website" required value="<?php echo !empty($dataMaterial[0]['website'])? $dataMaterial[0]['website']:''; ?>" <?php echo $dataMaterial[0]['materialCategory']=="Rapid Test"? '' :'disabled'; ?>>
                 <div class="invalid-feedback">
                     Masukan Website Produk (*Tandai (-) jika tidak Diisi).
                 </div>
@@ -165,6 +155,14 @@
 
     <hr class="m-0">
 
+    <!-- Vendor AERO -->
+    <div class="mb-3" style="font-size:15px;font-family:poppinsRegular">
+        <label for="vendorAERO" class="form-label" style="font-size:17px;font-family:poppinsBold">Vandor Terdaftar AERO</label>
+        <textarea class="form-control form-control-sm" id="vendorAERO" rows="3" name="vendorAERO" required><?php echo !empty($dataMaterial[0]['vendorAERO'])? $dataMaterial[0]['vendorAERO']:''; ?></textarea>
+        <div class="invalid-feedback">
+            Masukan Vandor Terdaftar AERO (*Tandai (-) jika tidak Diisi).
+        </div>
+    </div>
     <!-- Keterangan -->
     <div class="mb-3" style="font-size:15px;font-family:poppinsRegular">
         <label for="keterangan" class="form-label" style="font-size:17px;font-family:poppinsBold">Keterangan</label>
@@ -240,13 +238,6 @@
             </div>
         </div>
         <div class="col m-0 mt-1">
-            <!-- Vendor Terdaftar AERO -->
-            <div class="mb-3">
-                <label for="vendorAERO" class="form-label" style="font-size:17px;font-family:poppinsBold">Vendor Terdaftar AERO</label>
-                <input type="text" class="form-control form-control-sm" value="<?php echo !empty($dataMaterial[0]['vendorAERO'])? $dataMaterial[0]['vendorAERO']:'';?>" disabled readonly>
-            </div>
-        </div>
-        <div class="col m-0 mt-1">
             <!-- Document Requirement -->
             <div class="mb-3">
                 <label for="documentReq" class="form-label" style="font-size:17px;font-family:poppinsBold">Document Requirement</label>
@@ -283,6 +274,11 @@
 
     <hr class="m-0">
 
+    <!-- Vendor AERO -->
+    <div class="mb-3" style="font-size:15px;font-family:poppinsRegular">
+        <label for="vendorAERO" class="form-label" style="font-size:17px;font-family:poppinsBold">Vandor Terdaftar AERO</label>
+        <textarea class="form-control form-control-sm" id="vendorAERO" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['vendorAERO'])? $dataMaterial[0]['vendorAERO']:''; ?></textarea>
+    </div>
     <!-- Keterangan -->
     <div class="mb-3" style="font-size:15px;font-family:poppinsRegular">
         <label for="keterangan" class="form-label" style="font-size:17px;font-family:poppinsBold">Keterangan</label>

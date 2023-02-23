@@ -12,7 +12,7 @@
         $password = trim(strip_tags($_POST['password']));
         if(!empty($username) && !empty($password)){
             if($account = $conn->query("SELECT * FROM TB_Admin WHERE username='".$username."'")->fetchAll()){
-                if(password_verify($password, $account[0]['password'])){
+                if(md5($password) == $account[0]['password']){
                     // SET SESSION
                     $_SESSION['login'] = true;
                     $_SESSION['user']['id'] = $account[0]['id'];
@@ -46,7 +46,7 @@
             $checkAccount = $conn->query("SELECT username, password FROM TB_Admin WHERE username='".$username."'")->fetchAll();
             $passwordAccount = $conn->query("SELECT password FROM TB_Admin WHERE id=".$_SESSION['user']['id'])->fetchAll();
             if($username != $checkAccount[0]['username']){
-                $verify = password_verify($password, $passwordAccount[0]['password']);
+                $verify = (md5($password) == $passwordAccount[0]['password']);
                 if($verify == true){
                     if($newPassword == $confirmNewPassword){
 
@@ -54,7 +54,7 @@
                             $_SESSION['message']['errorNewPassword'] = "Password dan Confirm password kosong";
                             header("Location: ../setting/index.php");
                         }else{
-                            $hash = password_hash($newPassword, PASSWORD_DEFAULT);
+                            $hash = md5($newPassword);
 
                             $sql = "UPDATE TB_Admin SET username = ?, password = ? WHERE id = ?";
                             $query = $conn->prepare($sql);
@@ -81,7 +81,7 @@
             }
         }else{
             $passwordAccount = $conn->query("SELECT password FROM TB_Admin WHERE username='".$username."'")->fetchAll();
-            $verify = password_verify($password, $passwordAccount[0]['password']);
+            $verify = (md5($password) == $passwordAccount[0]['password']);
 
             if($verify == true){
                 if($newPassword == "" || $confirmNewPassword == ""){
@@ -89,7 +89,7 @@
                     header("Location: ../setting/index.php");
                 }else{
                     if($newPassword == $confirmNewPassword){
-                        $hash = password_hash($newPassword, PASSWORD_DEFAULT);
+                        $hash = md5($newPassword);
     
                         $sql = "UPDATE TB_Admin SET password = ? WHERE id = ?";
                         $query = $conn->prepare($sql);

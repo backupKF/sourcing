@@ -36,7 +36,6 @@
             }
             .card{
                 width:1050px;
-                margin-top:10px;
             }
             #check:checked ~ .container{
                 margin-left:125px;

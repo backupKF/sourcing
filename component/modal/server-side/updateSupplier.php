@@ -7,7 +7,7 @@
 ?>
 
 '<!-- Modal Update Supplier -->'+
-'<div class="modal" id="editSupplier'+dataSupplier.id+'" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" onsubmit="event.preventDefault(); funcUpdateSupplier('+dataSupplier.id+');">'+
+'<div class="modal" id="editSupplier'+dataSupplier.id+'" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">'+
     '<div class="modal-dialog modal-dialog-scrollable">'+
         '<div class="modal-content" style="width: 500px;">'+
             '<!-- Modal Header -->'+
@@ -16,9 +16,7 @@
             '</div>'+
             '<!-- Modal Body -->'+
             '<div class="modal-body">'+
-                '<form class="was-validated" id="formUpdateSupplier'+dataSupplier.id+'" autocomplete="off">'+
-                '<input type="hidden" name="idSupplier" value="'+dataSupplier.id+'">'+
-
+                '<form class="was-validated" id="formUpdateSupplier'+dataSupplier.id+'" autocomplete="off"  onsubmit="event.preventDefault(); funcUpdateSupplier('+dataSupplier.id+');">'+
                 '<!-- Input Supplier -->'+
                 '<div class="mb-3">'+
                     '<label for="supplier" class="form-label">Supplier</label>'+
@@ -38,7 +36,7 @@
                 '<!-- Input Manufacture -->'+
                 '<div class="mb-3">'+
                     '<label for="manufacture" class="form-label">Manufacture</label>'+
-                    '<input type="text" class="form-control" id="manufacture" name="manufacture" value="'+dataSupplier.manufacture+'" required>'+
+                    '<input type="text" class="form-control" id="manufacture" maxlength="80" name="manufacture" value="'+dataSupplier.manufacture+'" required>'+
                     '<div class="invalid-feedback">'+
                         'Masukan Manufacture (*Tandai (-) jika tidak Diisi).'+
                     '</div>'+
@@ -46,7 +44,7 @@
                 '<!-- Input Origin Country -->'+
                 '<div class="mb-3">'+
                     '<label for="originCountry" class="form-label">Origin Country</label>'+
-                    '<input type="text" class="form-control" id="originCountry" name="originCountry" value="'+dataSupplier.originCountry+'" required>'+
+                    '<input type="text" class="form-control" id="originCountry" maxlength="30" name="originCountry" value="'+dataSupplier.originCountry+'" required>'+
                     '<div class="invalid-feedback">'+
                         'Masukan Origin Country (*Tandai (-) jika tidak Diisi).'+
                     '</div>'+
@@ -54,7 +52,7 @@
                 '<!-- Input Lead Time -->'+
                 '<div class="mb-3">'+
                     '<label for="leadTime" class="form-label">Lead Time</label>'+
-                    '<input type="text" class="form-control" id="leadTime" name="leadTime" value="'+dataSupplier.leadTime+'" required>'+
+                    '<input type="text" class="form-control" id="leadTime" maxlength="20" name="leadTime" value="'+dataSupplier.leadTime+'" required>'+
                     '<div class="invalid-feedback">'+
                         'Masukan Lead Time (*Tandai (-) jika tidak Diisi).'+
                     '</div>'+
@@ -62,7 +60,7 @@
                 '<!-- Input Catalog or CAS Number -->'+
                 '<div class="mb-3">'+
                     '<label for="catalogOrCasNumber" class="form-label">Catalog or CAS Number</label>'+
-                    '<input type="text" class="form-control" id="catalogOrCasNumber" name="catalogOrCasNumber" value="'+dataSupplier.catalogOrCasNumber+'" required>'+
+                    '<input type="text" class="form-control" id="catalogOrCasNumber" maxlength="50" name="catalogOrCasNumber" value="'+dataSupplier.catalogOrCasNumber+'" required>'+
                     '<div class="invalid-feedback">'+
                         'Masukan Catalog or CAS Number (*Tandai (-) jika tidak Diisi).'+
                     '</div>'+
@@ -70,7 +68,7 @@
                 '<!-- Grade/Reference Standard -->'+
                 '<div class="mb-3">'+
                     '<label for="gradeOrReference" class="form-label">Grade/Reference</label>'+
-                    '<input type="text" class="form-control" id="gradeOrReference" name="gradeOrReference" value="'+dataSupplier.gradeOrReference+'" required>'+
+                    '<input type="text" class="form-control" id="gradeOrReference" maxlength="30" name="gradeOrReference" value="'+dataSupplier.gradeOrReference+'" required>'+
                     '<div class="invalid-feedback">'+
                         'Masukan Grade/Reference (*Tandai (-) jika tidak Diisi).'+
                     '</div>'+
@@ -78,7 +76,7 @@
                 '<!-- Document Info -->'+
                 '<div class="mb-3">'+
                     '<label for="documentInfo" class="form-label">Document Info</label>'+
-                    '<input type="text" class="form-control" id="documentInfo" name="documentInfo" value="'+dataSupplier.documentInfo+'" required>'+
+                    '<input type="text" class="form-control" id="documentInfo" maxlength="100" name="documentInfo" value="'+dataSupplier.documentInfo+'" required>'+
                     '<div class="invalid-feedback">'+
                         'Masukan Document Info (*Tandai (-) jika tidak Diisi).'+
                     '</div>'+

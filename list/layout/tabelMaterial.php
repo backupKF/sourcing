@@ -444,7 +444,7 @@
             $.ajax({
                 url: '../controller/actionUpdateMaterial.php',
                 type: 'POST',
-                data: $('form#formSumaryReport'+idMaterial).serialize()+'&materialName='+materialName,
+                data: $('form#formSumaryReport'+idMaterial).serialize()+'&idMaterial='+idMaterial+'&materialName='+materialName,
                 dataType: 'json',
                 success: function(response){
                     const Toast = Swal.mixin({

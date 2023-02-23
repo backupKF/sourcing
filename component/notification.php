@@ -9,7 +9,6 @@
         exit();
     };
 
-
     // Jika data Post View terisi maka user dianggap sudah membaca notifikasi
     if(isset($_POST['view'])){
         if($_POST['view'] != ''){
@@ -18,7 +17,6 @@
             $update = $query->execute();
         }
 
-        // $notifications = $conn->query("SELECT * FROM TB_StatusNotifications INNER JOIN TB_Notifications ON TB_StatusNotifications.idNotification = TB_Notifications.id WHERE idUser=".$_SESSION['user']['id'])->fetchAll();
         $notifications = $conn->query("SELECT * FROM TB_StatusNotifications INNER JOIN TB_Notifications ON TB_StatusNotifications.idNotification = TB_Notifications.id WHERE idUser=".$_SESSION['user']['id']." ORDER BY id DESC")->fetchAll();
         foreach($notifications as $data){
             // Check readingStatus

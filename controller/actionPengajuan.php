@@ -31,7 +31,7 @@
         $finishDossageForm = trim(strip_tags($_POST['finishDossageForm']));
         $keterangan = trim(strip_tags($_POST['keterangan']));
         $documentReq = trim(strip_tags($_POST['documentReq']));
-        $idProject = trim(strip_tags($_POST['idProject']));
+        $idProject = $_SESSION['idProject'];
 
         // Melakukan pengecekan data
         if(empty($materialCategory)) {

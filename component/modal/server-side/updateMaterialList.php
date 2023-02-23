@@ -60,7 +60,7 @@
                         '<!-- Material Name -->'+
                         '<div class="mb-3">'+
                             '<label for="materialName" class="form-label">Material Name</label>'+
-                            '<textarea class="form-control" id="materialName" rows="3" name="materialName" required>'+(data.materialName != "" ? data.materialName:"")+'</textarea>'+
+                            '<textarea class="form-control" id="materialName" maxlength="150" rows="3" name="materialName" required>'+(data.materialName != "" ? data.materialName:"")+'</textarea>'+
                             '<div class="invalid-feedback">'+
                                 'Masukan Material Name (*Tandai (-) jika tidak Diisi).'+
                             '</div>'+
@@ -87,7 +87,7 @@
                         '<!-- Catalog Or CAS Number -->'+
                         '<div class="mb-3">'+
                             '<label for="catalogOrCasNumber" class="form-label">Catalog Or CAS Number</label>'+
-                            '<input type="text" class="form-control" id="catalogOrCasNumber'+data.id+'" name="catalogOrCasNumber" value="'+(data.catalogOrCasNumber != " " ? data.catalogOrCasNumber:"")+'" '+ (data.materialCategory == "Rapid Test" || data.materialCategory == "Intermediate" ? '' :'disabled') +' required>'+
+                            '<input type="text" class="form-control" id="catalogOrCasNumber'+data.id+'" maxlength="50" name="catalogOrCasNumber" value="'+(data.catalogOrCasNumber != " " ? data.catalogOrCasNumber:"")+'" '+ (data.materialCategory == "Rapid Test" || data.materialCategory == "Intermediate" ? '' :'disabled') +' required>'+
                             '<div class="invalid-feedback">'+
                             'Masukan Catalog Or CAS Number (*Tandai (-) jika tidak Diisi).'+
                             '</div>'+
@@ -96,7 +96,7 @@
                         '<!-- Company< -->'+
                         '<div class="mb-3">'+
                             '<label for="company" class="form-label">Company</label>'+
-                            '<input type="text" class="form-control" id="company'+data.id+'" name="company" required value="'+(data.company != " " ? data.company:"")+'" '+ (data.materialCategory == "Rapid Test" ? '' :'disabled') +'>'+
+                            '<input type="text" class="form-control" id="company'+data.id+'" maxlength="80" name="company" required value="'+(data.company != " " ? data.company:"")+'" '+ (data.materialCategory == "Rapid Test" ? '' :'disabled') +'>'+
                             '<div class="invalid-feedback">'+
                                 'Masukan Company Produk (*Tandai (-) jika tidak Diisi).'+
                             '</div>'+
@@ -105,7 +105,7 @@
                         '<!-- Website -->'+
                         '<div class="mb-3">'+
                             '<label for="website" class="form-label">Website</label>'+
-                            '<input type="text" class="form-control" id="website'+data.id+'" name="website" required value="'+(data.website != " " ? data.website:"")+'" '+ (data.materialCategory == "Rapid Test" ? '' :'disabled') +'>'+
+                            '<input type="text" class="form-control" id="website'+data.id+'" maxlength="80" name="website" required value="'+(data.website != " " ? data.website:"")+'" '+ (data.materialCategory == "Rapid Test" ? '' :'disabled') +'>'+
                             '<div class="invalid-feedback">'+
                                 'Masukan Website Produk (*Tandai (-) jika tidak Diisi).'+
                             '</div>'+
@@ -114,7 +114,7 @@
                         '<!-- Finish Dossage Form -->'+
                         '<div class="mb-3">'+
                             '<label for="finishDossageForm" class="form-label">Finish Dossage Form</label>'+
-                            '<input type="text" class="form-control" id="finishDossageForm" name="finishDossageForm" required value="'+(data.finishDossageForm != "" ? data.finishDossageForm:"")+'">'+
+                            '<input type="text" class="form-control" id="finishDossageForm" maxlength="80" name="finishDossageForm" required value="'+(data.finishDossageForm != "" ? data.finishDossageForm:"")+'">'+
                             '<div class="invalid-feedback">'+
                                 'Masukan Finish Dossage Form (*Tandai (-) jika tidak Diisi).'+
                             '</div>'+
@@ -132,7 +132,7 @@
                         '<!-- Vendor Terdaftar AERO -->'+
                         '<div class="mb-3">'+
                             '<label for="vendorAERO" class="form-label">Vendor Terdaftar AERO</label>'+
-                            '<input type="text" class="form-control" id="vendorAERO" name="vendorAERO" required value="'+(data.vendorAERO != "" ? data.vendorAERO:"")+'">'+
+                            '<textarea class="form-control" id="vendorAERO" rows="3" name="vendorAERO" required>'+(data.vendorAERO != "" ? data.vendorAERO:"")+'</textarea>'+
                             '<div class="invalid-feedback">'+
                                 'Masukan Vendor Terdaftar AERO (*Tandai (-) jika tidak Diisi).'+
                             '</div>'+
@@ -141,7 +141,7 @@
                         '<!-- Document Requirement -->'+
                         '<div class="mb-3">'+
                             '<label for="documentReq" class="form-label">Document Requirement</label>'+
-                            '<input type="text" class="form-control" id="documentReq" name="documentReq" required value="'+(data.documentReq != "" ? data.documentReq:"")+'">'+
+                            '<input type="text" class="form-control" id="documentReq" maxlength="100" name="documentReq" required value="'+(data.documentReq != "" ? data.documentReq:"")+'">'+
                             '<div class="invalid-feedback">'+
                                 'Masukan Document Requirement (*Tandai (-) jika tidak Diisi).'+
                             '</div>'+

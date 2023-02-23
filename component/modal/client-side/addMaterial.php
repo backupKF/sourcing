@@ -18,7 +18,7 @@
                     
             <!-- Modal Body -->
             <div class="modal-body">
-                <form action="../controller/actionPengajuan.php" method="POST" class="was-validated" id="formTambahMaterial<?php echo $_SESSION['project'] ?>" autocomplete="off">
+                <form action="../controller/actionPengajuan.php" method="POST" class="was-validated" id="formTambahMaterial-<?php echo $_SESSION['idProject'] ?>" autocomplete="off">
                     <!-- Material Category -->
                     <label class="form-label">Material Category</label>
                     <div class="row">
@@ -58,7 +58,7 @@
                     <!-- Material Name -->
                     <div class="mb-3">
                         <label for="materialName" class="form-label">Material Name</label>
-                        <textarea class="form-control" id="materialName" rows="3" name="materialName" required></textarea>
+                        <textarea class="form-control" id="materialName" maxlength="150" rows="3" name="materialName" required></textarea>
                         <div class="invalid-feedback">
                             Masukan Material Name (*Tandai (-) jika tidak Diisi).
                         </div>
@@ -74,7 +74,7 @@
                     <!-- Catalog Or CAS Number -->
                     <div class="mb-3">
                         <label for="catalogOrCasNumber" class="form-label">Catalog Or CAS Number</label>
-                        <input type="text" class="form-control" id="catalogOrCasNumber" name="catalogOrCasNumber" required>
+                        <input type="text" class="form-control" id="catalogOrCasNumber" maxlength="50" name="catalogOrCasNumber" required disabled>
                         <div class="invalid-feedback">
                             Masukan Catalog Or CAS Number (*Tandai (-) jika tidak Diisi).
                         </div>
@@ -82,23 +82,23 @@
                     <!-- Company< -->
                     <div class="mb-3">
                         <label for="company" class="form-label">Company</label>
-                        <input type="text" class="form-control" id="company" name="company" required>
+                        <input type="text" class="form-control" id="company" maxlength="80" name="company" required disabled>
                         <div class="invalid-feedback">
-                            Masukan Company Produk (*Tandai (-) jika tidak Diisi).
+                            Masukan Company (*Tandai (-) jika tidak Diisi).
                         </div>
                     </div>
                     <!-- Website -->
                     <div class="mb-3">
                         <label for="website" class="form-label">Website</label>
-                        <input type="text" class="form-control" id="website" name="website" required>
+                        <input type="text" class="form-control" id="website" maxlength="80" name="website" required disabled>
                         <div class="invalid-feedback">
-                            Masukan Website Produk (*Tandai (-) jika tidak Diisi).
+                            Masukan Website (*Tandai (-) jika tidak Diisi).
                         </div>
                     </div>
                     <!-- Finish Dossage Form -->
                     <div class="mb-3">
                         <label for="finishDossageForm" class="form-label">Finish Dossage Form</label>
-                        <input type="text" class="form-control" id="finishDossageForm" name="finishDossageForm" required>
+                        <input type="text" class="form-control" id="finishDossageForm" maxlength="80" name="finishDossageForm" required>
                         <div class="invalid-feedback">
                             Masukan Finish Dossage Form (*Tandai (-) jika tidak Diisi).
                         </div>
@@ -114,20 +114,18 @@
                     <!-- Document Requirement -->
                     <div class="mb-3">
                         <label for="documentReq" class="form-label">Document Requirement</label>
-                        <input type="text" class="form-control" id="documentReq" name="documentReq" required>
+                        <input type="text" class="form-control" id="documentReq" maxlength="100" name="documentReq" required>
                         <div class="invalid-feedback">
                             Masukan Document Requirement (*Tandai (-) jika tidak Diisi).
                         </div>
                     </div>
-                    <!-- Set Project -->
-                    <input type="hidden" name="idProject" value="<?php echo $_SESSION['idProject']?>">
                 </form>
             </div>
                         
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close">Back</button>
-                <input type="submit" value="submit" class="btn btn-primary" name="tambahDataMaterial" form="formTambahMaterial<?php echo $_SESSION['project'] ?>">
+                <input type="submit" value="submit" class="btn btn-primary" name="tambahDataMaterial" form="formTambahMaterial-<?php echo $_SESSION['idProject'] ?>">
             </div>
         </div>
     </div>
