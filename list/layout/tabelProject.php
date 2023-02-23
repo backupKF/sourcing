@@ -70,7 +70,6 @@ $(document).ready(function(){
                 row.child.hide();
                 tr.removeClass('shown');
             } else {
-                console.log(row.data())
                 // Menampilkan tabel material jika event click dilakukan
                 row.child( tableMaterial(row.data()[0], row.data()[2])).show();
                 tr.addClass('shown');

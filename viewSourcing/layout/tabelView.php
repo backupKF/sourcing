@@ -88,10 +88,6 @@
             scrollX : true,
             scrollY: '385px',
             scrollCollapse: true,
-            fixedColumns:   {
-                left: 1,
-                right: 1
-            },
             stateSave: true,
             lengthChange: false,
             pageLength: 6,
@@ -183,7 +179,7 @@
                     data: function(data){
                         return (
                             '<a href="detailSourcing.php?idMaterial='+data.idMaterial+'" class="btn btn-warning btn-sm">'+
-                            'Update Sourcing'+
+                                'Update Sourcing'+
                             '</a>'
                         )
                     }

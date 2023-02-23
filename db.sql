@@ -136,11 +136,11 @@ CREATE TABLE [dbo].[TB_StatusNotifications] (
 );
 
 CREATE TABLE [dbo].[TB_Admin] (
-    [id]         INT           IDENTITY (1, 1) NOT NULL,
-    [username]   VARCHAR (50)  COLLATE SQL_Latin1_General_CP1_CS_AS CONSTRAINT [DEFAULT_TB_Admin_username] DEFAULT ('') NOT NULL,
+    [id]         INT          IDENTITY (1, 1) NOT NULL,
+    [username]   VARCHAR (50) COLLATE SQL_Latin1_General_CP1_CS_AS CONSTRAINT [DEFAULT_TB_Admin_username] DEFAULT ('') NOT NULL,
     [password]   VARCHAR (40) CONSTRAINT [DEFAULT_TB_Admin_password] DEFAULT ('') NOT NULL,
-    [level]      INT           CONSTRAINT [DEFAULT_TB_Admin_level] DEFAULT ((0)) NOT NULL,
-    [teamLeader] VARCHAR (10)  CONSTRAINT [DEFAULT_TB_Admin_teamLeader] DEFAULT ('') NOT NULL,
+    [level]      INT          CONSTRAINT [DEFAULT_TB_Admin_level] DEFAULT ((0)) NOT NULL,
+    [teamLeader] VARCHAR (10) CONSTRAINT [DEFAULT_TB_Admin_teamLeader] DEFAULT ('') NOT NULL,
     CONSTRAINT [PK_TB_Admin] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 

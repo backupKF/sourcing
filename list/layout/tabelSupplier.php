@@ -34,7 +34,7 @@
     }
     .dataColumn {
         font-size:12px;
-        font-family:poppinsRegular;
+        font-family:poppinsMedium;
     }
     tbody {
         background-color: white !important;
@@ -233,7 +233,7 @@
                     data: function(dataSupplier){
                         return (
                             '<!-- Content Layout -->'+
-                            '<div style="height:114px;font-size:12px;font-family:poppinsSemiBold">'+
+                            '<div style="height:120px;font-size:12px;font-family:poppinsSemiBold">'+
                                 '<div class="row" style="padding-top:30px">'+
                                     '<div class="col">'+
                                         '<!-- Feedback Doc Req CoA -->'+
@@ -354,7 +354,7 @@
                             '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataSupplier.dateFeedbackProc+'</span>'+
                             '<!-- Isi Feedback Proc -->'+
                             '<div class="overflow-auto" style="height:80px">'+
-                                '<div class="text-wrap p-1" style="font-size:11px;font-family:poppinsMedium;">'+dataSupplier.feedbackProc+'</div>'+
+                                '<div class="text-wrap p-1" style="font-size:11px;font-family:poppinsMedium;">'+(dataSupplier.feedbackProc != "" ? dataSupplier.feedbackProc : "-")+'</div>'+
                             '</div>'+
                             '<!-- Penulis -->'+
                             '<div style="font-size:10px;font-family:poppinsBold;">'+(dataSupplier.writerFeedbackProc != "" ? "By: "+dataSupplier.writerFeedbackProc : "By: -")+'</div>'+
@@ -374,7 +374,7 @@
                     data: function(dataSupplier){
                         return (
                             '<!-- Tanggal Final Feedback Rnd -->'+
-                            '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataSupplier.dateFinalFeedbackRnd+'</span>'+
+                            '<span class="text-start bg-info badge text-dark" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+(dataSupplier.dateFinalFeedbackRnd == '-' ? '':dataSupplier.dateFinalFeedbackRnd)+'</span>'+
                             '<!-- Isi Final Feedback Rnd -->'+
                             '<div class="overflow-auto" style="height:80px">'+
                             '<!-- Isi Feedback -->'+

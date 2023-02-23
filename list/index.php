@@ -36,7 +36,6 @@
             }
             .card{
                 width:1100px;
-                margin-top:10px;
             }
             .card .contentMaterial{
                 width:1025px;

@@ -34,7 +34,7 @@
     }
     .dataColumn {
         font-size:12px;
-        font-family:poppinsRegular;
+        font-family:poppinsMedium;
     }
 </style>
 
@@ -81,7 +81,7 @@
                 <th scope="col" style="width:150px" class="headerColumn">Document Requirement</th>
                 <th scope="col" style="width:150px" class="headerColumn">Status</th>
                 <th scope="col" style="width:300px" class="headerColumn">Summary Report</th>
-                <th scope="col" style="width:200px" class="headerColumn">Action</th>
+                <th scope="col" style="width:200px" class="headerColumn text-center">Action</th>
             </tr>
         </tfoot>
     </table>
@@ -181,7 +181,6 @@
                             if(<?php echo $_SESSION['user']['level'] ?> == 1){
                                 return (
                                     '<form id="formSetStatusSourcing_'+dataMaterial.id+'">'+
-                                    '<input type="hidden" value="'+dataMaterial.id+'" name="idMaterial">'+
                                         '<select class="form-select form-select-sm" style="height:25px;font-size:12px;font-family:poppinsRegular;" aria-label=".form-select-sm example" onchange="funcUpdateStatusSourcing('+dataMaterial.id+',`'+dataMaterial.materialName+'`)" id="statusSourcing">'+
                                             '<option '+ (dataMaterial.statusSourcing == "NO STATUS" ? "selected":"") +' value="">NO STATUS</option>'+
                                             '<option '+ (dataMaterial.statusSourcing == "OPEN" ? "selected":"") +' value="OPEN">OPEN</option>'+
@@ -208,7 +207,7 @@
                                     '<span class="text-start bg-info badge text-dark mb-2" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataMaterial.dateSumaryReport+'</span>'+
                                     '<!-- Isi Sumary Report -->'+
                                     '<div class="overflow-auto" style="height:65px">'+
-                                        '<div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;">'+ (dataMaterial.sumaryReport != null ? dataMaterial.sumaryReport:'-') +'</div>'+
+                                        '<div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;">'+ (dataMaterial.sumaryReport != "" ? dataMaterial.sumaryReport:'-') +'</div>'+
                                     '</div>'+
 
                                     '<!-- Action Final Feedback Rnd -->'+
@@ -226,7 +225,7 @@
                                     '<span class="text-start bg-info badge text-dark mb-2" style="width:150px;font-size:11px;font-family:poppinsBold;">Date: '+dataMaterial.dateSumaryReport+'</span>'+
                                     '<!-- Isi Sumary Report -->'+
                                     '<div class="overflow-auto" style="height:65px">'+
-                                        '<div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;">'+ (dataMaterial.sumaryReport != null ? dataMaterial.sumaryReport:'-') +'</div>'+
+                                        '<div class="text-wrap" style="font-size:12px;font-family:poppinsRegular;">'+ (dataMaterial.sumaryReport != "" ? dataMaterial.sumaryReport:'-') +'</div>'+
                                     '</div>'
                                 )
                             }
@@ -258,7 +257,7 @@
                                     '<td>'+
                                             '<!-- View Material -->'+
                                             '<a href="../viewSourcing/detailSourcing.php?idMaterial='+data.id+'" class="btn btn-sm btn-success p-0" style="width:100%;height:20px">'+
-                                                '<div style="font-size:13px">Edit Material</div>'+
+                                                '<div style="font-size:13px">View Material</div>'+
                                             '</a>'+
                                     '</td>'
                                 )
