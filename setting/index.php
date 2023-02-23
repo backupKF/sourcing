@@ -50,7 +50,7 @@ session_start();
             <div class="text-center fs-3 mt-2" style="font-family:'poppinsBold'">Change Password</div>
             <div class="card-body">
                 <div class="text-center text-success" style="font-family:poppinsSemiBold;font-size:12px"><?php echo (!empty($_SESSION['message']['success'])?'* '.$_SESSION['message']['success']:'')?></div>
-                <form action="../controller/authenticate.php" method="POST">
+                <form action="../controller/authenticate.php" method="POST" autocomplete="off">
                     <div class="mb-3 row">
                         <div class="col">
                             <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="<?php echo $_SESSION['user']['name']?>">
