@@ -1,10 +1,14 @@
 <?php
     session_start();
+    include "../../dbConfig.php";
 
     // Kondisi dimana apabila tidak ada data get maka akan meredirect ke halaman index.php
     if(empty($_GET)){
         header('Location: ../index.php');
     }
+
+    // GET Project Name
+    $projectName = $conn->query("SELECT projectName FROM TB_Project WHERE id=".$_GET['idProject'])->fetchAll();
 ?>
 <style>
     /* CSS Table */
@@ -38,6 +42,8 @@
     }
 </style>
 
+
+
 <!-- Tabel Material -->
     <table id="table-material<?php echo $_GET['idProject']?>" class="table table-striped">
         <thead class="bg-primary" >
@@ -49,41 +55,19 @@
                 <th scope="col" style="width:20px" class="headerColumn">Priority</th>
                 <th scope="col" style="width:50px" class="headerColumn">Target Launching</th>
                 <th scope="col" style="width:150px" class="headerColumn">Spesification</th>
-                <th scope="col" style="width:150px" class="headerColumn">Catalog Or CAS Number</th>
+                <th scope="col" style="width:100px" class="headerColumn">Catalog Or CAS Number</th>
                 <th scope="col" style="width:118px" class="headerColumn">Company</th>
                 <th scope="col" style="width:118px" class="headerColumn">Website</th>
                 <th scope="col" style="width:150px" class="headerColumn">Finish Dossage Form</th>
                 <th scope="col" style="width:150px" class="headerColumn">Keterangan</th>
                 <th scope="col" style="width:100px" class="headerColumn">PIC</th>
                 <th scope="col" style="width:150px" class="headerColumn">Vendor Terdaftar AERO</th>
-                <th scope="col" style="width:150px" class="headerColumn">Document Requirement</th>
-                <th scope="col" style="width:150px" class="headerColumn">Status</th>
-                <th scope="col" style="width:300px" class="headerColumn">Summary Report</th>
-                <th scope="col" style="width:200px" class="headerColumn text-center">Action</th>
+                <th scope="col" style="width:100px" class="headerColumn">Document Requirement</th>
+                <th scope="col" style="width:100px" class="headerColumn">Status</th>
+                <th scope="col" style="width:260px" class="headerColumn">Summary Report</th>
+                <th scope="col" style="width:100px" class="headerColumn text-center">Action</th>
             </tr>
         </thead>
-        <tfoot class="bg-primary" >
-            <tr>
-                <th></th>
-                <th scope="col" style="width:100px" class="headerColumn">Project Name</th>
-                <th scope="col" style="width:50px" class="headerColumn">Material Category</th>
-                <th scope="col" style="width:100px" class="headerColumn sticky-column-material bg-primary">Material Name</th>
-                <th scope="col" style="width:20px" class="headerColumn">Priority</th>
-                <th scope="col" style="width:50px" class="headerColumn">Target Launching</th>
-                <th scope="col" style="width:150px" class="headerColumn">Spesification</th>
-                <th scope="col" style="width:150px" class="headerColumn">Catalog Or CAS Number</th>
-                <th scope="col" style="width:118px" class="headerColumn">Company</th>
-                <th scope="col" style="width:118px" class="headerColumn">Website</th>
-                <th scope="col" style="width:150px" class="headerColumn">Finish Dossage Form</th>
-                <th scope="col" style="width:150px" class="headerColumn">Keterangan</th>
-                <th scope="col" style="width:100px" class="headerColumn">PIC</th>
-                <th scope="col" style="width:150px" class="headerColumn">Vendor Terdaftar AERO</th>
-                <th scope="col" style="width:150px" class="headerColumn">Document Requirement</th>
-                <th scope="col" style="width:150px" class="headerColumn">Status</th>
-                <th scope="col" style="width:300px" class="headerColumn">Summary Report</th>
-                <th scope="col" style="width:200px" class="headerColumn text-center">Action</th>
-            </tr>
-        </tfoot>
     </table>
     <script>
         $(document).ready(function(){
@@ -246,7 +230,7 @@
                                             <?php include "../../component/modal/server-side/updateMaterialList.php"?>
 
                                             '<!-- View Material -->'+
-                                            '<a href="../viewSourcing/detailSourcing.php?idMaterial='+data.id+'" class="btn btn-sm btn-success m-1">'+
+                                            '<a href="../viewSourcing/detailSourcing.php?idMaterial='+data.id+'" class="btn btn-sm btn-success m-1" target="_blank">'+
                                                 '<div style="font-size:12px">View Material</div>'+
                                             '</a>'+
                                     '</td>'
@@ -256,7 +240,7 @@
                                     '<!-- Column Action Material -->'+
                                     '<td>'+
                                             '<!-- View Material -->'+
-                                            '<a href="../viewSourcing/detailSourcing.php?idMaterial='+data.id+'" class="btn btn-sm btn-success p-0" style="width:100%;height:20px">'+
+                                            '<a href="../viewSourcing/detailSourcing.php?idMaterial='+data.id+'" class="btn btn-sm btn-success p-0" style="width:100%;height:20px" target="_blank">'+
                                                 '<div style="font-size:13px">View Material</div>'+
                                             '</a>'+
                                     '</td>'

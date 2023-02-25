@@ -2,7 +2,7 @@
     include "../../dbConfig.php";
 
 	// Mendeklarasikan Variabel Array
-    $params = $totalRecords = $data = $scripts = array();
+    $params = $totalRecords = $data = $scriptTabelVendors = array();
 
 	// Mengisi variabel $params dengan Request dari Client
     $params = $_REQUEST;
@@ -52,7 +52,7 @@
 	// Menampung hasil data material kedalam array
 	foreach($queryRecords as $row ) {
 
-		$outputDetailSupplier = $outputFeedbackRnd = $outputFeedbackProc = $outputViewDoc = $scriptTableVendor = '';
+		$outputDetailSupplier = $outputFeedbackRnd = $outputFeedbackProc = $outputViewDoc = '';
 
 		// Get All Data Detail Supplier
 		if($detailSupplier = $conn->query("SELECT * FROM TB_DetailSupplier WHERE idSupplier=".$row['id'])->fetchAll()){
@@ -185,46 +185,48 @@
 		}
 
 		// Create Script for set datatable table set vendor
-		$scriptTableVendor .= '
-			<script>
-				$("#tabel-vendorUpdateSupplier'.$row['id'].'").DataTable({
-					lengthChange:false,
-                    pageLength:5,
-                    processing: true,
-                    serverSide: true,
-                    ajax: {
-                        url: "../controller/loadData/loadDataMasterVendor.php",
-                    },
-					columns: [
-						{
-							data: function(dataVendor){
-								return (
-									`<div class="py-0 column-project-value" style="width:250px">`+
-										`<!-- Column Project Name -->`+
-										`<div class="d-flex align-items-center"style="height:30px">`+
-                                            dataVendor.vendorName +
-                                        `</div>`+
-                                    `</div>`
-								)
-							}
-						},
-						{
-							data: function(dataVendor){
-								return (
-									`<!-- Action Button -->`+
-									`<div class="py-0" style="width:50px">`+
-										`<form id="formSetVendorUpdateSupplier`+dataVendor.id+`">`+
-											`<button type="button" class="btn btn-success btn-sm p-0 px-1 my-1" style="height:22px" name="setValue" value="`+dataVendor.vendorName+`" onclick="funcSetVendor('.$row['id'].',\``+dataVendor.vendorName+`\`, \`formSetVendorUpdateSupplier\`)">`+
-												`<span style="font-size:11px;font-family:poppinsBold">Pilih</span>`+
-											`</button>`+
-										`</form>`+
-									`</div>`
-								)
-							}
+		$insialitationTabelVendors .= '
+			$("#tabel-vendorUpdateSupplier'.$row['id'].'").DataTable({
+				lengthChange:false,
+                pageLength:5,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "../controller/loadData/loadDataMasterVendor.php",
+                },
+				columns: [
+					{
+						data: function(dataVendor){
+							return (
+								`<div class="py-0 column-project-value" style="width:250px">`+
+									`<!-- Column Project Name -->`+
+									`<div class="d-flex align-items-center"style="height:30px">`+
+                                        dataVendor.vendorName +
+                                    `</div>`+
+                                `</div>`
+							)
 						}
-					]
-				})
-			</script>
+					},
+					{
+						data: function(dataVendor){
+							return (
+								`<!-- Action Button -->`+
+								`<div class="py-0" style="width:50px">`+
+									`<form id="formSetVendorUpdateSupplier`+dataVendor.id+`">`+
+										`<button type="button" class="btn btn-success btn-sm p-0 px-1 my-1" style="height:22px" name="setValue" value="`+dataVendor.vendorName+`" onclick="funcSetVendor('.$row['id'].',\``+dataVendor.vendorName+`\`, \`formSetVendorUpdateSupplier\`)">`+
+											`<span style="font-size:11px;font-family:poppinsBold">Pilih</span>`+
+										`</button>`+
+									`</form>`+
+								`</div>`
+							)
+						}
+					}
+				]
+			})
+		';
+
+		$reloadDataTabelVendor .= '
+			$("#tabel-vendorUpdateSupplier'.$row['id'].'").DataTable().ajax.reload();
 		';
 		
 		// Collect data script
@@ -234,13 +236,24 @@
 		$data[] = $row;
 	}
 
+	$scriptTabelVendors = '
+		<script>
+			'.$insialitationTabelVendors.'
+
+			function funcReloadDataTabelVendor'.$_GET['idMaterial'].'(){
+				'.$reloadDataTabelVendor.'
+				$("#tabel-vendorAddSupplier'.$_GET['idMaterial'].'").DataTable().ajax.reload();
+			}
+		</script>
+	';
+
 	// Mengampung hasil data ke dalam sebuah array
 	$json_data = array(
 			"draw"            => intval( $params['draw'] ),   
 			"recordsTotal"    => $totalRecords[0][0],  
 			"recordsFiltered" => $totalRecords[0][0],
 			"data"            => $data,   // total data array
-			"script"		  => $scripts
+			"scriptTabelVendors" => $scriptTabelVendors
 			);
 
 	echo json_encode($json_data);  // Mengirim json format

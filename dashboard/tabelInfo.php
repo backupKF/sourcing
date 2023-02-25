@@ -83,7 +83,7 @@
                         </div>
                         <div class="col-8">
                             <!-- title -->
-                            <div class="m-0 title-table">Material Sourcing {Status <?php echo $_GET['status']?>}</div>
+                            <div class="mb-2" style="font-family:poppinsBlack;font-size:22px;">Material Sourcing Status <?php echo $_GET['status']?></div>
                         </div>
                     </div>
 

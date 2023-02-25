@@ -69,9 +69,14 @@
                         '<!-- Priority -->'+
                         '<div class="mb-3">'+
                             '<label for="priority" class="form-label">Priority</label>'+
-                            '<input type="number" class="form-control" id="priority" name="priority" required value="'+(data.priority != 0 ? data.priority:"")+'">'+
+                            '<select class="form-select form-select-sm" aria-label="Default select example" name="priority" required>'+
+                                '<option></option>'+
+                                '<option value="1" '+ (data.priority == 1 ? 'selected':'') +' >1</option>'+
+                                '<option value="2" '+ (data.priority == 2 ? 'selected':'') +' >2</option>'+
+                                '<option value="3" '+ (data.priority == 3 ? 'selected':'') +' >3</option>'+
+                            '</select>'+
                             '<div class="invalid-feedback">'+
-                                'Masukan Priority (*Tandai (-) jika tidak Diisi).'+
+                               ' Masukan Priority (*Tandai (-) jika tidak Diisi).'+
                             '</div>'+
                         '</div>'+
 

@@ -19,23 +19,9 @@
                         
             '<!-- Modal Body -->'+
             '<div class="modal-body position-relative">'+
-                
-                '<label class="mb-1 labelVendor" >Tambah Vendor Baru : </label>'+
-                '<div class="row mb-2">'+
-                    '<div class="col">'+
-                        '<form id="formSetNewVendorUpdateSupplier'+dataSupplier.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcSetNewVendor('+dataSupplier.id+',`formSetNewVendorUpdateSupplier`);">'+
-                            '<input class="form-control form-control-sm" type="text" maxlength="80" placeholder="Masukan Vendor Baru" name="setNewVendor" style="height:5px">'+
-                        '</form>'+
-                    '</div>'+
-                    '<div class="col">'+
-                        '<button type="submit" class="btn btn-success btn-sm p-0 px-1" style="height:22px" form="formSetNewVendorUpdateSupplier'+dataSupplier.id+'">'+
-                            '<span style="font-size:11px;font-family:poppinsBold">Pilih</span>'+
-                        '</button>'+
-                    '</div>'+
-                '</div>'+
-
-                '<label class="labelVendor mb-1">Cari Vendor :</label>'+
-
+                '<!-- Button Tambah data master supplier -->'+
+                '<button class="btn btn-sm btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#modalAddMasterVendor-supplierUpdate'+dataSupplier.id+'">Tambah Data Master Supplier</button>'+
+                '<div class="text-success mb-1" id="successMsgAddMasterVendor-supplierUpdate'+dataSupplier.id+'" style="font-size:10px;font-family:poppinsSemiBold"></div>'+
                 '<!-- Select Project -->'+
                 '<table class="table vendor" id="tabel-vendorUpdateSupplier'+dataSupplier.id+'" style="width:100%">'+
                     '<thead style="background-color:#00b0aa">'+
@@ -56,4 +42,6 @@
         '</div>'+
     '</div>'+
 '</div>'+
-'<!-- Modal Select Vendor -->'+
+
+'<!-- Modal Add Master Vendor -->'+
+<?php include "addMasterVendor.php"?>

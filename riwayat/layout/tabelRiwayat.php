@@ -51,6 +51,7 @@
 
 <div class="card shadow bg-body rounded">
     <div class="card-body">
+        <div class="text-center mb-2" style="font-family:poppinsBlack;font-size:25px">Tabel Riwayat</div>
         <table id="table-riwayat" class="table table-striped table-hover">
             <thead>
                 <tr>

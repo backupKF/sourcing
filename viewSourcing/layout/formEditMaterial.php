@@ -14,6 +14,10 @@
     // Jika user level 1
     if($_SESSION['user']['level'] == 1){
 ?>
+
+<!-- Title -->
+<div class="text-center mb-2" style="font-family:poppinsBlack;font-size:25px">Lembar Kerja Update Sourcing</div>
+
 <!-- Status Sourcing -->
 <div class="d-flex justify-content-end">
     <span class="badge text-dark" style="font-size:15px;font-family:poppinsBlack;width:120px;<?php echo ($dataMaterial[0]['statusSourcing'] == "DONE" ? "background-color:#9cff9d":($dataMaterial[0]['statusSourcing'] == "OPEN" ? "background-color:#7380fa":($dataMaterial[0]['statusSourcing'] == "RE-OPEN" ? "background-color:#a1ecff":($dataMaterial[0]['statusSourcing'] == "DROP" ? "background-color:#bd7aff":($dataMaterial[0]['statusSourcing'] == "NOT YET" ? "background-color:#ff6040":($dataMaterial[0]['statusSourcing'] == "HOLD" ? "background-color:#f72a34":($dataMaterial[0]['statusSourcing'] == "NO STATUS" ? "background-color:#a1a1a1":""))))))) ?>"><?php echo $dataMaterial[0]['statusSourcing']?></span>
@@ -90,7 +94,12 @@
             <!-- Priority -->
             <div class="mb-3">
                 <label for="priority" class="form-label" style="font-size:17px;font-family:poppinsBold">Priority</label>
-                <input type="number" class="form-control form-control-sm" id="priority" name="priority" required value="<?php echo !empty($dataMaterial[0]['priority'])? $dataMaterial[0]['priority']:'';?>">
+                <select class="form-select form-select-sm" aria-label="Default select example" name="priority" required>
+                    <option></option>
+                    <option value="1" <?php echo $dataMaterial[0]['priority'] == 1 ? 'selected':''; ?> >1</option>
+                    <option value="2" <?php echo $dataMaterial[0]['priority'] == 2 ? 'selected':''; ?> >2</option>
+                    <option value="3" <?php echo $dataMaterial[0]['priority'] == 3 ? 'selected':''; ?> >3</option>
+                </select>
                 <div class="invalid-feedback">
                     Masukan Priority (*Tandai (-) jika tidak Diisi).
                 </div>
@@ -157,7 +166,7 @@
 
     <!-- Vendor AERO -->
     <div class="mb-3" style="font-size:15px;font-family:poppinsRegular">
-        <label for="vendorAERO" class="form-label" style="font-size:17px;font-family:poppinsBold">Vandor Terdaftar AERO</label>
+        <label for="vendorAERO" class="form-label" style="font-size:17px;font-family:poppinsBold">Vendor Terdaftar AERO</label>
         <textarea class="form-control form-control-sm" id="vendorAERO" rows="3" name="vendorAERO" required><?php echo !empty($dataMaterial[0]['vendorAERO'])? $dataMaterial[0]['vendorAERO']:''; ?></textarea>
         <div class="invalid-feedback">
             Masukan Vandor Terdaftar AERO (*Tandai (-) jika tidak Diisi).
@@ -179,7 +188,7 @@
 
     <!-- Button Edit Material -->
     <button type="submit" class="btn btn-warning btn-sm" style="width:120px;margin-left:12px">
-        Edit Material
+        Save
     </button>
 </form>
 
@@ -188,6 +197,9 @@
     // Jika bukan level 1
     if($_SESSION['user']['level'] != 1){
 ?>
+    <!-- Title -->
+    <div class="text-center mb-2" style="font-family:poppinsBlack;font-size:25px">Lembar Kerja Update Sourcing</div>
+
     <!-- Status Sourcing -->
     <div class="d-flex justify-content-end">
         <span class="badge text-dark" style="font-size:15px;font-family:poppinsBlack;width:120px;<?php echo ($dataMaterial[0]['statusSourcing'] == "DONE" ? "background-color:#9cff9d":($dataMaterial[0]['statusSourcing'] == "OPEN" ? "background-color:#7380fa":($dataMaterial[0]['statusSourcing'] == "RE-OPEN" ? "background-color:#a1ecff":($dataMaterial[0]['statusSourcing'] == "DROP" ? "background-color:#bd7aff":($dataMaterial[0]['statusSourcing'] == "NOT YET" ? "background-color:#ff6040":($dataMaterial[0]['statusSourcing'] == "HOLD" ? "background-color:#f72a34":($dataMaterial[0]['statusSourcing'] == "NO STATUS" ? "background-color:#a1a1a1":""))))))) ?>"><?php echo $dataMaterial[0]['statusSourcing']?></span>
@@ -276,7 +288,7 @@
 
     <!-- Vendor AERO -->
     <div class="mb-3" style="font-size:15px;font-family:poppinsRegular">
-        <label for="vendorAERO" class="form-label" style="font-size:17px;font-family:poppinsBold">Vandor Terdaftar AERO</label>
+        <label for="vendorAERO" class="form-label" style="font-size:17px;font-family:poppinsBold">Vendor Terdaftar AERO</label>
         <textarea class="form-control form-control-sm" id="vendorAERO" rows="3" disabled readonly><?php echo !empty($dataMaterial[0]['vendorAERO'])? $dataMaterial[0]['vendorAERO']:''; ?></textarea>
     </div>
     <!-- Keterangan -->

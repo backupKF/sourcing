@@ -111,64 +111,22 @@
                     $changeSupplier = "";
                 }
 
-                // Jika Nama Vendor Sudah Terdaftar
-                if($conn->query("SELECT * FROM TB_MasterVendor WHERE vendorName = '".$supplier."'")->fetchAll()){
-                    // Handle Update Data Supplier To Database Tabel TB_Supplier
-                    try{
-                        $sql = "UPDATE TB_Supplier SET supplier = ?, manufacture = ?, originCountry = ?, leadTime = ?, catalogOrCasNumber = ?, gradeOrReference = ?, documentInfo = ? WHERE id = ?";
-                        $query = $conn->prepare($sql);
-                        $update = $query->execute(array($supplier, $manufacture, $originCountry, $leadTime, $catalogOrCasNumber, $gradeOrReference, $documentInfo, $idSupplier));
+                // Handle Update Data Supplier To Database Tabel TB_Supplier
+                try{
+                    $sql = "UPDATE TB_Supplier SET supplier = ?, manufacture = ?, originCountry = ?, leadTime = ?, catalogOrCasNumber = ?, gradeOrReference = ?, documentInfo = ? WHERE id = ?";
+                    $query = $conn->prepare($sql);
+                    $update = $query->execute(array($supplier, $manufacture, $originCountry, $leadTime, $catalogOrCasNumber, $gradeOrReference, $documentInfo, $idSupplier));
                         
-                        // Send Notifikasi
-                        if($update == true){
-                            $message = "mengedit data".$changeSupplier.$changeManufacture.$changeOriginCountry.$changeLeadTime.$changeCatalogOrCasNumber.$changeGradeOrReference.$changeDocumentInfo." pada supplier : ";
-                            $response = sendNotification("Supplier berhasil diedit!!", $getSupplierName." (Material: ".$materialName[0]['materialName'].")", $message, NULL, $getIdMaterial, $idSupplier);
-                        }
-                    }catch(Exception $e){
-                        $response = array(
-                            "status" => 1,
-                            "message" => "Data tidak dapat disimpan!",
-                        );
+                    // Send Notifikasi
+                    if($update == true){
+                        $message = "mengedit data".$changeSupplier.$changeManufacture.$changeOriginCountry.$changeLeadTime.$changeCatalogOrCasNumber.$changeGradeOrReference.$changeDocumentInfo." pada supplier : ";
+                        $response = sendNotification("Supplier berhasil diedit!!", $getSupplierName." (Material: ".$materialName[0]['materialName'].")", $message, NULL, $getIdMaterial, $idSupplier);
                     }
-                }else{
-                    // Jika nama vendor belum terdaftar
-                    // Handle Add Data Vendor Name To Database Tabel TB_MasterVendor
-                    try{
-                        $sqlAddVendor = "INSERT INTO TB_MasterVendor (vendorName, created) 
-                        VALUES (?, ?)";
-                        $paramsAddVendor = array(
-                            $supplier,
-                            date("Y-m-d H:i:s"),
-                        );
-                        $queryAddVendor = $conn->prepare($sqlAddVendor);
-                        $insertAddVendor =  $queryAddVendor->execute($paramsAddVendor);
-                    }catch(Exception $e){
-                        $response = array(
-                            "status" => 1,
-                            "message" => "Data tidak dapat disimpan!",
-                        );
-                    }
-
-                    // Jika InsertAddVendor Berhasil
-                    if($insertAddVendor == true){
-                        // Handle Update Data Supplier To Database Tabel TB_Supplier
-                        try{
-                            $sql = "UPDATE TB_Supplier SET supplier = ?, manufacture = ?, originCountry = ?, leadTime = ?, catalogOrCasNumber = ?, gradeOrReference = ?, documentInfo = ? WHERE id = ?";
-                            $query = $conn->prepare($sql);
-                            $update = $query->execute(array($supplier, $manufacture, $originCountry, $leadTime, $catalogOrCasNumber, $gradeOrReference, $documentInfo, $idSupplier));
-                        
-                            // Send Notifikasi
-                            if($update == true){
-                                $message = "mengedit data".$changeSupplier.$changeManufacture.$changeOriginCountry.$changeLeadTime.$changeCatalogOrCasNumber.$changeGradeOrReference.$changeDocumentInfo." pada supplier : ";
-                                $response = sendNotification("Supplier berhasil diedit!!", $getSupplierName." (Material: ".$materialName[0]['materialName'].")", $message, NULL, $getIdMaterial, $idSupplier);
-                            }
-                        }catch(Exception $e){
-                            $response = array(
-                                "status" => 1,
-                                "message" => "Data tidak dapat disimpan!",
-                            );
-                        }
-                    }
+                }catch(Exception $e){
+                    $response = array(
+                        "status" => 1,
+                        "message" => "Data tidak dapat disimpan!",
+                    );
                 }
             }else{
                 $response = array(
@@ -182,6 +140,42 @@
                 "status" => 1,
                 "message" => "Data supplier tidak ditemukan", 
             );
+        }
+
+        echo json_encode($response);
+        exit();
+    }
+
+    // Kondisi untuk meng-handle tambah master vendor supplier
+    if(isset($_POST['addMasterVendor'])){
+        $newMasterVendor = $_POST['addNewMasterVendor'];
+
+        if($conn->query("SELECT * FROM TB_MasterVendor WHERE vendorName='".$newMasterVendor."'")->fetchAll()){
+            $response = array(
+                "status" => 1,
+                "message" => "*Data sudah tersedia, silahkan cek dan cari kembali vendor yang ingin dipilih!",
+            );
+        }else{
+            try{
+                $sql = "INSERT INTO TB_MasterVendor (vendorName, created) 
+                VALUES (?,?)";
+                $params = array(
+                    $newMasterVendor,
+                    date("Y-m-d H:i:s"),
+                );
+                $query = $conn->prepare($sql);
+                $insert = $query->execute($params);
+
+                $response = array(
+                    "status" => 0,
+                    "message" => "*Data baru vendor berhasil ditambahkan!",
+                );
+            }catch(Exception $e){
+                $response = array(
+                    "status" => 1,
+                    "message" => "*Data tidak dapat disimpan",
+                );
+            }
         }
 
         echo json_encode($response);

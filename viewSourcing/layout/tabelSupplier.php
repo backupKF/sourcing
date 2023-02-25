@@ -5,6 +5,9 @@
     if(empty($_GET)){
         header('Location: ../index.php');
     }
+
+    // GET material Name
+    $materialName = $conn->query("SELECT materialName FROM TB_PengajuanSourcing WHERE id=".$_GET['idMaterial'])->fetchAll();
 ?>
 
 <style>
@@ -59,6 +62,11 @@
     }
 </style>
 
+<!-- Title -->
+<div class="d-flex justify-content-center">
+    <div class="text-center mb-2" style="font-family:poppinsBlack;font-size:15px;width:800px">Tabel Supplier - Material <?php echo $materialName[0]['materialName'] ?></div>
+</div>
+
 <!-- Button tambah supplier -->
 <div>
     <button type="button" style="width:150px" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#tambahSupplier<?php echo $_GET['idMaterial']?>">
@@ -97,33 +105,8 @@
             <th class="headerColumn" style="width:90px">Action Supplier</th>
         </tr>
     </thead>
-    <tfoot style="background-color:#c1c712">
-        <tr>
-            <th class="sticky-column-supplier headerColumn" style="width:180px;background-color:#c1c712">Supplier</th>
-            <th class="headerColumn" style="width:180px">Manufacture</th>
-            <th class="headerColumn" style="width:180px">Origin Country</th>
-            <th class="headerColumn" style="width:180px">Lead Time</th>
-            <th class="headerColumn" style="width:250px" class="text-center">
-                <div class="row text-center">
-                    <div class="col">MoQ</div>
-                    <div class="col">UoM</div>
-                    <div class="col">Price</div>
-                    <div class="col">Action</div>
-                </div>
-            </th>
-            <th class="headerColumn" style="width:180px">Catalog or CAS Number</th>
-            <th class="headerColumn" style="width:180px">Grade/Reference</th>
-            <th class="headerColumn" style="width:180px">Document Info</th>
-            <th class="headerColumn" style="width:180px">Document</th>
-            <th class="headerColumn" style="width:250px">Feedback Doc Req</th>
-            <th class="headerColumn" style="width:250px">Feedback R&D</th>
-            <th class="headerColumn" style="width:250px">Feedback Proc</th>
-            <th class="headerColumn" style="width:250px">Final Feedback R&D</th>
-            <th class="headerColumn" style="width:90px">Action Supplier</th>
-        </tr>
-    </tfoot>
 </table>
-<div class="script-vendorTable"></div>
+<div class="scriptTabelVendors"></div>
 
 <script>
     $(document).ready(function() {
@@ -416,7 +399,7 @@
                 },
             ],
             drawCallback:function( settings){
-                $('.script-vendorTable').html(settings.json.script)
+                $('.scriptTabelVendors').html(settings.json.scriptTabelVendors)
             }
         });
 
@@ -492,6 +475,8 @@
                     title: response.message
                 })
 
+                $('#table-supplier').DataTable().state.clear();
+
                 if(response.status != 2){
                     loadDataSupplier(<?php echo $_GET['idMaterial']?>, "<?php echo $_GET['materialName']?>")
                     $('#tambahSupplier<?php echo $_GET['idMaterial']?>').modal('hide');
@@ -500,38 +485,53 @@
         })
     }
 
-    function funcSetNewVendor(idForm, formName){
-        if(formName == "formSetNewVendorAddSupplier"){
+    function funcSetNewVendor<?php echo $_GET['idMaterial'] ?>(idForm, formName){
+        if(formName == "modalAddMasterVendor-supplierAdd"){
             $.ajax({
                 type: "POST",
-                url: "../controller/actionAddSupplier.php",
-                data: $('form#formSetNewVendorAddSupplier'+idForm).serialize(),
-                dataType: 'json',
+                url: "../controller/actionUpdateSupplier.php",
+                data: $('form#formAddMasterVendor-supplierAdd'+idForm).serialize()+'&addMasterVendor=true',
+                dataType: "json",
                 success: function(response){
-                    $("#errorSupplier").text("");
+                    if(response.status == 1){
+                        $("#errorMsgAddMasterVendor-supplierAdd"+idForm).text("");
+                        $("#errorMsgAddMasterVendor-supplierAdd"+idForm).append(response.message);
+                    }else{
+                        $("#errorMsgAddMasterVendor-supplierAdd"+idForm).text("");
+                        $("#successMsgAddMasterVendor-supplierAdd"+idForm).text("");
+                        $("#inputAddNewMasterVendor-supplierAdd"+idForm).val("");
+                        $("#successMsgAddMasterVendor-supplierAdd"+idForm).append(response.message);
 
-                    $('#modalSetVendorAddSupplier'+idForm).modal('hide');
-
-                    $("#tambahSupplier"+idForm+" input#vendorInputAddSupplier").attr("value", response);
-
-                    $('#tambahSupplier'+idForm).modal('show');
+                        $('#modalAddMasterVendor-supplierAdd'+idForm).modal('hide');
+                        $('#modalSetVendorAddSupplier'+idForm).modal('show');
+                        // Fungsi ini dibuat pada file controller/loadData/loadDataSupplier.php
+                        funcReloadDataTabelVendor<?php echo $_GET['idMaterial'] ?>();
+                    }
                 }
             })
         }
-        if(formName == "formSetNewVendorUpdateSupplier"){
+
+        if(formName == "modalAddMasterVendor-supplierUpdate"){
             $.ajax({
                 type: "POST",
-                url: "../controller/actionAddSupplier.php",
-                data: $('form#formSetNewVendorUpdateSupplier'+idForm).serialize(),
-                dataType: 'json',
+                url: "../controller/actionUpdateSupplier.php",
+                data: $('form#formAddMasterVendor-supplierUpdate'+idForm).serialize()+'&addMasterVendor=true',
+                dataType: "json",
                 success: function(response){
-                    $("#errorSupplier").text("");
+                    if(response.status == 1){
+                        $("#errorMsgAddMasterVendor-supplierUpdate"+idForm).text("");
+                        $("#errorMsgAddMasterVendor-supplierUpdate"+idForm).append(response.message);
+                    }else{
+                        $("#errorMsgAddMasterVendor-supplierUpdate"+idForm).text("");
+                        $("#successMsgAddMasterVendor-supplierUpdate"+idForm).text("");
+                        $("#inputAddNewMasterVendor-supplierUpdate"+idForm).val("");
+                        $("#successMsgAddMasterVendor-supplierUpdate"+idForm).append(response.message);
 
-                    $('#modalSetVendorUpdateSupplier'+idForm).modal('hide');
-
-                    $("#editSupplier"+idForm+" input#vendorInputUpdateSupplier").attr("value", response);
-
-                    $('#editSupplier'+idForm).modal('show');
+                        $('#modalAddMasterVendor-supplierUpdate'+idForm).modal('hide');
+                        $('#modalSetVendorUpdateSupplier'+idForm).modal('show');
+                        // Fungsi ini dibuat pada file controller/loadData/loadDataSupplier.php
+                        funcReloadDataTabelVendor<?php echo $_GET['idMaterial'] ?>();
+                    }
                 }
             })
         }
@@ -546,6 +546,7 @@
                 dataType: 'json',
                 success: function(response){
                     $("#errorSupplier").text("");
+                    $("#successMsgAddMasterVendor-supplierAdd"+idForm).text("");
 
                     $('#modalSetVendorAddSupplier'+idForm).modal('hide');
 
@@ -564,6 +565,7 @@
                 dataType: 'json',
                 success: function(response){
                     $("#errorSupplier").text("");
+                    $("#successMsgAddMasterVendor-supplierUpdate"+idForm).text("");
 
                     $('#modalSetVendorUpdateSupplier'+idForm).modal('hide');
 

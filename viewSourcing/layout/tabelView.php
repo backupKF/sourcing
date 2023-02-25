@@ -46,6 +46,8 @@
 <!-- Card Table -->
 <div class="card shadow bg-body rounded">
     <div class="card-body">
+        <!-- Title -->
+        <div class="text-center mb-2" style="font-family:poppinsBlack;font-size:25px">Tabel View Sourcing</div>
         <!-- Tabel View -->
         <table class="table table-striped table-hover" id="table-view">
             <thead>

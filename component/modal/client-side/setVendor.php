@@ -37,23 +37,9 @@
                         
             <!-- Modal Body -->
             <div class="modal-body position-relative">
-                
-                <label class="mb-1 labelVendor" >Tambah Vendor Baru : </label>
-                <div class="row mb-2">
-                    <div class="col">
-                        <form id="formSetNewVendorAddSupplier<?php echo $_GET['idMaterial']?>" autocomplete="off">
-                            <input class="form-control form-control-sm" type="text" maxlength="80" placeholder="Masukan Vendor Baru" name="setNewVendor">
-                        </form>
-                    </div>
-                    <div class="col">
-                        <button type="submit" class="btn btn-success btn-sm p-0 px-1" style="height:22px" form="formSetNewVendorAddSupplier<?php echo $_GET['idMaterial']?>">
-                            <span style="font-size:11px;font-family:poppinsBold">Pilih</span>
-                        </button>
-                    </div>
-                </div>
-
-                <label class="labelVendor mb-1">Cari Vendor :</label>
-
+                <!-- Button Tambah data master supplier -->
+                <button class="btn btn-sm btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#modalAddMasterVendor-supplierAdd<?php echo $_GET['idMaterial']?>">Tambah Data Master Supplier</button>
+                <div class="text-success mb-1" id="successMsgAddMasterVendor-supplierAdd<?php echo $_GET['idMaterial']?>" style="font-size:10px;font-family:poppinsSemiBold"></div>
                 <!-- Select Project -->
                 <table class="table vendor" id="tabel-vendorAddSupplier<?php echo $_GET['idMaterial']?>" style="width:100%">
                     <thead style="background-color:#00b0aa">
@@ -67,14 +53,16 @@
 
             <!-- Modal Footer -->
             <div class="modal-footer">
-                <button type="button" style="width:150px" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="<?php echo !empty($row['id']) && !empty($_GET['idMaterial'])? '#editSupplier'.$row['id']:'#tambahSupplier'.$_GET['idMaterial']?>">
+                <button type="button" style="width:150px" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#tambahSupplier<?php echo $_GET['idMaterial']?>">
                     Back
                 </button>
             </div>
         </div>
     </div>
 </div>
-<!-- Modal Select Project -->
+
+<!-- Modal Add Master Vendor -->
+<?php include "addMasterVendor.php"?>
 
 <script>
     $(document).ready(function(){
@@ -117,11 +105,4 @@
             ]
         })
     })
-
-    // Listen Event Submit
-    document.getElementById("formSetNewVendorAddSupplier<?php echo $_GET['idMaterial']?>").addEventListener('submit', event => {
-        event.preventDefault();
-        // actual logic, e.g. validate the form
-        funcSetNewVendor(<?php echo $_GET['idMaterial']?>, 'formSetNewVendorAddSupplier')
-    });
 </script>
