@@ -122,7 +122,8 @@
             ajax: {
                 url: '../controller/loadData/loadDataSupplier.php',
                 type: 'GET',
-                data: {idMaterial: <?php echo $_GET['idMaterial']?>, materialName: "<?php echo $_GET['materialName']?>"}
+                data: {idMaterial: <?php echo $_GET['idMaterial']?>, materialName: "<?php echo $_GET['materialName']?>"},
+                dataType: 'json'
             },
             columns: [
                 {

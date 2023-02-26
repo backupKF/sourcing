@@ -1,7 +1,3 @@
-<?php
-    header('Location: ../index.php')
-?>
-
 <style>
     /* CSS Tabel Riwayat */
     th{
@@ -98,6 +94,7 @@
             ajax: {
                 url: '../controller/loadData/loadDataViewSourcing.php',
                 type: 'POST',
+                dataType: 'json'
             },
             columns: [
                 {

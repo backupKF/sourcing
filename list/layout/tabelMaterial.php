@@ -80,7 +80,8 @@
                     type: 'GET',
                     data: {
                         idProject: '<?php echo $_GET['idProject'] ?>',
-                    }
+                    },
+                    dataType: 'json'
                 },
                 columns: [
                     {

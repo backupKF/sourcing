@@ -1,6 +1,3 @@
-<?php
-    header('Location: ../index.php')
-?>
 <!-- CSS -->
 <style>
     .projectColumn {
@@ -40,6 +37,7 @@ $(document).ready(function(){
         serverSide: true,
         ajax: {
             url: '../controller/loadData/loadDataProject.php',
+            dataType: 'json'
         },
         columns: [
             {

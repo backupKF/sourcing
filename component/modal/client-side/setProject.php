@@ -1,6 +1,4 @@
 <?php
-    session_start();
-    
     // me-redirect saat user masuk kehalaman ini
     if(basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
         header('Location: ../../../dashboard/index.php');
@@ -60,6 +58,7 @@
             serverSide: true,
             ajax: {
                 url: '../controller/loadData/loadDataSetProject.php',
+                dataType: 'json'
             },
             columns: [
                 {

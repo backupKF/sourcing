@@ -193,6 +193,7 @@
                 serverSide: true,
                 ajax: {
                     url: "../controller/loadData/loadDataMasterVendor.php",
+					dataType: "json"
                 },
 				columns: [
 					{

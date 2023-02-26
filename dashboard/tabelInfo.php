@@ -130,7 +130,8 @@
                         type: 'GET',
                         data: {
                             status: "<?php echo $_GET['status']?>",
-                        }
+                        },
+                        dataType: 'json'
                     },
                     columns: [
                         {

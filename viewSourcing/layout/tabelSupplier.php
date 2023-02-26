@@ -127,6 +127,7 @@
             ajax: {
                 url: '../controller/loadData/loadDataSupplier.php',
                 type: 'GET',
+                dataType: 'json'
         <?php
             if(!empty($_GET['idMaterial']) && empty($_GET['idSupplier'])){
         ?>
