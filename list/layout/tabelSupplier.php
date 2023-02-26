@@ -431,7 +431,7 @@
     })
 
     // Send data to Action Add Supplier for Add Supplier
-    function funcAddSupplier(idMaterial){
+    function funcAddSupplier<?php echo $_GET['idMaterial']?>(idMaterial){
         $.ajax({
             type: "POST",
             url: "../controller/actionAddSupplier.php",
@@ -439,30 +439,30 @@
             dataType: 'json',
             success: function(response){
                 if(response.status == 2){
-                    $("#errorSupplier").text("");
-                    $("#errorSupplier").append(response.message);
+                    $("#errorSupplier<?php echo $_GET['idMaterial']?>").text("");
+                    $("#errorSupplier<?php echo $_GET['idMaterial']?>").append(response.message);
                 }
-                
-                const Toast = Swal.mixin({
-                toast: true,
-                position: 'bottom-end',
-                showConfirmButton: false,
-                timer: 2000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
 
-                Toast.fire({
-                    icon: response.status == 0?'success':'warning',
-                    title: response.message
-                })
+                if(response.status != 2){
+                    const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
 
-                $('#table-supplier-<?php echo $_GET['idMaterial']?>').DataTable().state.clear();
+                    Toast.fire({
+                        icon: response.status == 0?'success':'warning',
+                        title: response.message
+                    })
 
-                if(response.status == 0){
+                    $('#table-supplier-<?php echo $_GET['idMaterial']?>').DataTable().state.clear();
+
                     loadDataSupplier(<?php echo $_GET['idMaterial']?>, "<?php echo $_GET['materialName']?>")
                     $('#tambahSupplier<?php echo $_GET['idMaterial']?>').modal('hide');
                 }
@@ -522,7 +522,7 @@
         }
     }
 
-    function funcSetVendor(idForm, vendorName, formName){
+    function funcSetVendor<?php echo $_GET['idMaterial']?>(idForm, vendorName, formName){
         if(formName == "formSetVendorAddSupplier"){
             $.ajax({
                 type: "POST",
@@ -563,7 +563,7 @@
     }
     
     // Send data to Action Update Supplier for Add Detail Supplier
-    function funcAddDetailSupplier(idSupplier){
+    function funcAddDetailSupplier<?php echo $_GET['idMaterial']?>(idSupplier){
         $.ajax({
             type: "POST",
             url: "../controller/actionUpdateSupplier.php",
@@ -594,7 +594,7 @@
     }
 
     // Send data to Action Update Supplier for Delete Detail Supplier
-    function funcDeleteDetailInfo(idDetailSupplier, idSupplier){
+    function funcDeleteDetailInfo<?php echo $_GET['idMaterial']?>(idDetailSupplier, idSupplier){
         Swal.fire({
             title: 'Apakah anda yakin untuk detail MoU, UoM, Price?',
             showDenyButton: true,
@@ -634,7 +634,7 @@
     }
 
     // Send data to Action Update Supplier for Upload Document
-    function funcUploadDoc(idSupplier){
+    function funcUploadDoc<?php echo $_GET['idMaterial']?>(idSupplier){
             $.ajax({
                 type:'POST',
                 url: '../controller/actionHandlerFile.php',
@@ -668,7 +668,7 @@
     }
 
     // Send data to Action Update Supplier for Delete File
-    function deleteFile(idFile, idSupplier){
+    function deleteFile<?php echo $_GET['idMaterial']?>(idFile, idSupplier){
         Swal.fire({
             title: 'Apakah anda yakin untuk menghapus dokumen ini?',
             showDenyButton: true,
@@ -709,7 +709,7 @@
     }
 
     // Send data to Action Update Supplier for feedback doc req
-    function funcFeedbackDocReq(idSupplier){
+    function funcFeedbackDocReq<?php echo $_GET['idMaterial']?>(idSupplier){
         $.ajax({
             type: "POST",
             url: "../controller/actionFeedback.php",
@@ -740,7 +740,7 @@
     }
 
     // Send data to Action Update Supplier for feedback rnd
-    function funcFeedbackRnd(idSupplier){
+    function funcFeedbackRnd<?php echo $_GET['idMaterial']?>(idSupplier){
         $.ajax({
                 type: "POST",
                 url: "../controller/actionFeedback.php",
@@ -772,7 +772,7 @@
     }
 
     // Send data to Action Update Supplier for feedback proc
-    function funcFeedbackProc(idSupplier){
+    function funcFeedbackProc<?php echo $_GET['idMaterial']?>(idSupplier){
         $.ajax({
                 type: "POST",
                 url: "../controller/actionFeedback.php",
@@ -803,7 +803,7 @@
     }
 
     // Send data to Action Update Supplier for final feedback rnd
-    function funcFinalFeedbackRnd(idSupplier){
+    function funcFinalFeedbackRnd<?php echo $_GET['idMaterial']?>(idSupplier){
         $.ajax({
                 type: "POST",
                 url: "../controller/actionFeedback.php",
@@ -834,7 +834,7 @@
     }
 
     // Send data to Action Update Supplier for update Supplier
-    function funcUpdateSupplier(idSupplier){
+    function funcUpdateSupplier<?php echo $_GET['idMaterial']?>(idSupplier){
         $.ajax({
             url: '../controller/actionUpdateSupplier.php',
             method: 'POST',

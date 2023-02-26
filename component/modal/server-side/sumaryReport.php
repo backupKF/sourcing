@@ -16,7 +16,7 @@
             '</div>'+
             '<!-- Modal Body -->'+
             '<div class="modal-body">'+
-                '<form class="p-1 was-validated" id="formSumaryReport'+dataMaterial.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcUpdateSumaryReport('+dataMaterial.id+',`'+dataMaterial.materialName+'`)">'+
+                '<form class="p-1 was-validated" id="formSumaryReport'+dataMaterial.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcUpdateSumaryReport<?php echo $_GET['idProject']?>('+dataMaterial.id+',`'+dataMaterial.materialName+'`)">'+
                     '<!-- Sumary Report  -->'+
                     '<div class="mb-1">'+
                         '<label for="sumaryReport" class="form-label" style="margin-button:2px">Sumary Report</label>'+

@@ -16,7 +16,7 @@
             '</div>'+
             '<!-- Modal Body -->'+
             '<div class="modal-body">'+
-                '<form class="was-validated" id="formUpdateSupplier'+dataSupplier.id+'" autocomplete="off"  onsubmit="event.preventDefault(); funcUpdateSupplier('+dataSupplier.id+');">'+
+                '<form class="was-validated" id="formUpdateSupplier'+dataSupplier.id+'" autocomplete="off"  onsubmit="event.preventDefault(); funcUpdateSupplier<?php echo $_GET['idMaterial']?>('+dataSupplier.id+');">'+
                 '<!-- Input Supplier -->'+
                 '<div class="mb-3">'+
                     '<label for="supplier" class="form-label">Supplier</label>'+

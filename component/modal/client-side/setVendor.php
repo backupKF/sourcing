@@ -94,7 +94,7 @@
                             '<!-- Action Button -->'+
                             '<div class="py-0" style="width:50px">'+
                                 '<form id="formSetVendorAddSupplier<?php echo $_GET['idMaterial']?>">'+
-                                    '<button type="button" class="btn btn-success btn-sm p-0 px-1 my-1" style="height:22px" name="setValue" value="'+data.vendorName+'" onclick="funcSetVendor(<?php echo $_GET['idMaterial']?>,`'+data.vendorName+'`,`formSetVendorAddSupplier`)">'+
+                                    '<button type="button" class="btn btn-success btn-sm p-0 px-1 my-1" style="height:22px" name="setValue" value="'+data.vendorName+'" onclick="funcSetVendor<?php echo $_GET['idMaterial']?>(<?php echo $_GET['idMaterial']?>,`'+data.vendorName+'`,`formSetVendorAddSupplier`)">'+
                                         '<span style="font-size:11px;font-family:poppinsBold">Pilih</span>'+
                                     '</button>'+
                                 '</form>'+

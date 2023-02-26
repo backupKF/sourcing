@@ -63,7 +63,7 @@
 						<td class="text-center p-0" style="width:60px">'.$dataDetailSupplier['UoM'].'</td>
 						<td class="text-center p-0" style="width:60px">'.$dataDetailSupplier['price'].'</td>
 						<td class="text-center p-0" style="width:60px">
-                        	<button type="button" style="width:50px;height:20px;font-size:10px;font-family:poppinsSemiBold" class="btn btn-danger d-inline ms-1 p-0" onclick="funcDeleteDetailInfo('.$dataDetailSupplier['idDetailSupplier'].','.$dataDetailSupplier['idSupplier'].')">Delete</a>
+                        	<button type="button" style="width:50px;height:20px;font-size:10px;font-family:poppinsSemiBold" class="btn btn-danger d-inline ms-1 p-0" onclick="funcDeleteDetailInfo'.$_GET['idMaterial'].'('.$dataDetailSupplier['idDetailSupplier'].','.$dataDetailSupplier['idSupplier'].')">Delete</a>
                         </td>
 					</tr>
 				';
@@ -122,7 +122,7 @@
 					<tbody>
 						<td style="font-size:15px;font-family:poppinsItalic">'.$dataFile['fileName'].'</td>
 						<td><a class="text-decoration-none btn btn-success d-inline ms-1" style="width:80px;height:25px;font-size:13px;font-family:poppinsSemiBold;padding:3px" href="../assets/uploads/'.$dataFile['fileHash'].'" target="_blank">View</a></td>
-						<td><button type="button" style="width:50px;height:25px;font-size:13px;font-family:poppinsSemiBold" class="btn btn-danger d-inline ms-1 p-0" onclick="deleteFile('.$dataFile['id'].','.$row['id'].')">Delete</button></td>
+						<td><button type="button" style="width:50px;height:25px;font-size:13px;font-family:poppinsSemiBold" class="btn btn-danger d-inline ms-1 p-0" onclick="deleteFile'.$_GET['idMaterial'].'('.$dataFile['id'].','.$row['id'].')">Delete</button></td>
 					</tbody>
 				';
             }
@@ -213,7 +213,7 @@
 								`<!-- Action Button -->`+
 								`<div class="py-0" style="width:50px">`+
 									`<form id="formSetVendorUpdateSupplier`+dataVendor.id+`">`+
-										`<button type="button" class="btn btn-success btn-sm p-0 px-1 my-1" style="height:22px" name="setValue" value="`+dataVendor.vendorName+`" onclick="funcSetVendor('.$row['id'].',\``+dataVendor.vendorName+`\`, \`formSetVendorUpdateSupplier\`)">`+
+										`<button type="button" class="btn btn-success btn-sm p-0 px-1 my-1" style="height:22px" name="setValue" value="`+dataVendor.vendorName+`" onclick="funcSetVendor'.$_GET['idMaterial'].'('.$row['id'].',\``+dataVendor.vendorName+`\`, \`formSetVendorUpdateSupplier\`)">`+
 											`<span style="font-size:11px;font-family:poppinsBold">Pilih</span>`+
 										`</button>`+
 									`</form>`+

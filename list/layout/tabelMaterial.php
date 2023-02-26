@@ -42,8 +42,6 @@
     }
 </style>
 
-
-
 <!-- Tabel Material -->
     <table id="table-material<?php echo $_GET['idProject']?>" class="table table-striped">
         <thead class="bg-primary" >
@@ -165,7 +163,7 @@
                             if(<?php echo $_SESSION['user']['level'] ?> == 1){
                                 return (
                                     '<form id="formSetStatusSourcing_'+dataMaterial.id+'">'+
-                                        '<select class="form-select form-select-sm" style="height:25px;font-size:12px;font-family:poppinsRegular;" aria-label=".form-select-sm example" onchange="funcUpdateStatusSourcing('+dataMaterial.id+',`'+dataMaterial.materialName+'`)" id="statusSourcing">'+
+                                        '<select class="form-select form-select-sm" style="height:25px;font-size:12px;font-family:poppinsRegular;" aria-label=".form-select-sm example" onchange="funcUpdateStatusSourcing<?php echo $_GET['idProject']?>('+dataMaterial.id+',`'+dataMaterial.materialName+'`)" id="statusSourcing">'+
                                             '<option '+ (dataMaterial.statusSourcing == "NO STATUS" ? "selected":"") +' value="">NO STATUS</option>'+
                                             '<option '+ (dataMaterial.statusSourcing == "OPEN" ? "selected":"") +' value="OPEN">OPEN</option>'+
                                             '<option '+ (dataMaterial.statusSourcing == "RE-OPEN" ? "selected":"") +' value="RE-OPEN">RE-OPEN</option>'+
@@ -340,56 +338,56 @@
     }
 
     // Set Format Form Update Material, if Material Category API
-    function formatFormAPI(idMaterial){
+    function formatFormAPI<?php echo $_GET['idProject']?>(idMaterial){
         $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
         $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
         $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
     }
 
     // Set Format Form Update Material, if Material Category Ekstrak
-    function formatFormEkstrak(idMaterial){
+    function formatFormEkstrak<?php echo $_GET['idProject']?>(idMaterial){
         $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
         $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
         $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
     }
 
     // Set Format Form Update Material, if Material Category Excipient
-    function formatFormExcipient(idMaterial){
+    function formatFormExcipient<?php echo $_GET['idProject']?>(idMaterial){
         $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
         $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
         $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
     }
 
     // Set Format Form Update Material, if Material Category Nasipre
-    function formatFormNasipre(idMaterial){
+    function formatFormNasipre<?php echo $_GET['idProject']?>(idMaterial){
         $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
         $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
         $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
     }
 
     // Set Format Form Update Material, if Material Category Packaging
-    function formatFormPackaging(idMaterial){
+    function formatFormPackaging<?php echo $_GET['idProject']?>(idMaterial){
         $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).attr('disabled', 'disabled');
         $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
         $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
     }
 
     // Set Format Form Update Material, if Material Category Intermediate
-    function formatFormIntermediate(idMaterial){
+    function formatFormIntermediate<?php echo $_GET['idProject']?>(idMaterial){
         $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).removeAttr("disabled");
         $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).attr('disabled', 'disabled');
         $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).attr('disabled', 'disabled');
     }
 
     // Set Format Form Update Material, if Material Category Rapid Test
-    function formatFormRapidTest(idMaterial){
+    function formatFormRapidTest<?php echo $_GET['idProject']?>(idMaterial){
         $("form#formEditMaterial"+idMaterial+" input#catalogOrCasNumber"+idMaterial).removeAttr("disabled");
         $("form#formEditMaterial"+idMaterial+" input#company"+idMaterial).removeAttr("disabled");
         $("form#formEditMaterial"+idMaterial+" input#website"+idMaterial).removeAttr("disabled");
     }
 
         // Send data to Action Update Material for update status sourcing
-        function funcUpdateStatusSourcing(idMaterial, materialName){
+        function funcUpdateStatusSourcing<?php echo $_GET['idProject']?>(idMaterial, materialName){
             let statusSourcing = $('form#formSetStatusSourcing_'+idMaterial+' select#statusSourcing').val();
             $.ajax({
                 url: '../controller/actionUpdateMaterial.php',
@@ -423,7 +421,7 @@
         }
 
         // Send data to Action Update Material for update sumary report
-        function funcUpdateSumaryReport(idMaterial, materialName){
+        function funcUpdateSumaryReport<?php echo $_GET['idProject']?>(idMaterial, materialName){
             $.ajax({
                 url: '../controller/actionUpdateMaterial.php',
                 type: 'POST',
@@ -453,7 +451,7 @@
         }
 
         // Send data to Action Update Material for update material
-        function funcUpdateMaterial(idMaterial){
+        function funcUpdateMaterial<?php echo $_GET['idProject']?>(idMaterial){
             $.ajax({
                 type: "POST",
                 url: "../controller/actionUpdateMaterial.php",

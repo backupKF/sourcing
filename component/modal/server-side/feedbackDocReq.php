@@ -16,7 +16,7 @@
             '</div>'+
             '<!-- Modal Body -->'+
             '<div class="modal-body">'+
-                '<form class="was-validated" id="formFeedbackDocReq'+dataSupplier.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcFeedbackDocReq('+dataSupplier.id+');">'+
+                '<form class="was-validated" id="formFeedbackDocReq'+dataSupplier.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcFeedbackDocReq<?php echo $_GET['idMaterial']?>('+dataSupplier.id+');">'+
                     '<input type="hidden" name="idFeedbackDocReq" value="'+dataSupplier.idfeedbackDocReq+'">'+
                      '<!-- Feedback Doc CoA -->'+
                      '<div class="row">'+

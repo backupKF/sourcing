@@ -18,40 +18,40 @@
 
             '<!-- Modal Body -->'+
             '<div class="modal-body">'+
-                '<form class="was-validated" id="formEditMaterial'+data.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcUpdateMaterial('+data.id+')">'+
+                '<form class="was-validated" id="formEditMaterial'+data.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcUpdateMaterial<?php echo $_GET['idProject']?>('+data.id+')">'+
 
                     '<!-- Material Category -->'+
                         '<label class="form-label">Material Category</label>'+
                         '<div class="row">'+
                             '<div class="col">'+
                                 '<div class="form-check">'+
-                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormAPI('+data.id+')" id="api'+data.id+'" value="API" '+(data.materialCategory == "API" ? 'checked':'')+' required>'+
+                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormAPI<?php echo $_GET['idProject']?>('+data.id+')" id="api'+data.id+'" value="API" '+(data.materialCategory == "API" ? 'checked':'')+' required>'+
                                     '<label class="form-check-label" for="api">API</label>'+
                                 '</div>'+
                                 '<div class="form-check">'+
-                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormEkstrak('+data.id+')" id="ekstrak'+data.id+'" value="Ekstrak" '+(data.materialCategory == "Ekstrak" ? 'checked':'')+' >'+
+                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormEkstrak<?php echo $_GET['idProject']?>('+data.id+')" id="ekstrak'+data.id+'" value="Ekstrak" '+(data.materialCategory == "Ekstrak" ? 'checked':'')+' >'+
                                     '<label class="form-check-label" for="ekstrak">Ekstrak</label>'+
                                 '</div>'+
                                 '<div class="form-check">'+
-                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormExcipient('+data.id+')" id="excipient'+data.id+'" value="Excipient" '+(data.materialCategory == "Excipient" ? 'checked':'')+' >'+
+                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormExcipient<?php echo $_GET['idProject']?>('+data.id+')" id="excipient'+data.id+'" value="Excipient" '+(data.materialCategory == "Excipient" ? 'checked':'')+' >'+
                                     '<label class="form-check-label" for="excipient">Excipient</label>'+
                                 '</div>'+
                                 '<div class="form-check">'+
-                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormNasipre('+data.id+')" id="napsipre'+data.id+'" value="Narkotik, Psikotropik & Prekursor" '+(data.materialCategory == "Narkotik, Psikotropik & Prekursor" ? 'checked':'')+' >'+
+                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormNasipre<?php echo $_GET['idProject']?>('+data.id+')" id="napsipre'+data.id+'" value="Narkotik, Psikotropik & Prekursor" '+(data.materialCategory == "Narkotik, Psikotropik & Prekursor" ? 'checked':'')+' >'+
                                     '<label class="form-check-label" for="napsipre">Narkotik, Psikotropik & Prekursor</label>'+
                                 '</div>'+
                             '</div>'+
                             '<div class="col">'+
                                 '<div class="form-check">'+
-                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormPackaging('+data.id+')" id="packaging'+data.id+'" value="Packaging" '+(data.materialCategory == "Packaging" ? 'checked':'')+' >'+
+                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormPackaging<?php echo $_GET['idProject']?>('+data.id+')" id="packaging'+data.id+'" value="Packaging" '+(data.materialCategory == "Packaging" ? 'checked':'')+' >'+
                                     '<label class="form-check-label" for="packaging">Packaging</label>'+
                                 '</div>'+
                                 '<div class="form-check">'+
-                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormIntermediate('+data.id+')" id="intermediate'+data.id+'" value="Intermediate" '+(data.materialCategory == "Intermediate" ? 'checked':'')+' >'+
+                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormIntermediate<?php echo $_GET['idProject']?>('+data.id+')" id="intermediate'+data.id+'" value="Intermediate" '+(data.materialCategory == "Intermediate" ? 'checked':'')+' >'+
                                     '<label class="form-check-label" for="intermediate">Intermediate</label>'+
                                 '</div>'+
                                 '<div class="form-check">'+
-                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormRapidTest('+data.id+')" id="rapidTest'+data.id+'" value="Rapid Test" '+(data.materialCategory == "Rapid Test" ? 'checked':'')+' >'+
+                                    '<input class="form-check-input" type="radio" name="materialCategory" onclick="formatFormRapidTest<?php echo $_GET['idProject']?>('+data.id+')" id="rapidTest'+data.id+'" value="Rapid Test" '+(data.materialCategory == "Rapid Test" ? 'checked':'')+' >'+
                                     '<label class="form-check-label" for="rapidTest">Rapid Test</label>'+
                                 '</div>'+
                             '</div>'+

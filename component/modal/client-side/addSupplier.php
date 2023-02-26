@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <!-- Message Error -->
-                    <div id="errorSupplier" class="text-danger" style="font-size:14px;font-family:poppinsRegular"></div>
+                    <div id="errorSupplier<?php echo $_GET['idMaterial']?>" class="text-danger" style="font-size:14px;font-family:poppinsRegular"></div>
                 </div>
                 <!-- Input Manufacture -->
                 <div class="mb-3">
@@ -100,6 +100,6 @@
     document.getElementById("formAddSupplier<?php echo $_GET['idMaterial']?>").addEventListener('submit', event => {
     event.preventDefault();
     // actual logic, e.g. validate the form
-    funcAddSupplier(<?php echo $_GET['idMaterial']?>)
+    funcAddSupplier<?php echo $_GET['idMaterial']?>(<?php echo $_GET['idMaterial']?>)
     });
 </script>

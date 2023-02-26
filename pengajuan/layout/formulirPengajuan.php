@@ -70,10 +70,11 @@
             </thead>
             <tbody>
                 <?php
-                    $materials = $_SESSION['materials'];
-                    foreach($materials as $row){
-                    if($row['idProject'] == $_SESSION['idProject']){
-                    $count++
+                    if(!empty($_SESSION['materials'])){
+                        $materials = $_SESSION['materials'];
+                        foreach($materials as $row){
+                        if($row['idProject'] == $_SESSION['idProject']){
+                        $count++
                 ?>
                 <tr>
                     <td style="font-size: 11px;font-family: poppinsRegular"><?php echo $count?></td>
@@ -88,7 +89,9 @@
                     <td style="font-size: 11px;font-family: poppinsRegular"><?php echo $row['documentReq']?></td>
                 </tr>
                 <?php 
-                    } }
+                            } 
+                        }
+                    }
                 ?>
             </tbody>
         </table>

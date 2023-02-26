@@ -16,7 +16,7 @@
             '</div>'+
             '<!-- Modal Body -->'+
             '<div class="modal-body">'+
-                '<form class="p-1 was-validated" id="formFinalFeedbackRnd'+dataSupplier.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcFinalFeedbackRnd('+dataSupplier.id+');">'+
+                '<form class="p-1 was-validated" id="formFinalFeedbackRnd'+dataSupplier.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcFinalFeedbackRnd<?php echo $_GET['idMaterial']?>('+dataSupplier.id+');">'+
                     '<!-- Final Feedback RnD -->'+
                     '<div class="mb-1">'+
                         '<label for="finalFeedbackRnd" class="form-label" style="margin-button:2px">Final Feedback RND</label>'+

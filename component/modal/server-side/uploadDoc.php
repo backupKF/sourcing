@@ -16,7 +16,7 @@
             '</div>'+
             '<!-- Modal Body -->'+
             '<div class="modal-body">'+
-                '<form id="uploadFile'+dataSupplier.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcUploadDoc('+dataSupplier.id+');">'+
+                '<form id="uploadFile'+dataSupplier.id+'" autocomplete="off" onsubmit="event.preventDefault(); funcUploadDoc<?php echo $_GET['idMaterial']?>('+dataSupplier.id+');">'+
                     '<input type="hidden" name="idSupplier" value="'+dataSupplier.id+'">'+
                     '<div class="form-group">'+
                         '<label for="file">File:</label>'+
