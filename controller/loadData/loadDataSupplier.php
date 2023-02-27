@@ -257,5 +257,5 @@
 			"scriptTabelVendors" => $scriptTabelVendors
 			);
 
-	echo json_encode($json_data);  // Mengirim json format
+	echo json_encode($json_data, JSON_UNESCAPED_UNICODE);  // Mengirim json format
 ?>
