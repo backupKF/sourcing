@@ -18,8 +18,8 @@
 	}
 
     // Mengambil data dan total data yang dicari user
-	$sql = "SELECT * FROM TB_Project";
-	$sqlTot = "SELECT count(*) FROM TB_Project";
+	$sql = "SELECT * FROM dbo.TB_Project";
+	$sqlTot = "SELECT count(*) FROM dbo.TB_Project";
 	$sqlRec .= $sql;
 
     // Jika user melakukan pencarian data maka data diambil sesuai dengan pencarian

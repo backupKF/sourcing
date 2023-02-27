@@ -30,8 +30,8 @@
 
     // Mengambil data dan total data yang dicari user
 	$sql = "SELECT id, supplier, manufacture, originCountry, leadTime, catalogOrCasNumber, gradeOrReference, documentInfo, feedbackRndPriceReview, dateFinalFeedbackRnd,
-            finalFeedbackRnd, writerFinalFeedbackRnd FROM TB_Supplier";
-	$sqlTot = "SELECT count(*) FROM TB_Supplier";
+            finalFeedbackRnd, writerFinalFeedbackRnd FROM dbo.TB_Supplier";
+	$sqlTot = "SELECT count(*) FROM dbo.TB_Supplier";
 	$sqlRec .= $sql;
 
     // Jika user melakukan pencarian data maka data diambil sesuai dengan pencarian

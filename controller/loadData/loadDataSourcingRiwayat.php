@@ -52,9 +52,9 @@
     // Mengambil data dan total data yang dicari user
 	$sql = "SELECT TB_PengajuanSourcing.id, sourcingNumber, materialName, dateSourcing, projectCode, projectName,
 			materialCategory, materialSpesification, catalogOrCasNumber, company, website, finishDossageForm, keterangan, documentReq, 
-			teamLeader, researcher, feedbackTL, feedbackRPIC, dateApprovedTL, dateAcceptedRPIC, statusRiwayat FROM TB_PengajuanSourcing 
-			INNER JOIN TB_Project ON TB_PengajuanSourcing.idProject = TB_Project.id";
-	$sqlTot = "SELECT count(*) FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.idProject = TB_Project.id";
+			teamLeader, researcher, feedbackTL, feedbackRPIC, dateApprovedTL, dateAcceptedRPIC, statusRiwayat FROM dbo.TB_PengajuanSourcing
+			INNER JOIN dbo.TB_Project ON dbo.TB_PengajuanSourcing.idProject = dbo.TB_Project.id";
+	$sqlTot = "SELECT count(*) FROM dbo.TB_PengajuanSourcing INNER JOIN dbo.TB_Project ON dbo.TB_PengajuanSourcing.idProject = dbo.TB_Project.id";
 	$sqlRec .= $sql;
 
     // Jika user melakukan pencarian data maka data diambil sesuai dengan pencarian

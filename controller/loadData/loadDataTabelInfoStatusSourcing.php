@@ -19,8 +19,8 @@
 	}
 
     // Mengambil data dan total data
-	$sqlRecMaterialSourcing = "SELECT id, materialName, materialCategory, materialSpesification FROM TB_PengajuanSourcing";
-	$sqlTotMaterialSourcing = "SELECT count(*) FROM TB_PengajuanSourcing";
+	$sqlRecMaterialSourcing = "SELECT id, materialName, materialCategory, materialSpesification FROM dbo.TB_PengajuanSourcing";
+	$sqlTotMaterialSourcing = "SELECT count(*) FROM dbo.TB_PengajuanSourcing";
 
     // Jika user melakukan pencarian data maka data diambil sesuai dengan pencarian
 	if(isset($whereMaterialSourcing) && $whereMaterialSourcing != '') {

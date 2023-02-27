@@ -17,8 +17,8 @@
 	}
 
     // Mengambil data dan total data yang dicari user
-	$sql = "SELECT id, vendorName FROM TB_MasterVendor";
-	$sqlTot = "SELECT count(*) FROM TB_MasterVendor";
+	$sql = "SELECT id, vendorName FROM dbo.TB_MasterVendor";
+	$sqlTot = "SELECT count(*) FROM dbo.TB_MasterVendor";
 	$sqlRec .= $sql;
 
     // Jika user melakukan pencarian data maka data diambil sesuai dengan pencarian

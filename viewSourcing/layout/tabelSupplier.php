@@ -127,11 +127,10 @@
             ajax: {
                 url: '../controller/loadData/loadDataSupplier.php',
                 type: 'GET',
-                dataType: 'json'
         <?php
             if(!empty($_GET['idMaterial']) && empty($_GET['idSupplier'])){
         ?>
-                data: {idMaterial: <?php echo $_GET['idMaterial']?>}
+                data: {idMaterial: <?php echo $_GET['idMaterial']?>},
         <?php
             }
 
@@ -141,6 +140,8 @@
         <?php 
             }
         ?>
+
+                dataType:'json'
             },
             columns: [
                 {

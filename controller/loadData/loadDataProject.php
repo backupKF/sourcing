@@ -18,8 +18,8 @@
 	}
 
     // Mengambil data dan total data yang dicari user
-	$sql = "SELECT DISTINCT TB_Project.id, TB_Project.projectCode, TB_Project.projectName FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.idProject = TB_Project.id";
-	$sqlTot = "SELECT DISTINCT TB_Project.id, TB_Project.projectCode FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.idProject = TB_Project.id";
+	$sql = "SELECT DISTINCT TB_Project.id, projectCode, projectName FROM dbo.TB_PengajuanSourcing INNER JOIN dbo.TB_Project ON dbo.TB_PengajuanSourcing.idProject = dbo.TB_Project.id";
+	$sqlTot = "SELECT DISTINCT TB_Project.id, projectCode FROM dbo.TB_PengajuanSourcing INNER JOIN dbo.TB_Project ON dbo.TB_PengajuanSourcing.idProject = dbo.TB_Project.id";
 	$sqlRec .= $sql;
 
     // Jika user melakukan pencarian data maka data diambil sesuai dengan pencarian

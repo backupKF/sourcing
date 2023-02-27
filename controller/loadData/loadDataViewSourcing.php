@@ -20,8 +20,8 @@
 	}
 
     // Mengambil data dan total data yang dicari user
-	$sqlRecMaterialSourcing = "SELECT TB_PengajuanSourcing.id, materialName, materialCategory, projectName, statusSourcing FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.idProject = TB_Project.id";
-	$sqlTotMaterialSourcing = "SELECT count(*) FROM TB_PengajuanSourcing INNER JOIN TB_Project ON TB_PengajuanSourcing.idProject = TB_Project.id";
+	$sqlRecMaterialSourcing = "SELECT TB_PengajuanSourcing.id, materialName, materialCategory, projectName, statusSourcing FROM dbo.TB_PengajuanSourcing INNER JOIN dbo.TB_Project ON dbo.TB_PengajuanSourcing.idProject = dbo.TB_Project.id";
+	$sqlTotMaterialSourcing = "SELECT count(*) FROM dbo.TB_PengajuanSourcing INNER JOIN dbo.TB_Project ON dbo.TB_PengajuanSourcing.idProject = dbo.TB_Project.id";
 
     // Jika user melakukan pencarian data maka data diambil sesuai dengan pencarian
 	if(isset($whereMaterialSourcing) && $whereMaterialSourcing != '') {
