@@ -20,6 +20,7 @@ try {
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         )
     );
+     $conn->setAttribute(PDO::SQLSRV_ATTR_ENCODING, PDO::SQLSRV_ENCODING_UTF8);
 }
 catch(PDOException $e) {
     die("Error connecting to SQL Server: " . $e->getMessage());
